@@ -228,27 +228,6 @@ module.exports = function ({ api, models }) {
   return async (event) => {
     const prefix = (global.data.threadData.get(event.threadID) || {}).PREFIX || global.config.PREFIX;
 
-    if (event.type === "message" || event.type === "message_reply") {
-      try {
-        const chalk = require("chalk");
-        const moment = require("moment-timezone");
-        const time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
-        const senderName = global.data.userName.get(event.senderID) || (await Users.getNameUser(event.senderID)) || "Người dùng Facebook";
-        const threadName = event.threadID == event.senderID ? "Tin nhắn riêng (Inbox)" : ((global.data.threadInfo.get(event.threadID) || {}).threadName || `Nhóm ID: ${event.threadID}`);
-        const content = event.body || (event.attachments && event.attachments.length > 0 ? `[Đính kèm ${event.attachments.length} tệp]` : "[Tin nhắn không có văn bản]");
-
-        console.log(
-          chalk.cyan("┏━━━━━━━━━━━━━━━━━━━━ [ TIN NHẮN MỚI ] ━━━━━━━━━━━━━━━━━━━━┓") + "\n" +
-          chalk.greenBright(`  [ TÊN NGƯỜI GỬI ] : `) + chalk.whiteBright.bold(senderName) + "\n" +
-          chalk.yellowBright(`  [ ID NGƯỜI GỬI  ] : `) + chalk.yellow(event.senderID) + "\n" +
-          chalk.magentaBright(`  [ NƠI GỬI       ] : `) + chalk.white(threadName) + (event.threadID != event.senderID ? chalk.gray(` (ID: ${event.threadID})`) : "") + "\n" +
-          chalk.blueBright(`  [ THỜI GIAN     ] : `) + chalk.gray(time) + "\n" +
-          chalk.redBright(`  [ NỘI DUNG      ] : `) + chalk.whiteBright.bold(content) + "\n" +
-          chalk.cyan("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
-        );
-      } catch (e) {}
-    }
-
     await checkRentBot(event, api, prefix);
 
     handleCreateDatabase({ event });
