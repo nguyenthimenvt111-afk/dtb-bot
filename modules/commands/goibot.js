@@ -16,7 +16,7 @@ try {
 const CONFIG = {
   OPENAI_API_KEY: "",
   GPT_MODEL: "gpt-4o-mini", // hoặc gpt-4.1 / gpt-3.5-turbo
-  BOT_NAME: "Genfor",
+  BOT_NAME: "dtb",
   OWNER_IDS: ["61577714247816"], // UID FB của bạn
 };
 
@@ -216,7 +216,7 @@ Luật:
     }
 
     if (decision.action === "rename" && role === "owner") {
-      await api.setTitle(decision.args || "Box Genfor", event.threadID);
+      await api.setTitle(decision.args || "Box dtb", event.threadID);
       return api.sendMessage("✅ Đổi tên box.", event.threadID);
     }
 

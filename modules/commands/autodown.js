@@ -33,7 +33,7 @@ exports.handleEvent = async function({ api, event }) {
     const url = text.match(/https?:\/\/\S+/)[0];
     if (!url) return;
 
-    api.sendMessage(`🔗 Đã phát hiện link\n⏳ Đợi xíu để Genfor tải xuống...`, event.threadID, event.messageID);
+    api.sendMessage(`🔗 Đã phát hiện link\n⏳ Đợi xíu để dtb tải xuống...`, event.threadID, event.messageID);
 
     const res = await axios.get("https://api.lunarkrystal.site/download", {
       params: { url }

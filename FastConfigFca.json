@@ -3,7 +3,7 @@
     "PreKey": "LunarKrystal",
     "AutoUpdate": true,
     "MainColor": "#9900FF",
-    "MainName": "[ Genfor ]",
+    "MainName": "[ dtb ]",
     "Uptime": true,
     "Config": "default",
     "DevMode": true,
@@ -24,7 +24,7 @@
     },
     "HTML": {
         "HTML": true,
-        "UserName": "Replit User",
+        "UserName": "dtb",
         "MusicLink": "https://files.catbox.moe/h6dtdh.mp3"
     },
     "AntiGetInfo": {

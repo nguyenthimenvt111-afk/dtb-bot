@@ -1,6 +1,6 @@
 // modules/commands/tutien.js
 // Game Tu Tiên hoàn chỉnh - Phiên bản đặc sắc
-// Credits: Genfor
+// Credits: dtb
 // Cách dùng: /tutien [thamgia|info|tu|auto|nv|tongmon|shop|cheta|san|pvp|rank|top|ls|admin]
 
 const fs = require("fs-extra");
