@@ -34,9 +34,9 @@ module.exports = function ({ api, models, Users, Threads, Currencies }) {
 
        }
 const dataAdbox = require('./../../modules/commands/cache/data.json');
-   var threadInf = (threadInfo.get(threadID) || await Threads.getInfo(threadID));
-   const findd = threadInf.adminIDs.find(el => el.id == senderID);
-  if (dataAdbox.adminbox.hasOwnProperty(threadID) && dataAdbox.adminbox[threadID] == true && !ADMINBOT.includes(senderID) && !findd && event.isGroup == true && !NDH.includes(senderID) && !findd && event.isGroup == true) return api.sendMessage('Quản trị viên mới sử dụng được!!', event.threadID, event.messageID)
+   var threadInf = (threadInfo.get(threadID) || await Threads.getInfo(threadID)) || {};
+   const findd = (threadInf && Array.isArray(threadInf.adminIDs)) ? threadInf.adminIDs.find(el => el.id == senderID) : null;
+   if (event.isGroup == true && dataAdbox && dataAdbox.adminbox && dataAdbox.adminbox[threadID] == true && !ADMINBOT.includes(senderID) && !findd && !NDH.includes(senderID)) return api.sendMessage('Quản trị viên mới sử dụng được!!', event.threadID, event.messageID);
    if (userBanned.has(senderID) || threadBanned.has(threadID) || allowInbox == ![] && senderID == threadID) {
      if (!ADMINBOT.includes(senderID.toString()) && !NDH.includes(senderID.toString())) {
        if (userBanned.has(senderID)) {

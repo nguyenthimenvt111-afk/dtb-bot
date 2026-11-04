@@ -1,35 +1,78 @@
 module.exports.config = {
   name: "console",
-  version: "1.0.0",
-  hasPermssion: 3,
+  version: "2.0.0",
+  hasPermssion: 0,
   credits: "dtb",
-  description: "Làm cho console đẹp hơn",
+  description: "Hiển thị thông tin tin nhắn chi tiết trên console (tên, ID, nội dung, nhóm/inbox)",
   commandCategory: "Hệ Thống",
-  usages: "console ",
+  usages: "console",
   cooldowns: 0
 };
-module.exports.handleEvent = async function ({ api, args, Users, event, Threads, utils, client }) {
-  let { messageID, threadID, senderID, mentions } = event;
-  const chalk = require('chalk');
-   const moment = require("moment-timezone");
-var time= moment.tz("Asia/Ho_Chi_Minh").format("LLLL");   
-const thread = global.data.threadData.get(event.threadID) || {};
-if (typeof thread["console"] !== "undefined" && thread["console"] == true) return;
-if (event.senderID == global.data.botID) return;
-var nameBox = global.data.threadInfo.get(event.threadID).threadName || "Tên không tồn tại";
-var nameUser = await Users.getNameUser(event.senderID)
-  var msg = event.body||"Ảnh, video hoặc kí tự đặc biệt";
-  var job = ["FF9900", "FFFF33", "33FFFF", "FF99FF", "FF3366", "FFFF66", "FF00FF", "66FF99", "00CCFF", "FF0099", "FF0066", "7900FF", "93FFD8", "CFFFDC", "FF5B00", "3B44F6", "A6D1E6", "7F5283", "A66CFF", "F05454", "FCF8E8", "94B49F", "47B5FF", "B8FFF9", "42C2FF", "FF7396"];
-  var random = 
-job[Math.floor(Math.random() * job.length)]      
-  var random1 = job[Math.floor(Math.random() * job.length)]
- var random2 = job[Math.floor(Math.random() * job.length)]
-var random3 = job[Math.floor(Math.random() * job.length)]
-var random4 = job[Math.floor(Math.random() * job.length)]
-var random5 = job[Math.floor(Math.random() * job.length)]
-var random6 = job[Math.floor(Math.random() * job.length)]
-  console.log(chalk.hex("#" + random)(`[💓]→ Tên nhóm: ${nameBox}`) + `\n` + chalk.hex("#" + random5)(`[🔎]→ ID nhóm: ${event.threadID}`) + `\n` + chalk.hex("#" + random6)(`[🔱]→ Tên người dùng: ${nameUser}`) + `\n` + chalk.hex("#" + random1)(`[📝]→ ID người dùng: ${event.senderID}`) + `\n` + chalk.hex("#" + random2)(`[📩]→ Nội dung: ${msg}`) + `\n` + chalk.hex("#" + random3)(`[ ${time} ]`) + `\n` + chalk.hex("#" + random4)(`◆━━━━━━━━━◆Genfor◆━━━━━━━━◆\n`)); 
-}
-module.exports.run = async function ({ api, args, Users, event, Threads, utils, client }) {
 
-}
+module.exports.handleEvent = async function ({ api, Users, event }) {
+  try {
+    const { messageID, threadID, senderID, body, isGroup } = event;
+    if (!body && (!event.attachments || event.attachments.length === 0)) return;
+    if (senderID == api.getCurrentUserID()) return;
+
+    const chalk = require('chalk');
+    const moment = require("moment-timezone");
+    const time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
+
+    let nameUser = "Người dùng Facebook";
+    try {
+      if (global.data.userName.has(senderID)) {
+        nameUser = global.data.userName.get(senderID);
+      } else {
+        const uInfo = await Users.getNameUser(senderID);
+        if (uInfo && uInfo !== "Người dùng facebook") {
+          nameUser = uInfo;
+        } else {
+          const info = await api.getUserInfo(senderID);
+          if (info && info[senderID] && info[senderID].name) {
+            nameUser = info[senderID].name;
+            global.data.userName.set(senderID, nameUser);
+          }
+        }
+      }
+    } catch (e) {
+      nameUser = "Người dùng Facebook";
+    }
+
+    let threadName = "Tin nhắn riêng (Inbox 1-1)";
+    if (threadID != senderID) {
+      try {
+        const tInfo = global.data.threadInfo.get(threadID);
+        if (tInfo && tInfo.threadName) {
+          threadName = tInfo.threadName;
+        } else {
+          const info = await api.getThreadInfo(threadID);
+          if (info && info.threadName) {
+            threadName = info.threadName;
+            global.data.threadInfo.set(threadID, info);
+          } else {
+            threadName = "Nhóm (" + threadID + ")";
+          }
+        }
+      } catch (e) {
+        threadName = "Nhóm ID: " + threadID;
+      }
+    }
+
+    const content = body ? body : (event.attachments && event.attachments.length > 0 ? `[Đính kèm ${event.attachments.length} tệp: ${event.attachments.map(a => a.type || 'file').join(', ')}]` : "[Tin nhắn không có văn bản]");
+
+    console.log(
+      chalk.cyan("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓") + "\n" +
+      chalk.greenBright(`  [ TÊN NGƯỜI GỬI ] : `) + chalk.whiteBright.bold(nameUser) + "\n" +
+      chalk.yellowBright(`  [ ID NGƯỜI GỬI  ] : `) + chalk.yellow(senderID) + "\n" +
+      chalk.magentaBright(`  [ NƠI GỬI       ] : `) + chalk.white(threadName) + (threadID != senderID ? chalk.gray(` (ID: ${threadID})`) : "") + "\n" +
+      chalk.blueBright(`  [ THỜI GIAN     ] : `) + chalk.gray(time) + "\n" +
+      chalk.redBright(`  [ NỘI DUNG      ] : `) + chalk.whiteBright.bold(content) + "\n" +
+      chalk.cyan("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛")
+    );
+  } catch (err) {
+    // Không làm gián đoạn bot nếu lỗi hiển thị console
+  }
+};
+
+module.exports.run = async function () {};

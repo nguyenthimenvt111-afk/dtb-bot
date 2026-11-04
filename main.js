@@ -221,6 +221,17 @@ function onBot({ models: botModel }) {
         writeFileSync(appStateFile, JSON.stringify(loginApiData.getAppState(), null, '\x09'))
         global.client.api = loginApiData
         global.config.version = '1.2.14'
+        try {
+            const chalk = require('chalk');
+            const botUID = loginApiData.getCurrentUserID();
+            console.log(chalk.green("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"));
+            console.log(chalk.green.bold(`  ✔ ĐĂNG NHẬP THÀNH CÔNG TÀI KHOẢN BOT!`));
+            console.log(chalk.white(`  • Tên Bot       : `) + chalk.yellow.bold(global.config.BOTNAME || "dtb"));
+            console.log(chalk.white(`  • UID Bot       : `) + chalk.cyan.bold(botUID));
+            console.log(chalk.white(`  • Prefix gọi bot: `) + chalk.green.bold(global.config.PREFIX));
+            console.log(chalk.white(`  • Quyền Inbox   : `) + chalk.green.bold(global.config.allowInbox ? "Đang BẬT (nhận cả tin riêng & nhóm)" : "Đang TẮT (chỉ nhận nhóm)"));
+            console.log(chalk.green("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"));
+        } catch (e) {}
         global.client.timeStart = new Date().getTime(),
             function () {
                 const listCommand = readdirSync(global.client.mainPath + '/modules/commands').filter(command => command.endsWith('.js') && !command.includes('example') && !global.config.commandDisabled.includes(command));
@@ -352,6 +363,10 @@ function onBot({ models: botModel }) {
         logger.loader(global.getText('mirai', 'finishLoadModule', global.client.commands.size, global.client.events.size)) 
         logger.loader(`Thời gian khởi động: ${((Date.now() - global.client.timeStart) / 1000).toFixed()}s`)   
         logger.loader('===== [ ' + (Date.now() - global.client.timeStart) + 'ms ] =====')
+        try {
+            const chalk = require('chalk');
+            console.log(chalk.cyan.bold(`\n『 dtb Bot 』→ Sẵn sàng nhận tin nhắn trên Messenger! Nhắn "${global.config.PREFIX}help" hoặc "${global.config.PREFIX}menu" để xem danh sách lệnh.\n`));
+        } catch (e) {}
         writeFileSync(global.client['configPath'], JSON['stringify'](global.config, null, 4), 'utf8') 
         unlinkSync(global['client']['configPath'] + '.temp');        
         const listenerData = {};
