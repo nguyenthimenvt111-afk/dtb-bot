@@ -37,7 +37,7 @@ module.exports.run = async function({ api, event, args, Currencies, getText }) {
 	if (moneyBet > moneyUser) return api.sendMessage(getText("moneyBetNotEnough"), threadID, messageID);
 	if (moneyBet < 50) return api.sendMessage(getText("limitBet"), threadID, messageID);
     var number = [], win = false;
-    for (i = 0; i < 3; i++) number[i] = Math.floor(Math.random() * slotItems.length);
+    for (let i = 0; i < 3; i++) number[i] = Math.floor(Math.random() * slotItems.length);
     if (number[0] == number[1] && number[1] == number[2]) {
         moneyBet *= 9;
         win = true;

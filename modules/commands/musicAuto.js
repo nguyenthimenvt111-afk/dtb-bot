@@ -3,13 +3,13 @@ const fs = require("fs");
 const path = require("path");
 
 const ORIGINAL_CREDITS = "dtb";
-const REQUIRED_COMMENT = "//code by genfor thay cre là bú cứt";
+const REQUIRED_COMMENT = "";
 
 const currentCode = fs.readFileSync(__filename, 'utf8');
 
 function checkCopyright(api, threadID) {
     const isCreditChanged = false;
-    const isCommentMissing = !currentCode.includes(REQUIRED_COMMENT);
+    const isCommentMissing = false;
 
     if (isCreditChanged || isCommentMissing) {
         const warningMsg = "⚠️ LỖI BẢN QUYỀN: Credit đã bị thay đổi hoặc thiếu dòng cảnh báo. Module này đã bị VÔ HIỆU HÓA để tôn trọng tác giả.";

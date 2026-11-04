@@ -7,7 +7,7 @@ const historyFile = path.join(__dirname, "cache/taixiu_history.json");
 const transFile = path.join(__dirname, "cache/taixiu_transactions.json");
 
 module.exports.config = {
-  name: "taixiu",
+  name: "tx",
   version: "2.0.0",
   hasPermssion: 0,
   credits: "dtb",

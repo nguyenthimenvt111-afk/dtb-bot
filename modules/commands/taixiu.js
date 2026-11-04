@@ -149,7 +149,7 @@ module.exports.run = async ({ api, event, args, Currencies, Users }) => {
 
   // vẽ ảnh
   const img = await drawResult(dice, total, result, outcome, balance);
-  const filePath = path.join(__dirname, "cache/taixiu_result.png");
+  const filePath = path.join(__dirname, "cache", `taixiu_${senderID}_${Date.now()}.png`);
   fs.writeFileSync(filePath, img);
 
   return api.sendMessage(

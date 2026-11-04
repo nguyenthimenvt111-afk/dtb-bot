@@ -11,7 +11,7 @@ async function createIfNotExist(filePath) {
   }
 }
 async function initialize() {
-  const allThreads = await Threads.getAll(); 
+  const allThreads = (global.Threads && typeof global.Threads.getAll === 'function') ? await global.Threads.getAll() : []; 
   allThreads.forEach(async (thread) => {
     const threadFilePath = path.join(databanuserFolderPath, `${thread.threadID}.json`);
     await createIfNotExist(threadFilePath);

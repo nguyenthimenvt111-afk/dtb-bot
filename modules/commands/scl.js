@@ -44,15 +44,18 @@ async function searchTracks(keyword, limit = 5) {
 
 async function downloadTrack(url) {
     const track = await scdl.getInfo(url);
-    const stream = await scdl.downloadFormat(url, 'audio/mpeg');
+    const stream = await scdl.download(url);
 
-    const fileName = `${track.user.username} - ${track.title}.mp3`.replace(/[/\\?%*:|"<>]/g, '-');
-    const filePath = path.join(__dirname, fileName);
+    const safeName = (track.title || "audio").replace(/[/\\?%*:|"<>]/g, '-').slice(0, 50);
+    const cacheDir = path.join(__dirname, "cache");
+    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
+    const filePath = path.join(cacheDir, `${Date.now()}_${safeName}.mp3`);
 
     return new Promise((resolve, reject) => {
         const writeStream = fs.createWriteStream(filePath);
         stream.pipe(writeStream);
-        stream.on('end', () => resolve({ ...track, filePath }));
+        writeStream.on('finish', () => resolve({ ...track, filePath }));
+        writeStream.on('error', reject);
         stream.on('error', reject);
     });
 }

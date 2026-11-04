@@ -30,7 +30,8 @@ module.exports.run = async function({ api, event, args, models, Users, Threads, 
   const { readFileSync, writeFileSync } = require("fs-extra")
   const { join } = require("path")
   const pathData = join(__dirname + '/data/bank.json');
-  const user = require('./data/bank.json');
+  let user = [];
+  try { user = JSON.parse(readFileSync(pathData, "utf8")); } catch (_) { user = []; }
   const timeIM = 60*60
   const laisuat = 0.05
   const moneyInput = parseInt(args[1])
@@ -81,7 +82,7 @@ module.exports.run = async function({ api, event, args, models, Users, Threads, 
     if(BigInt(money) < 10000) return api.sendMessage('[ ⚠️ WARNING ] - Số tiền rút ngân hàng phải lớn hơn 10,000',threadID, messageID)
     if(BigInt(money) > BigInt(userData.money)) return api.sendMessage('[ ⚠️ WARNING ] - Số dư của bạn không đủ để thực hiện giao dịch này!', threadID, messageID)
       else {
-        await await Currencies.increaseMoney(senderID, String(money));
+        await Currencies.increaseMoney(senderID, String(money));
         userData.money = String(BigInt(userData.money) - BigInt(money))
         writeFileSync(pathData, JSON.stringify(user, null, 2));
         return api.sendMessage(`[ BANKING ] - Rút thành công ${formatNumber(money)}$, số dư còn lại là ${userData.money}$`, threadID, messageID)

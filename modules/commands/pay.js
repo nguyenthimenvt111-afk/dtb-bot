@@ -19,8 +19,7 @@ module.exports.run = async ({ event, api, Currencies, args, Users }) => {
     amount = parseInt(args[0]);
   } else if (Object.keys(mentions).length > 0) {
     receiveID = Object.keys(mentions)[0];
-    const nameLength = mentions[receiveID].trim().split(/\s+/).length;
-    amount = parseInt(args[nameLength]);
+    amount = parseInt(args[args.length - 1]); if (isNaN(amount) || amount <= 0) { const found = args.find(a => !isNaN(a) && parseInt(a) > 0); amount = found ? parseInt(found) : NaN; }
   } else {
     return api.sendMessage('Cách dùng:\n»dùng pay + tag + số tiền\n»dùng pay + reply + số tiền', threadID, messageID);
   }

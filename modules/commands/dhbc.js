@@ -1,7 +1,7 @@
   const coinsup = 5000 //thay số coins được nhận khi đoán trúng
 const coinsdown = 3000 //thay số coins bị mất khi yêu cầu gợi ý
 const timeUnsend = 1 //thời gian thu hồi tin nhắn sau khi trả lời đúng trong thời gian timeUnsend
-const axios = global.nodemodule["axios"];
+const axios = require("axios");
 module.exports.config = {
     name: "dhbc",
     version: "1.2.0",
@@ -36,7 +36,7 @@ module.exports.handleReply = async function ({
             const dataGame = res.data.doanhinh[Math.floor(Math.random() * length1)]
             const tukhoadung = dataGame.tukhoa;
             const suggestions = dataGame.suggestions
-            const fs = global.nodemodule["fs-extra"];
+            const fs = require("fs-extra");
             const sokitu = dataGame.sokitu;
             const anh1 = dataGame.link1
             const anh2 = dataGame.link2

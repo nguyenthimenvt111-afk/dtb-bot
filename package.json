@@ -14,7 +14,7 @@
     },
     "author": "dtb",
     "dependencies": {
-        "@distube/ytdl-core": "^4.13.2",
+        "@distube/ytdl-core": "^4.14.4",
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
         "@miraipr0ject/assets": "^1.0.9",
         "adm-zip": "^0.5.10",
@@ -71,6 +71,7 @@
         "semver": "",
         "sequelize": "",
         "set-cookie": "^0.0.4",
+        "soundcloud-downloader": "^1.0.0",
         "speakeasy": "^2.0.0",
         "sqlite3": "",
         "string-similarity": "^4.0.4",

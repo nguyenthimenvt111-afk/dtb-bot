@@ -65,43 +65,53 @@ module.exports.handleReply = async function ({ api, event, handleReply }) {
 
   const video = results[choice - 1];
   const videoUrl = `https://www.youtube.com/watch?v=${video.id}`;
-  const apiUrl = `https://lunarkrystal.qzz.io/api/ytmp3?url=${encodeURIComponent(videoUrl)}`;
 
   try {
-    const metadataRes = await fetchUntilReady(apiUrl);
-    if (!metadataRes || !metadataRes.link) {
-      return api.sendMessage("❌ Không thể tải bài hát này.", event.threadID, event.messageID);
+    // 1. Ảnh thông tin nhạc (blur + neon + nút)
+    const imgPath = path.join(__dirname, "cache", `${video.id}_${Date.now()}.png`);
+    try {
+      await renderMusicCard(video, imgPath);
+      api.sendMessage(
+        { attachment: fs.createReadStream(imgPath) },
+        event.threadID,
+        () => { try { fs.unlinkSync(imgPath); } catch {} },
+        event.messageID
+      );
+    } catch (_) {}
+
+    // 2. Tải bài hát: Thử trực tiếp qua SoundCloud (tốc độ cao & ổn định)
+    let audioStream = null;
+    try {
+      let scdl;
+      try { scdl = require('soundcloud-downloader').default; } catch (_) {}
+      if (scdl) {
+        const cleanTitle = (video.title || "").replace(/\[.*?\]|\(.*?\)|official|audio|mv|video|lyrics/gi, "").trim();
+        const scSearch = await scdl.search({ query: cleanTitle || video.title, limit: 1 });
+        if (scSearch && scSearch.collection && scSearch.collection.length > 0) {
+          audioStream = await scdl.download(scSearch.collection[0].permalink_url);
+        }
+      }
+    } catch (_) {}
+
+    // Fallback: Thử ytdl nếu SoundCloud không có
+    if (!audioStream) {
+      try {
+        const ytdl = require('@distube/ytdl-core');
+        audioStream = ytdl(videoUrl, { filter: 'audioonly', quality: 'lowestaudio', highWaterMark: 1 << 25 });
+      } catch (_) {}
     }
 
-    // Ảnh thông tin nhạc (blur + neon + nút)
-    const imgPath = path.join(__dirname, "cache", `${video.id}_${Date.now()}.png`);
-    await renderMusicCard(video, imgPath);
+    if (!audioStream) {
+      return api.sendMessage("❌ Không thể tải được file âm thanh cho bài hát này.", event.threadID, event.messageID);
+    }
 
-    // Gửi chỉ ảnh (không body)
-    api.sendMessage(
-      { attachment: fs.createReadStream(imgPath) },
-      event.threadID,
-      () => { try { fs.unlinkSync(imgPath); } catch {} },
-      event.messageID
-    );
-
-    // Tải mp3 và gửi riêng
-    const filePath = path.join(__dirname, "cache", `${video.id}.mp3`);
+    const filePath = path.join(__dirname, "cache", `${video.id}_${Date.now()}.mp3`);
     const writer = fs.createWriteStream(filePath);
-
-    const download = await axios({
-      method: "get",
-      url: metadataRes.link,
-      responseType: "stream",
-      httpsAgent,
-      timeout: 120000
-    });
-
-    download.data.pipe(writer);
+    audioStream.pipe(writer);
 
     writer.on("finish", () => {
       api.sendMessage(
-        { attachment: fs.createReadStream(filePath) },
+        { body: `🎵 ${video.title || "Bài hát"}\n⏱️ Thời lượng: ${video.length?.simpleText || "N/A"}`, attachment: fs.createReadStream(filePath) },
         event.threadID,
         () => { try { fs.unlinkSync(filePath); } catch {} }
       );
@@ -461,10 +471,10 @@ function drawNeonButton(ctx, x, y, label) {
 }
 
 /* =============== Retry API =============== */
-async function fetchUntilReady(apiUrl, tries = 5, delay = 2000) {
+async function fetchUntilReady(apiUrl, tries = 3, delay = 1500) {
   for (let i = 0; i < tries; i++) {
     try {
-      const res = await axios.get(apiUrl, { httpsAgent, timeout: 15000 });
+      const res = await axios.get(apiUrl, { httpsAgent, timeout: 8000 });
       if (res?.data?.link) return res.data;
     } catch {}
     await new Promise(r => setTimeout(r, delay));

@@ -150,7 +150,7 @@ var full = [];
                     await Currencies.increaseMoney(event.senderID, mon); console.log('s3')
                         return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐭𝐡𝐚̆́𝐧𝐠 𝐯𝐚̀ 𝐧𝐡𝐚̣̂𝐧 𝐯𝐞̂̀ 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 ${mon}$ \n➢ 𝐁𝐨𝐭 𝐥𝐚̆́𝐜 𝐫𝐚 𝐛𝐚 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);
             }
-            else return api.sendMessage("𝐋𝐨𝐢 𝐫𝐨𝐢 𝐛𝐚𝐮 𝐜𝐮𝐚 𝐜𝐨𝐧 𝐜𝐚𝐜",event.threadID,event.messageID);
+            else return api.sendMessage("❌ Đã có lỗi xảy ra trong quá trình lắc bầu cua!", event.threadID, event.messageID);
         } else  {
             await Currencies.decreaseMoney(event.senderID, parseInt(args[1])); console.log('s4')
             return api.sendMessage({body:`𝐊𝐞̂́𝐭 𝐪𝐮𝐚̉: ${full.join(" | ")}\n𝐁𝐚̣𝐧 𝐝𝐚̃ 𝐛𝐢̣ 𝐭𝐡𝐮𝐚 𝐯𝐚̀ 𝐭𝐫𝐮̛̀  ${args[1]}$ 💸\n𝐯𝐢̀ 𝐤𝐡𝐨̂𝐧𝐠 𝐜𝐨́ 𝐜𝐨𝐧 ${icon}`,attachment: listimg},event.threadID, event.messageID);

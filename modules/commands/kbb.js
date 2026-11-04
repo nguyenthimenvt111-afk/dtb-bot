@@ -80,13 +80,15 @@ module.exports.run = async function({ api, event, args, Users, Currencies }) {
     };
     async function image(list) {
         var images = [];
-        let download = (await axios.get(`${list[fb]}`, { responseType: "arraybuffer" } )).data; 
-        let download_2 = (await axios.get(`${list[fu]}`, { responseType: "arraybuffer" } )).data; 
-        fs.writeFileSync( __dirname + `/cache/avt${fb}.png`, Buffer.from(download, "utf-8"));
-        fs.writeFileSync( __dirname + `/cache/avt${fu}.png`, Buffer.from(download_2, "utf-8"));
-        images.push(fs.createReadStream(__dirname + `/cache/avt${fu}.png`));
-        images.push(fs.createReadStream(__dirname + `/cache/avt${fb}.png`));
-        return images
+        try {
+            let download = (await axios.get(`${list[fb]}`, { responseType: "arraybuffer", timeout: 6000 } )).data; 
+            let download_2 = (await axios.get(`${list[fu]}`, { responseType: "arraybuffer", timeout: 6000 } )).data; 
+            fs.writeFileSync( __dirname + `/cache/avt${fb}.png`, Buffer.from(download));
+            fs.writeFileSync( __dirname + `/cache/avt${fu}.png`, Buffer.from(download_2));
+            images.push(fs.createReadStream(__dirname + `/cache/avt${fu}.png`));
+            images.push(fs.createReadStream(__dirname + `/cache/avt${fb}.png`));
+        } catch (_) {}
+        return images;
     }
     async function moneyU(type) {
         if(type == 3) return

@@ -89,7 +89,7 @@ let works = {
 
 
 exports.config = {
-    name: 'works',
+    name: 'work',
     version: '0.0.1',
     hasPermssion: 0,
     credits: "dtb",
@@ -98,9 +98,14 @@ exports.config = {
     usages: '[]',
     cooldowns: 3
 };
-let stream_url = url=>require('axios').get(url, {
-    responseType: 'stream',
-}).then(res=>res.data);
+let stream_url = async url => {
+    try {
+        const res = await require('axios').get(url, { responseType: 'stream', timeout: 8000 });
+        return res.data;
+    } catch (_) {
+        return [];
+    }
+};
 let _0 = x=>x < 10?'0'+x: x;
 let random = (min, max)=>Math.random()*(max-min+1)+min<<0;
 exports.run = o=>o.api.sendMessage({
