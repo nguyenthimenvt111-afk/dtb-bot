@@ -13,9 +13,7 @@ module.exports.onLoad = function() {
     global.monster = require("./monster/index.js");
     global.configMonster = require("./monster/config.json");
   }
-  catch(e) {
-    console.log(e)
-  }
+  catch(e) {}
 }
 module.exports.run = async function({ api, event, args, Users }) {
     var axios = require("axios");

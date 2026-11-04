@@ -3,7 +3,17 @@
 const utils = require('../utils');
 const mqtt = require('mqtt');
 const WebSocket = require('ws');
-const HttpsProxyAgent = require('https-proxy-agent');
+const _HPA = (() => {
+    try {
+        const mod = require('https-proxy-agent');
+        return typeof mod === 'function' ? mod : (mod.HttpsProxyAgent || mod);
+    } catch (_) {
+        return class DummyAgent {
+            constructor() { throw new Error('https-proxy-agent not available'); }
+        };
+    }
+})();
+const HttpsProxyAgent = _HPA;
 const EventEmitter = require('events');
 const Duplexify = require('duplexify');
 const { Transform } = require('stream');
