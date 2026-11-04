@@ -6,7 +6,7 @@ module.exports.config = {
     name: "dhbc",
     version: "1.2.0",
     hasPermssion: 0,
-    credits: "D-Jukie",
+    credits: "dtb",
     description: "Đuổi hình bắt chữ trên chính messenger của bạn!!!",
     commandCategory: "Trò Chơi",
     usages: "[1/2]",

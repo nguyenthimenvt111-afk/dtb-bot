@@ -2,7 +2,7 @@ module.exports.config = {
   name: "loli",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Xem ảnh",
   commandCategory: "Random-img",
   usages: "",

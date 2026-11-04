@@ -5,7 +5,7 @@ module.exports.config = {
     name: "noti",
     version: "1.0.0",
     hasPermssion: 3,
-    credits: "TruongMini",
+    credits: "dtb",
     description: "Thông báo cho các nhóm",
     commandCategory: "Hệ Thống",
     usages: "noti [msg]",

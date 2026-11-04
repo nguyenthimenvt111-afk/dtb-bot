@@ -1,86 +1,94 @@
-const os = require('os');
-const moment = require('moment-timezone');
-const fs = require('fs').promises; // Added for asynchronous file reading
+const os = require("os");
+const moment = require("moment-timezone");
+const fs = require("fs-extra");
+const { createCanvas } = require("canvas");
+const path = require("path");
 
 module.exports.config = {
   name: "upt1",
-  version: "2.0.0",
+  version: "3.0.0",
   hasPermission: 0,
-  credits: "Vtuan",
-  description: "Hiển thị thông tin hệ thống của bot",
+  credits: "dtb",
+  description: "Thông tin hệ thống bot",
   commandCategory: "Hệ Thống",
-  usages: "",
   cooldowns: 5
 };
 
-async function getDependencyCount() {
-  try {
-    const packageJsonString = await fs.readFile('package.json', 'utf8');
-    const packageJson = JSON.parse(packageJsonString);
-    const depCount = Object.keys(packageJson.dependencies || {}).length;
-    const devDepCount = Object.keys(packageJson.devDependencies || {}).length;
-    return { depCount, devDepCount };
-  } catch (error) {
-    console.error('Không thể đọc file package.json:', error);
-    return { depCount: -1, devDepCount: -1 };
-  }
-}
-
-function getStatusByPing(ping) {
-  if (ping < 200) {
-    return 'tốt';
-  } else if (ping < 800) {
-    return 'bình thường';
-  } else {
-    return 'xấu';
-  }
-}
 function getPrimaryIP() {
-  const interfaces = os.networkInterfaces();
-  for (let iface of Object.values(interfaces)) {
-    for (let alias of iface) {
-      if (alias.family === 'IPv4' && !alias.internal) {
-        return alias.address;
-      }
+  const nets = os.networkInterfaces();
+  for (const net of Object.values(nets)) {
+    for (const n of net) {
+      if (n.family === "IPv4" && !n.internal) return n.address;
     }
   }
-  return '127.0.0.1'; 
+  return "127.0.0.1";
+}
+
+function truncateText(ctx, text, maxWidth) {
+  let output = text;
+  while (ctx.measureText(output).width > maxWidth) {
+    output = output.slice(0, -1);
+  }
+  if (output !== text) output = output.slice(0, -3) + "...";
+  return output;
 }
 
 module.exports.run = async ({ api, event, Users }) => {
-  const totalMemory = os.totalmem();
-  const freeMemory = os.freemem();
-  const usedMemory = totalMemory - freeMemory;
+  const name = await Users.getNameUser(event.senderID);
   const uptime = process.uptime();
+  const uptimeStr = new Date(uptime * 1000).toISOString().substr(11, 8);
 
-  const { depCount, devDepCount } = await getDependencyCount();
-  let name = await Users.getNameUser(event.senderID);
-  const primaryIp = getPrimaryIP();
-  const botStatus = getStatusByPing(Date.now() - event.timestamp);
+  const rows = [
+    ["⏰ Bây giờ", moment().tz("Asia/Ho_Chi_Minh").format("HH:mm:ss - DD/MM/YYYY")],
+    ["🕒 Hoạt động", uptimeStr],
+    ["⚙️ Prefix", global.config.PREFIX],
+    ["🌐 IP", getPrimaryIP()],
+    ["💻 OS", `${os.type()} ${os.release()} (${os.arch()})`],
+    ["🖥 CPU", `${os.cpus().length} core`],
+    ["💾 RAM", `${(os.totalmem()-os.freemem())/1073741824|0}GB/${(os.totalmem()/1073741824).toFixed(1)}GB`],
+    ["👤 Yêu cầu bởi", name]
+  ];
 
-  const uptimeHours = Math.floor(uptime / (60 * 60));
-  const uptimeMinutes = Math.floor((uptime % (60 * 60)) / 60);
-  const uptimeSeconds = Math.floor(uptime % 60);
+  const width = 850, rowH = 55, cardX = 40;
+  const height = 100 + rows.length * (rowH + 15);
 
-  const uptimeString = `${uptimeHours.toString().padStart(2, '0')}:${uptimeMinutes.toString().padStart(2, '0')}:${uptimeSeconds.toString().padStart(2, '0')}`;
+  const canvas = createCanvas(width, height);
+  const ctx = canvas.getContext("2d");
 
-  // Formatted message including CPU and RAM details, similar to Replit's standards.
-  const replyMsg = `
-    𖢨 · Bây giờ là: ${moment().tz('Asia/Ho_Chi_Minh').format('HH:mm:ss')} || ${moment().tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY')}
-    𖢨 · Thời gian đã hoạt động: ${uptimeString}
-    𖢨 · Prefix mặc định: ${global.config.PREFIX}
-    𖢨 · Địa chỉ IP: ${primaryIp}
-    𖢨 · Tổng số dependencies: ${depCount}
-    𖢨 · Tổng số devDependencies: ${devDepCount}
-    𖢨 · Tình trạng bot: ${botStatus}
-    𖢨 · Thông tin hệ thống:
-      - Hệ điều hành: ${os.type()} ${os.release()} (${os.arch()})
-      - CPU: ${os.cpus().length} core(s) - ${os.cpus()[0].model.trim()} @ ${os.cpus()[0].speed}MHz
-      - RAM: ${(usedMemory / 1024 / 1024 / 1024).toFixed(2)}GB/${(totalMemory / 1024 / 1024 / 1024).toFixed(2)}GB (Used/Total)
-      - Dung lượng trống: ${(freeMemory / 1024 / 1024 / 1024).toFixed(2)}GB
-    𖢨 · Ping: ${Date.now() - event.timestamp}ms
-    𖢨 · Yêu cầu bởi: ${name}
-  `.trim();
+  ctx.fillStyle = "#0a0f1a";
+  ctx.fillRect(0, 0, width, height);
 
-  api.sendMessage(replyMsg, event.threadID, event.messageID);
+  ctx.fillStyle = "#fff";
+  ctx.font = "bold 32px Arial";
+  ctx.fillText("📊 Thông tin hệ thống Bot", cardX, 50);
+
+  let y = 110;
+  for (const [label, val] of rows) {
+    ctx.fillStyle = "#101a2e";
+    ctx.beginPath();
+    ctx.roundRect(cardX, y - 30, width - 2*cardX, rowH, 12);
+    ctx.fill();
+
+    ctx.fillStyle = "#33ccff";
+    ctx.font = "600 22px Arial";
+    ctx.fillText(label, cardX + 20, y);
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "700 22px Arial";
+
+    const safeVal = truncateText(ctx, String(val), 450);
+    ctx.fillText(safeVal, cardX + 250, y);
+
+    y += rowH + 15;
+  }
+
+  const outPath = path.join(__dirname, "uptime.png");
+  fs.writeFileSync(outPath, canvas.toBuffer("image/png"));
+
+  api.sendMessage(
+    { body: "", attachment: fs.createReadStream(outPath) },
+    event.threadID,
+    () => fs.unlinkSync(outPath),
+    event.messageID
+  );
 };

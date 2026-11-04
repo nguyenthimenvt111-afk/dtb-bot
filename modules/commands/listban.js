@@ -2,7 +2,7 @@ module.exports.config = {
   name: "listban",
   version: "1.0.0",
   hasPermssion: 2,
-  credits: "ManhG",
+  credits: "dtb",
   description: "Xem danh sách ban của nhóm hoặc của người dùng",
   commandCategory: "Hệ Thống",
   usages: "[thread/user]",

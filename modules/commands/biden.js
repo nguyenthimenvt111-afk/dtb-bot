@@ -2,7 +2,7 @@ module.exports.config = {
     name: "biden",
     version: "1.0.1",
     hasPermssion: 0,
-    credits: "tdunguwu",
+    credits: "dtb",
     description: "",
     commandCategory: "Tạo ảnh",
     cooldowns: 0,

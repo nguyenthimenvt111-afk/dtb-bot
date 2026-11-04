@@ -3,7 +3,7 @@ module.exports.config = {
   version: "2.0.0",
   hasPermssion: 0,
   Rent: 2,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Xem video về anime chill",
   commandCategory: "Random-img",
   usages: "",

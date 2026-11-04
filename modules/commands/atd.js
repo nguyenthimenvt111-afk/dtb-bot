@@ -142,7 +142,7 @@ exports.config = {
     name: 'autodow',
     version: '1',
     hasPermssion: 0,
-    credits: 'Công Nam mod all Harin',
+    credits: "dtb",
     description: '',
     commandCategory: 'Tiện ích',
     usages: [],

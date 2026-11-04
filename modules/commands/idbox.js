@@ -2,7 +2,7 @@ module.exports.config = {
   name: "idbox",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "manhIT",
+  credits: "dtb",
   description: "Kiểm tra thông tin nhóm chat.",
   commandCategory: "Nhóm",
   usages: "",

@@ -23,7 +23,7 @@ module.exports.config = {
   name: "autokick",
   version: "1.0.0",
   hasPermssion: 1,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Tự động kick người dùng theo ID.",
   commandCategory: "Quản Lí Box",
   usages: "[ID người dùng]",

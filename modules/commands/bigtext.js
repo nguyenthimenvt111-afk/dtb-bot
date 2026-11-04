@@ -2,7 +2,7 @@ module.exports.config = {
     name: "bigtext",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "NTKhang",
+    credits: "dtb",
     description: "ghép ký tự thành chữ siêu to khổng lồ",
     commandCategory: "Công cụ",
     usages: "bigtext <nội dung>",

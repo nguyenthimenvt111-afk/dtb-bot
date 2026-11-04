@@ -5,7 +5,7 @@ module.exports.config = {
     name: "daybot",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "gojo",
+    credits: "dtb",
     description: "Dạy bot ",
     commandCategory: "Nhóm",
     usages: "",

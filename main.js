@@ -93,7 +93,10 @@ catch {
 try {
     for (const key in configValue) global.config[key] = configValue[key];
 }
-catch { return logger.loader("Can't load file config!", "error") }
+catch {
+    logger.loader("Can't load file config!", "error");
+    process.exit(1);
+}
 
 const { Sequelize, sequelize } = require("./includes/database");
 
@@ -128,10 +131,13 @@ global.getText = function (...args) {
 }
 
 try {
-    var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || "appstate.json"));
+    var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || "lib/appstate.json"));
     var appState = require(appStateFile);
 }
-catch { return logger.loader(global.getText("mirai", "notFoundPathAppstate"), "error") }
+catch {
+    logger.loader(global.getText("mirai", "notFoundPathAppstate"), "error");
+    process.exit(0);
+}
 
 ////////////////////////////////////////////////////////////
 //========= Login account and start Listen Event =========//

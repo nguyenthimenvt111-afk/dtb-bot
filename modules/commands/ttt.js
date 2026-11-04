@@ -2,7 +2,7 @@ module.exports.config = {
   name: "ttt",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "Mirai Team",
+  credits: "dtb",
   description: "Play caro with AI",
   commandCategory: "Trò Chơi",
   usages: "ttt",

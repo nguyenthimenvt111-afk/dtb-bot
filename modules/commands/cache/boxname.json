@@ -10,5 +10,23 @@
         "boxname": true,
         "username": false,
         "avtbox": true
+    },
+    {
+        "boxid": "1285237853202398",
+        "boxname": false,
+        "username": false,
+        "avtbox": false
+    },
+    {
+        "boxid": "904981975586089",
+        "boxname": false,
+        "username": false,
+        "avtbox": true
+    },
+    {
+        "boxid": "1246059884001929",
+        "boxname": false,
+        "username": false,
+        "avtbox": false
     }
 ]

@@ -2,7 +2,7 @@ module.exports.config = {
     name: "sendnoti",
     version: "1.1.1",
     hasPermssion: 3,
-    credits: "N1002",
+    credits: "dtb",
     description: "Gửi tin nhắn đến tất cả nhóm và reply để phản hồi",
     commandCategory: "Hệ Thống",
     usages: "sendnoti [text]",

@@ -1,7 +1,7 @@
 module.exports.config = {
     name: "zwar",
     version: "1.0.4",
-    credits: "GinzaTech & Michael",
+    credits: "dtb",
     description: "Chiến đấu với zombie",
     usages: "[register/shop/prison/help]",
     commandCategory: "Trò Chơi",

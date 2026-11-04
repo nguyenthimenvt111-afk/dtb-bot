@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Logs & temp test scripts
+test_server.js
+*.log
+npm-debug.log*
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# OS files
+.DS_Store
+Thumbs.db

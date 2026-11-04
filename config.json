@@ -1,25 +1,32 @@
 {
     "language": "vi",
-    "DeveloperMode": false,
+    "DeveloperMode": true,
     "autoCreateDB": true,
     "iconUnsend": {
         "status": true,
-        "icon": ""
+        "icon": "👍"
     },
-    "notiGroup": false,
+    "notiGroup": true,
     "NOTIFICATION": true,
-    "allowInbox": true,
+    "allowInbox": false,
     "commandDisabled": [],
     "eventDisabled": [],
-    "BOTNAME": "",
-    "AMDIN_NAME": "",
-    "FACEBOOK_ADMIN": "",
-    "PREFIX": "",
+    "BOTNAME": "dtb",
+    "AMDIN_NAME": "dtb",
+    "FACEBOOK_ADMIN": "https://www.facebook.com/dtb",
+    "PREFIX": "/",
     "ADMINBOT": [
-        ""
+        "61577137490086",
+        "",
+        "",
+        "61564553507648",
+        "61585734432940",
+        "100081981174768",
+        "61578077251977",
+        "61575895497513"
     ],
     "NDH": [
-        ""
+        "61577137490086"
     ],
     "DATABASE": {
         "sqlite": {
@@ -55,7 +62,8 @@
             "status": true,
             "random": true,
             "url": "https://i.imgur.com/LKkw8SL.jpg"
-        }
+        },
+        "usePrefix": ""
     },
     "minecraft": {
         "APIKEY": ""
@@ -84,5 +92,6 @@
     "subnautica": {
         "APIKEY": ""
     },
-    "adminOnly": false
+    "adminOnly": false,
+    "adminPaseOnly": false
 }

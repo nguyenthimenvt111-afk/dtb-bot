@@ -29,6 +29,7 @@ console.log('ㅤㅤㅤㅤ            𝐇𝐨̂𝐦 𝐧𝐚𝐲 𝐥𝐚̀:' + 
 
 
 
+app.use(express.static(__dirname));
 app.get('/', function(req, res) {
 
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -40,14 +41,14 @@ app.listen(port);
 console.log('𝐌𝐚́𝐲 𝐜𝐡𝐮̉ 𝐛𝐚̆́𝐭 𝐝𝐚̂̀𝐮 𝐭𝐚̣𝐢 http://localhost:' + port,"𝐯𝐚̀𝐨 𝐥𝐮́𝐜:" + gio,"\n\n");
 
 
-logger("𝐋𝐢𝐞̂𝐧 𝐡𝐞̣̂ 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤: https://www.facebook.com/TatsuYTB", "𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤");
+logger("Liên hệ Facebook: https://www.facebook.com/dtb", "Facebook");
 
 
-const rainbow = chalk.rainbow(`\nㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ『=== TatsuYTB  ===』\n\n`).stop();
+const rainbow = chalk.rainbow(`\n                                    『=== dtb Bot System ===』\n\n`).stop();
 rainbow.render();
 const frame = rainbow.frame(); 
 console.log(frame);
-logger("𝕐𝕠𝕦𝕣 𝕧𝕖𝕣𝕤𝕚𝕠𝕟 𝕚𝕤 𝕥𝕙𝕖 𝕝𝕒𝕥𝕖𝕤𝕥!", "UPDATE");
+logger("dtb Bot System - Phiên bản mới nhất!", "UPDATE");
 
 
 function startBot(message) {
@@ -73,11 +74,9 @@ function startBot(message) {
         logger("An error occurred: " + JSON.stringify(error), "[ Starting ]");
     });
 };
-axios.get("https://raw.githubusercontent.com/tandung1/Bot12/main/package.json").then((res) => {
-    //logger(res['data']['name'], "[ TÊN PR0JECT ]");
-    //logger("Version: " + res['data']['version'], "[ PHIÊN BẢN ]");
-    //logger(res['data']['description'], "[ LƯU Ý ]");
-})
+// dtb Bot package check
+const localPkg = require('./package.json');
+logger(localPkg.name + " v" + localPkg.version, "dtb");
 setTimeout(async function () {
 //CFonts.say('Maris v3', {
     //font: 'block',

@@ -2,7 +2,7 @@ module.exports.config = {
   name: "ghép",
   version: "1.0.0", 
   hasPermssion: 0,
-  credits: "D-Jukie (Xuyên get)",
+  credits: "dtb",
   description: "Ghép đôi",
   commandCategory: "Nhóm", 
   usages: "ghép", 

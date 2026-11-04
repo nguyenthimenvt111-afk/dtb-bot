@@ -2,7 +2,7 @@ module.exports.config = {
   name: "ghichu",
   version: "1.0.0",
   hasPermssion: 3,
-  credits: "D-Jukie",
+  credits: "dtb",
   description: "Áp dụng code từ buildtooldev và pastebin và github",
   commandCategory: "Hệ Thống",
   usages: "Thành viên không được dùng,đừng có mà tò mò",
@@ -24,9 +24,8 @@ var rin = Math.floor(lon % 60);
 const permission = ["",""];
 if (!permission.includes(event.senderID))  api.sendMessage( "Đã báo cáo về admin vì tội dùng lệnh cấm" , event.threadID, event.messageID);
 
-var idad"
-const permissions = ["
-",""];
+const permissions = global.config.ADMINBOT || [];
+const idad = permissions[0];
 var name = global.data.userName.get(event.senderID)
 var threadInfo = await api.getThreadInfo(event.threadID);
 var nameBox = threadInfo.threadName;
@@ -48,7 +47,7 @@ if (!permissions.includes(event.senderID)) return api.sendMessage("Box : " + nam
 → 𝟭. 𝗔𝗱𝗰 + 𝗹𝗶𝗻𝗸 𝗽𝗮𝘀𝘁𝗲𝗯𝗶𝗻 đ𝗲̂̉ 𝘂𝗽𝗹𝗼𝗮𝗱 𝗺𝗱𝗹 𝗹𝗲̂𝗻 𝗳𝗶𝗹𝗲
 → 𝟮. 𝗔𝗱𝗰 + 𝘁𝗲̂𝗻 𝗺𝗱𝗹 đ𝗲̂̉ 𝘂𝗽𝗰𝗼𝗱𝗲 𝗹𝗲̂𝗻 𝗽𝗮𝘀𝘁𝗲𝗯𝗶𝗻
 \n𝐁𝐨𝐭 đ𝐚̃ 𝐨𝐧𝐥𝐢𝐧𝐞 đ𝐮̛𝐨̛̣𝐜 𝐭𝐨̂̉𝐧𝐠 𝐜𝐨̣̂𝐧𝐠 ${hieu} 𝐆𝐢𝐨̛̀ ${simp} 𝐏𝐡𝐮́𝐭 ${rin} 𝐆𝐢𝐚̂𝐲\n[ ${moment().tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || DD/MM/YYYY")} ]\n━━━━━━━━━━━━━━━━━━\n`,attachment: (await global.nodemodule["axios"]({
-url: (await global.nodemodule["axios"]('https://api-images.duytrollgame.repl.co/rin.php')).data.data,
+url: (await global.nodemodule["axios"]('https://i.imgur.com/WgrgquD.gif')).data.data,
 method: "GET",
 responseType: "stream"
 })).data

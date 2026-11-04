@@ -2,7 +2,7 @@ module.exports.config = {
   name: "spam2",
   version: "1.0.1",
   hasPermssion: 2,
-  credits: "Kz Khánhh", //code dựa trên idea từ Vtuan
+  credits: "dtb", //code dựa trên idea từ Vtuan
   description: "spam nội dung nhiều lần",
   commandCategory: "Spam",
   usages: "spam <nội dung> <khoảng cách> <số lần>",

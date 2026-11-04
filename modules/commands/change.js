@@ -2,7 +2,7 @@ module.exports.config = {
  name: "change",
  version: "1.1.1",
  hasPermssion: 3,
- credits: "Quất",
+ credits: "dtb",
  description: "Đổi raw runmocky and pastebin",
  commandCategory: "Hệ Thống",
  usages: "/test",

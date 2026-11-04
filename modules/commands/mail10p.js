@@ -2,7 +2,7 @@ module.exports.config = {
   name: "mail10p",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "tdunguwu",
+  credits: "dtb",
   description: "lấy mail ở 10mm thôi",
   commandCategory: "Tiện ích",
   usages: "",

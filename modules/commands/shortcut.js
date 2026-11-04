@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "shortcut",
 	version: "1.0.0",
 	hasPermssion: 1,
-	credits: "CatalizCS",
+	credits: "dtb",
 	description: "Phiên bản xịn hơn của short",
 	commandCategory: "Nhóm",
     usages: "[all/delete/empty]",

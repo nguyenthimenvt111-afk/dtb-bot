@@ -2,7 +2,7 @@ module.exports.config = {
   name: "callad",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "NTKhang update & fix by DuyVuong and D-jukie",
+  credits: "dtb",
   description: "Thông báo lỗi của bot đến admin hoặc góp ý",
   commandCategory: "Đóng góp ý kiến",
   usages: "[lỗi gặp phải hoặc ý kiến]",

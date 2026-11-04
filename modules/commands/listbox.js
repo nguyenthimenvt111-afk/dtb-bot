@@ -1,7 +1,7 @@
 module.exports.config = {
     name: 'listbox',
     version: '1.0.0',
-    credits: 'ManhG',
+    credits: "dtb",
     hasPermssion: 3,
     description: '[Ban/Unban/Remove] List thread bot đã tham gia',
     commandCategory: 'Hệ Thống',

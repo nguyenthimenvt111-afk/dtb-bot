@@ -2,7 +2,7 @@ module.exports.config = {
     name: "adduser",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "D-Jukie",
+    credits: "dtb",
     description: "Thêm người dùng vào nhóm bằng link hoặc uid",
     commandCategory: "Quản Lí Box",
     usages: "[args]",

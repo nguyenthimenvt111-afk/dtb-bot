@@ -2,7 +2,7 @@ module.exports.config = {
     name: 'caro',
     version: '1.0.0',
     hasPermssion: 0,
-    credits: 'Darkness',
+    credits: "dtb",
     description: 'game cờ caro',
     commandCategory: 'Trò Chơi',
     usages: '@tag',

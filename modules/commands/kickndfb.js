@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "kickndfb",
 	version: "1.0.0",
 	hasPermssion: 1,
-	credits: "ProCoderMew",
+	credits: "dtb",
 	description: "Lọc người dùng Facebook",
 	commandCategory: "Quản Lí Box",
 	usages: "kickndfb",

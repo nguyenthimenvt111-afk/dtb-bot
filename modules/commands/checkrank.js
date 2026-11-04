@@ -2,7 +2,7 @@ module.exports.config = {
 name: "checkrank",
 version: "1.0.0",
 hasPermssion: 0,
-credits: "SenProject",//fix by Qz
+credits: "dtb",//fix by Qz
 description: "check tương tác theo phong cách liên quân",
 commandCategory: "Quản Lí Box",
 usages: "checktt",

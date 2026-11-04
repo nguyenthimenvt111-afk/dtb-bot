@@ -1,0 +1,35 @@
+{
+  "61577714247816": {
+    "ten": "Người Thám Hiểm",
+    "level": 1,
+    "exp": 11,
+    "hp": 78,
+    "maxHp": 100,
+    "weapon": null,
+    "items": [],
+    "dungeonLevel": 1,
+    "lastOffline": 1756046750237
+  },
+  "100072509450034": {
+    "ten": "Người Thám Hiểm",
+    "level": 1,
+    "exp": 0,
+    "hp": 100,
+    "maxHp": 100,
+    "weapon": null,
+    "items": [],
+    "dungeonLevel": 1,
+    "lastOffline": 1756049316132
+  },
+  "61577137490086": {
+    "ten": "Người Thám Hiểm",
+    "level": 1,
+    "exp": 0,
+    "hp": 100,
+    "maxHp": 100,
+    "weapon": null,
+    "items": [],
+    "dungeonLevel": 1,
+    "lastOffline": 1772107329853
+  }
+}

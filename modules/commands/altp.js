@@ -11,7 +11,7 @@ module.exports.config = {
   name: "altp",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "Khoa x Nam",
+  credits: "dtb",
   description: "chương trình Ai Là Triệu Phú siêu khó vip pro",
   commandCategory: "Trò Chơi",
   usages: "register/play/info/stop",

@@ -3,7 +3,7 @@ module.exports.config = {
 	name: "cuop",
 	version: "1.0.0",
 	hasPermssion: 0,
-	credits: "Khoa",
+	credits: "dtb",
 	description: "Phủ định học thuyết lao động của triết gia Huấn rô sì :>",
 	commandCategory: "Trò Chơi",
 	usages: "@tag",

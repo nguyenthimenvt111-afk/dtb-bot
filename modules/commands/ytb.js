@@ -2,7 +2,7 @@ module.exports.config = {
     name: 'ytb',
     version: '1.0.0',
     hasPermssion: 0,
-    credits: 'DungUwU',
+    credits: "dtb",
     description: 'Phát nhạc hoặc video thông qua link YouTube hoặc từ khoá tìm kiếm',
     commandCategory: 'Tiện ích',
     usages: 'video < keyword/url >',

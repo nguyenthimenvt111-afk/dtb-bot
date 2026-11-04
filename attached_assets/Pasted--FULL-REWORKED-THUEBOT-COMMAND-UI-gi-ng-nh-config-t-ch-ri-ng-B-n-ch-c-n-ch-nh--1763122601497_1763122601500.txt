@@ -1,0 +1,233 @@
+// ==== FULL REWORKED THUEBOT COMMAND (UI giống ảnh + config tách riêng) ====
+// Bạn chỉ cần chỉnh giá trong phần CONFIG ở đầu file.
+
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
+const moment = require("moment-timezone");
+const crypto = require("crypto");
+
+// ====================== CONFIG GIÁ TÁCH RIÊNG =============================
+module.exports.config = {
+  name: "thuebot",
+  version: "5.0.0",
+  hasPermission: 0,
+  credits: "Reworked by GPT-5",
+  description: "Thuê bot tự động, UI giống ảnh",
+  commandCategory: "Hệ thống",
+  usages: "",
+  cooldowns: 5,
+  prefix: ""
+};
+
+// Giá thuê BOT THƯỜNG
+const RENT_BOT = [
+  { id: 1, days: 1, price: 2000 },
+  { id: 2, days: 3, price: 5000 },
+  { id: 3, days: 10, price: 15000 },
+  { id: 4, days: 30, price: 30000 }
+];
+
+// Giá thuê BOT + ADMIN
+const RENT_BOT_ADMIN = [
+  { id: 1, days: 1, price: 2000 },
+  { id: 2, days: 3, price: 5000 },
+  { id: 3, days: 10, price: 15000 },
+  { id: 4, days: 30, price: 30000 }
+];
+
+// API thật
+const API_URL =
+  "https://thuebank.thegioilinkao.com/historyapigachthefast/81f8f77046daf4f1141c08da19eff89332e63448eb0ae0c077b6172f05760a49";
+
+// Tài khoản nhận
+const ACCOUNT_INFO = `Tài khoản: gachthefast\nChủ TK: Genfor2k11`;
+
+const ADMIN_ID = global.config.ADMINBOT?.[0] || null;
+
+// ====================== FILE LƯU =============================
+const baseDir = path.join(__dirname, "cache", "rentbot");
+fs.ensureDirSync(baseDir);
+const rentsPath = path.join(baseDir, "rents.json");
+const pendingPath = path.join(baseDir, "pending.json");
+
+let rents = fs.existsSync(rentsPath) ? fs.readJsonSync(rentsPath) : [];
+let pending = fs.existsSync(pendingPath) ? fs.readJsonSync(pendingPath) : [];
+
+function save() {
+  fs.writeJsonSync(rentsPath, rents, { spaces: 2 });
+  fs.writeJsonSync(pendingPath, pending, { spaces: 2 });
+}
+
+// ====================== HÀM CHECK THANH TOÁN =============================
+async function checkPayment(threadID) {
+  try {
+    const res = await axios.get(API_URL, {
+      headers: { Accept: "application/json" },
+      timeout: 15000
+    });
+
+    const list = res.data?.data || [];
+
+    const md5Code = crypto
+      .createHash("md5")
+      .update(String(threadID) + "thuebot")
+      .digest("hex")
+      .toUpperCase();
+
+    const found = list.find(item => {
+      const msg = (item.message || "").toUpperCase().replace(/\s+/g, "");
+      return msg.includes(md5Code);
+    });
+
+    if (!found) return { ok: false };
+    return { ok: true, order: found };
+  } catch (err) {
+    return { ok: false, error: err.message };
+  }
+}
+
+// ====================== CỘNG NGÀY =============================
+function addDays(tid, days) {
+  const now = moment().tz("Asia/Ho_Chi_Minh");
+  const found = rents.find(r => r.tid === tid);
+  if (found) {
+    const curEnd = moment(found.exp, "DD/MM/YYYY");
+    const base = curEnd.isAfter(now) ? curEnd : now;
+    found.exp = base.add(days, "days").format("DD/MM/YYYY");
+    found.total = (found.total || 0) + days;
+  } else {
+    rents.push({
+      tid,
+      start: now.format("DD/MM/YYYY"),
+      exp: moment(now).add(days, "days").format("DD/MM/YYYY"),
+      total: days
+    });
+  }
+  save();
+}
+
+// ====================== MENU UI 100% GIỐNG ẢNH =============================
+function makeMenuImage() {
+  return {
+    body: "Bảng giá như hình bên dưới",
+    attachment: fs.createReadStream(path.join(__dirname, "menu_thuebot.png"))
+  };
+}
+
+// ====================== LỆNH CHÍNH =============================
+module.exports.run = async function ({ api, event }) {
+  return api.sendMessage(makeMenuImage(), event.threadID, (err, info) => {
+    global.client.handleReply.push({
+      name: module.exports.config.name,
+      messageID: info.messageID,
+      author: event.senderID,
+      step: "chooseType"
+    });
+  });
+};
+
+// ====================== HANDLE REPLY =============================
+module.exports.handleReply = async function ({ api, event, handleReply }) {
+  if (event.senderID !== handleReply.author) return;
+  const text = event.body.trim();
+
+  // ======= B1: Chọn loại thuê =======
+  if (handleReply.step === "chooseType") {
+    if (text !== "1" && text !== "2")
+      return api.sendMessage("❎ Chọn 1 (Thuê bot) hoặc 2 (Bot + admin)", event.threadID);
+
+    const isAdmin = text === "2";
+
+    const list = isAdmin ? RENT_BOT_ADMIN : RENT_BOT;
+    let msg = `Bạn chọn: ${isAdmin ? "BOT + ADMIN" : "THUÊ BOT"}\n\n`;    
+    list.forEach(p => {
+      msg += `${p.id}. ${p.days} ngày — ${p.price.toLocaleString()}đ\n`;
+    });
+    msg += "\nReply số (1–4) để chọn gói.";
+
+    return api.sendMessage(msg, event.threadID, (err, info) => {
+      global.client.handleReply.push({
+        name: module.exports.config.name,
+        messageID: info.messageID,
+        author: event.senderID,
+        step: "choosePackage",
+        isAdmin
+      });
+    });
+  }
+
+  // ======= B2: Chọn gói =======
+  if (handleReply.step === "choosePackage") {
+    const choice = parseInt(text);
+    const list = handleReply.isAdmin ? RENT_BOT_ADMIN : RENT_BOT;
+    const pkg = list.find(p => p.id === choice);
+    if (!pkg)
+      return api.sendMessage("❎ Gói không hợp lệ.", event.threadID);
+
+    const md5Code = crypto
+      .createHash("md5")
+      .update(String(event.threadID) + "thuebot")
+      .digest("hex");
+
+    const order = {
+      tid: event.threadID,
+      author: event.senderID,
+      days: pkg.days,
+      price: pkg.price,
+      created: moment().tz("Asia/Ho_Chi_Minh").format("YYYY-MM-DD HH:mm:ss")
+    };
+
+    pending.push(order);
+    save();
+
+    const msg = `🔔 Gói: ${pkg.days} ngày — ${pkg.price.toLocaleString()}đ\n\n${ACCOUNT_INFO}\nNội dung chuyển: ${md5Code}\n\n⏳ Sau khi chuyển, gửi: thuebot check`;
+
+    return api.sendMessage(msg, event.threadID);
+  }
+};
+
+// ====================== AUTO NO PREFIX =============================
+module.exports.handleEvent = async function ({ api, event }) {
+  if (!event.body) return;
+  const body = event.body.toLowerCase().trim();
+
+  if (body === "thuebot" || body === "thuê bot") {
+    return api.sendMessage(makeMenuImage(), event.threadID, (err, info) => {
+      global.client.handleReply.push({
+        name: module.exports.config.name,
+        messageID: info.messageID,
+        author: event.senderID,
+        step: "chooseType"
+      });
+    });
+  }
+
+  if (body.startsWith("thuebot check") || body.startsWith("thuê bot check")) {
+    const found = pending.find(p => p.tid === event.threadID);
+    if (!found) return api.sendMessage("❎ Không có đơn chờ.", event.threadID);
+
+    api.sendMessage("⏳ Đang kiểm tra...", event.threadID);
+    await new Promise(r => setTimeout(r, 5000));
+
+    const chk = await checkPayment(found.tid);
+
+    if (!chk.ok)
+      return api.sendMessage("⚠️ Chưa thấy giao dịch.", event.threadID);
+
+    const pay = chk.order;
+    const amount = Number(pay.pay_amount || pay.payamount || 0);
+
+    if (amount < found.price)
+      return api.sendMessage(`⚠️ Số tiền không khớp (${amount} < ${found.price}).`, event.threadID);
+
+    addDays(found.tid, found.days);
+    pending = pending.filter(p => p.tid !== found.tid);
+    save();
+
+    api.sendMessage(`✅ Đã kích hoạt thêm ${found.days} ngày!`, event.threadID);
+
+    if (ADMIN_ID)
+      api.sendMessage(`[PAYMENT OK]\nNhóm ${found.tid}\nTiền: ${amount}`, ADMIN_ID);
+  }
+};

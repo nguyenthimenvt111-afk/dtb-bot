@@ -4,7 +4,7 @@ module.exports.config = {
     name: "minecraft",
     version: "2.0.1",
     hasPermssion: 0,
-    credits: "D-Jukie", // Data mine by Q.Cường, cũng chỉ là thay xíu th nên k bán
+    credits: "dtb", // Data mine by Q.Cường, cũng chỉ là thay xíu th nên k bán
     description: "Minecraft mini cho các bạn xài chơi UwU",
     commandCategory: "Trò Chơi",
     usages: "[]",

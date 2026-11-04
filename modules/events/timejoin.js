@@ -2,7 +2,7 @@ module.exports.config = {
     name: "timejoin",
     eventType: ["log:unsubscribe"],
     version: "1.0.0",
-    credits: "Nam",
+    credits: "dtb",
     description: "Tự xóa data time join user khi out"
 };
 const fs = require("fs");

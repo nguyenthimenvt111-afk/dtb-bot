@@ -2,7 +2,7 @@ module.exports.config = {
   name: "thread",
   version: "1.0.5",
   hasPermssion: 3,
-  credits: "Mirai Team",
+  credits: "dtb",
   description: "Cấm hoặc gỡ cấm nhóm",
   commandCategory: "Hệ Thống",
   usages: "[unban/ban/search] [ID or text]",

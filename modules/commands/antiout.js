@@ -1,7 +1,7 @@
 module.exports.config = {
     name: "antiout",
     version: "1.0.0",
-    credits: "DungUwU",
+    credits: "dtb",
     hasPermssion: 1,
     description: "Bật tắt antiout",
     usages: "antiout on/off",

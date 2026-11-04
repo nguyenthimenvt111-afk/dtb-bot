@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "sleep",
 	version: "1.0.1",
 	hasPermssion: 0,
-	credits: "Mirai Team",
+	credits: "dtb",
 	description: "Tính thời gian đi ngủ hoàn hảo cho bạn",
 	commandCategory: "Công cụ",
 	usages: "[Time]",

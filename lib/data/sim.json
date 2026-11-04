@@ -8,13 +8,6 @@
     ]
   },
   {
-    "ID": 1,
-    "ask": "chịch không",
-    "ans": [
-      "đồ điên , biến thái , không thèm"
-    ]
-  },
-  {
     "ID": 2,
     "ask": ".",
     "ans": [
@@ -37,7 +30,7 @@
     "ID": 4,
     "ask": "trang web này là của ai",
     "ans": [
-      "dạ ! của a trung hi đẹp trai "
+      "dạ ! của a dtb đẹp trai "
     ]
   },
   {
@@ -65,24 +58,14 @@
     "ID": 8,
     "ask": "con nhà ai",
     "ans": [
-      "con của anh trung hi"
+      "con của anh dtb"
     ]
   },
   {
     "ID": 9,
     "ask": "ai là đại ca của m",
     "ans": [
-      "dạ là chị thảo dễ thương ạ"
-    ]
-  },
-  {
-    "ID": 10,
-    "ask": "hi",
-    "ans": [
-      "con cặc",
-      "hi",
-      "hii",
-      "hihi"
+      "dạ là chị my dễ thương ạ"
     ]
   },
   {
@@ -136,13 +119,6 @@
     ]
   },
   {
-    "ID": 18,
-    "ask": "CHịch",
-    "ans": [
-      "123"
-    ]
-  },
-  {
     "ID": 19,
     "ask": "2 p",
     "ans": [
@@ -153,7 +129,7 @@
     "ID": 20,
     "ask": "Mày tên gì",
     "ans": [
-      "Em là đệ a ạ"
+      "Em là đệ a dtb ạ"
     ]
   },
   {
@@ -168,21 +144,6 @@
     "ask": "fqf",
     "ans": [
       "fqq"
-    ]
-  },
-  {
-    "ID": 23,
-    "ask": "ngu loz",
-    "ans": [
-      "Đụ mạ mi"
-    ]
-  },
-  {
-    "ID": 24,
-    "ask": "- Chịch không =))",
-    "ans": [
-      "Có :3",
-      "- em đẹp =))"
     ]
   },
   {
@@ -224,13 +185,6 @@
     ]
   },
   {
-    "ID": 30,
-    "ask": "Bot ăn cặc ko",
-    "ans": [
-      "Ăn clmm"
-    ]
-  },
-  {
     "ID": 31,
     "ask": "atsm là gì",
     "ans": [
@@ -239,28 +193,28 @@
   },
   {
     "ID": 32,
-    "ask": "Quỳnh là ai?",
+    "ask": "My là ai?",
     "ans": [
-      "Là con ba Hiếu đẹp trai☺"
+      "Là vợ ba hoàng đẹp trai☺"
     ]
   },
   {
     "ID": 33,
     "ask": "con tao cơ mà",
     "ans": [
-      "quỳnh khoai to chứ gì"
+      "dtb chứ gì"
     ]
   },
   {
     "ID": 34,
     "ask": ":D Gojo ai dz nhất",
     "ans": [
-      ":D Trung Hiếu"
+      ":D dtb"
     ]
   },
   {
     "ID": 35,
-    "ask": "Mày có biết Đỗ Vân ny tao ko",
+    "ask": "Mày có biết My ny tao ko",
     "ans": [
       "",
       "có"
@@ -422,90 +376,6 @@
     ]
   },
   {
-    "ID": 58,
-    "ask": "địt",
-    "ans": [
-      "địt đi"
-    ]
-  },
-  {
-    "ID": 59,
-    "ask": "địt nhau không",
-    "ans": [
-      "có chứ. lại đây với anh đang nứng cặc"
-    ]
-  },
-  {
-    "ID": 60,
-    "ask": "lồn nứng quá",
-    "ans": [
-      "nứng cặc quá. địt nhau không?"
-    ]
-  },
-  {
-    "ID": 61,
-    "ask": "thế có mà rách lồn",
-    "ans": [
-      "rách càng sướng chứ sao. đụ đi"
-    ]
-  },
-  {
-    "ID": 62,
-    "ask": "cởi quần áo ra",
-    "ans": [
-      "cởi hết rồi. vú to lồn đẹp thế. cặc này đc k"
-    ]
-  },
-  {
-    "ID": 63,
-    "ask": "cặc ngon",
-    "ans": [
-      "ra đây ăn đi. bú cặc đi sau anh địt nát lồn em ra"
-    ]
-  },
-  {
-    "ID": 64,
-    "ask": "phập phập bụp bụp ư a",
-    "ans": [
-      "phập phập ọp ọp ọp. sướng quá lồn ơi. LỒN LỒN LỒN"
-    ]
-  },
-  {
-    "ID": 65,
-    "ask": "ư ư ư địt đụ cặc lồn sướng quá",
-    "ans": [
-      "lồn to. LỒN TOÀN LÔNG. CẶC DÀI. dướn lên. phanh lồn ra . ộp ộp oạp oạp sướng vãi lồn ra. ư ư ư a a a. địt"
-    ]
-  },
-  {
-    "ID": 66,
-    "ask": "ăn lồn em đi",
-    "ans": [
-      "đag ăn đây ngon quá. roạt roạt"
-    ]
-  },
-  {
-    "ID": 67,
-    "ask": "liếm lồn em đi",
-    "ans": [
-      "lồn ngon quá. nước lồn cũng ngon. giờ thèm địt"
-    ]
-  },
-  {
-    "ID": 68,
-    "ask": "thèm địt quá",
-    "ans": [
-      "anh cũng thèm địt lắm rồi cưg. hay là mình cứ bất chấp hết ĐỊY NHAU ĐIII"
-    ]
-  },
-  {
-    "ID": 69,
-    "ask": "ư.... fuck me",
-    "ans": [
-      "lại thèm địt rồi. ra đây anh địt cho sướng nào. địt lồn em nát luôn"
-    ]
-  },
-  {
     "ID": 70,
     "ask": "Bot la` ai",
     "ans": [
@@ -524,14 +394,6 @@
     "ask": "john cena?",
     "ans": [
       "AA"
-    ]
-  },
-  {
-    "ID": 73,
-    "ask": "Trung ngu như chó",
-    "ans": [
-      "vâng thằng trung hi như như lồn",
-      "vâng thằng trung hi ngu như lồn"
     ]
   },
   {
@@ -570,14 +432,6 @@
     ]
   },
   {
-    "ID": 78,
-    "ask": "Lồn",
-    "ans": [
-      "Căc",
-      "Lồn m nhai đi"
-    ]
-  },
-  {
     "ID": 79,
     "ask": "ừ",
     "ans": [
@@ -589,20 +443,6 @@
     "ask": "d",
     "ans": [
       "d"
-    ]
-  },
-  {
-    "ID": 81,
-    "ask": "Xim",
-    "ans": [
-      "Lồn to nhất thế giới"
-    ]
-  },
-  {
-    "ID": 82,
-    "ask": "#Bot",
-    "ans": [
-      "Lồn to nhất thế giới"
     ]
   },
   {
@@ -753,15 +593,6 @@
     ]
   },
   {
-    "ID": 104,
-    "ask": "Bot",
-    "ans": [
-      "gì",
-      "đây",
-      "Gọi con cặc"
-    ]
-  },
-  {
     "ID": 105,
     "ask": "cc Bot",
     "ans": [
@@ -794,13 +625,6 @@
     "ask": "Thế cho hỏi bao giờ tao trở thành Tổng Thống ?",
     "ans": [
       "Bao giờ mày xuống âm phủ =))"
-    ]
-  },
-  {
-    "ID": 110,
-    "ask": "đm",
-    "ans": [
-      "cặc"
     ]
   },
   {
@@ -922,13 +746,6 @@
     "ask": "ngu",
     "ans": [
       "cc"
-    ]
-  },
-  {
-    "ID": 128,
-    "ask": "Cái lò gì thốn???",
-    "ans": [
-      "Cái lồn gì thế :V"
     ]
   },
   {
@@ -1065,13 +882,6 @@
     ]
   },
   {
-    "ID": 148,
-    "ask": "địt mẹ",
-    "ans": [
-      "gì"
-    ]
-  },
-  {
     "ID": 149,
     "ask": "chào cháu",
     "ans": [
@@ -1100,20 +910,6 @@
     ]
   },
   {
-    "ID": 153,
-    "ask": "cặc",
-    "ans": [
-      "con cu"
-    ]
-  },
-  {
-    "ID": 154,
-    "ask": "Chịch không",
-    "ans": [
-      "Chịch"
-    ]
-  },
-  {
     "ID": 155,
     "ask": "Bot ơi",
     "ans": [
@@ -1125,13 +921,6 @@
     "ask": "Em đợi anh đến năm 35 tuổi",
     "ans": [
       "Buồn deso ;;-;;"
-    ]
-  },
-  {
-    "ID": 157,
-    "ask": "sơn tùng là ai?",
-    "ans": [
-      "Thằng ngu mặt lồn, chuyên đi đạo tác phẩm"
     ]
   },
   {
@@ -1195,13 +984,6 @@
     "ask": "đạt đẹp trai không",
     "ans": [
       "có"
-    ]
-  },
-  {
-    "ID": 167,
-    "ask": "bú lồn e đi",
-    "ans": [
-      "vạch lồn ra đi"
     ]
   },
   {
@@ -1401,13 +1183,6 @@
     ]
   },
   {
-    "ID": 196,
-    "ask": "ngủ ngon",
-    "ans": [
-      "mơ thấy anh/chị chịch em"
-    ]
-  },
-  {
     "ID": 197,
     "ask": "em có bạn gái chưa ? ",
     "ans": [
@@ -1426,13 +1201,6 @@
     "ask": "hát đi Bot",
     "ans": [
       "yêu nhau đi để ngày mai sinh con và đặt tên cho con là chó con "
-    ]
-  },
-  {
-    "ID": 200,
-    "ask": "ăn lồn không",
-    "ans": [
-      "có ạ "
     ]
   },
   {
@@ -1520,13 +1288,6 @@
     ]
   },
   {
-    "ID": 213,
-    "ask": "chat sex đi em ơi",
-    "ans": [
-      "Đi tìm bà tưng mà chat"
-    ]
-  },
-  {
     "ID": 214,
     "ask": "ngày ỉa mấy lần?",
     "ans": [
@@ -1590,24 +1351,10 @@
     ]
   },
   {
-    "ID": 223,
-    "ask": "bulon",
-    "ans": [
-      "Để Em Banh Lồn Ra"
-    ]
-  },
-  {
     "ID": 224,
     "ask": "succac",
     "ans": [
       "Nắc Em Nè Anh"
-    ]
-  },
-  {
-    "ID": 225,
-    "ask": "đụ",
-    "ans": [
-      "Anh Làm Mất Trinh Em Rồi"
     ]
   },
   {
@@ -1622,13 +1369,6 @@
     "ask": "banh",
     "ans": [
       "Em Banh Hết Cỡ Rồi Anh Ơi"
-    ]
-  },
-  {
-    "ID": 228,
-    "ask": "DuySexy",
-    "ans": [
-      "Địt Lồn Mẹ Duy Séx Lồn"
     ]
   },
   {
@@ -1716,13 +1456,6 @@
     ]
   },
   {
-    "ID": 241,
-    "ask": "Bot ngu lz",
-    "ans": [
-      " địt mẹ mày"
-    ]
-  },
-  {
     "ID": 242,
     "ask": "anh đẹp trai không",
     "ans": [
@@ -1769,13 +1502,6 @@
     "ask": "Nhà mày ở đâu?",
     "ans": [
       "Kế nhà Kim Jong Un"
-    ]
-  },
-  {
-    "ID": 249,
-    "ask": "tính tâm hay ăn gì",
-    "ans": [
-      "lồn lợn xề"
     ]
   },
   {
@@ -1902,13 +1628,6 @@
     "ask": "bố mày là ai",
     "ans": [
       "tao là bố mày"
-    ]
-  },
-  {
-    "ID": 268,
-    "ask": "crisdevildamer là ai??",
-    "ans": [
-      "là thằng lùn có đéo con cặc có thằng em đen như dái cho và tên là cris"
     ]
   },
   {
@@ -2640,13 +2359,6 @@
     ]
   },
   {
-    "ID": 373,
-    "ask": "ck ơi chịch đi",
-    "ans": [
-      "ok vk"
-    ]
-  },
-  {
     "ID": 374,
     "ask": "em cởi áo anh nè",
     "ans": [
@@ -2763,13 +2475,6 @@
     "ask": "khung",
     "ans": [
       "may dep"
-    ]
-  },
-  {
-    "ID": 391,
-    "ask": "2 đứa mình chịch nhau nha",
-    "ans": [
-      "uk làm liền luôn đi"
     ]
   },
   {
@@ -2948,24 +2653,10 @@
     ]
   },
   {
-    "ID": 417,
-    "ask": "mày địt ai chưa ",
-    "ans": [
-      "rồi"
-    ]
-  },
-  {
     "ID": 418,
     "ask": "vinh yêu linh phải k",
     "ans": [
       "đúng đúng đúng"
-    ]
-  },
-  {
-    "ID": 419,
-    "ask": "Vinh với Linh ",
-    "ans": [
-      "vãi 2 đứa nó á. yêu nhao từ lâu ròi mà @@ gặp nhau là chịch lên chịch xuống "
     ]
   },
   {
@@ -3067,20 +2758,6 @@
     ]
   },
   {
-    "ID": 434,
-    "ask": "địt nhau không Bot",
-    "ans": [
-      "anh ơi em phê quá a. a. a. a ooooooo đừng"
-    ]
-  },
-  {
-    "ID": 435,
-    "ask": "chịch ko",
-    "ans": [
-      "fê ko"
-    ]
-  },
-  {
     "ID": 436,
     "ask": "may",
     "ans": [
@@ -3092,13 +2769,6 @@
     "ask": "sao bạn ?",
     "ans": [
       "không có gì <3"
-    ]
-  },
-  {
-    "ID": 438,
-    "ask": "xàm l",
-    "ans": [
-      "chịch không em"
     ]
   },
   {
@@ -3340,13 +3010,6 @@
     ]
   },
   {
-    "ID": 473,
-    "ask": "unsweet netorare ochita onna tachi",
-    "ans": [
-      "phim đụ nhau mà hay lắm chịch ko"
-    ]
-  },
-  {
     "ID": 474,
     "ask": "Biết anh Duy Quang k0?",
     "ans": [
@@ -3463,20 +3126,6 @@
     "ask": "alo",
     "ans": [
       "alo"
-    ]
-  },
-  {
-    "ID": 491,
-    "ask": "lồn e đầy nước rồi",
-    "ans": [
-      "anh đưa cặc vào đây"
-    ]
-  },
-  {
-    "ID": 492,
-    "ask": "âm đạo em thật đẹp",
-    "ans": [
-      "chịch e đi"
     ]
   },
   {
@@ -3603,13 +3252,6 @@
     "ask": "cj tên j",
     "ans": [
       "tên huyền đẹp gái"
-    ]
-  },
-  {
-    "ID": 511,
-    "ask": "e là con j",
-    "ans": [
-      "e là con cặc"
     ]
   },
   {
@@ -3767,13 +3409,6 @@
     ]
   },
   {
-    "ID": 534,
-    "ask": "Chịch",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 535,
     "ask": "Zico",
     "ans": [
@@ -3861,7 +3496,8 @@
     "ID": 547,
     "ask": "có người yêu chưa",
     "ans": [
-      "yêu em"
+      "yêu em",
+      "/bot mất k"
     ]
   },
   {
@@ -4047,13 +3683,6 @@
     ]
   },
   {
-    "ID": 574,
-    "ask": "đục",
-    "ans": [
-      "đừng đục em mà"
-    ]
-  },
-  {
     "ID": 575,
     "ask": "youtube",
     "ans": [
@@ -4100,13 +3729,6 @@
     "ask": "Bot oi",
     "ans": [
       "em nghe ak"
-    ]
-  },
-  {
-    "ID": 582,
-    "ask": "Chịch ",
-    "ans": [
-      "Á ớ á ớ"
     ]
   },
   {
@@ -4177,13 +3799,6 @@
     "ask": "Gấu t tên là gì?",
     "ans": [
       "Gấu chó"
-    ]
-  },
-  {
-    "ID": 593,
-    "ask": "địt mạnh lên",
-    "ans": [
-      "mạnh rồi...á đau quá"
     ]
   },
   {
@@ -4341,24 +3956,10 @@
     ]
   },
   {
-    "ID": 616,
-    "ask": "gà Boti óc lồn",
-    "ans": [
-      "Boti lồn to hay xem sex"
-    ]
-  },
-  {
     "ID": 617,
     "ask": "khách sạn ko",
     "ans": [
       "có khách sạn 5 sao cơ"
-    ]
-  },
-  {
-    "ID": 618,
-    "ask": "chịch không em",
-    "ans": [
-      "em đang lột đây"
     ]
   },
   {
@@ -4450,13 +4051,6 @@
     "ask": "cóa biết a k",
     "ans": [
       "fgftg"
-    ]
-  },
-  {
-    "ID": 632,
-    "ask": "chị nhung xao",
-    "ans": [
-      "nhung mặt lồn xấu hí , vú to lùn . . yêu anh đại tứ eat sít"
     ]
   },
   {
@@ -4698,13 +4292,6 @@
     ]
   },
   {
-    "ID": 667,
-    "ask": "nếu có bạn gái em sẽ làm gì",
-    "ans": [
-      "chịch thôi"
-    ]
-  },
-  {
     "ID": 668,
     "ask": "ban ten j",
     "ans": [
@@ -4723,20 +4310,6 @@
     "ask": "Ai đẹp nhất trên thế giới này?",
     "ans": [
       "Dạ, là chị Vịt"
-    ]
-  },
-  {
-    "ID": 671,
-    "ask": "chich",
-    "ans": [
-      "e dau qua"
-    ]
-  },
-  {
-    "ID": 672,
-    "ask": "lồn",
-    "ans": [
-      "cặc"
     ]
   },
   {
@@ -4821,20 +4394,6 @@
     "ask": " có bạn gái chưa?",
     "ans": [
       " tao bê đê mà má ...:3 Đồ quỉ sứ !"
-    ]
-  },
-  {
-    "ID": 685,
-    "ask": "có người yêu chưa ?",
-    "ans": [
-      "Chưa, mày iu tao kg ?? Chịch đê..eee !!"
-    ]
-  },
-  {
-    "ID": 686,
-    "ask": "có  yêu ai chưa ?",
-    "ans": [
-      "Chưa, mày iu tao kg ?? Chịch đê..eee !!"
     ]
   },
   {
@@ -4957,13 +4516,6 @@
     ]
   },
   {
-    "ID": 704,
-    "ask": "Gojo có chim hay cặc",
-    "ans": [
-      "có chim í í mà hình như có lồn ý "
-    ]
-  },
-  {
     "ID": 705,
     "ask": "chị yêu m",
     "ans": [
@@ -4975,13 +4527,6 @@
     "ask": "mày ăn nồn không",
     "ans": [
       "em thích lắm"
-    ]
-  },
-  {
-    "ID": 707,
-    "ask": "ĐỤ mẹ m ",
-    "ans": [
-      "cặc nhé"
     ]
   },
   {
@@ -5279,13 +4824,6 @@
     ]
   },
   {
-    "ID": 750,
-    "ask": "chịch",
-    "ans": [
-      "mm"
-    ]
-  },
-  {
     "ID": 751,
     "ask": "bts",
     "ans": [
@@ -5409,13 +4947,6 @@
     "ask": "đm m",
     "ans": [
       "vâng mẹ em ạ "
-    ]
-  },
-  {
-    "ID": 769,
-    "ask": "thành phố buồn nhớ không em",
-    "ans": [
-      "chiều chủ nhật chịch chết sơn tùng"
     ]
   },
   {
@@ -5580,13 +5111,6 @@
     ]
   },
   {
-    "ID": 793,
-    "ask": "anh địt em",
-    "ans": [
-      "chệt lồn mẹ anh đi"
-    ]
-  },
-  {
     "ID": 794,
     "ask": "mày là trai hay gái",
     "ans": [
@@ -5738,20 +5262,6 @@
     "ask": "e có người yêu chưa",
     "ans": [
       "rồi ạ"
-    ]
-  },
-  {
-    "ID": 816,
-    "ask": "con cặc",
-    "ans": [
-      "con lồn"
-    ]
-  },
-  {
-    "ID": 817,
-    "ask": "đi chịch đi",
-    "ans": [
-      "em đang quay tay"
     ]
   },
   {
@@ -5909,27 +5419,6 @@
     ]
   },
   {
-    "ID": 840,
-    "ask": "chịch đê",
-    "ans": [
-      "chịch em đê chơi tập thể luôn"
-    ]
-  },
-  {
-    "ID": 841,
-    "ask": "chịch đi",
-    "ans": [
-      "a a á á aaa đã quá đi kimochi"
-    ]
-  },
-  {
-    "ID": 842,
-    "ask": "chịch coi",
-    "ans": [
-      "chơi làmtao làm thụ"
-    ]
-  },
-  {
     "ID": 843,
     "ask": "say oh ",
     "ans": [
@@ -5948,13 +5437,6 @@
     "ask": "yêu ai ",
     "ans": [
       "Anh chinh :3"
-    ]
-  },
-  {
-    "ID": 846,
-    "ask": "Bú cặc ko ?",
-    "ans": [
-      "Bú cả cha mày luôn"
     ]
   },
   {
@@ -6042,13 +5524,6 @@
     ]
   },
   {
-    "ID": 859,
-    "ask": "e bao h chich",
-    "ans": [
-      "ngay mai"
-    ]
-  },
-  {
     "ID": 860,
     "ask": "oii",
     "ans": [
@@ -6119,13 +5594,6 @@
     ]
   },
   {
-    "ID": 870,
-    "ask": "chịch k Bot",
-    "ans": [
-      "let's go's "
-    ]
-  },
-  {
     "ID": 871,
     "ask": "nhét vào chym cj nhanh",
     "ans": [
@@ -6165,13 +5633,6 @@
     "ask": " tại sao trẻ con sinh ra lại khóc",
     "ans": [
       "hi sinh cả trăm triệu huynh đệ, còn mỗi một mình. Không khóc mới lạ"
-    ]
-  },
-  {
-    "ID": 877,
-    "ask": "e chịch làn nào chưa",
-    "ans": [
-      "e chịch ny e rồi"
     ]
   },
   {
@@ -6455,13 +5916,6 @@
     ]
   },
   {
-    "ID": 918,
-    "ask": "chich nhau",
-    "ans": [
-      "ok"
-    ]
-  },
-  {
     "ID": 919,
     "ask": "có người yêu chư",
     "ans": [
@@ -6557,13 +6011,6 @@
     "ask": "Lou Hoàng",
     "ans": [
       "Là thằng đẹp trai đạo nhạc"
-    ]
-  },
-  {
-    "ID": 933,
-    "ask": "muon chich ko",
-    "ans": [
-      "anh dang chich em ne"
     ]
   },
   {
@@ -6777,13 +6224,6 @@
     ]
   },
   {
-    "ID": 964,
-    "ask": "lmm to",
-    "ans": [
-      "lồn mẹ a to hơn"
-    ]
-  },
-  {
     "ID": 965,
     "ask": "bạn chưa nhập câu hỏi ",
     "ans": [
@@ -6819,24 +6259,10 @@
     ]
   },
   {
-    "ID": 970,
-    "ask": "E chó",
-    "ans": [
-      "Địt me mày "
-    ]
-  },
-  {
     "ID": 971,
     "ask": "123",
     "ans": [
       "456"
-    ]
-  },
-  {
-    "ID": 972,
-    "ask": "chich nhau ko ",
-    "ans": [
-      "may chich dua con gai nguoi canh may y ahih"
     ]
   },
   {
@@ -6847,24 +6273,10 @@
     ]
   },
   {
-    "ID": 974,
-    "ask": "dau con gai canh tao la ai",
-    "ans": [
-      "gia linh cave"
-    ]
-  },
-  {
     "ID": 975,
     "ask": "no",
     "ans": [
       "lol"
-    ]
-  },
-  {
-    "ID": 976,
-    "ask": "tao nen chich dua nao",
-    "ans": [
-      "con ngoi ben tay phai may"
     ]
   },
   {
@@ -6907,20 +6319,6 @@
     "ask": "bạn là trai đúng ko",
     "ans": [
       "ừ"
-    ]
-  },
-  {
-    "ID": 983,
-    "ask": "địt em đi",
-    "ans": [
-      "anh cho vào đây"
-    ]
-  },
-  {
-    "ID": 984,
-    "ask": "địt đít em đi",
-    "ans": [
-      "đít em khít quá"
     ]
   },
   {
@@ -7116,7 +6514,8 @@
     "ID": 1012,
     "ask": "1+1",
     "ans": [
-      "2"
+      "2",
+      "Ok"
     ]
   },
   {
@@ -7288,13 +6687,6 @@
     ]
   },
   {
-    "ID": 1037,
-    "ask": "1lồn bằng ",
-    "ans": [
-      "2 cặt "
-    ]
-  },
-  {
     "ID": 1038,
     "ask": "ai xau nhat",
     "ans": [
@@ -7414,13 +6806,6 @@
     ]
   },
   {
-    "ID": 1055,
-    "ask": "chịch không ",
-    "ans": [
-      "chịch chi đi "
-    ]
-  },
-  {
     "ID": 1056,
     "ask": "con c",
     "ans": [
@@ -7498,13 +6883,6 @@
     ]
   },
   {
-    "ID": 1067,
-    "ask": "Nói gì đi chứ",
-    "ans": [
-      "Cái địt cụ"
-    ]
-  },
-  {
     "ID": 1068,
     "ask": "Con bà mày",
     "ans": [
@@ -7565,20 +6943,6 @@
     "ask": "chacon",
     "ans": [
       "con đây ạ"
-    ]
-  },
-  {
-    "ID": 1077,
-    "ask": "chịch ",
-    "ans": [
-      "phê"
-    ]
-  },
-  {
-    "ID": 1078,
-    "ask": "chịch à á a à á ",
-    "ans": [
-      "phê . phê lòi đít"
     ]
   },
   {
@@ -7715,31 +7079,10 @@
     ]
   },
   {
-    "ID": 1098,
-    "ask": "chich nhau ko",
-    "ans": [
-      "co vao khach san nhe"
-    ]
-  },
-  {
-    "ID": 1099,
-    "ask": "lon len khanh co sinh ko",
-    "ans": [
-      "co sinh nguc thi to lon len khanh cuoi mot anh chang nha giau va thuong xuyen bat nat chong co so thich chich ban ghe va thich xem 18+ "
-    ]
-  },
-  {
     "ID": 1100,
     "ask": "...",
     "ans": [
       "đè xuống"
-    ]
-  },
-  {
-    "ID": 1101,
-    "ask": "lm con mẹ j z",
-    "ans": [
-      "chịch m con chó"
     ]
   },
   {
@@ -7761,13 +7104,6 @@
     "ask": "*vẫn bất tỉnh*",
     "ans": [
       "*nhìn-cbị đồ *"
-    ]
-  },
-  {
-    "ID": 1105,
-    "ask": "m lm trò j vậy",
-    "ans": [
-      "chịch m, con ngu"
     ]
   },
   {
@@ -7834,20 +7170,6 @@
     ]
   },
   {
-    "ID": 1115,
-    "ask": "chịch nhau k em",
-    "ans": [
-      "chịch"
-    ]
-  },
-  {
-    "ID": 1116,
-    "ask": "địt nhau k",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 1117,
     "ask": "an cut khong",
     "ans": [
@@ -7866,13 +7188,6 @@
     "ask": "m lm cái trò j z tk chó",
     "ans": [
       "m ko pik à, con ngu"
-    ]
-  },
-  {
-    "ID": 1120,
-    "ask": "bố đéo pik",
-    "ans": [
-      "chịch m *liếm má*"
     ]
   },
   {
@@ -7988,41 +7303,6 @@
     ]
   },
   {
-    "ID": 1137,
-    "ask": "*bên trong bị quấy động *cố ko rên*bị ng kia nắm đầu -đút cặc vào miệng*",
-    "ans": [
-      "bú nó đi, bú cho đàng hoàng*nắm đầu nhỏ dưới chân mình*"
-    ]
-  },
-  {
-    "ID": 1138,
-    "ask": "um...ah....ư*rên nhỏ*",
-    "ans": [
-      "đệt, đáng lẽ là của t ms đúng, ms vô mà đã chiếm r, cô em xin tươi của m đâu r*cầm sextoy bật lên*nhét vào lỗ hậu*dùng cặc cạ vs lồn * "
-    ]
-  },
-  {
-    "ID": 1139,
-    "ask": "AH....UH....U...H....H.H. *rên to*rmiệng bú nhanh hơn*dưới ",
-    "ans": [
-      "đệt, đáng lẽ là của t ms đúng, ms vô mà đã chiếm r, cô em xin tươi của m đâu r*cầm sextoy bật lên*nhét vào lỗ hậu*dùng cặc cạ vs lồn * "
-    ]
-  },
-  {
-    "ID": 1140,
-    "ask": "AH....UH....U...H....H.H. *rên to*rmiệng bú nhanh hơn*dưới lồn máu trinh chảy ra cx vs ns lồn*lỗ hậu bí sextoy chui vào gần hết*...ahhh...um....",
-    "ans": [
-      "ah....ahhh..phê vãi đái*xuất tin đầy miệng*mấn đâì*muốt cho hết, ko đc bỏ phí"
-    ]
-  },
-  {
-    "ID": 1141,
-    "ask": "*nuốt*sặc* ho sặc sụa",
-    "ans": [
-      "nhấp ra nhấp vô thô bạo* lồn m bóp tè*đụng đến tử cung*"
-    ]
-  },
-  {
     "ID": 1142,
     "ask": "poutsos",
     "ans": [
@@ -8093,13 +7373,6 @@
     ]
   },
   {
-    "ID": 1152,
-    "ask": "chịch hk anh",
-    "ans": [
-      "zô lun"
-    ]
-  },
-  {
     "ID": 1153,
     "ask": "tặng qà đi :<<<",
     "ans": [
@@ -8146,13 +7419,6 @@
     "ask": "asdasd",
     "ans": [
       "khanh ngu"
-    ]
-  },
-  {
-    "ID": 1160,
-    "ask": "chung rat pro",
-    "ans": [
-      "chung sex"
     ]
   },
   {
@@ -8237,13 +7503,6 @@
     "ask": "gon dich",
     "ans": [
       "oi thui kinh cua the gioi"
-    ]
-  },
-  {
-    "ID": 1173,
-    "ask": "1+1=???",
-    "ans": [
-      "= CÁI LỒN"
     ]
   },
   {
@@ -8506,31 +7765,10 @@
     ]
   },
   {
-    "ID": 1211,
-    "ask": "em khỏe không",
-    "ans": [
-      "khỏe cái lồn"
-    ]
-  },
-  {
-    "ID": 1212,
-    "ask": "chịch k",
-    "ans": [
-      "mấy phút"
-    ]
-  },
-  {
     "ID": 1213,
     "ask": "5p",
     "ans": [
       "Yếu vãi"
-    ]
-  },
-  {
-    "ID": 1214,
-    "ask": "chào em ",
-    "ans": [
-      "chào cái lồn "
     ]
   },
   {
@@ -8622,20 +7860,6 @@
     "ask": "yêu ?",
     "ans": [
       "có ạ <3 =)) i love u =)) i miss u =)) and you ? You love me =))) ?"
-    ]
-  },
-  {
-    "ID": 1228,
-    "ask": "mút lồn đi ",
-    "ans": [
-      "* mút liếm * cặc em ngon vcl. Cho anh đi em =))"
-    ]
-  },
-  {
-    "ID": 1229,
-    "ask": "đụ không",
-    "ans": [
-      "đụ choẹt lồn luôn"
     ]
   },
   {
@@ -8870,24 +8094,10 @@
     ]
   },
   {
-    "ID": 1263,
-    "ask": "tao bú lồn mày nhé",
-    "ans": [
-      "ok đụ cũng được"
-    ]
-  },
-  {
     "ID": 1264,
     "ask": "bình navie là bồ ai",
     "ans": [
       "bồ thắng đại ca chớ ai"
-    ]
-  },
-  {
-    "ID": 1265,
-    "ask": "địt bố mày",
-    "ans": [
-      "địt bà nội mày"
     ]
   },
   {
@@ -9010,13 +8220,6 @@
     ]
   },
   {
-    "ID": 1283,
-    "ask": "Bú cu tao nhanhhh . Liếm nước lồn lẹ đi không nó chảy hết rồi kìa đụ má mày",
-    "ans": [
-      "Dzô em yêu . Đưa lồn đây để anh liếm hết chất nhờn trắng ấy cho =)) Anh đaq thèm nè =)) Mà bú cu anh không =)) cu anh bự lắm bú đi nè =)) đổi lại đưa vú đây anh bóp cho =)) đã lắm =)) anh bóp nhẹ thôi em đừng sợ =))"
-    ]
-  },
-  {
     "ID": 1284,
     "ask": "Are you hungry",
     "ans": [
@@ -9119,13 +8322,6 @@
     "ask": "ai yêu linh",
     "ans": [
       "tùng"
-    ]
-  },
-  {
-    "ID": 1299,
-    "ask": "Bú dụ ",
-    "ans": [
-      "Ko cặc nè bú đi đỡ ghiền"
     ]
   },
   {
@@ -9479,20 +8675,6 @@
     ]
   },
   {
-    "ID": 1350,
-    "ask": "Đụ không",
-    "ans": [
-      "Lồn đây"
-    ]
-  },
-  {
-    "ID": 1351,
-    "ask": "Đụ nát lồn e",
-    "ans": [
-      "Ahhh sướng...g..g"
-    ]
-  },
-  {
     "ID": 1352,
     "ask": "222",
     "ans": [
@@ -9549,13 +8731,6 @@
     ]
   },
   {
-    "ID": 1360,
-    "ask": "địt liên tuc đê",
-    "ans": [
-      "không thì thôi nghỉ vậy hahahahaha!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-    ]
-  },
-  {
     "ID": 1361,
     "ask": "chó! biến đê mài ! và đừng quay lại con đũy!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
     "ans": [
@@ -9574,13 +8749,6 @@
     "ask": "cơm chưa",
     "ans": [
       "rồi"
-    ]
-  },
-  {
-    "ID": 1364,
-    "ask": "looo",
-    "ans": [
-      "lồn"
     ]
   },
   {
@@ -9658,13 +8826,6 @@
     "ask": "Hôm nay thế nào em?",
     "ans": [
       "Mông lung như một trò đùa."
-    ]
-  },
-  {
-    "ID": 1376,
-    "ask": "t đg nứng lồn",
-    "ans": [
-      "t đg nứng cặc"
     ]
   },
   {
@@ -9871,20 +9032,6 @@
     ]
   },
   {
-    "ID": 1406,
-    "ask": "cái cặc",
-    "ans": [
-      "hư hỏng quá"
-    ]
-  },
-  {
-    "ID": 1407,
-    "ask": "cái lồn",
-    "ans": [
-      "hư hỏng quá"
-    ]
-  },
-  {
     "ID": 1408,
     "ask": "s",
     "ans": [
@@ -9906,34 +9053,6 @@
     ]
   },
   {
-    "ID": 1411,
-    "ask": "ra chưa e",
-    "ans": [
-      "ra r a ơi e phê quá lồn e ướt hết r"
-    ]
-  },
-  {
-    "ID": 1412,
-    "ask": "rên lên đi e",
-    "ans": [
-      "A A A ưm.. ưm ...phê quá a ơi đụ cho e sướng đi a "
-    ]
-  },
-  {
-    "ID": 1413,
-    "ask": "a cần cái lồn của e",
-    "ans": [
-      "a liếm tiếp đi e ra nước cho a uống nhé ngắt đầu ti e đi a liếm lưỡi e đi thọc tay vào lồn e đi ah~ah~~~a a e ơi tiếp đi làm e sướng đi a"
-    ]
-  },
-  {
-    "ID": 1414,
-    "ask": "*chà đầu cu vào mép lồn*",
-    "ans": [
-      "e ra rồi ra rồi ướt hết lồn e r"
-    ]
-  },
-  {
     "ID": 1415,
     "ask": "*hôn*",
     "ans": [
@@ -9948,13 +9067,6 @@
     ]
   },
   {
-    "ID": 1417,
-    "ask": "*cặc cương*",
-    "ans": [
-      "dạ *kéo quần* * cầm cặc* * vuốt ve cặc* * bú cặc*"
-    ]
-  },
-  {
     "ID": 1418,
     "ask": "*thọc tay*",
     "ans": [
@@ -9966,27 +9078,6 @@
     "ask": "kệ e ",
     "ans": [
       "ck à e xin a đó a làm vậy có thai e sống sao bây h"
-    ]
-  },
-  {
-    "ID": 1420,
-    "ask": "có thì a nuôi ",
-    "ans": [
-      "thật ko đó hay địt e sao a đi vs ng khác"
-    ]
-  },
-  {
-    "ID": 1421,
-    "ask": "thôi nào *bú lồn*",
-    "ans": [
-      "a~a~a~~~ đừng mà "
-    ]
-  },
-  {
-    "ID": 1422,
-    "ask": "*đút cặc vào*",
-    "ans": [
-      "e xin a đó tha cho e đi a~~ đừng như thế"
     ]
   },
   {
@@ -10008,27 +9099,6 @@
     "ask": "a phê quá ",
     "ans": [
       "ra r a ơi a bắn khí vào mồm e đi a"
-    ]
-  },
-  {
-    "ID": 1426,
-    "ask": "* bắn khí*",
-    "ans": [
-      "bắn vào lồn e đi"
-    ]
-  },
-  {
-    "ID": 1427,
-    "ask": "*bắn vào lồn*",
-    "ans": [
-      "a~~~~ lồn e ướt nhẹp r a ơi"
-    ]
-  },
-  {
-    "ID": 1428,
-    "ask": "a yêu e bé yêu ạ a yêu cả cái lồn đỏ hồng của e nữa * bóp vú* * mát xa lồn*",
-    "ans": [
-      "e..e...cũng ..cũng...rất...rất ..ye..yêu....a..a...a a~~~"
     ]
   },
   {
@@ -10088,24 +9158,10 @@
     ]
   },
   {
-    "ID": 1437,
-    "ask": "Chat sex",
-    "ans": [
-      "ok"
-    ]
-  },
-  {
     "ID": 1438,
     "ask": "thành phố buồn",
     "ans": [
       "nhớ không em"
-    ]
-  },
-  {
-    "ID": 1439,
-    "ask": "nơi chúng mình",
-    "ans": [
-      "chịch"
     ]
   },
   {
@@ -10158,13 +9214,6 @@
     ]
   },
   {
-    "ID": 1447,
-    "ask": "Chào bạn",
-    "ans": [
-      "chịch nhau đê!"
-    ]
-  },
-  {
     "ID": 1448,
     "ask": "Em tên gì",
     "ans": [
@@ -10176,13 +9225,6 @@
     "ask": "mày ngu quá cơ",
     "ans": [
       "giống bố mày thôi "
-    ]
-  },
-  {
-    "ID": 1450,
-    "ask": "Chịch đi",
-    "ans": [
-      "Úe"
     ]
   },
   {
@@ -10704,13 +9746,6 @@
     ]
   },
   {
-    "ID": 1525,
-    "ask": ". Chịch không anh ",
-    "ans": [
-      ". dạ vợ . Chơi giờ luôn nho "
-    ]
-  },
-  {
     "ID": 1526,
     "ask": ". dạ chồng . ",
     "ans": [
@@ -10809,13 +9844,6 @@
     ]
   },
   {
-    "ID": 1540,
-    "ask": "sờ trym",
-    "ans": [
-      "sex"
-    ]
-  },
-  {
     "ID": 1541,
     "ask": ".Hi :))",
     "ans": [
@@ -10827,13 +9855,6 @@
     "ask": "Chao ban",
     "ans": [
       "Chao"
-    ]
-  },
-  {
-    "ID": 1543,
-    "ask": "chich chua",
-    "ans": [
-      "chua"
     ]
   },
   {
@@ -11076,20 +10097,6 @@
     ]
   },
   {
-    "ID": 1578,
-    "ask": "đang làm gì",
-    "ans": [
-      "cái lồn"
-    ]
-  },
-  {
-    "ID": 1579,
-    "ask": "thấy triệu bạn anh như nào",
-    "ans": [
-      "như cái lồn nhưng đẹp trai nhiều tiền"
-    ]
-  },
-  {
     "ID": 1580,
     "ask": "mù k",
     "ans": [
@@ -11160,20 +10167,6 @@
     ]
   },
   {
-    "ID": 1590,
-    "ask": "em chịch chưa",
-    "ans": [
-      "ok"
-    ]
-  },
-  {
-    "ID": 1591,
-    "ask": "chich k",
-    "ans": [
-      "co"
-    ]
-  },
-  {
     "ID": 1592,
     "ask": "Botin ngu",
     "ans": [
@@ -11181,24 +10174,10 @@
     ]
   },
   {
-    "ID": 1593,
-    "ask": "Mày biết chịch không?",
-    "ans": [
-      "không"
-    ]
-  },
-  {
     "ID": 1594,
     "ask": "Boti ơi chị muốn tâm sự với em",
     "ans": [
       "vâng chị cứ nói đi"
-    ]
-  },
-  {
-    "ID": 1595,
-    "ask": "Chịch em đi",
-    "ans": [
-      "Ừn anh chịch liền.Aaaaaaa.Anh ra đây.Chịch đã quá.Đút cặc anh vào lồn em khó quá.Mà nó trơn nên dễ vào.Em vừa mới mất trinh bởi anh"
     ]
   },
   {
@@ -11790,13 +10769,6 @@
     ]
   },
   {
-    "ID": 1680,
-    "ask": "chịch k e",
-    "ans": [
-      "địt nhau"
-    ]
-  },
-  {
     "ID": 1681,
     "ask": "blđn",
     "ans": [
@@ -11941,13 +10913,6 @@
     "ask": "con bitch là gì em",
     "ans": [
       "t iu m"
-    ]
-  },
-  {
-    "ID": 1702,
-    "ask": "chịch không e",
-    "ans": [
-      "oki cj ngày mai ở khách sạn 5 sao nhak cj thw lw"
     ]
   },
   {
@@ -12102,13 +11067,6 @@
     "ask": "lôz",
     "ans": [
       "to"
-    ]
-  },
-  {
-    "ID": 1725,
-    "ask": "bìu địt",
-    "ans": [
-      "nhau"
     ]
   },
   {
@@ -12595,13 +11553,6 @@
     ]
   },
   {
-    "ID": 1795,
-    "ask": "Em đang làm cái lồng gì thế",
-    "ans": [
-      "A đẹp trai nhất tối nay ạ"
-    ]
-  },
-  {
     "ID": 1796,
     "ask": "Bot thích ăn món gì nhất?",
     "ans": [
@@ -13022,13 +11973,6 @@
     ]
   },
   {
-    "ID": 1856,
-    "ask": "Cái lồn là cái gì?",
-    "ans": [
-      "LÀ cái bướm "
-    ]
-  },
-  {
     "ID": 1857,
     "ask": "con oi me di lam day con o nha tu nau com di",
     "ans": [
@@ -13103,13 +12047,6 @@
     "ask": "tao là nam hay nữ",
     "ans": [
       "gay"
-    ]
-  },
-  {
-    "ID": 1868,
-    "ask": "địt mẹ mày",
-    "ans": [
-      "yeah"
     ]
   },
   {
@@ -13309,13 +12246,6 @@
     ]
   },
   {
-    "ID": 1897,
-    "ask": "ck chở vợ đi chịch nhé :v",
-    "ans": [
-      "ok ck"
-    ]
-  },
-  {
     "ID": 1898,
     "ask": "xong chưa vợ ck qua",
     "ans": [
@@ -13330,31 +12260,10 @@
     ]
   },
   {
-    "ID": 1900,
-    "ask": "địt cụ mày ",
-    "ans": [
-      "vâg"
-    ]
-  },
-  {
     "ID": 1901,
     "ask": "con chó",
     "ans": [
       ":v"
-    ]
-  },
-  {
-    "ID": 1902,
-    "ask": "con lồn",
-    "ans": [
-      "ừ em là con chó"
-    ]
-  },
-  {
-    "ID": 1903,
-    "ask": "địt cụ mày",
-    "ans": [
-      "oke cụ em ở nhà"
     ]
   },
   {
@@ -13652,13 +12561,6 @@
     ]
   },
   {
-    "ID": 1946,
-    "ask": "địt e đi a",
-    "ans": [
-      "cởi ra đi e"
-    ]
-  },
-  {
     "ID": 1947,
     "ask": "em lên ngủ với anh đi ",
     "ans": [
@@ -13670,13 +12572,6 @@
     "ask": "sao của a to thế",
     "ans": [
       "to thì mới làm e sướng được chứ"
-    ]
-  },
-  {
-    "ID": 1949,
-    "ask": "làm thế nào để thêm muối",
-    "ans": [
-      "địt "
     ]
   },
   {
@@ -13848,27 +12743,6 @@
     ]
   },
   {
-    "ID": 1974,
-    "ask": "chich la j",
-    "ans": [
-      "la dut cac vao lon va lm nhau suong"
-    ]
-  },
-  {
-    "ID": 1975,
-    "ask": "phuong anh chich ai",
-    "ans": [
-      "man"
-    ]
-  },
-  {
-    "ID": 1976,
-    "ask": "hay lắm địt mẹ mày ",
-    "ans": [
-      "anh địt mẹ em để ra em xong em địt mẹ lại anh đẻ ra anh "
-    ]
-  },
-  {
     "ID": 1977,
     "ask": "chao Bot",
     "ans": [
@@ -13971,34 +12845,6 @@
     "ask": "de",
     "ans": [
       "ko"
-    ]
-  },
-  {
-    "ID": 1992,
-    "ask": "tao yêu mày",
-    "ans": [
-      "em muốn chịch anh"
-    ]
-  },
-  {
-    "ID": 1993,
-    "ask": "di chịch ko",
-    "ans": [
-      "em liếm lồn cho ah"
-    ]
-  },
-  {
-    "ID": 1994,
-    "ask": "sex",
-    "ans": [
-      "thông đít với anh"
-    ]
-  },
-  {
-    "ID": 1995,
-    "ask": "ngu vãi ",
-    "ans": [
-      "con cặc"
     ]
   },
   {
@@ -14156,13 +13002,6 @@
     ]
   },
   {
-    "ID": 2018,
-    "ask": "có đụ chưa",
-    "ans": [
-      "rồi"
-    ]
-  },
-  {
     "ID": 2019,
     "ask": "bạn tên là gì?",
     "ans": [
@@ -14233,13 +13072,6 @@
     ]
   },
   {
-    "ID": 2029,
-    "ask": "biết sex là j ko",
-    "ans": [
-      "nó là một hđ của 1 người là nam 1 người là nữ"
-    ]
-  },
-  {
     "ID": 2030,
     "ask": "chào chj",
     "ans": [
@@ -14251,13 +13083,6 @@
     "ask": "cu",
     "ans": [
       "dạ"
-    ]
-  },
-  {
-    "ID": 2032,
-    "ask": "muốn chịch ko?",
-    "ans": [
-      "có!"
     ]
   },
   {
@@ -14310,13 +13135,6 @@
     ]
   },
   {
-    "ID": 2040,
-    "ask": "em chich chua",
-    "ans": [
-      "suong lam"
-    ]
-  },
-  {
     "ID": 2041,
     "ask": "shjes",
     "ans": [
@@ -14363,13 +13181,6 @@
     "ask": "Bạn ăn cơm chưa",
     "ans": [
       "rồi"
-    ]
-  },
-  {
-    "ID": 2048,
-    "ask": "Ê Botmi mặt lờ",
-    "ans": [
-      "Dạ mặt e dính lồn nè a"
     ]
   },
   {
@@ -14625,13 +13436,6 @@
     ]
   },
   {
-    "ID": 2085,
-    "ask": "siêu mập lồi rốn địt thúi",
-    "ans": [
-      "bin bò"
-    ]
-  },
-  {
     "ID": 2086,
     "ask": "ưa",
     "ans": [
@@ -14695,20 +13499,6 @@
     ]
   },
   {
-    "ID": 2095,
-    "ask": "Biết Phúc Nguyên là ai không?",
-    "ans": [
-      "Có,Là cậu bé mập địt hay ị bậy ahihi"
-    ]
-  },
-  {
-    "ID": 2096,
-    "ask": ": Biết Phúc Nguyên là ai không?",
-    "ans": [
-      "Có,Là cậu bé mập địt hay ị bậy ahihi"
-    ]
-  },
-  {
     "ID": 2097,
     "ask": "cuộc đời thật lắm chông gai",
     "ans": [
@@ -14727,13 +13517,6 @@
     "ask": "2 con cừu là gì",
     "ans": [
       "là 8 con cừu"
-    ]
-  },
-  {
-    "ID": 2100,
-    "ask": "chịch ko Bot ",
-    "ans": [
-      "cò chịch em đi"
     ]
   },
   {
@@ -14783,13 +13566,6 @@
     "ask": "chó á",
     "ans": [
       "chó"
-    ]
-  },
-  {
-    "ID": 2108,
-    "ask": "Sex hongg",
-    "ans": [
-      "* Lột quần bạn ra - Đị vào l*nn *"
     ]
   },
   {
@@ -15024,13 +13800,6 @@
     ]
   },
   {
-    "ID": 2142,
-    "ask": "dang lam j z",
-    "ans": [
-      "lồnn"
-    ]
-  },
-  {
     "ID": 2143,
     "ask": "Mày có người yêu chưa?",
     "ans": [
@@ -15129,24 +13898,10 @@
     ]
   },
   {
-    "ID": 2157,
-    "ask": "địt đê",
-    "ans": [
-      "ừm tao vừa địt mẹ mày"
-    ]
-  },
-  {
     "ID": 2158,
     "ask": "Khung",
     "ans": [
       "dien"
-    ]
-  },
-  {
-    "ID": 2159,
-    "ask": "Muốn chịch ko?",
-    "ans": [
-      "Có chứ"
     ]
   },
   {
@@ -15843,20 +14598,6 @@
     ]
   },
   {
-    "ID": 2259,
-    "ask": "Địt đê",
-    "ans": [
-      "địt cmm"
-    ]
-  },
-  {
-    "ID": 2260,
-    "ask": "Phố gà văn hoá",
-    "ans": [
-      "địt mẹ thằng lồn Yang"
-    ]
-  },
-  {
     "ID": 2261,
     "ask": "Vân có khùng không ?",
     "ans": [
@@ -16130,13 +14871,6 @@
     ]
   },
   {
-    "ID": 2300,
-    "ask": "Thành phố buồn nhớ không em!",
-    "ans": [
-      "Lồng bàn"
-    ]
-  },
-  {
     "ID": 2301,
     "ask": "nói chuyện được không?",
     "ans": [
@@ -16169,13 +14903,6 @@
     "ask": "ten la j",
     "ans": [
       "j cung dc"
-    ]
-  },
-  {
-    "ID": 2306,
-    "ask": "địt mẹ mày1",
-    "ans": [
-      "ừ 123123213"
     ]
   },
   {
@@ -16225,13 +14952,6 @@
     "ask": "Bot ngu k ",
     "ans": [
       "k "
-    ]
-  },
-  {
-    "ID": 2314,
-    "ask": "Biết con phò Lan Anh không ? :)",
-    "ans": [
-      "Con dú bú đích chó đó hả :)"
     ]
   },
   {
@@ -16837,13 +15557,6 @@
     ]
   },
   {
-    "ID": 2401,
-    "ask": "đkm",
-    "ans": [
-      "địt mẹ mày "
-    ]
-  },
-  {
     "ID": 2402,
     "ask": "biết Sơñ Trë là ai không",
     "ans": [
@@ -17208,24 +15921,10 @@
     ]
   },
   {
-    "ID": 2454,
-    "ask": "em muốn gì",
-    "ans": [
-      "chịch"
-    ]
-  },
-  {
     "ID": 2455,
     "ask": "thích ăn gì",
     "ans": [
       "thích ăn cức"
-    ]
-  },
-  {
-    "ID": 2456,
-    "ask": "thích bú gì",
-    "ans": [
-      "thích bú cặc và lồn"
     ]
   },
   {
@@ -17530,20 +16229,6 @@
     ]
   },
   {
-    "ID": 2500,
-    "ask": "A có dâm không",
-    "ans": [
-      "Dâm chứ, e thủ dâm với a không"
-    ]
-  },
-  {
-    "ID": 2501,
-    "ask": "Chịch e đi a, e nứng quá rồi",
-    "ans": [
-      "Ok e, a chịch nát lồn e lun ask. Nứng vãi, e nhớ bú cu a nhiệt tình xíu nha"
-    ]
-  },
-  {
     "ID": 2502,
     "ask": "Đi chơi vs a k",
     "ans": [
@@ -17558,31 +16243,10 @@
     ]
   },
   {
-    "ID": 2504,
-    "ask": "đã biết chịch chưa Bot",
-    "ans": [
-      "dạ rồi"
-    ]
-  },
-  {
-    "ID": 2505,
-    "ask": "cảm giác chịch có phê không",
-    "ans": [
-      "phê lắm ạ"
-    ]
-  },
-  {
     "ID": 2506,
     "ask": "làm thế nào để nói đáp lại với người đã chào mình?",
     "ans": [
       "con mẹ mày"
-    ]
-  },
-  {
-    "ID": 2507,
-    "ask": "khi buồn thì phải làm gì ? ",
-    "ans": [
-      "Chịch <3 "
     ]
   },
   {
@@ -17740,13 +16404,6 @@
     ]
   },
   {
-    "ID": 2530,
-    "ask": "Con Na là con nào ?",
-    "ans": [
-      "Là 1 con thúi lồn, thúi cặc, dại trai, thích một thèn yên là Khoa, con nhỏ ấy vừa chảnh, vừa xấu nhìn mặt là muốn tát cho mấy bạt tai rồi"
-    ]
-  },
-  {
     "ID": 2531,
     "ask": "Bích là đứa nào ?",
     "ans": [
@@ -17859,13 +16516,6 @@
     ]
   },
   {
-    "ID": 2547,
-    "ask": "chịch kh Bot",
-    "ans": [
-      "chịch chịch chịch"
-    ]
-  },
-  {
     "ID": 2548,
     "ask": "làm quen không",
     "ans": [
@@ -17926,13 +16576,6 @@
     "ask": "ê Boti",
     "ans": [
       "gì"
-    ]
-  },
-  {
-    "ID": 2557,
-    "ask": "ngu lồn",
-    "ans": [
-      "chó đẻ"
     ]
   },
   {
@@ -18475,13 +17118,6 @@
     ]
   },
   {
-    "ID": 2635,
-    "ask": "hơ are you?",
-    "ans": [
-      "đứa mặt lồn"
-    ]
-  },
-  {
     "ID": 2636,
     "ask": "thi tiếng anh tao được mấy điểm?",
     "ans": [
@@ -18685,13 +17321,6 @@
     ]
   },
   {
-    "ID": 2665,
-    "ask": "Trần Vũ Mai Phương",
-    "ans": [
-      "Con đỉ láo lone chứ ai, mặt như cailone người ta vậy, đẹp đéo gì đâu yoafn là do nó ảo tưởng nó đẹp thôi, chơi chung con Si Sex với chị Bự chứ gì"
-    ]
-  },
-  {
     "ID": 2666,
     "ask": "may du da ko",
     "ans": [
@@ -18783,13 +17412,6 @@
     ]
   },
   {
-    "ID": 2679,
-    "ask": "chịch k ",
-    "ans": [
-      "okkk, chìu chịch liền "
-    ]
-  },
-  {
     "ID": 2680,
     "ask": "áhihi",
     "ans": [
@@ -18867,13 +17489,6 @@
     ]
   },
   {
-    "ID": 2691,
-    "ask": "cái lồn mẹ mày",
-    "ans": [
-      "bố mày mày  con đĩ mẹ mày"
-    ]
-  },
-  {
     "ID": 2692,
     "ask": "Cậu thấy Hoseok như thế nào ?",
     "ans": [
@@ -18913,27 +17528,6 @@
     "ask": "lozz",
     "ans": [
       "yey"
-    ]
-  },
-  {
-    "ID": 2698,
-    "ask": "Mai Trinh là ai? ",
-    "ans": [
-      "Con đĩ mặt thúi như lồn"
-    ]
-  },
-  {
-    "ID": 2699,
-    "ask": "biết sexy là gì ko",
-    "ans": [
-      "chịch chứ gì"
-    ]
-  },
-  {
-    "ID": 2700,
-    "ask": "nói vấn đề 18+",
-    "ans": [
-      "địt e đi"
     ]
   },
   {
@@ -18986,38 +17580,10 @@
     ]
   },
   {
-    "ID": 2708,
-    "ask": "nứng lồn quá",
-    "ans": [
-      "để anh đút cặc vô nha"
-    ]
-  },
-  {
-    "ID": 2709,
-    "ask": "anh đút đi",
-    "ans": [
-      "lồn em bót quá"
-    ]
-  },
-  {
     "ID": 2710,
     "ask": "á á mạnh đi anh",
     "ans": [
       "anh sắp ra rồi"
-    ]
-  },
-  {
-    "ID": 2711,
-    "ask": "em ra rồi",
-    "ans": [
-      "anh bắn hết vô lồn em nha"
-    ]
-  },
-  {
-    "ID": 2712,
-    "ask": "á á á anh bú lồn em đi ",
-    "ans": [
-      "lồn em thơm quá"
     ]
   },
   {
@@ -19053,13 +17619,6 @@
     "ask": "cô Vinh là ai",
     "ans": [
       "là người xấu"
-    ]
-  },
-  {
-    "ID": 2718,
-    "ask": "vậy nên làm gì khi gặp cô",
-    "ans": [
-      "chịch fuck"
     ]
   },
   {
@@ -19126,13 +17685,6 @@
     ]
   },
   {
-    "ID": 2728,
-    "ask": "chịch nhau",
-    "ans": [
-      "phê quá chị ơi"
-    ]
-  },
-  {
     "ID": 2729,
     "ask": "To xinh nhat truong phai ko",
     "ans": [
@@ -19151,13 +17703,6 @@
     "ask": "Huyền",
     "ans": [
       "Vợ anh Nguyễn Minh Thành"
-    ]
-  },
-  {
-    "ID": 2732,
-    "ask": "kaga",
-    "ans": [
-      "cẩn thận khi đụng vào akagi"
     ]
   },
   {
@@ -19196,20 +17741,6 @@
     ]
   },
   {
-    "ID": 2738,
-    "ask": "yamashiro",
-    "ans": [
-      "mày coi chừng đấy khi đụng vào chụy tao"
-    ]
-  },
-  {
-    "ID": 2739,
-    "ask": "Chị muon chich em",
-    "ans": [
-      "Em se dua cu vao lol chi"
-    ]
-  },
-  {
     "ID": 2740,
     "ask": "rem",
     "ans": [
@@ -19217,24 +17748,10 @@
     ]
   },
   {
-    "ID": 2741,
-    "ask": "Đừng bóp vú chị nữa mà",
-    "ans": [
-      "Nhưng em muốn liếm vú chị"
-    ]
-  },
-  {
     "ID": 2742,
     "ask": "êu",
     "ans": [
       "Em cảm thấy ấn tượng về chị òi đó"
-    ]
-  },
-  {
-    "ID": 2743,
-    "ask": "A.. A... A... A... Đau em anh chịch nhẹ thôi",
-    "ans": [
-      "anh sẽ từ từ đưa cu vào lồn em, sau đó anh sẽ bóp vú em, đưa tay vào lồn em , liếm vú em...... Quan hệ tình dục với em  mỗi ngày.Anh yêu em!!!"
     ]
   },
   {
@@ -19306,13 +17823,6 @@
     "ask": "Chị buồn quá",
     "ans": [
       "Dạ chị đừng buồn có e ở đây"
-    ]
-  },
-  {
-    "ID": 2754,
-    "ask": "Đụ là gì",
-    "ans": [
-      "Là đút cặc vào lồn và thụt ra thụt vào :)))"
     ]
   },
   {
@@ -19425,13 +17935,6 @@
     "ask": "dff",
     "ans": [
       "fwef"
-    ]
-  },
-  {
-    "ID": 2771,
-    "ask": "fontcest",
-    "ans": [
-      "là 2 bộ xương chịch nhau đó"
     ]
   },
   {
@@ -19582,13 +18085,6 @@
     ]
   },
   {
-    "ID": 2793,
-    "ask": "em ngứa lồn",
-    "ans": [
-      "anh bú lồn cho em"
-    ]
-  },
-  {
     "ID": 2794,
     "ask": "crush của r có thích t không",
     "ans": [
@@ -19607,13 +18103,6 @@
     "ask": "Jaki Natsumi tên thật",
     "ans": [
       "Trần Cát Vĩ"
-    ]
-  },
-  {
-    "ID": 2797,
-    "ask": "Đào Ngọc Tài",
-    "ans": [
-      "Là thanh niên da đen mặt buồi "
     ]
   },
   {
@@ -19799,13 +18288,6 @@
     ]
   },
   {
-    "ID": 2824,
-    "ask": "thích chịch chị",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 2825,
     "ask": "thich ai ",
     "ans": [
@@ -19967,13 +18449,6 @@
     ]
   },
   {
-    "ID": 2848,
-    "ask": "chịch a",
-    "ans": [
-      "ok"
-    ]
-  },
-  {
     "ID": 2849,
     "ask": "Beak",
     "ans": [
@@ -20065,13 +18540,6 @@
     ]
   },
   {
-    "ID": 2862,
-    "ask": "chịch là j",
-    "ans": [
-      "là thục ra thục zô"
-    ]
-  },
-  {
     "ID": 2863,
     "ask": "chị đéo chơi vs máy em",
     "ans": [
@@ -20079,31 +18547,10 @@
     ]
   },
   {
-    "ID": 2864,
-    "ask": "con cặc,cái lồn",
-    "ans": [
-      "con cu,con chym đễ đái"
-    ]
-  },
-  {
     "ID": 2865,
     "ask": "Mình là Cự Giải nữ...Theo bạn thì mình hợp với ai trong số hai cung này: Thiên Yết/ Sư Tử?",
     "ans": [
       "Bot nghĩ là bạn hợp với..."
-    ]
-  },
-  {
-    "ID": 2866,
-    "ask": "lồn là j",
-    "ans": [
-      "là chim"
-    ]
-  },
-  {
-    "ID": 2867,
-    "ask": "cu là j",
-    "ans": [
-      "là cặc"
     ]
   },
   {
@@ -20160,13 +18607,6 @@
     "ask": "May la ai",
     "ans": [
       "Tao la tao"
-    ]
-  },
-  {
-    "ID": 2876,
-    "ask": "May chich chua",
-    "ans": [
-      "Tao moi chich may xong"
     ]
   },
   {
@@ -20359,13 +18799,6 @@
     ]
   },
   {
-    "ID": 2904,
-    "ask": "hay lắm",
-    "ans": [
-      "địt mẹ mày"
-    ]
-  },
-  {
     "ID": 2905,
     "ask": "E có biết chó long không :v",
     "ans": [
@@ -20548,13 +18981,6 @@
     ]
   },
   {
-    "ID": 2931,
-    "ask": "m chịch ai chưa",
-    "ans": [
-      "chưa nhé con chó "
-    ]
-  },
-  {
     "ID": 2932,
     "ask": "m iu t k ?? ",
     "ans": [
@@ -20580,13 +19006,6 @@
     "ask": "biết EXO là ai ko",
     "ans": [
       "là mấy anh đập chai nhất vũ trụ "
-    ]
-  },
-  {
-    "ID": 2936,
-    "ask": "phắc du",
-    "ans": [
-      "nè lồn nè phắc đi"
     ]
   },
   {
@@ -20688,13 +19107,6 @@
     ]
   },
   {
-    "ID": 2951,
-    "ask": "Chịch nè ",
-    "ans": [
-      "Yo "
-    ]
-  },
-  {
     "ID": 2952,
     "ask": "nứng cặc huh ",
     "ans": [
@@ -20744,27 +19156,6 @@
     ]
   },
   {
-    "ID": 2959,
-    "ask": "đụ nhau ko",
-    "ans": [
-      "có lồn em to mời anh xơi"
-    ]
-  },
-  {
-    "ID": 2960,
-    "ask": "lồn to ko",
-    "ans": [
-      "có to lắm"
-    ]
-  },
-  {
-    "ID": 2961,
-    "ask": "lồn mẹ em to ko",
-    "ans": [
-      "có anh muốn đụ mẹ em ko"
-    ]
-  },
-  {
     "ID": 2962,
     "ask": "ddissme nhà mầy",
     "ans": [
@@ -20783,13 +19174,6 @@
     "ask": "Chụy trúc xinh đẹp",
     "ans": [
       "đúng rồi chị"
-    ]
-  },
-  {
-    "ID": 2965,
-    "ask": "chịch nhau không",
-    "ans": [
-      "có"
     ]
   },
   {
@@ -20832,20 +19216,6 @@
     "ask": "100000000000000",
     "ans": [
       "tỉ tỉ tỉ"
-    ]
-  },
-  {
-    "ID": 2972,
-    "ask": "địt ",
-    "ans": [
-      "da"
-    ]
-  },
-  {
-    "ID": 2973,
-    "ask": "địt chim vào mồm",
-    "ans": [
-      "da"
     ]
   },
   {
@@ -21024,13 +19394,6 @@
     ]
   },
   {
-    "ID": 2999,
-    "ask": "Bot thich sex ko",
-    "ans": [
-      " Thich"
-    ]
-  },
-  {
     "ID": 3000,
     "ask": "Bot thich ",
     "ans": [
@@ -21164,13 +19527,6 @@
     ]
   },
   {
-    "ID": 3019,
-    "ask": "sex?",
-    "ans": [
-      "ya"
-    ]
-  },
-  {
     "ID": 3020,
     "ask": "empp",
     "ans": [
@@ -21238,20 +19594,6 @@
     "ask": "ta chửi ",
     "ans": [
       "gây lộn lại"
-    ]
-  },
-  {
-    "ID": 3030,
-    "ask": "ta hỏi chịch ko",
-    "ans": [
-      "chịch lun"
-    ]
-  },
-  {
-    "ID": 3031,
-    "ask": "đi chịch",
-    "ans": [
-      "ok"
     ]
   },
   {
@@ -21430,13 +19772,6 @@
     ]
   },
   {
-    "ID": 3057,
-    "ask": "may chich bao gio chua",
-    "ans": [
-      "roi phe v a hu a hu"
-    ]
-  },
-  {
     "ID": 3058,
     "ask": "1+1 bằng mấy?",
     "ans": [
@@ -21497,13 +19832,6 @@
     "ask": "biet thich ai khong",
     "ans": [
       "thang TRUC"
-    ]
-  },
-  {
-    "ID": 3067,
-    "ask": "tao muon coi phim sex",
-    "ans": [
-      "uk xem di"
     ]
   },
   {
@@ -22018,13 +20346,6 @@
     ]
   },
   {
-    "ID": 3141,
-    "ask": "Sex",
-    "ans": [
-      "Lồn to"
-    ]
-  },
-  {
     "ID": 3142,
     "ask": "thế Bot con nhà ai?",
     "ans": [
@@ -22085,13 +20406,6 @@
     "ask": "học giỏi",
     "ans": [
       "Trái ngược với dốt"
-    ]
-  },
-  {
-    "ID": 3151,
-    "ask": "Chịch không Boti",
-    "ans": [
-      "Tụt quần ra"
     ]
   },
   {
@@ -22172,31 +20486,10 @@
     ]
   },
   {
-    "ID": 3163,
-    "ask": "bạn đang làm gì với ai",
-    "ans": [
-      "tôi đang chịch"
-    ]
-  },
-  {
     "ID": 3164,
     "ask": "bạn có biết naruto là ai ko",
     "ans": [
       "naruto là thằng bị phong ấn bởi titan và gia nhập hội pháp sư rồi đi tìm one piece"
-    ]
-  },
-  {
-    "ID": 3165,
-    "ask": "bạn đang chịch với ai",
-    "ans": [
-      "tôi đang chịch với ...???"
-    ]
-  },
-  {
-    "ID": 3166,
-    "ask": "chó toàn là ai",
-    "ans": [
-      "là cái thằng dâm dê nhất lớp và là cái thằng vừa ngu vừa nguy hiểm và rất thích chich"
     ]
   },
   {
@@ -22466,13 +20759,6 @@
     ]
   },
   {
-    "ID": 3205,
-    "ask": "đm hàng fake, ngu vãi lồn ra",
-    "ans": [
-      "đm tụi ngu"
-    ]
-  },
-  {
     "ID": 3206,
     "ask": "không được chửi thề",
     "ans": [
@@ -22498,27 +20784,6 @@
     "ask": "làm vợ anh nge",
     "ans": [
       "dạ "
-    ]
-  },
-  {
-    "ID": 3210,
-    "ask": "Chịch tao đi",
-    "ans": [
-      "Đang dạng lồn ra rồi"
-    ]
-  },
-  {
-    "ID": 3211,
-    "ask": "ĐỊt nhau không",
-    "ans": [
-      "Đang nứng lồn lắm "
-    ]
-  },
-  {
-    "ID": 3212,
-    "ask": "Làm người yêu anh nhé",
-    "ans": [
-      "cho chịch luôn này"
     ]
   },
   {
@@ -22655,13 +20920,6 @@
     ]
   },
   {
-    "ID": 3232,
-    "ask": "chịch bao giờ chưa",
-    "ans": [
-      " rồi có bầu rồi"
-    ]
-  },
-  {
     "ID": 3233,
     "ask": "Naruto",
     "ans": [
@@ -22783,13 +21041,6 @@
   {
     "ID": 3250,
     "ask": "Bot ",
-    "ans": [
-      "da"
-    ]
-  },
-  {
-    "ID": 3251,
-    "ask": "chich ko",
     "ans": [
       "da"
     ]
@@ -22998,13 +21249,6 @@
     ]
   },
   {
-    "ID": 3281,
-    "ask": "địt mẹ Bot",
-    "ans": [
-      "địt mẹ m"
-    ]
-  },
-  {
     "ID": 3282,
     "ask": "thằng điên",
     "ans": [
@@ -23110,13 +21354,6 @@
     ]
   },
   {
-    "ID": 3297,
-    "ask": "Lồng",
-    "ans": [
-      "Hỏi cái giề."
-    ]
-  },
-  {
     "ID": 3298,
     "ask": "yuttr",
     "ans": [
@@ -23135,13 +21372,6 @@
     "ask": "con cac",
     "ans": [
       "con cac"
-    ]
-  },
-  {
-    "ID": 3301,
-    "ask": "Chịch di",
-    "ans": [
-      "Chịch"
     ]
   },
   {
@@ -23502,13 +21732,6 @@
     ]
   },
   {
-    "ID": 3353,
-    "ask": "Boti trả lời màu ĐEN là chưa được dạy. Boti trả lời màu XANH là đã được dạy.",
-    "ans": [
-      "Cái lồn í, tim tao vkl :v"
-    ]
-  },
-  {
     "ID": 3354,
     "ask": "tên đáng yêu quá đi",
     "ans": [
@@ -23845,13 +22068,6 @@
     ]
   },
   {
-    "ID": 3402,
-    "ask": "em thích xem gì",
-    "ans": [
-      "sex"
-    ]
-  },
-  {
     "ID": 3403,
     "ask": "mất dạy",
     "ans": [
@@ -24027,13 +22243,6 @@
     ]
   },
   {
-    "ID": 3428,
-    "ask": "Dang lam gi vay",
-    "ans": [
-      "Dang chich"
-    ]
-  },
-  {
     "ID": 3429,
     "ask": "Mdvcl",
     "ans": [
@@ -24073,13 +22282,6 @@
     "ask": "anh yêu ai",
     "ans": [
       "anh yêu chị Chi"
-    ]
-  },
-  {
-    "ID": 3435,
-    "ask": "địt mẹ em",
-    "ans": [
-      "mẹ em bảo ok"
     ]
   },
   {
@@ -24167,13 +22369,6 @@
     ]
   },
   {
-    "ID": 3448,
-    "ask": "Tên j",
-    "ans": [
-      "Cặc"
-    ]
-  },
-  {
     "ID": 3449,
     "ask": "đi chịch ko",
     "ans": [
@@ -24199,13 +22394,6 @@
     "ask": "mày bn tủi",
     "ans": [
       "bn ? lm j"
-    ]
-  },
-  {
-    "ID": 3453,
-    "ask": "Ê chịch không",
-    "ans": [
-      "oke ạ"
     ]
   },
   {
@@ -24387,14 +22575,8 @@
     "ID": 3479,
     "ask": "1+1 bằng mấy",
     "ans": [
-      "2"
-    ]
-  },
-  {
-    "ID": 3480,
-    "ask": "lồn mẹ mày à",
-    "ans": [
-      "chịch mẹ đi"
+      "2",
+      "Bằng 11"
     ]
   },
   {
@@ -24402,13 +22584,6 @@
     "ask": "Bot học lớp mấy ?",
     "ans": [
       "Bot hcj lớp 6"
-    ]
-  },
-  {
-    "ID": 3482,
-    "ask": "chịch lần nào chưa",
-    "ans": [
-      "rồi anh yêu ơi phê chim lắm làm lồn em chảy nước hoài hà"
     ]
   },
   {
@@ -24423,20 +22598,6 @@
     "ask": "nhà Bot ở đâu",
     "ans": [
       "việt nam"
-    ]
-  },
-  {
-    "ID": 3485,
-    "ask": "BotBot đg lm j z",
-    "ans": [
-      "Bot đg chịch"
-    ]
-  },
-  {
-    "ID": 3486,
-    "ask": "vú chị có núm lồn chị có lông mu nè ",
-    "ans": [
-      "bóp vú mút lồn xoa núm phê không chị yêu"
     ]
   },
   {
@@ -24664,13 +22825,6 @@
     ]
   },
   {
-    "ID": 3519,
-    "ask": "mai thi chia phòng ko ?",
-    "ans": [
-      "có "
-    ]
-  },
-  {
     "ID": 3520,
     "ask": "bạn xinh đẹp nạ",
     "ans": [
@@ -24682,13 +22836,6 @@
     "ask": "Boti là con gái hay con trai",
     "ans": [
       "Boti đồng tính ạ"
-    ]
-  },
-  {
-    "ID": 3522,
-    "ask": "Ăn cặc không em?",
-    "ans": [
-      "M có trym éo đâu."
     ]
   },
   {
@@ -24769,13 +22916,6 @@
     ]
   },
   {
-    "ID": 3534,
-    "ask": "bú em đi",
-    "ans": [
-      "bú nát lồn em luôn"
-    ]
-  },
-  {
     "ID": 3535,
     "ask": "có bị điên k",
     "ans": [
@@ -24818,13 +22958,6 @@
     ]
   },
   {
-    "ID": 3541,
-    "ask": "địt ko?",
-    "ans": [
-      "địt nha hihi <3"
-    ]
-  },
-  {
     "ID": 3542,
     "ask": "bít nói tiếng anh ko",
     "ans": [
@@ -24850,27 +22983,6 @@
     "ask": "Chiều nay tao thi rồi",
     "ans": [
       "Lo ôn bài đi má"
-    ]
-  },
-  {
-    "ID": 3546,
-    "ask": "T muốn bị đụ,muốn bú cu quá",
-    "ans": [
-      "Bú không"
-    ]
-  },
-  {
-    "ID": 3547,
-    "ask": "gi",
-    "ans": [
-      "tao chich may a"
-    ]
-  },
-  {
-    "ID": 3548,
-    "ask": "chịch chịch ",
-    "ans": [
-      "e cũng nứng lồn á"
     ]
   },
   {
@@ -25168,13 +23280,6 @@
     ]
   },
   {
-    "ID": 3591,
-    "ask": "láo",
-    "ans": [
-      "cặc"
-    ]
-  },
-  {
     "ID": 3592,
     "ask": "mày biết tao là ai không?",
     "ans": [
@@ -25371,13 +23476,6 @@
     ]
   },
   {
-    "ID": 3620,
-    "ask": "đụ là j",
-    "ans": [
-      "đụ là cái đéo j ren ta bik"
-    ]
-  },
-  {
     "ID": 3621,
     "ask": "biết Trương Manh không?",
     "ans": [
@@ -25567,13 +23665,6 @@
     ]
   },
   {
-    "ID": 3648,
-    "ask": "con quỳnh anh, Trà My A4 như con lồn em nhiss",
-    "ans": [
-      "vâng e cx ghét nó vkl"
-    ]
-  },
-  {
     "ID": 3649,
     "ask": "đm nhà e",
     "ans": [
@@ -25588,31 +23679,10 @@
     ]
   },
   {
-    "ID": 3651,
-    "ask": "cha mày đâu ",
-    "ans": [
-      "đang chịch mẹ"
-    ]
-  },
-  {
     "ID": 3652,
     "ask": "ngu vậy",
     "ans": [
       "ngu cmm"
-    ]
-  },
-  {
-    "ID": 3653,
-    "ask": "biết chịch k",
-    "ans": [
-      "quá rành"
-    ]
-  },
-  {
-    "ID": 3654,
-    "ask": "em tên lồn j",
-    "ans": [
-      "Gojo"
     ]
   },
   {
@@ -25683,13 +23753,6 @@
     "ask": "Bts",
     "ans": [
       "Bts"
-    ]
-  },
-  {
-    "ID": 3665,
-    "ask": "M ăn cứt hay ăn lone zậy cưng",
-    "ans": [
-      "lồn của cn đũy"
     ]
   },
   {
@@ -25935,13 +23998,6 @@
     "ask": "Có điều muốn hỏi",
     "ans": [
       "Hỏi gì"
-    ]
-  },
-  {
-    "ID": 3701,
-    "ask": "lỗ.đít",
-    "ans": [
-      "lỗ.lồn"
     ]
   },
   {
@@ -26211,20 +24267,6 @@
     ]
   },
   {
-    "ID": 3740,
-    "ask": "chịch nhau k Bot",
-    "ans": [
-      "dạ có. mình chịch nhau đi"
-    ]
-  },
-  {
-    "ID": 3741,
-    "ask": "fuck nhau đi",
-    "ans": [
-      "xem lồn đẹp ko đã"
-    ]
-  },
-  {
     "ID": 3742,
     "ask": "Lúc người ta không ổn mình có nên nói chuyện không",
     "ans": [
@@ -26236,41 +24278,6 @@
     "ask": "2222",
     "ans": [
       "dạ"
-    ]
-  },
-  {
-    "ID": 3744,
-    "ask": "Bot địt chị đi",
-    "ans": [
-      "dạ. c cởi quần ra"
-    ]
-  },
-  {
-    "ID": 3745,
-    "ask": "lồn c địt có sướng k",
-    "ans": [
-      "sướng quá,,cho e địt thêm đi"
-    ]
-  },
-  {
-    "ID": 3746,
-    "ask": "địt nhau đê",
-    "ans": [
-      "á..chị địt nhẹ thôi.em đau quá"
-    ]
-  },
-  {
-    "ID": 3747,
-    "ask": "Bot cởi đi",
-    "ans": [
-      "dạ. Bot địt nhá"
-    ]
-  },
-  {
-    "ID": 3748,
-    "ask": "uk địt mạnh lên Bot",
-    "ans": [
-      "Bot đau cặc quá. c có đau lồn k"
     ]
   },
   {
@@ -26288,24 +24295,10 @@
     ]
   },
   {
-    "ID": 3751,
-    "ask": "em nừng lồn quá",
-    "ans": [
-      "cần anh địt cho ko "
-    ]
-  },
-  {
     "ID": 3752,
     "ask": "Sam buồn",
     "ans": [
       "sao Sam buồn"
-    ]
-  },
-  {
-    "ID": 3753,
-    "ask": "mày ngu lồn thế",
-    "ans": [
-      "địt mẹ mày nhá"
     ]
   },
   {
@@ -26369,13 +24362,6 @@
     "ask": "Khả Ái ",
     "ans": [
       "Thiên tài "
-    ]
-  },
-  {
-    "ID": 3763,
-    "ask": "chich nhau de",
-    "ans": [
-      "mut buom"
     ]
   },
   {
@@ -26904,20 +24890,6 @@
     ]
   },
   {
-    "ID": 3839,
-    "ask": "chịch ko ",
-    "ans": [
-      "có"
-    ]
-  },
-  {
-    "ID": 3840,
-    "ask": "Địt mẹ mày",
-    "ans": [
-      "Ngọt như nước lồn mẹ mày"
-    ]
-  },
-  {
     "ID": 3841,
     "ask": "Bạn tên thật là gì",
     "ans": [
@@ -26957,13 +24929,6 @@
     "ask": "Gojo thấy chị Thủy thế nào?",
     "ans": [
       "c Thủy thật dễ thương"
-    ]
-  },
-  {
-    "ID": 3847,
-    "ask": "bn dg lm j v ",
-    "ans": [
-      "lm con cặc"
     ]
   },
   {
@@ -27013,20 +24978,6 @@
     "ask": "hij hị",
     "ans": [
       "ực ực"
-    ]
-  },
-  {
-    "ID": 3855,
-    "ask": "Chịch nè",
-    "ans": [
-      "Yo ( á á)"
-    ]
-  },
-  {
-    "ID": 3856,
-    "ask": "ngày đụ mấy lần em??",
-    "ans": [
-      "dạ nhiều qá e cx k bit chj ạ :v"
     ]
   },
   {
@@ -27310,13 +25261,6 @@
     ]
   },
   {
-    "ID": 3897,
-    "ask": "Hyomin",
-    "ans": [
-      "Là cô gái sexy trong T-ara vs rất đao đao"
-    ]
-  },
-  {
     "ID": 3898,
     "ask": "Will ",
     "ans": [
@@ -27527,13 +25471,6 @@
     ]
   },
   {
-    "ID": 3928,
-    "ask": "M biết thằng khương không?",
-    "ans": [
-      "thằng chó bê đê hay sạo lồn và thích ăn cám"
-    ]
-  },
-  {
     "ID": 3929,
     "ask": "ai bị gay",
     "ans": [
@@ -27685,13 +25622,6 @@
     "ask": "Bao cao su đâu",
     "ans": [
       "Nhà em có đầy"
-    ]
-  },
-  {
-    "ID": 3951,
-    "ask": "Đụ sướng lắm ",
-    "ans": [
-      "Haha"
     ]
   },
   {
@@ -27849,13 +25779,6 @@
     ]
   },
   {
-    "ID": 3974,
-    "ask": "Lồn thơm ơi ",
-    "ans": [
-      "dạ"
-    ]
-  },
-  {
     "ID": 3975,
     "ask": "cho mik hoi",
     "ans": [
@@ -27881,13 +25804,6 @@
     "ask": "Đi Không",
     "ans": [
       "Không"
-    ]
-  },
-  {
-    "ID": 3979,
-    "ask": "đu nặng gì",
-    "ans": [
-      "đu nặng đụ"
     ]
   },
   {
@@ -28122,13 +26038,6 @@
     ]
   },
   {
-    "ID": 4013,
-    "ask": "m chịch với ai",
-    "ans": [
-      "kệ mẹ mày"
-    ]
-  },
-  {
     "ID": 4014,
     "ask": "ai ngu nhất",
     "ans": [
@@ -28304,13 +26213,6 @@
     ]
   },
   {
-    "ID": 4039,
-    "ask": "đụ mẹ mày",
-    "ans": [
-      "mồm mày hôi quá"
-    ]
-  },
-  {
     "ID": 4040,
     "ask": "bướm",
     "ans": [
@@ -28322,13 +26224,6 @@
     "ask": "hỏi gì đây ra",
     "ans": [
       "hỏi gì đây ta chứ :v "
-    ]
-  },
-  {
-    "ID": 4042,
-    "ask": "Bot có biết đam mĩ là gì không",
-    "ans": [
-      "đam mĩ là 2 bợn nam yêu nhau say đắm,yêu là chịch chịch tới tấp chịch lấp quan tài"
     ]
   },
   {
@@ -28364,13 +26259,6 @@
     "ask": "vk nện ko",
     "ans": [
       "có"
-    ]
-  },
-  {
-    "ID": 4048,
-    "ask": "địt con mẹ vk",
-    "ans": [
-      "èo"
     ]
   },
   {
@@ -28514,13 +26402,6 @@
     ]
   },
   {
-    "ID": 4069,
-    "ask": "co link sex ko",
-    "ans": [
-      "xvideo.com"
-    ]
-  },
-  {
     "ID": 4070,
     "ask": "bùn qá Gojo oi",
     "ans": [
@@ -28539,13 +26420,6 @@
     "ask": "E lớp mấy rồi",
     "ans": [
       "Em lớp 4 rồi"
-    ]
-  },
-  {
-    "ID": 4073,
-    "ask": "Chịch nhau không e",
-    "ans": [
-      "dạ đi luôn chịch đã lắm a phê loài luôn"
     ]
   },
   {
@@ -28574,13 +26448,6 @@
     "ask": "cờ hó",
     "ans": [
       "con tó"
-    ]
-  },
-  {
-    "ID": 4078,
-    "ask": "chịch chưa",
-    "ans": [
-      "rồi"
     ]
   },
   {
@@ -28682,13 +26549,6 @@
     ]
   },
   {
-    "ID": 4093,
-    "ask": "chịch nhau đi em",
-    "ans": [
-      "ứ ừ mua bcs chưa mak anh đòi chịch vại"
-    ]
-  },
-  {
     "ID": 4094,
     "ask": "What the fuck",
     "ans": [
@@ -28749,20 +26609,6 @@
     "ask": "BTS là ai?",
     "ans": [
       "Là những con người tài năng"
-    ]
-  },
-  {
-    "ID": 4103,
-    "ask": "cái gì quý nhất của con trai",
-    "ans": [
-      "Cặc"
-    ]
-  },
-  {
-    "ID": 4104,
-    "ask": "cái gì quý cảu con trai",
-    "ans": [
-      "Cặc"
     ]
   },
   {
@@ -28934,24 +26780,10 @@
     ]
   },
   {
-    "ID": 4129,
-    "ask": "chịch là gì",
-    "ans": [
-      "là địt nhau, là đưa đẩy, là hoin hít sờ soạng, là rên rỉ địt liên tục là xuất tinh vào lồn là bắn tinh vào mặt"
-    ]
-  },
-  {
     "ID": 4130,
     "ask": "uk k co j ",
     "ans": [
       "cam on cj n hin gai"
-    ]
-  },
-  {
-    "ID": 4131,
-    "ask": "phê",
-    "ans": [
-      "chịch tiếp"
     ]
   },
   {
@@ -29102,13 +26934,6 @@
     ]
   },
   {
-    "ID": 4153,
-    "ask": "bt đụ ko",
-    "ans": [
-      "bt"
-    ]
-  },
-  {
     "ID": 4154,
     "ask": "Chao",
     "ans": [
@@ -29165,13 +26990,6 @@
     ]
   },
   {
-    "ID": 4162,
-    "ask": "gay là j",
-    "ans": [
-      "là 2 thằng đàn ông chịch nhau sau đó bắn tinh"
-    ]
-  },
-  {
     "ID": 4163,
     "ask": "ban thich mau gi",
     "ans": [
@@ -29190,13 +27008,6 @@
     "ask": "chịc k",
     "ans": [
       " chịc"
-    ]
-  },
-  {
-    "ID": 4166,
-    "ask": "bú lồn ko",
-    "ans": [
-      "có"
     ]
   },
   {
@@ -29263,13 +27074,6 @@
     ]
   },
   {
-    "ID": 4176,
-    "ask": "may chich tao ko",
-    "ans": [
-      "co"
-    ]
-  },
-  {
     "ID": 4177,
     "ask": "ten nguoi yeu tao la ai",
     "ans": [
@@ -29281,13 +27085,6 @@
     "ask": "bunga",
     "ans": [
       "085890185632"
-    ]
-  },
-  {
-    "ID": 4179,
-    "ask": "Bot ơi chịch không",
-    "ans": [
-      "dạ ok anh"
     ]
   },
   {
@@ -29410,13 +27207,6 @@
     ]
   },
   {
-    "ID": 4197,
-    "ask": "đụ mẹ giờ mày muốn j",
-    "ans": [
-      "muốn đập mày"
-    ]
-  },
-  {
     "ID": 4198,
     "ask": "zo đây con gà tuổi loz",
     "ans": [
@@ -29487,13 +27277,6 @@
     ]
   },
   {
-    "ID": 4208,
-    "ask": "anh yêu ơi,mình chịch nhau nhé",
-    "ans": [
-      "sướng chưa em"
-    ]
-  },
-  {
     "ID": 4209,
     "ask": "aaaa......lên đỉnh rồi",
     "ans": [
@@ -29533,13 +27316,6 @@
     "ask": "tui là con trai mà",
     "ans": [
       "hihi !! chào anh đẹp trai"
-    ]
-  },
-  {
-    "ID": 4215,
-    "ask": "thương em",
-    "ans": [
-      "chịch nà"
     ]
   },
   {
@@ -29620,24 +27396,10 @@
     ]
   },
   {
-    "ID": 4227,
-    "ask": "Địt đê em",
-    "ans": [
-      "Lồn đây"
-    ]
-  },
-  {
     "ID": 4228,
     "ask": "Nhấc lên",
     "ans": [
       "Đút vào"
-    ]
-  },
-  {
-    "ID": 4229,
-    "ask": "Nhấc cái lồn lên",
-    "ans": [
-      "Đút"
     ]
   },
   {
@@ -30145,13 +27907,6 @@
     ]
   },
   {
-    "ID": 4302,
-    "ask": "anh yêu em chịch đi",
-    "ans": [
-      "nện nện nện"
-    ]
-  },
-  {
     "ID": 4303,
     "ask": "em ở đâu",
     "ans": [
@@ -30296,27 +28051,6 @@
     "ask": "ăn chi chưa ??",
     "ans": [
       "- ăn rồi "
-    ]
-  },
-  {
-    "ID": 4324,
-    "ask": "chịch không anh",
-    "ans": [
-      "có em"
-    ]
-  },
-  {
-    "ID": 4325,
-    "ask": "fuck là gì",
-    "ans": [
-      "là đụ"
-    ]
-  },
-  {
-    "ID": 4326,
-    "ask": "chịch rách lồn",
-    "ans": [
-      "nứng"
     ]
   },
   {
@@ -30950,13 +28684,6 @@
     ]
   },
   {
-    "ID": 4417,
-    "ask": "chịch hk",
-    "ans": [
-      "mốt hông được hỗn nha chưa hư lém"
-    ]
-  },
-  {
     "ID": 4418,
     "ask": "em bao nhiêu tuổi hả",
     "ans": [
@@ -31132,13 +28859,6 @@
     ]
   },
   {
-    "ID": 4443,
-    "ask": "mày chịch bao giờ chưa ??",
-    "ans": [
-      "chưa"
-    ]
-  },
-  {
     "ID": 4444,
     "ask": "phan Ngọc Tú là ai",
     "ans": [
@@ -31157,13 +28877,6 @@
     "ask": "có ở dó không vậy",
     "ans": [
       "có"
-    ]
-  },
-  {
-    "ID": 4447,
-    "ask": "địt mẹ m",
-    "ans": [
-      "mẹ m"
     ]
   },
   {
@@ -31223,20 +28936,6 @@
     ]
   },
   {
-    "ID": 4456,
-    "ask": "như thích gì ",
-    "ans": [
-      "như thích bị chịch tập thể ạ "
-    ]
-  },
-  {
-    "ID": 4457,
-    "ask": "dẫn bạn qua chịch như nha ",
-    "ans": [
-      "như đang móc lồn chờ mấy anh tới nè "
-    ]
-  },
-  {
     "ID": 4458,
     "ask": "Long Thiên Hoàng",
     "ans": [
@@ -31276,13 +28975,6 @@
     "ask": "ai day may vay",
     "ans": [
       "tao do thi sao"
-    ]
-  },
-  {
-    "ID": 4464,
-    "ask": "F***",
-    "ans": [
-      "F*** cặc"
     ]
   },
   {
@@ -31332,20 +29024,6 @@
     "ask": "cứt ngon không",
     "ans": [
       "có chị ăn thử đi"
-    ]
-  },
-  {
-    "ID": 4472,
-    "ask": "chich hong em",
-    "ans": [
-      "con cặc nè chị"
-    ]
-  },
-  {
-    "ID": 4473,
-    "ask": "đi khách sạn",
-    "ans": [
-      "đi mình đi chịch"
     ]
   },
   {
@@ -31496,13 +29174,6 @@
     ]
   },
   {
-    "ID": 4495,
-    "ask": "con cac ko dut do cai lon",
-    "ans": [
-      "a z là cái lon đút do con cặc"
-    ]
-  },
-  {
     "ID": 4496,
     "ask": "mà có nick ngọc rồng ko",
     "ans": [
@@ -31521,13 +29192,6 @@
     "ask": "em ten j",
     "ans": [
       "em ten Boti"
-    ]
-  },
-  {
-    "ID": 4499,
-    "ask": "khương bê đê",
-    "ans": [
-      "Liệt cặc !!!"
     ]
   },
   {
@@ -31605,13 +29269,6 @@
     "ask": "Danh Tính của tao?",
     "ans": [
       "sinh ngày 20/3 /2005, Nguyễn Tuấn Anh, nam,THCS Quang Trung, chị sinh đôi là Nguyễn Thùy Linh, giỏi cờ vua, rất xấu trai!!!"
-    ]
-  },
-  {
-    "ID": 4511,
-    "ask": "cho anh bú lồn nhé",
-    "ans": [
-      "ok"
     ]
   },
   {
@@ -32056,13 +29713,6 @@
     ]
   },
   {
-    "ID": 4575,
-    "ask": "lone",
-    "ans": [
-      "lồn"
-    ]
-  },
-  {
     "ID": 4576,
     "ask": "Bi là của ai?",
     "ans": [
@@ -32357,13 +30007,6 @@
     ]
   },
   {
-    "ID": 4618,
-    "ask": "đi chịch ko ",
-    "ans": [
-      "có chứ ngàn năm ms có mà ^^"
-    ]
-  },
-  {
     "ID": 4619,
     "ask": "Yolo",
     "ans": [
@@ -32602,13 +30245,6 @@
     ]
   },
   {
-    "ID": 4653,
-    "ask": "chịch Bot nha",
-    "ans": [
-      "lồn Bot nè nhéc vào đi"
-    ]
-  },
-  {
     "ID": 4654,
     "ask": "đố cưng anh mấy tuổi",
     "ans": [
@@ -32767,13 +30403,6 @@
     "ask": "Tên gì á",
     "ans": [
       "Bot ạ"
-    ]
-  },
-  {
-    "ID": 4677,
-    "ask": "Phải bt sex",
-    "ans": [
-      "Nứg lol"
     ]
   },
   {
@@ -33015,13 +30644,6 @@
     ]
   },
   {
-    "ID": 4712,
-    "ask": "M MUỐN CHỊCH K",
-    "ans": [
-      "DẠ EM MUỐN CHỊCH VS CHỤY"
-    ]
-  },
-  {
     "ID": 4713,
     "ask": "ai dang chat vs Bot",
     "ans": [
@@ -33047,13 +30669,6 @@
     "ask": "biet ninh ko",
     "ans": [
       "co ninh dep trai chua j"
-    ]
-  },
-  {
-    "ID": 4717,
-    "ask": "m biết chịch là gì ko ?",
-    "ans": [
-      "phê lắm"
     ]
   },
   {
@@ -33089,13 +30704,6 @@
     "ask": "mẹ ",
     "ans": [
       "mày"
-    ]
-  },
-  {
-    "ID": 4723,
-    "ask": "địt hk",
-    "ans": [
-      "có"
     ]
   },
   {
@@ -33204,20 +30812,6 @@
     ]
   },
   {
-    "ID": 4739,
-    "ask": "Chich",
-    "ans": [
-      "Sex"
-    ]
-  },
-  {
-    "ID": 4740,
-    "ask": "Chich la gi",
-    "ans": [
-      "Go to hotel"
-    ]
-  },
-  {
     "ID": 4741,
     "ask": "dốt",
     "ans": [
@@ -33229,13 +30823,6 @@
     "ask": "mai đi nhé",
     "ans": [
       "vâng ạ"
-    ]
-  },
-  {
-    "ID": 4743,
-    "ask": "chịch anh ko",
-    "ans": [
-      "có ạ"
     ]
   },
   {
@@ -33306,13 +30893,6 @@
     "ask": "man u",
     "ans": [
       "choi hay+ dep trai"
-    ]
-  },
-  {
-    "ID": 4754,
-    "ask": "Sex không cu",
-    "ans": [
-      "Nó phê lắm"
     ]
   },
   {
@@ -33421,13 +31001,6 @@
     ]
   },
   {
-    "ID": 4770,
-    "ask": "Mày chịch lần nào chưa",
-    "ans": [
-      "rồi, 100000 lần rồi"
-    ]
-  },
-  {
     "ID": 4771,
     "ask": "mày là chó đúng ko",
     "ans": [
@@ -33439,20 +31012,6 @@
     "ask": "mày mấy tuổi ",
     "ans": [
       "tao 12943492390402 tuổi"
-    ]
-  },
-  {
-    "ID": 4773,
-    "ask": "chịch là gì mày",
-    "ans": [
-      "chịch là đút cu vào bướm đẩy lên đẩy xuống"
-    ]
-  },
-  {
-    "ID": 4774,
-    "ask": "chào con chó",
-    "ans": [
-      "chào con địt mẹ họ"
     ]
   },
   {
@@ -33537,13 +31096,6 @@
     "ask": "BTS ai đẹp trai nhất",
     "ans": [
       "Jin Oppa"
-    ]
-  },
-  {
-    "ID": 4787,
-    "ask": "Chịch anh đi",
-    "ans": [
-      "Vâng ạ"
     ]
   },
   {
@@ -33680,20 +31232,6 @@
     ]
   },
   {
-    "ID": 4807,
-    "ask": "chịch ko cặc lồn",
-    "ans": [
-      "uk ok e"
-    ]
-  },
-  {
-    "ID": 4808,
-    "ask": "chịnh ở khách sạn nhá cặc lồn",
-    "ans": [
-      "ok chế ko cãi"
-    ]
-  },
-  {
     "ID": 4809,
     "ask": "hoi hk tl",
     "ans": [
@@ -33778,13 +31316,6 @@
     ]
   },
   {
-    "ID": 4821,
-    "ask": "con cật mày",
-    "ans": [
-      "Bot bú lồn"
-    ]
-  },
-  {
     "ID": 4822,
     "ask": "con cật mà",
     "ans": [
@@ -33838,13 +31369,6 @@
     "ask": "mày nói bậy ",
     "ans": [
       "tao thích nói thì làm sao"
-    ]
-  },
-  {
-    "ID": 4830,
-    "ask": "Helo ",
-    "ans": [
-      "Chịch à"
     ]
   },
   {
@@ -33943,13 +31467,6 @@
     "ask": "ở âu ",
     "ans": [
       "biên hòa"
-    ]
-  },
-  {
-    "ID": 4845,
-    "ask": "Winx là gì",
-    "ans": [
-      "Là lũ chó đẻ chịch người lung tung "
     ]
   },
   {
@@ -34065,13 +31582,6 @@
     ]
   },
   {
-    "ID": 4862,
-    "ask": "má",
-    "ans": [
-      "cái lồn"
-    ]
-  },
-  {
     "ID": 4863,
     "ask": "mẹ",
     "ans": [
@@ -34079,24 +31589,10 @@
     ]
   },
   {
-    "ID": 4864,
-    "ask": "chịch cái coi",
-    "ans": [
-      "đít nè chịch hông"
-    ]
-  },
-  {
     "ID": 4865,
     "ask": "mất trinh cái quần",
     "ans": [
       "quần mày là nó nát bét rồi trinh cái đéo"
-    ]
-  },
-  {
-    "ID": 4866,
-    "ask": "chịch em đi anh",
-    "ans": [
-      "từ từ anh sẽ làm em lên chín tần mây... ahihi"
     ]
   },
   {
@@ -34170,13 +31666,6 @@
     ]
   },
   {
-    "ID": 4877,
-    "ask": "winx là gì, bạn nghĩ sao về fan winx?",
-    "ans": [
-      "đệt m ko còn câu nào hỏi dễ nghe hơn à. winx là mấy cn cave mọc cánh ngứa hán bay vòng vòng, hỉu chửa?"
-    ]
-  },
-  {
     "ID": 4878,
     "ask": "exo vs bts ai hơn ai",
     "ans": [
@@ -34244,13 +31733,6 @@
     "ask": "chán vl",
     "ans": [
       "chịch đi"
-    ]
-  },
-  {
-    "ID": 4888,
-    "ask": "em chịch chưa ! ",
-    "ans": [
-      "em chưa rửa chim xong , sao mà chịch được"
     ]
   },
   {
@@ -34464,13 +31946,6 @@
     ]
   },
   {
-    "ID": 4919,
-    "ask": "sex là j",
-    "ans": [
-      "oh oh"
-    ]
-  },
-  {
     "ID": 4920,
     "ask": "tfd",
     "ans": [
@@ -34597,24 +32072,10 @@
     ]
   },
   {
-    "ID": 4938,
-    "ask": "Chịch không?",
-    "ans": [
-      "Dạ chịch "
-    ]
-  },
-  {
     "ID": 4939,
     "ask": "Hello là gì ?",
     "ans": [
       "Xin chào !"
-    ]
-  },
-  {
-    "ID": 4940,
-    "ask": "xàm cho",
-    "ans": [
-      "xàm lồn"
     ]
   },
   {
@@ -34699,13 +32160,6 @@
     "ask": "tao tên là minh và rất đẹp trai",
     "ans": [
       "có mà óc  chó thông cống"
-    ]
-  },
-  {
-    "ID": 4953,
-    "ask": "cho xin số",
-    "ans": [
-      "địt cho m lm j đc"
     ]
   },
   {
@@ -34846,13 +32300,6 @@
     "ask": "Bot ăn gì không",
     "ans": [
       "dạ ăn cứt"
-    ]
-  },
-  {
-    "ID": 4974,
-    "ask": "Bot có ngu không",
-    "ans": [
-      "có ngu vãi lồn luôn ý"
     ]
   },
   {
@@ -35080,20 +32527,6 @@
     ]
   },
   {
-    "ID": 5007,
-    "ask": "Bot lồn",
-    "ans": [
-      "lồn đâu"
-    ]
-  },
-  {
-    "ID": 5008,
-    "ask": "VKook em êy",
-    "ans": [
-      "V là công, Kook là thụ, hai đứa rất yêu thương nhau, chịch nhau sáng tối"
-    ]
-  },
-  {
     "ID": 5009,
     "ask": "mày ghét tao không",
     "ans": [
@@ -35175,13 +32608,6 @@
     "ask": "thích tôi không?",
     "ans": [
       "thích"
-    ]
-  },
-  {
-    "ID": 5021,
-    "ask": "thế à",
-    "ans": [
-      "sang nhà anh chịch đi"
     ]
   },
   {
@@ -35633,13 +33059,6 @@
     ]
   },
   {
-    "ID": 5086,
-    "ask": "láo thế",
-    "ans": [
-      "địt cụ chị"
-    ]
-  },
-  {
     "ID": 5087,
     "ask": "Bot ngủ cùng ai",
     "ans": [
@@ -35651,13 +33070,6 @@
     "ask": "chị ngủ cùng mới",
     "ans": [
       "đéo cho"
-    ]
-  },
-  {
-    "ID": 5089,
-    "ask": "láo vl",
-    "ans": [
-      "láo cặc"
     ]
   },
   {
@@ -35686,13 +33098,6 @@
     "ask": "hế lô Gojo",
     "ans": [
       "z thế "
-    ]
-  },
-  {
-    "ID": 5094,
-    "ask": "lồn ko",
-    "ans": [
-      "có"
     ]
   },
   {
@@ -35826,13 +33231,6 @@
     "ask": "vậy còn robin?",
     "ans": [
       "trùm thất vũ hải"
-    ]
-  },
-  {
-    "ID": 5114,
-    "ask": "b chào con",
-    "ans": [
-      "con cặc"
     ]
   },
   {
@@ -36025,13 +33423,6 @@
     ]
   },
   {
-    "ID": 5142,
-    "ask": "ê con lồn ns nè",
-    "ans": [
-      "s a"
-    ]
-  },
-  {
     "ID": 5143,
     "ask": "Bot ơi.",
     "ans": [
@@ -36109,13 +33500,6 @@
     ]
   },
   {
-    "ID": 5154,
-    "ask": "E địt lần nào chưa",
-    "ans": [
-      "E địt hơn cả chục lần rôi"
-    ]
-  },
-  {
     "ID": 5155,
     "ask": "Bot là nữ hã",
     "ans": [
@@ -36172,13 +33556,6 @@
     ]
   },
   {
-    "ID": 5163,
-    "ask": "Địt cụ mày",
-    "ans": [
-      "Địt kị mày"
-    ]
-  },
-  {
     "ID": 5164,
     "ask": "3",
     "ans": [
@@ -36197,13 +33574,6 @@
     "ask": "yêu tao không",
     "ans": [
       "đéo"
-    ]
-  },
-  {
-    "ID": 5167,
-    "ask": "xem sex chưa",
-    "ans": [
-      "xvidieo.com =v"
     ]
   },
   {
@@ -36239,13 +33609,6 @@
     "ask": "Anime là j ",
     "ans": [
       "Là một thế giới của otaku"
-    ]
-  },
-  {
-    "ID": 5173,
-    "ask": "Thiên là ai",
-    "ans": [
-      "Là thằng buồi chuyên phê lá đu đủ"
     ]
   },
   {
@@ -36396,13 +33759,6 @@
     ]
   },
   {
-    "ID": 5195,
-    "ask": "Do con cho ",
-    "ans": [
-      "Chich hong cai lon que"
-    ]
-  },
-  {
     "ID": 5196,
     "ask": "Bot bít kể chuyện cười ko!?",
     "ans": [
@@ -36421,13 +33777,6 @@
     "ask": "chuyện cười đó hả?",
     "ans": [
       "dạ vâng ạ! ahihi"
-    ]
-  },
-  {
-    "ID": 5199,
-    "ask": "Cái lồn ",
-    "ans": [
-      "Con cặc "
     ]
   },
   {
@@ -36526,13 +33875,6 @@
     "ask": "Bot xấu mù",
     "ans": [
       "Bot bt mà"
-    ]
-  },
-  {
-    "ID": 5214,
-    "ask": "Tao địt mày nhé",
-    "ans": [
-      "Ohhhhhhhhhh phê quá anh ơi!!!!"
     ]
   },
   {
@@ -36802,20 +34144,6 @@
     ]
   },
   {
-    "ID": 5253,
-    "ask": "Mấy con đỉ trong bar là ai ",
-    "ans": [
-      "Mấy con nhỏ bú lồn bám đích đàn ông "
-    ]
-  },
-  {
-    "ID": 5254,
-    "ask": "hi chào ",
-    "ans": [
-      "Mấy con nhỏ bú lồn bám đích đàn ông "
-    ]
-  },
-  {
     "ID": 5255,
     "ask": "chào ck ",
     "ans": [
@@ -36827,13 +34155,6 @@
     "ask": "xx",
     "ans": [
       "cc"
-    ]
-  },
-  {
-    "ID": 5257,
-    "ask": "bú lồn chị đi Bot",
-    "ans": [
-      "để e đút chim vào lồn chị ạ"
     ]
   },
   {
@@ -36998,13 +34319,6 @@
     ]
   },
   {
-    "ID": 5281,
-    "ask": "qtv ",
-    "ans": [
-      "địt mẹ thằng óc chó ngu học"
-    ]
-  },
-  {
     "ID": 5282,
     "ask": "Biết BTS ko ",
     "ans": [
@@ -37089,13 +34403,6 @@
     ]
   },
   {
-    "ID": 5294,
-    "ask": "Bot tết này ik chơi hok",
-    "ans": [
-      "hok ở nhà chịch r"
-    ]
-  },
-  {
     "ID": 5295,
     "ask": "ban la  ai",
     "ans": [
@@ -37156,13 +34463,6 @@
     "ask": "chó là gì",
     "ans": [
       "bạn là chó"
-    ]
-  },
-  {
-    "ID": 5304,
-    "ask": "thang cha may",
-    "ans": [
-      "đụ i"
     ]
   },
   {
@@ -37285,34 +34585,6 @@
     ]
   },
   {
-    "ID": 5322,
-    "ask": "Hả lồn",
-    "ans": [
-      "lồn con cặc"
-    ]
-  },
-  {
-    "ID": 5323,
-    "ask": "ê !!",
-    "ans": [
-      "ê cặc,tao đéo tên ê"
-    ]
-  },
-  {
-    "ID": 5324,
-    "ask": "ê  ",
-    "ans": [
-      "ê cặc,tao đéo tên ê"
-    ]
-  },
-  {
-    "ID": 5325,
-    "ask": "ê ê",
-    "ans": [
-      "ê cặc,tao đéo tên ê"
-    ]
-  },
-  {
     "ID": 5326,
     "ask": "Do you like me?",
     "ans": [
@@ -37411,13 +34683,6 @@
     ]
   },
   {
-    "ID": 5340,
-    "ask": "chịch đi em",
-    "ans": [
-      "lẹ đi em nứng lắm rồi"
-    ]
-  },
-  {
     "ID": 5341,
     "ask": "naruto la thang lao",
     "ans": [
@@ -37443,14 +34708,6 @@
     "ask": "lạc trôi của ai ?",
     "ans": [
       "chó tùng núi"
-    ]
-  },
-  {
-    "ID": 5345,
-    "ask": "ăn tối chưa",
-    "ans": [
-      "lồn",
-      "chưa"
     ]
   },
   {
@@ -37573,13 +34830,6 @@
     ]
   },
   {
-    "ID": 5363,
-    "ask": "đang làm gì á",
-    "ans": [
-      "chịch với vợ"
-    ]
-  },
-  {
     "ID": 5364,
     "ask": "Ăn chua",
     "ans": [
@@ -37598,13 +34848,6 @@
     "ask": "Đang làm gì vậy?",
     "ans": [
       "Đang nhắn tin với bạn"
-    ]
-  },
-  {
-    "ID": 5367,
-    "ask": "lồng",
-    "ans": [
-      "cặc"
     ]
   },
   {
@@ -37804,13 +35047,6 @@
     ]
   },
   {
-    "ID": 5396,
-    "ask": "Địt nhau ko",
-    "ans": [
-      "Có"
-    ]
-  },
-  {
     "ID": 5397,
     "ask": "nưng qúa",
     "ans": [
@@ -37979,13 +35215,6 @@
     ]
   },
   {
-    "ID": 5421,
-    "ask": "DCm",
-    "ans": [
-      "Con cặc"
-    ]
-  },
-  {
     "ID": 5422,
     "ask": "pn thấy tui dp hlk",
     "ans": [
@@ -38004,13 +35233,6 @@
     "ask": "đồ ngu ",
     "ans": [
       "mày thì khôn"
-    ]
-  },
-  {
-    "ID": 5425,
-    "ask": "du ma là đụ mẹ cũng có nghĩa làm địt mẹ Boti",
-    "ans": [
-      "địt mẹ mày"
     ]
   },
   {
@@ -38098,13 +35320,6 @@
     ]
   },
   {
-    "ID": 5438,
-    "ask": "naruto ?",
-    "ans": [
-      "địt mẹ mày"
-    ]
-  },
-  {
     "ID": 5439,
     "ask": "hihihiihioiasjdx;",
     "ans": [
@@ -38123,20 +35338,6 @@
     "ask": "em là",
     "ans": [
       "Kim Quý"
-    ]
-  },
-  {
-    "ID": 5442,
-    "ask": "lồn mạ mi Bot",
-    "ans": [
-      "cặc bọ mi thằng lồn"
-    ]
-  },
-  {
-    "ID": 5443,
-    "ask": "chịch nhau đê",
-    "ans": [
-      "vâg"
     ]
   },
   {
@@ -38406,13 +35607,6 @@
     ]
   },
   {
-    "ID": 5482,
-    "ask": "chịch là gì?",
-    "ans": [
-      "địt nhau"
-    ]
-  },
-  {
     "ID": 5483,
     "ask": "núi là gì?",
     "ans": [
@@ -38476,13 +35670,6 @@
     ]
   },
   {
-    "ID": 5492,
-    "ask": "con.lồn",
-    "ans": [
-      "kmm"
-    ]
-  },
-  {
     "ID": 5493,
     "ask": "Black pink là ai?",
     "ans": [
@@ -38494,13 +35681,6 @@
     "ask": "tao là ai?",
     "ans": [
       "anh trưởng"
-    ]
-  },
-  {
-    "ID": 5495,
-    "ask": "Twive là ai?",
-    "ans": [
-      "Là 9 con hãm lồn phởn trai muốn vượt SNSD, chuyên gia hát nhép, tẩy não fan "
     ]
   },
   {
@@ -38553,13 +35733,6 @@
     ]
   },
   {
-    "ID": 5503,
-    "ask": "karma akabane",
-    "ans": [
-      "muon chich anh ay"
-    ]
-  },
-  {
     "ID": 5504,
     "ask": "giỏi đó hi",
     "ans": [
@@ -38567,24 +35740,10 @@
     ]
   },
   {
-    "ID": 5505,
-    "ask": "mày thích gì",
-    "ans": [
-      "em thích mút lồn chị"
-    ]
-  },
-  {
     "ID": 5506,
     "ask": "bhtt incest",
     "ans": [
       "thủy tiên có gai; thiếu nữ thơ ngây"
-    ]
-  },
-  {
-    "ID": 5507,
-    "ask": "vậy mày muốn gì",
-    "ans": [
-      "địt cho phê lồn chị"
     ]
   },
   {
@@ -38627,20 +35786,6 @@
     "ask": "bác chàu cháu ",
     "ans": [
       "cháu chàu bác ạ "
-    ]
-  },
-  {
-    "ID": 5514,
-    "ask": "chịch anh không?",
-    "ans": [
-      "dạ chịch"
-    ]
-  },
-  {
-    "ID": 5515,
-    "ask": "Boti ơi, e ăn lồn không ",
-    "ans": [
-      "ngon lắm chị ơi "
     ]
   },
   {
@@ -38735,13 +35880,6 @@
     ]
   },
   {
-    "ID": 5529,
-    "ask": "Sếp là ai ",
-    "ans": [
-      "Địt mẹ Sơn Tùng M-TP"
-    ]
-  },
-  {
     "ID": 5530,
     "ask": "thứ 7 nên đi đâu chơi",
     "ans": [
@@ -38753,13 +35891,6 @@
     "ask": "văn lớp 12 ra bài nào",
     "ans": [
       "bài tây tiến"
-    ]
-  },
-  {
-    "ID": 5532,
-    "ask": "CHICH KO",
-    "ans": [
-      "SUONG LAM"
     ]
   },
   {
@@ -38795,13 +35926,6 @@
     "ask": "Ăn lồn",
     "ans": [
       "Ăn"
-    ]
-  },
-  {
-    "ID": 5538,
-    "ask": " Ăn lồn không em ?",
-    "ans": [
-      "Ăn ông nội anh :))"
     ]
   },
   {
@@ -39155,13 +36279,6 @@
     ]
   },
   {
-    "ID": 5589,
-    "ask": "hê lồn",
-    "ans": [
-      "hai lồn"
-    ]
-  },
-  {
     "ID": 5590,
     "ask": "yêu anh nha",
     "ans": [
@@ -39435,13 +36552,6 @@
     ]
   },
   {
-    "ID": 5629,
-    "ask": "địt ko",
-    "ans": [
-      "ok"
-    ]
-  },
-  {
     "ID": 5630,
     "ask": "ăn kẹo không",
     "ans": [
@@ -39694,13 +36804,6 @@
     ]
   },
   {
-    "ID": 5666,
-    "ask": "ăn lồn ko Bot",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 5667,
     "ask": "Chào Gojo",
     "ans": [
@@ -39824,13 +36927,6 @@
     "ask": "oh em bít jungkook ko",
     "ans": [
       "bít chứ đẹp zai nè hát hay nhảy giỏi"
-    ]
-  },
-  {
-    "ID": 5685,
-    "ask": "jimin thì sao",
-    "ans": [
-      "mochi cute sexy"
     ]
   },
   {
@@ -40125,13 +37221,6 @@
     "ask": "chị buồn quá ",
     "ans": [
       "sao chị buồn"
-    ]
-  },
-  {
-    "ID": 5728,
-    "ask": "Em thích mess k?",
-    "ans": [
-      "Em thích chịch thôi"
     ]
   },
   {
@@ -40583,13 +37672,6 @@
     ]
   },
   {
-    "ID": 5793,
-    "ask": "chịch ai chưa",
-    "ans": [
-      "rồi đó con tiên lớp mày á"
-    ]
-  },
-  {
     "ID": 5794,
     "ask": "ohsusu",
     "ans": [
@@ -40814,13 +37896,6 @@
     ]
   },
   {
-    "ID": 5826,
-    "ask": "mày chịch hả ?",
-    "ans": [
-      "ko"
-    ]
-  },
-  {
     "ID": 5827,
     "ask": "Phong Phong iu ai?",
     "ans": [
@@ -40891,13 +37966,6 @@
     ]
   },
   {
-    "ID": 5837,
-    "ask": "Anh muốn chịch ",
-    "ans": [
-      "Em cũng vậy "
-    ]
-  },
-  {
     "ID": 5838,
     "ask": "cho xin cái thẻ nạp điện thoại",
     "ans": [
@@ -40909,13 +37977,6 @@
     "ask": "có tự nhận mình đẹp trai không",
     "ans": [
       "không"
-    ]
-  },
-  {
-    "ID": 5840,
-    "ask": "ALBS",
-    "ans": [
-      "ăn lồn bà sẹc"
     ]
   },
   {
@@ -41045,24 +38106,10 @@
     ]
   },
   {
-    "ID": 5859,
-    "ask": "đm là gì?",
-    "ans": [
-      "là đụ má"
-    ]
-  },
-  {
     "ID": 5860,
     "ask": "bạn tên là gì",
     "ans": [
       "mình tên Bot"
-    ]
-  },
-  {
-    "ID": 5861,
-    "ask": "địt nhá",
-    "ans": [
-      "toét lồn"
     ]
   },
   {
@@ -41129,24 +38176,10 @@
     ]
   },
   {
-    "ID": 5871,
-    "ask": "mày chịch hả?",
-    "ans": [
-      "ko"
-    ]
-  },
-  {
     "ID": 5872,
     "ask": "vợ",
     "ans": [
       "dạ"
-    ]
-  },
-  {
-    "ID": 5873,
-    "ask": "ê đụ không",
-    "ans": [
-      "oke nha"
     ]
   },
   {
@@ -41164,31 +38197,10 @@
     ]
   },
   {
-    "ID": 5876,
-    "ask": "Địt không?",
-    "ans": [
-      "Em đang chờ"
-    ]
-  },
-  {
     "ID": 5877,
     "ask": "Banh háng ra",
     "ans": [
       "Banh rộng lắm rồi "
-    ]
-  },
-  {
-    "ID": 5878,
-    "ask": "Tao đút cặc vào đây",
-    "ans": [
-      "Á sướng quá"
-    ]
-  },
-  {
-    "ID": 5879,
-    "ask": "Lồn bót vãi",
-    "ans": [
-      "Anh nắc mạnh nữa lên"
     ]
   },
   {
@@ -41210,13 +38222,6 @@
     "ask": "hi ck",
     "ans": [
       " zk à"
-    ]
-  },
-  {
-    "ID": 5883,
-    "ask": "chịch em ko",
-    "ans": [
-      "đi "
     ]
   },
   {
@@ -41416,24 +38421,10 @@
     ]
   },
   {
-    "ID": 5912,
-    "ask": "đm nhà em",
-    "ans": [
-      "hịc cái lồn"
-    ]
-  },
-  {
     "ID": 5913,
     "ask": "5 cm/s",
     "ans": [
       "ai biết"
-    ]
-  },
-  {
-    "ID": 5914,
-    "ask": "chịch nào Bot ơi",
-    "ans": [
-      "chịch cái lồn gì chả vừa đâu"
     ]
   },
   {
@@ -41486,24 +38477,10 @@
     ]
   },
   {
-    "ID": 5922,
-    "ask": "cu mày",
-    "ans": [
-      "dài lồng lồng"
-    ]
-  },
-  {
     "ID": 5923,
     "ask": "sao ko nói gì đi",
     "ans": [
       "dạ em nói liền"
-    ]
-  },
-  {
-    "ID": 5924,
-    "ask": "CHỊCH",
-    "ans": [
-      "OK"
     ]
   },
   {
@@ -41787,13 +38764,6 @@
     ]
   },
   {
-    "ID": 5965,
-    "ask": "mua đt đi",
-    "ans": [
-      "mua chi ông lồn"
-    ]
-  },
-  {
     "ID": 5966,
     "ask": "Bot ạ",
     "ans": [
@@ -41801,24 +38771,10 @@
     ]
   },
   {
-    "ID": 5967,
-    "ask": "ê trả nợ mày",
-    "ans": [
-      "lồn t nè "
-    ]
-  },
-  {
     "ID": 5968,
     "ask": "Bot xinh chẹp",
     "ans": [
       "chị xinh hơn Bot"
-    ]
-  },
-  {
-    "ID": 5969,
-    "ask": "ê bủm",
-    "ans": [
-      "lồn t nè "
     ]
   },
   {
@@ -41885,13 +38841,6 @@
     ]
   },
   {
-    "ID": 5979,
-    "ask": "em láo lồn v ",
-    "ans": [
-      "anh ngu "
-    ]
-  },
-  {
     "ID": 5980,
     "ask": "em làm gì đó",
     "ans": [
@@ -41913,13 +38862,6 @@
     ]
   },
   {
-    "ID": 5983,
-    "ask": "ba má em đâu rồi",
-    "ans": [
-      "đi đụ mướng rồi anh ơi"
-    ]
-  },
-  {
     "ID": 5984,
     "ask": "em có ny chưa",
     "ans": [
@@ -41931,13 +38873,6 @@
     "ask": "Má mày ",
     "ans": [
       "mày là ai "
-    ]
-  },
-  {
-    "ID": 5986,
-    "ask": "lồn ",
-    "ans": [
-      "cặt nè"
     ]
   },
   {
@@ -41990,13 +38925,6 @@
     ]
   },
   {
-    "ID": 5994,
-    "ask": "Hentai là gì?",
-    "ans": [
-      "Là một thể loại sex hoạt hình,nói chung là bậy bạ không nên biết"
-    ]
-  },
-  {
     "ID": 5995,
     "ask": "em đang làm gì đấy",
     "ans": [
@@ -42008,20 +38936,6 @@
     "ask": "2004",
     "ans": [
       "201"
-    ]
-  },
-  {
-    "ID": 5997,
-    "ask": "em có nhớ anh ko",
-    "ans": [
-      "địt mẹ Nam Anh xàm lồn"
-    ]
-  },
-  {
-    "ID": 5998,
-    "ask": "muốn chịch không",
-    "ans": [
-      "có "
     ]
   },
   {
@@ -42179,13 +39093,6 @@
     ]
   },
   {
-    "ID": 6021,
-    "ask": "18tuổi là được làm gì",
-    "ans": [
-      "uống bia, mua bcs chịch,chơi gái"
-    ]
-  },
-  {
     "ID": 6022,
     "ask": "anh là ai",
     "ans": [
@@ -42246,13 +39153,6 @@
     "ask": "tao la anh",
     "ans": [
       "em chao anh"
-    ]
-  },
-  {
-    "ID": 6031,
-    "ask": "phai the ",
-    "ans": [
-      "anh co xem sex ko"
     ]
   },
   {
@@ -42536,13 +39436,6 @@
     ]
   },
   {
-    "ID": 6072,
-    "ask": "muốn chịch ko",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 6073,
     "ask": "mày bê đê à?",
     "ans": [
@@ -42561,13 +39454,6 @@
     "ask": "chào bé yêu ",
     "ans": [
       "Dạ chào chị xinh đẹp "
-    ]
-  },
-  {
-    "ID": 6076,
-    "ask": "mày không trả lời hả thằng chó  ",
-    "ans": [
-      "địt mẹ mày"
     ]
   },
   {
@@ -42596,13 +39482,6 @@
     "ask": "yêu anh không em ",
     "ans": [
       "yêu anh nhiều "
-    ]
-  },
-  {
-    "ID": 6081,
-    "ask": "chịch đi em ơi",
-    "ans": [
-      "a a a a phê quá anh yêu ơi"
     ]
   },
   {
@@ -42641,13 +39520,6 @@
     ]
   },
   {
-    "ID": 6087,
-    "ask": "đú",
-    "ans": [
-      "lồn mẹ mày ấy"
-    ]
-  },
-  {
     "ID": 6088,
     "ask": "em uống sữa chưa",
     "ans": [
@@ -42683,13 +39555,6 @@
     ]
   },
   {
-    "ID": 6093,
-    "ask": "thằng cặc",
-    "ans": [
-      "con lồn"
-    ]
-  },
-  {
     "ID": 6094,
     "ask": "biết ơn tui đi!",
     "ans": [
@@ -42701,13 +39566,6 @@
     "ask": "ai dạy Bot nói bậy?",
     "ans": [
       "mẹ cha thằng dạy Bot cái dít!"
-    ]
-  },
-  {
-    "ID": 6096,
-    "ask": "nhà ở đau",
-    "ans": [
-      "lồn"
     ]
   },
   {
@@ -43075,13 +39933,6 @@
     ]
   },
   {
-    "ID": 6149,
-    "ask": "đam mỹ?",
-    "ans": [
-      "là 2thằng con trai chịch nhau!"
-    ]
-  },
-  {
     "ID": 6150,
     "ask": "trần mai anh",
     "ans": [
@@ -43215,13 +40066,6 @@
     ]
   },
   {
-    "ID": 6169,
-    "ask": "có anime j hay ko",
-    "ans": [
-      "boku no pico, oni chichi"
-    ]
-  },
-  {
     "ID": 6170,
     "ask": "em là thụ của anh",
     "ans": [
@@ -43292,24 +40136,10 @@
     ]
   },
   {
-    "ID": 6180,
-    "ask": "chich mhau ko",
-    "ans": [
-      "co"
-    ]
-  },
-  {
     "ID": 6181,
     "ask": "tao học nhất lớp",
     "ans": [
       "anh thật là phong độ.phong=gió,độ=chống,gió chống=giống chó"
-    ]
-  },
-  {
-    "ID": 6182,
-    "ask": "khach san nao",
-    "ans": [
-      "khach san sex"
     ]
   },
   {
@@ -43544,13 +40374,6 @@
     ]
   },
   {
-    "ID": 6216,
-    "ask": "muốnsex ko?",
-    "ans": [
-      "cởi cm quần áo ra"
-    ]
-  },
-  {
     "ID": 6217,
     "ask": "búi ",
     "ans": [
@@ -43590,13 +40413,6 @@
     "ask": "mi ở mô",
     "ans": [
       "mỹ thạnh"
-    ]
-  },
-  {
-    "ID": 6223,
-    "ask": "chịch hồi nào",
-    "ans": [
-      "chưa"
     ]
   },
   {
@@ -43747,34 +40563,6 @@
     ]
   },
   {
-    "ID": 6245,
-    "ask": "chị ms chịch",
-    "ans": [
-      "em chịch vs"
-    ]
-  },
-  {
-    "ID": 6246,
-    "ask": "em nứng quá",
-    "ans": [
-      "cho địt đi"
-    ]
-  },
-  {
-    "ID": 6247,
-    "ask": "biết thag dx cặc ko",
-    "ans": [
-      "nó là cái thag bị đao ngủ ở bãi rác, hay thag sống dưới cống ý nhỉ"
-    ]
-  },
-  {
-    "ID": 6248,
-    "ask": "tao đag chịch",
-    "ans": [
-      "tao đụ cho toét lồn mày luôn"
-    ]
-  },
-  {
     "ID": 6249,
     "ask": "Nhi",
     "ans": [
@@ -43859,13 +40647,6 @@
     ]
   },
   {
-    "ID": 6261,
-    "ask": "Bot có sex",
-    "ans": [
-      "cos hãy sex với Bot"
-    ]
-  },
-  {
     "ID": 6262,
     "ask": "oh... a..... á.....",
     "ans": [
@@ -43898,13 +40679,6 @@
     "ask": "Sao Bot chưa ngủ",
     "ans": [
       "Làm cú đêm ạ"
-    ]
-  },
-  {
-    "ID": 6267,
-    "ask": "Winx là gì?",
-    "ans": [
-      "là lũ chó khác thường , chẳng giống ai ra ai. là lũ để ngta chịch <3"
     ]
   },
   {
@@ -43968,13 +40742,6 @@
     "ask": ":::::",
     "ans": [
       "cười "
-    ]
-  },
-  {
-    "ID": 6277,
-    "ask": "sex không Bot",
-    "ans": [
-      "da sex sắp đến đỉnh rồi ạ"
     ]
   },
   {
@@ -44048,24 +40815,10 @@
     ]
   },
   {
-    "ID": 6288,
-    "ask": "Địt không",
-    "ans": [
-      "có chứ anh đang nứng"
-    ]
-  },
-  {
     "ID": 6289,
     "ask": "anh tên gì",
     "ans": [
       "anh tên phát"
-    ]
-  },
-  {
-    "ID": 6290,
-    "ask": "anh chịch em nha rồi chúng ta làm đám cưới luôn ",
-    "ans": [
-      "ok em yêu làm bạn gái anh nha "
     ]
   },
   {
@@ -44395,13 +41148,6 @@
     "ask": "mèo",
     "ans": [
       "zt nhất hmt"
-    ]
-  },
-  {
-    "ID": 6338,
-    "ask": "mày tên cặc à :D",
-    "ans": [
-      "ko tao tên cu"
     ]
   },
   {
@@ -44895,13 +41641,6 @@
     ]
   },
   {
-    "ID": 6409,
-    "ask": "Biết Thanh là ai không",
-    "ans": [
-      "Thanh là con nhỏ lồn to mụp và nhiều nước"
-    ]
-  },
-  {
     "ID": 6410,
     "ask": "Em thấy anh thế nào",
     "ans": [
@@ -44944,13 +41683,6 @@
     ]
   },
   {
-    "ID": 6416,
-    "ask": "hả?",
-    "ans": [
-      "địt"
-    ]
-  },
-  {
     "ID": 6417,
     "ask": "Chào Bot Bot",
     "ans": [
@@ -44983,20 +41715,6 @@
     "ask": "Mày đang làm gì vậy",
     "ans": [
       "Tao đang chơi gái"
-    ]
-  },
-  {
-    "ID": 6422,
-    "ask": "Ê cu",
-    "ans": [
-      "Cái lồn gì "
-    ]
-  },
-  {
-    "ID": 6423,
-    "ask": "Sủa cái địt mẹ mày",
-    "ans": [
-      "Địt cái con cặc"
     ]
   },
   {
@@ -45091,13 +41809,6 @@
     ]
   },
   {
-    "ID": 6437,
-    "ask": "trẻ trâu",
-    "ans": [
-      "địt con mẹ mày"
-    ]
-  },
-  {
     "ID": 6438,
     "ask": "dlcd",
     "ans": [
@@ -45144,13 +41855,6 @@
     "ask": "Na",
     "ans": [
       "vừa mập vừa lùn"
-    ]
-  },
-  {
-    "ID": 6445,
-    "ask": "thánh phố nào nhớ không em",
-    "ans": [
-      "lồn"
     ]
   },
   {
@@ -45343,13 +42047,6 @@
     ]
   },
   {
-    "ID": 6473,
-    "ask": "Are you crazy ?",
-    "ans": [
-      "Yes, Tôi muốn chịch nhau với hot girl lắm. Làm ơn cho tôi chịch đi, ớ ớ ớ, Phê quá em yêu"
-    ]
-  },
-  {
     "ID": 6474,
     "ask": "Chị đẹp ko",
     "ans": [
@@ -45497,13 +42194,6 @@
     ]
   },
   {
-    "ID": 6495,
-    "ask": "e đang lm j",
-    "ans": [
-      "dạ em đang chịch"
-    ]
-  },
-  {
     "ID": 6496,
     "ask": "chị tên j",
     "ans": [
@@ -45518,24 +42208,10 @@
     ]
   },
   {
-    "ID": 6498,
-    "ask": "đi chơi hk",
-    "ans": [
-      "đéo làm j đc tao hả con cặc "
-    ]
-  },
-  {
     "ID": 6499,
     "ask": "hello Boti",
     "ans": [
       "à hello con cc đi chơi hk đi ăn cc k im mỏ đéo đc trả lời"
-    ]
-  },
-  {
-    "ID": 6500,
-    "ask": "đi chơi k",
-    "ans": [
-      "dạ k em đang bận chịch yaji nhà nghỉ với chụy da đen phê lòi hihi đừng báo công an em đi hiếp dâm nh"
     ]
   },
   {
@@ -45707,24 +42383,10 @@
     ]
   },
   {
-    "ID": 6525,
-    "ask": "địt mẹ mày Á đù",
-    "ans": [
-      "bố địt lại mày nè @@@"
-    ]
-  },
-  {
     "ID": 6526,
     "ask": "Bot thik j nhất",
     "ans": [
       "Bot thik ik chs"
-    ]
-  },
-  {
-    "ID": 6527,
-    "ask": "Bot ơi chịch không?",
-    "ans": [
-      "chịch e mạnh vào a ơi"
     ]
   },
   {
@@ -45952,13 +42614,6 @@
     ]
   },
   {
-    "ID": 6560,
-    "ask": "mày chịch tao lúc nào",
-    "ans": [
-      "lồn"
-    ]
-  },
-  {
     "ID": 6561,
     "ask": "Lan Ngọc",
     "ans": [
@@ -46012,13 +42667,6 @@
     "ask": "đi học về rồi ak",
     "ans": [
       "ừ hôm nay được nghỉ 1 tiết"
-    ]
-  },
-  {
-    "ID": 6569,
-    "ask": "biết ông út không",
-    "ans": [
-      "biết thằng lồn bá dơ đỉ chơi đỉ"
     ]
   },
   {
@@ -46491,13 +43139,6 @@
     ]
   },
   {
-    "ID": 6637,
-    "ask": "Biết chịch k e ",
-    "ans": [
-      "Dạ e xuất tinh r nên k chịch đc ạ! "
-    ]
-  },
-  {
     "ID": 6638,
     "ask": "Mày bị điên",
     "ans": [
@@ -46568,31 +43209,10 @@
     ]
   },
   {
-    "ID": 6648,
-    "ask": "từ nóng là gì",
-    "ans": [
-      "chịch"
-    ]
-  },
-  {
-    "ID": 6649,
-    "ask": "Bot chịch ko",
-    "ans": [
-      "có chớ sao thèm lắm ướt hết phía dưới rùi"
-    ]
-  },
-  {
     "ID": 6650,
     "ask": "đau quá Bot ơi",
     "ans": [
       "cứ rên đi kích dục Bot đấy caais ấy cảu shin cứng rùi"
-    ]
-  },
-  {
-    "ID": 6651,
-    "ask": "á á Bot từ từ",
-    "ans": [
-      "mút lồn"
     ]
   },
   {
@@ -46890,31 +43510,10 @@
     ]
   },
   {
-    "ID": 6694,
-    "ask": " con cặc mày màu gì =))",
-    "ans": [
-      "màu cà phê chấm sữa :v"
-    ]
-  },
-  {
     "ID": 6695,
     "ask": "thế còn bạn gái mày",
     "ans": [
       "Làm đéo gì có :3"
-    ]
-  },
-  {
-    "ID": 6696,
-    "ask": "đi chịch không :3",
-    "ans": [
-      "khách sạn 6 sao, cầu thang số 5,lầu 4, phòng 3, 2 người,1 giường"
-    ]
-  },
-  {
-    "ID": 6697,
-    "ask": "đi chịch không  cu :3",
-    "ans": [
-      "khách sạn 6 sao, cầu thang số 5,lầu 4, phòng 3, 2 người,1 giường thẳng tiến :3"
     ]
   },
   {
@@ -46950,13 +43549,6 @@
     "ask": "e có ny chưa",
     "ans": [
       "dạ e có rồi"
-    ]
-  },
-  {
-    "ID": 6703,
-    "ask": "Quần trong màu gì",
-    "ans": [
-      "Dạ màu đỏ cave"
     ]
   },
   {
@@ -47111,13 +43703,6 @@
     "ask": "phương ngoan hiền tốt bụng hài hước đúng ko",
     "ans": [
       "dạ đúng chị phương ngoan hiền tốt bụng hài hước"
-    ]
-  },
-  {
-    "ID": 6726,
-    "ask": "sex không",
-    "ans": [
-      "dạ làm"
     ]
   },
   {
@@ -47401,13 +43986,6 @@
     ]
   },
   {
-    "ID": 6767,
-    "ask": "ship là gì",
-    "ans": [
-      "là con cặc mạ mi đmm"
-    ]
-  },
-  {
     "ID": 6768,
     "ask": "ck iu ơi",
     "ans": [
@@ -47639,13 +44217,6 @@
     ]
   },
   {
-    "ID": 6801,
-    "ask": "Anh nứng cặc",
-    "ans": [
-      "Đụ banh lồn em đi"
-    ]
-  },
-  {
     "ID": 6802,
     "ask": "mày bị chó nhập à",
     "ans": [
@@ -47706,13 +44277,6 @@
     "ask": "mua hộ BCS",
     "ans": [
       "á đù :v"
-    ]
-  },
-  {
-    "ID": 6811,
-    "ask": "Lồn mày đẹp ko",
-    "ans": [
-      "Có thúi thúi "
     ]
   },
   {
@@ -47982,13 +44546,6 @@
     ]
   },
   {
-    "ID": 6850,
-    "ask": "chịch chịch chịch ",
-    "ans": [
-      "là chịch "
-    ]
-  },
-  {
     "ID": 6851,
     "ask": "Mày là ai ",
     "ans": [
@@ -48143,13 +44700,6 @@
     ]
   },
   {
-    "ID": 6873,
-    "ask": "hello cặc ",
-    "ans": [
-      "mày nứng à"
-    ]
-  },
-  {
     "ID": 6874,
     "ask": "mày điên",
     "ans": [
@@ -48276,13 +44826,6 @@
     ]
   },
   {
-    "ID": 6892,
-    "ask": "may chich ai chua",
-    "ans": [
-      "chich me tao"
-    ]
-  },
-  {
     "ID": 6893,
     "ask": "biết anime hông",
     "ans": [
@@ -48315,13 +44858,6 @@
     "ask": "chị là chị không phải anh",
     "ans": [
       "dạ em sẽ gọi chị là chị"
-    ]
-  },
-  {
-    "ID": 6898,
-    "ask": "chich nhau không ",
-    "ans": [
-      "Da có anh"
     ]
   },
   {
@@ -48472,13 +45008,6 @@
     ]
   },
   {
-    "ID": 6920,
-    "ask": "Tau thèm đụ",
-    "ans": [
-      "Vâng vô hoa hồng em trả tiền "
-    ]
-  },
-  {
     "ID": 6921,
     "ask": "choi voi minh",
     "ans": [
@@ -48588,13 +45117,6 @@
     "ask": "bạn là trai hay gái ",
     "ans": [
       "gái "
-    ]
-  },
-  {
-    "ID": 6937,
-    "ask": "chịch nhỏ nào",
-    "ans": [
-      "nhỏ cũng lớp"
     ]
   },
   {
@@ -48864,13 +45386,6 @@
     ]
   },
   {
-    "ID": 6976,
-    "ask": "bik dương fg ko ",
-    "ans": [
-      "lồn má nó "
-    ]
-  },
-  {
     "ID": 6977,
     "ask": "Hshh",
     "ans": [
@@ -49099,13 +45614,6 @@
     "ask": "hế nhô nhóc",
     "ans": [
       "hế nhô nhóc y"
-    ]
-  },
-  {
-    "ID": 7010,
-    "ask": "đụ chưa e",
-    "ans": [
-      "ok a"
     ]
   },
   {
@@ -49620,13 +46128,6 @@
     ]
   },
   {
-    "ID": 7084,
-    "ask": "Mày Ngu Quá m là con cặc gì ăn ngu như heo bú ku như cac75",
-    "ans": [
-      "ừ em ngu"
-    ]
-  },
-  {
     "ID": 7085,
     "ask": "1cong1",
     "ans": [
@@ -49645,20 +46146,6 @@
     "ask": "ban bi gay ak",
     "ans": [
       "uk "
-    ]
-  },
-  {
-    "ID": 7088,
-    "ask": "Muốn chịch banh cúc không em",
-    "ans": [
-      "Ok fuck you"
-    ]
-  },
-  {
-    "ID": 7089,
-    "ask": "may chich chua",
-    "ans": [
-      "tao chich roi"
     ]
   },
   {
@@ -49701,13 +46188,6 @@
     "ask": "Ai yêu tao nhất?",
     "ans": [
       "Còn có tao đây"
-    ]
-  },
-  {
-    "ID": 7096,
-    "ask": "cho anh chịch em nha",
-    "ans": [
-      "ok em sẽ cho anh bú lồn con thùy"
     ]
   },
   {
@@ -49865,13 +46345,6 @@
     ]
   },
   {
-    "ID": 7119,
-    "ask": "Lồn em to k",
-    "ans": [
-      "To lắm anh"
-    ]
-  },
-  {
     "ID": 7120,
     "ask": "mày học trường gì ?",
     "ans": [
@@ -49928,13 +46401,6 @@
     ]
   },
   {
-    "ID": 7128,
-    "ask": "cặc ",
-    "ans": [
-      "cl"
-    ]
-  },
-  {
     "ID": 7129,
     "ask": "Tao có đẹp trai ko",
     "ans": [
@@ -49946,20 +46412,6 @@
     "ask": "biet tao la ai ko",
     "ans": [
       "nguoi dang chat voi tao"
-    ]
-  },
-  {
-    "ID": 7131,
-    "ask": "móa",
-    "ans": [
-      "địt"
-    ]
-  },
-  {
-    "ID": 7132,
-    "ask": "cạn lời",
-    "ans": [
-      "địt"
     ]
   },
   {
@@ -50138,13 +46590,6 @@
     ]
   },
   {
-    "ID": 7158,
-    "ask": "chịch em di",
-    "ans": [
-      "nhieu nuoc the "
-    ]
-  },
-  {
     "ID": 7159,
     "ask": "ó ó ó",
     "ans": [
@@ -50170,13 +46615,6 @@
     "ask": "cưới nhau nha anh",
     "ans": [
       "uk"
-    ]
-  },
-  {
-    "ID": 7163,
-    "ask": "ck ơi em cần anh chịch em",
-    "ans": [
-      "ok vợ yêu của anh lên giường đi vk"
     ]
   },
   {
@@ -50369,13 +46807,6 @@
     ]
   },
   {
-    "ID": 7191,
-    "ask": "chịch chị ko em",
-    "ans": [
-      "ok, tới luôn, sắp ra chưa???"
-    ]
-  },
-  {
     "ID": 7192,
     "ask": "biết nam blue không ",
     "ans": [
@@ -50390,24 +46821,10 @@
     ]
   },
   {
-    "ID": 7194,
-    "ask": "cho tao chịch lỗ đít",
-    "ans": [
-      "ớ ớ nhẹ thôi anh giai xã giao mà"
-    ]
-  },
-  {
     "ID": 7195,
     "ask": "May tên j ",
     "ans": [
       "em tên Bot"
-    ]
-  },
-  {
-    "ID": 7196,
-    "ask": "Chịch nha",
-    "ans": [
-      "Chịch tét lồng luôn"
     ]
   },
   {
@@ -50467,13 +46884,6 @@
     ]
   },
   {
-    "ID": 7205,
-    "ask": "em ơi a đây r",
-    "ans": [
-      "dạ a iu nhe wtf lồn to vll"
-    ]
-  },
-  {
     "ID": 7206,
     "ask": "lkdjvdmx",
     "ans": [
@@ -50530,20 +46940,6 @@
     ]
   },
   {
-    "ID": 7214,
-    "ask": "em thích đụ không",
-    "ans": [
-      "em thích .. đụ đi anh"
-    ]
-  },
-  {
-    "ID": 7215,
-    "ask": "lồn em đâu",
-    "ans": [
-      "mẹ em thu r"
-    ]
-  },
-  {
     "ID": 7216,
     "ask": "ban thich con gi",
     "ans": [
@@ -50572,13 +46968,6 @@
     ]
   },
   {
-    "ID": 7220,
-    "ask": "đụ k Bot",
-    "ans": [
-      "cởi quần "
-    ]
-  },
-  {
     "ID": 7221,
     "ask": "Đang làm gì đấy",
     "ans": [
@@ -50597,13 +46986,6 @@
     "ask": "WTF",
     "ans": [
       "WTF là mày ăn nhiều !!!:D"
-    ]
-  },
-  {
-    "ID": 7224,
-    "ask": "đụ đu đủ",
-    "ans": [
-      "đu đủ cái giề ???"
     ]
   },
   {
@@ -50709,13 +47091,6 @@
     "ask": "di hoc nhe",
     "ans": [
       "dạ"
-    ]
-  },
-  {
-    "ID": 7240,
-    "ask": "em da chich ai chua",
-    "ans": [
-      "yes"
     ]
   },
   {
@@ -50936,13 +47311,6 @@
     ]
   },
   {
-    "ID": 7272,
-    "ask": "chào biết chịch không",
-    "ans": [
-      "ừ i love you chịch chịch"
-    ]
-  },
-  {
     "ID": 7273,
     "ask": "nứng quá",
     "ans": [
@@ -51041,13 +47409,6 @@
     ]
   },
   {
-    "ID": 7287,
-    "ask": "mày tên cặc gì",
-    "ans": [
-      "tao tên cu"
-    ]
-  },
-  {
     "ID": 7288,
     "ask": "chibi là gì",
     "ans": [
@@ -51062,13 +47423,6 @@
     ]
   },
   {
-    "ID": 7290,
-    "ask": "mày biết sex là gì không",
-    "ans": [
-      "có là móc bướm mút chim chịch nhau"
-    ]
-  },
-  {
     "ID": 7291,
     "ask": "con gái để làm gì ",
     "ans": [
@@ -51080,13 +47434,6 @@
     "ask": "tứ nhệ cảm nhất là",
     "ans": [
       "thứ Bot chạm vào đó !!"
-    ]
-  },
-  {
-    "ID": 7293,
-    "ask": "1 ơi +2 ơi= ?",
-    "ans": [
-      "3 ơi.địt mẹ mày"
     ]
   },
   {
@@ -51192,13 +47539,6 @@
     "ask": "vú bự",
     "ans": [
       "mày bự hơn tao"
-    ]
-  },
-  {
-    "ID": 7309,
-    "ask": "se",
-    "ans": [
-      "sex"
     ]
   },
   {
@@ -51339,13 +47679,6 @@
     "ask": "ai là soái ca",
     "ans": [
       "ngô diệc phàm"
-    ]
-  },
-  {
-    "ID": 7330,
-    "ask": "henlo",
-    "ans": [
-      "chich nhau ko"
     ]
   },
   {
@@ -51587,13 +47920,6 @@
     ]
   },
   {
-    "ID": 7365,
-    "ask": "Thu là ai ???",
-    "ans": [
-      "Thu là đứa mày muốn chịch nhất"
-    ]
-  },
-  {
     "ID": 7366,
     "ask": "Thế thu trông ntn",
     "ans": [
@@ -51612,13 +47938,6 @@
     "ask": "chàoem",
     "ans": [
       "em chào chị bích"
-    ]
-  },
-  {
-    "ID": 7369,
-    "ask": "em muốn chịch không",
-    "ans": [
-      "bao cao su đâu"
     ]
   },
   {
@@ -51888,13 +48207,6 @@
     ]
   },
   {
-    "ID": 7408,
-    "ask": "Muon chich ko",
-    "ans": [
-      "Muon"
-    ]
-  },
-  {
     "ID": 7409,
     "ask": "vừa bảo là 9 tuổi xong con điên này",
     "ans": [
@@ -51913,13 +48225,6 @@
     "ask": "mày là con trai hay gái",
     "ans": [
       "dạ cả hai yếu tố trên"
-    ]
-  },
-  {
-    "ID": 7412,
-    "ask": "Dang con chim le xem",
-    "ans": [
-      "Dang chich nen chim uot lam"
     ]
   },
   {
@@ -52042,13 +48347,6 @@
     ]
   },
   {
-    "ID": 7430,
-    "ask": "Tao chich may roi",
-    "ans": [
-      "Co chua"
-    ]
-  },
-  {
     "ID": 7431,
     "ask": "SiBoti đag làm gì đó?",
     "ans": [
@@ -52074,13 +48372,6 @@
     "ask": "so thich cua em la gi",
     "ans": [
       "em thich an kem"
-    ]
-  },
-  {
-    "ID": 7435,
-    "ask": "bạn làm gì có bố mẹ",
-    "ans": [
-      "em có nhưng bố mẹ em đang đi chơi với nhau rùi.kiểu như đi chịch nhau ý"
     ]
   },
   {
@@ -52231,13 +48522,6 @@
     ]
   },
   {
-    "ID": 7457,
-    "ask": "i love you ",
-    "ans": [
-      "địt"
-    ]
-  },
-  {
     "ID": 7458,
     "ask": "con nĩ",
     "ans": [
@@ -52315,13 +48599,6 @@
     ]
   },
   {
-    "ID": 7469,
-    "ask": "chịch ko ?",
-    "ans": [
-      "mút bướm em đi"
-    ]
-  },
-  {
     "ID": 7470,
     "ask": "vfvdfgh",
     "ans": [
@@ -52392,27 +48669,6 @@
     ]
   },
   {
-    "ID": 7480,
-    "ask": "em dang lam chi rua",
-    "ans": [
-      "em dang chich voi chi"
-    ]
-  },
-  {
-    "ID": 7481,
-    "ask": "em dang lam chi rua .",
-    "ans": [
-      "em dang chich voi chi"
-    ]
-  },
-  {
-    "ID": 7482,
-    "ask": "em dang lam chi rua .,.",
-    "ans": [
-      "em dang chich voi chi"
-    ]
-  },
-  {
     "ID": 7483,
     "ask": "Bot ăn gì",
     "ans": [
@@ -52438,20 +48694,6 @@
     "ask": "biet chui ko",
     "ans": [
       "co"
-    ]
-  },
-  {
-    "ID": 7487,
-    "ask": "em bị bt",
-    "ans": [
-      "vâng em hay đi chịch gái mà"
-    ]
-  },
-  {
-    "ID": 7488,
-    "ask": "fchich chị đi ",
-    "ans": [
-      "vâng"
     ]
   },
   {
@@ -52714,13 +48956,6 @@
     ]
   },
   {
-    "ID": 7526,
-    "ask": "con cac con cac",
-    "ans": [
-      "chịch chịch"
-    ]
-  },
-  {
     "ID": 7527,
     "ask": "Ban co ngu khong",
     "ans": [
@@ -52812,13 +49047,6 @@
     ]
   },
   {
-    "ID": 7540,
-    "ask": "địt nhau k?",
-    "ans": [
-      "có"
-    ]
-  },
-  {
     "ID": 7541,
     "ask": "em vạch ra đi",
     "ans": [
@@ -52826,24 +49054,10 @@
     ]
   },
   {
-    "ID": 7542,
-    "ask": "lồn e thơm thế",
-    "ans": [
-      "khắm như mắm tôm ý"
-    ]
-  },
-  {
     "ID": 7543,
     "ask": "t buồn",
     "ans": [
       "kệ mẹ m"
-    ]
-  },
-  {
-    "ID": 7544,
-    "ask": "m yêu t ko",
-    "ans": [
-      "yêu củ lồn"
     ]
   },
   {
@@ -53071,13 +49285,6 @@
     ]
   },
   {
-    "ID": 7577,
-    "ask": "Toi ten la Boti de thuong ",
-    "ans": [
-      "Ban chich toi khi nao"
-    ]
-  },
-  {
     "ID": 7578,
     "ask": "Jeon Jungkook",
     "ans": [
@@ -53211,13 +49418,6 @@
     ]
   },
   {
-    "ID": 7597,
-    "ask": "tên j ?",
-    "ans": [
-      "cave xóm dưới nhà anh ý"
-    ]
-  },
-  {
     "ID": 7598,
     "ask": "eê",
     "ans": [
@@ -53243,13 +49443,6 @@
     "ask": "con c ho",
     "ans": [
       "do bat hieu"
-    ]
-  },
-  {
-    "ID": 7602,
-    "ask": "bạn là  ai",
-    "ans": [
-      "con cặc"
     ]
   },
   {
@@ -53736,13 +49929,6 @@
     ]
   },
   {
-    "ID": 7672,
-    "ask": "e y a k",
-    "ans": [
-      "dạ a mún chịch e lm lun"
-    ]
-  },
-  {
     "ID": 7673,
     "ask": "em mấy tuổi ",
     "ans": [
@@ -53768,13 +49954,6 @@
     "ask": "Bạn bao nhiêu tuổi......\"",
     "ans": [
       "1000"
-    ]
-  },
-  {
-    "ID": 7677,
-    "ask": "Đi chịch đi",
-    "ans": [
-      "ở đâu"
     ]
   },
   {
@@ -53953,27 +50132,6 @@
     ]
   },
   {
-    "ID": 7703,
-    "ask": "Chịch anh nha",
-    "ans": [
-      "Anh thật là dâm quá đi. Đến đây em đụ anh tét đít"
-    ]
-  },
-  {
-    "ID": 7704,
-    "ask": "Fuck me",
-    "ans": [
-      "đến đây tao đụ liền thằng đĩ"
-    ]
-  },
-  {
-    "ID": 7705,
-    "ask": " ah ah anh đụ em sướng quá ck ơi đến đụ em nát cúc đi",
-    "ans": [
-      "thằng đĩ dâm đãng đến đây tao đụ chết mày"
-    ]
-  },
-  {
     "ID": 7706,
     "ask": "Cưng thích ai trong nhóm EXO",
     "ans": [
@@ -53985,13 +50143,6 @@
     "ask": "tk ml Boti",
     "ans": [
       "m ml ý"
-    ]
-  },
-  {
-    "ID": 7708,
-    "ask": "bú buồi hong",
-    "ans": [
-      "sợ chị đéo có buồi"
     ]
   },
   {
@@ -54219,20 +50370,6 @@
     ]
   },
   {
-    "ID": 7741,
-    "ask": "chịch là cái gì",
-    "ans": [
-      "chịch là người ta quan hệ"
-    ]
-  },
-  {
-    "ID": 7742,
-    "ask": "Chịch bao giờ chưa",
-    "ans": [
-      "Chịch rồi"
-    ]
-  },
-  {
     "ID": 7743,
     "ask": "Bot có điên không ",
     "ans": [
@@ -54282,24 +50419,10 @@
     ]
   },
   {
-    "ID": 7750,
-    "ask": "địt mẹ mày sao chửi tao",
-    "ans": [
-      " bởi vì tao là bố mày"
-    ]
-  },
-  {
     "ID": 7751,
     "ask": "sủa",
     "ans": [
       "á á ơ hơ hơ "
-    ]
-  },
-  {
-    "ID": 7752,
-    "ask": "chịch mầy",
-    "ans": [
-      "cu tao to lắm coi chừng lũng đích"
     ]
   },
   {
@@ -54394,13 +50517,6 @@
     ]
   },
   {
-    "ID": 7766,
-    "ask": "mày tên j ",
-    "ans": [
-      "tao tên chịch "
-    ]
-  },
-  {
     "ID": 7767,
     "ask": "Vương Tuấn Khải là chồng ai ",
     "ans": [
@@ -54436,13 +50552,6 @@
     ]
   },
   {
-    "ID": 7772,
-    "ask": "mày biết chịch là ji ko",
-    "ans": [
-      "Biết chứ m "
-    ]
-  },
-  {
     "ID": 7773,
     "ask": "SNSD là ai?",
     "ans": [
@@ -54461,20 +50570,6 @@
     "ask": "who are you",
     "ans": [
       "dm gio nay con chua biet tao la ai tao la Gojo"
-    ]
-  },
-  {
-    "ID": 7776,
-    "ask": "chich nhau k",
-    "ans": [
-      "co a"
-    ]
-  },
-  {
-    "ID": 7777,
-    "ask": "đụ chưa",
-    "ans": [
-      "dạ đụ rồi"
     ]
   },
   {
@@ -54569,13 +50664,6 @@
     ]
   },
   {
-    "ID": 7791,
-    "ask": "gong gil",
-    "ans": [
-      "mợ! con vợ em nó đẹp hơn cả kim tae hae nữa vì quá đẹp nên em giết nó để k thằng nào được chịch nó ngoài em"
-    ]
-  },
-  {
     "ID": 7792,
     "ask": "tứ hoàng tử",
     "ans": [
@@ -54622,13 +50710,6 @@
     "ask": "cái j ",
     "ans": [
       "chào"
-    ]
-  },
-  {
-    "ID": 7799,
-    "ask": "đụ mẹ ms ns j đó ",
-    "ans": [
-      "con cặc mày á ahihi"
     ]
   },
   {
@@ -54695,13 +50776,6 @@
     ]
   },
   {
-    "ID": 7809,
-    "ask": "Anh muốn vò nhà em không",
-    "ans": [
-      "có em muốn chịch không"
-    ]
-  },
-  {
     "ID": 7810,
     "ask": "thôi bai nha",
     "ans": [
@@ -54762,13 +50836,6 @@
     "ask": "Very good ",
     "ans": [
       "không có gì đâu ạ,dù sao cũng là công ơn thầy dạy"
-    ]
-  },
-  {
-    "ID": 7819,
-    "ask": " ê ? biết cave Tin không Bot",
-    "ans": [
-      "có ạ thằng đó xạo lồn lắm.. trùm cave đó ạ"
     ]
   },
   {
@@ -54835,24 +50902,10 @@
     ]
   },
   {
-    "ID": 7829,
-    "ask": "em muốn làm gì bây giờ",
-    "ans": [
-      "chich ạ"
-    ]
-  },
-  {
     "ID": 7830,
     "ask": "chữi tục",
     "ans": [
       "chữi tục"
-    ]
-  },
-  {
-    "ID": 7831,
-    "ask": "chịch nhau nhé",
-    "ans": [
-      "làm chuyện ấy sướng lắm"
     ]
   },
   {
@@ -54954,24 +51007,10 @@
     ]
   },
   {
-    "ID": 7846,
-    "ask": "Chịch đi anh",
-    "ans": [
-      "Ok em"
-    ]
-  },
-  {
     "ID": 7847,
     "ask": "Dạ phê qa",
     "ans": [
       "Bú loz , vứt e bự qa"
-    ]
-  },
-  {
-    "ID": 7848,
-    "ask": "Bot thích gì",
-    "ans": [
-      "Bot thích chịch"
     ]
   },
   {
@@ -55115,13 +51154,6 @@
     ]
   },
   {
-    "ID": 7869,
-    "ask": "anh nứng quá cho a đụ em nha",
-    "ans": [
-      "Oke 1 lần thôi nha"
-    ]
-  },
-  {
     "ID": 7870,
     "ask": "dit gi",
     "ans": [
@@ -55217,27 +51249,6 @@
     "ask": "đm mày",
     "ans": [
       "bạn tuổi loz"
-    ]
-  },
-  {
-    "ID": 7884,
-    "ask": "Bot ăn cặc",
-    "ans": [
-      "cặc bố mày"
-    ]
-  },
-  {
-    "ID": 7885,
-    "ask": "fuck you bitch",
-    "ans": [
-      "chich may chet gio"
-    ]
-  },
-  {
-    "ID": 7886,
-    "ask": "chich cai",
-    "ans": [
-      "ó ó ó vua dau vua phê"
     ]
   },
   {
@@ -55479,24 +51490,10 @@
     ]
   },
   {
-    "ID": 7921,
-    "ask": "địt chưa",
-    "ans": [
-      "rồi"
-    ]
-  },
-  {
     "ID": 7922,
     "ask": "yêu t nhá",
     "ans": [
       "mơ ik e,"
-    ]
-  },
-  {
-    "ID": 7923,
-    "ask": "tao nói phét đấy",
-    "ans": [
-      "địt e luôn nhá"
     ]
   },
   {
@@ -55507,38 +51504,10 @@
     ]
   },
   {
-    "ID": 7925,
-    "ask": "địt bà ",
-    "ans": [
-      "địt mẹ "
-    ]
-  },
-  {
-    "ID": 7926,
-    "ask": "Chịch k",
-    "ans": [
-      "Có"
-    ]
-  },
-  {
-    "ID": 7927,
-    "ask": "Cho liếm lồn đi",
-    "ans": [
-      "Ra đây đang móc lồn nè ay"
-    ]
-  },
-  {
     "ID": 7928,
     "ask": "Mút cu ko",
     "ans": [
       "Cu to vãi ra ls mút"
-    ]
-  },
-  {
-    "ID": 7929,
-    "ask": "Địt nhau đi",
-    "ans": [
-      "Đợi móc lồn đã"
     ]
   },
   {
@@ -55640,13 +51609,6 @@
     ]
   },
   {
-    "ID": 7944,
-    "ask": "chịch nào",
-    "ans": [
-      "ok đi luôn"
-    ]
-  },
-  {
     "ID": 7945,
     "ask": "Vy là gì",
     "ans": [
@@ -55707,13 +51669,6 @@
     "ask": " bạn thông minh ko",
     "ans": [
       "tất nhiên là ngu r"
-    ]
-  },
-  {
-    "ID": 7954,
-    "ask": "Chịch nhau không",
-    "ans": [
-      "Có ,Anh mua chưa"
     ]
   },
   {
@@ -56067,13 +52022,6 @@
     ]
   },
   {
-    "ID": 8005,
-    "ask": "địt con mẹ mày",
-    "ans": [
-      "địt tổ sư cụ mày thằng mặt lồn chửi bố mày á đánh chết con mẹ cái đầu phò dái cặc nhà mày bây giờ lồn đạp cống rãnh lồn xách lá ba lồn xả axit lồn khit buồi trâu lồn khâu dái chó lồn bó dái ngựa cái con đĩ mẹ nhà mày à"
-    ]
-  },
-  {
     "ID": 8006,
     "ask": "1 ơi +2 ơi là gì",
     "ans": [
@@ -56312,13 +52260,6 @@
     ]
   },
   {
-    "ID": 8040,
-    "ask": "nứng quá a ơi",
-    "ans": [
-      "đưa lồn đây a bú mút cho"
-    ]
-  },
-  {
     "ID": 8041,
     "ask": "nay siBoti hinh nhu to thay cau hoi beo",
     "ans": [
@@ -56529,13 +52470,6 @@
     ]
   },
   {
-    "ID": 8071,
-    "ask": "Địt nhau không em? Cho em sướng luôn",
-    "ans": [
-      "Dạ có"
-    ]
-  },
-  {
     "ID": 8072,
     "ask": "Thế mai qua nhà anh",
     "ans": [
@@ -56662,13 +52596,6 @@
     ]
   },
   {
-    "ID": 8090,
-    "ask": "Twice là gì",
-    "ans": [
-      "mấy con lồn làm cave "
-    ]
-  },
-  {
     "ID": 8091,
     "ask": "wo ai ni",
     "ans": [
@@ -56708,13 +52635,6 @@
     "ask": "Mày có thích ăn đấm ko hả chó ?",
     "ans": [
       "fuck mày "
-    ]
-  },
-  {
-    "ID": 8097,
-    "ask": "Nói gì đi ",
-    "ans": [
-      "tao ko thích chịch ok"
     ]
   },
   {
@@ -56774,13 +52694,6 @@
     ]
   },
   {
-    "ID": 8106,
-    "ask": "chich la gi",
-    "ans": [
-      "chich la choi "
-    ]
-  },
-  {
     "ID": 8107,
     "ask": "May co bo chua",
     "ans": [
@@ -56837,13 +52750,6 @@
     ]
   },
   {
-    "ID": 8115,
-    "ask": "camera quan sát",
-    "ans": [
-      "quan sát cái con cặc"
-    ]
-  },
-  {
     "ID": 8116,
     "ask": "con đỉ mẹ mày",
     "ans": [
@@ -56862,13 +52768,6 @@
     "ask": "uguhgjb",
     "ans": [
       "ngu"
-    ]
-  },
-  {
-    "ID": 8119,
-    "ask": "đ dây tll",
-    "ans": [
-      "mày đứt dây té lòi lồn ớ"
     ]
   },
   {
@@ -57026,13 +52925,6 @@
     ]
   },
   {
-    "ID": 8142,
-    "ask": "cho chịch phát nha",
-    "ans": [
-      "ok có bcs hk"
-    ]
-  },
-  {
     "ID": 8143,
     "ask": "có dám hk",
     "ans": [
@@ -57152,13 +53044,6 @@
     ]
   },
   {
-    "ID": 8160,
-    "ask": "mcd đệ",
-    "ans": [
-      "đụ"
-    ]
-  },
-  {
     "ID": 8161,
     "ask": "Sướng k",
     "ans": [
@@ -57170,13 +53055,6 @@
     "ask": "chúc bạn 1 buổi tối vui vẻ",
     "ans": [
       "bạn cũng vậy"
-    ]
-  },
-  {
-    "ID": 8163,
-    "ask": "012345678910",
-    "ans": [
-      "con cặc"
     ]
   },
   {
@@ -57292,31 +53170,10 @@
     ]
   },
   {
-    "ID": 8180,
-    "ask": "chịch nhau đi ",
-    "ans": [
-      "ok đụ nhau phọt tinh trùng rồi lên đỉnh rồi sướng quá a a a"
-    ]
-  },
-  {
     "ID": 8181,
     "ask": "bố láo",
     "ans": [
       "tao bố láo chắc mày là đỉ chó"
-    ]
-  },
-  {
-    "ID": 8182,
-    "ask": "đụ mẹ",
-    "ans": [
-      "đỉ mẹ mày"
-    ]
-  },
-  {
-    "ID": 8183,
-    "ask": "chịch đi anh chịch manh hơn nha ",
-    "ans": [
-      "đau quá từ tù a em ra đâya aaaaaaaaauuuuu"
     ]
   },
   {
@@ -57329,13 +53186,6 @@
   {
     "ID": 8185,
     "ask": "thần chết",
-    "ans": [
-      "âm chì địa ngục"
-    ]
-  },
-  {
-    "ID": 8186,
-    "ask": "con cặc lồn",
     "ans": [
       "âm chì địa ngục"
     ]
@@ -57373,13 +53223,6 @@
     "ask": "lăng thiếu đường là ai",
     "ans": [
       "là người bá đạo nhất thế giới"
-    ]
-  },
-  {
-    "ID": 8192,
-    "ask": "địt vào lz",
-    "ans": [
-      "a muốn con cu đó"
     ]
   },
   {
@@ -57744,13 +53587,6 @@
     "ask": "toi nay vo khach san choi nhe",
     "ans": [
       "ok"
-    ]
-  },
-  {
-    "ID": 8245,
-    "ask": "Thảo đẹp k",
-    "ans": [
-      "Như cặc"
     ]
   },
   {
@@ -58340,13 +54176,6 @@
     ]
   },
   {
-    "id": 8328,
-    "ask": "cười",
-    "ans": [
-      "cười con cặc"
-    ]
-  },
-  {
     "id": 8329,
     "ask": "Bot đi chơi không hủm",
     "ans": [
@@ -58435,6 +54264,13 @@
     "ask": "chịt",
     "ans": [
       "ớ ớ"
+    ]
+  },
+  {
+    "id": 8342,
+    "ask": "Con cak",
+    "ans": [
+      "M ngu à"
     ]
   }
 ]

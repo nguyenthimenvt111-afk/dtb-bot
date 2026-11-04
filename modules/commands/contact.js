@@ -96,7 +96,7 @@ module.exports = new Command({
   name: 'contact',
   version: '0.0.1',
   hasPermssion: 0,
-  credits: 'Niio-team',//truong oc cawcj
+  credits: "dtb",//truong oc cawcj
   description: 'send contact message bot',
   commandCategory: 'Tiện ích',
   usages: '[]',

@@ -2,7 +2,7 @@ module.exports.config = {
     name: "autosetname",
     version: "1.0.1",
     hasPermssion: 1,
-    credits: "Vtuan",
+    credits: "dtb",
     description: "Tự động setname cho thành viên mới",
     commandCategory: "Quản Lí Box",
     usages: "[add <name> /remove] ",

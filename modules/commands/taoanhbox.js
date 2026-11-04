@@ -2,7 +2,7 @@ module.exports.config = {
     name: "taoanhbox",
     version: "1.0.0",
     hasPermssion: 1,
-    credits: "shion - key chinhle",
+    credits: "dtb",
     description: "Tạo ảnh all thành viên trong box",
     commandCategory: "Quản Lí Box",
     usages: "family <size> [#mã màu] hoặc family <size>\nNhập size avatar thành viên thích hợp và mã màu cho chữ (mặc định là đen) theo cú pháp:\n#family <size> <mã màu> <title>\nTrong đó:\n•size: Size mỗi avatar thành viên\n•mã màu: mã màu dạng hex\n•title: tiêu đề ảnh, mặc định là tên box\nVí dụ: #family 200 #ffffff Anh em một nhà\nNếu chọn size = 0 thì sẽ tự chỉnh size, nếu không điền title thì title sẽ là tên box",

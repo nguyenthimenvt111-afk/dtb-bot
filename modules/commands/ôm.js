@@ -2,7 +2,7 @@ module.exports.config = {
     name: "ôm",
     version: "7.3.1",
     hasPermssion: 0,
-    credits: "John Lester",
+    credits: "dtb",
     description: "Hug 🥰",
     commandCategory: "Tạo ảnh",
     usages: "[@mention]",

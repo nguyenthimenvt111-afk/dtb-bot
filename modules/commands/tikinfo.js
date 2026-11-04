@@ -2,7 +2,7 @@ module.exports.config = {
     name: "tikinfo",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "Zaara",
+    credits: "dtb",
     description: "Info user tiktok",
     commandCategory: "Nhóm",
     usages: "[username]",

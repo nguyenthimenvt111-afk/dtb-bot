@@ -2,7 +2,7 @@ module.exports.config = {
     name: 'listqtv',
     version: '1.0.0',
     hasPermssion: 0,
-    credits: 'manhIT',
+    credits: "dtb",
     description: 'Danh sách quản trị viên Box',
     commandCategory: 'Nhóm',
     usages: 'listqtv',

@@ -2,7 +2,7 @@ module.exports.config = {
   name: "daily",
   version: "1.0.2",
   hasPermssion: 0,
-  credits: "Mirai Team",
+  credits: "dtb",
   description: "Nhận 500 coins mỗi ngày!",
   commandCategory: "Tiện ích",
     cooldowns: 5,

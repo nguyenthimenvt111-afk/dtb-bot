@@ -2,7 +2,7 @@ module.exports.config = {
     name: "cauhon",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "MewMew mod by VanHung, DinhPhuc, Vietdz, VĐT&NTH, Thỏadz",
+    credits: "dtb",
     description: "Cầu hôn người bạn muốn",
     commandCategory: "Tạo ảnh",
     usages: "[tag]",

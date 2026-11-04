@@ -2,7 +2,7 @@ module.exports.config = {
   name: "skinlqmb",
   version: "2.0.5",
   hasPermssion: 0,
-  credits: "HĐGN",
+  credits: "dtb",
   description: "Random Ảnh Skin Liên Quân",
   commandCategory: "Random-img",
   usages: "",

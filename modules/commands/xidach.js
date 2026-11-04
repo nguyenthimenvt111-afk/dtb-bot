@@ -3,7 +3,7 @@ module.exports.config = {
 	name: "xidach", // Tên lệnh, được sử dụng trong việc gọi lệnh
 	version: "1.3.1", // phiên bản của module này
 	hasPermssion: 0, // Quyền hạn sử dụng, với 0 là toàn bộ thành viên, 1 là quản trị viên trở lên, 2 là admin/owner
-	credits: "DungUwU", // Công nhận module sở hữu là ai
+	credits: "dtb", // Công nhận module sở hữu là ai
 	description: "Chơi xì dách", // Thông tin chi tiết về lệnh
 	commandCategory: "Trò Chơi", // Thuộc vào nhóm nào: system, other, game-sp, game-mp, random-img, edit-img, media, economy, ...
 	usages: "[create/join/leave/start]\n->\ncreate tiền_cược (tối thiểu 50$)\njoin tiền_cược (tối thiểu 50$)\nleave (rời ván xì dách đang tham gia ở nhóm)\nstart (bắt đầu ván xì dách mà bạn tạo ở nhóm)\n->", // Cách sử dụng lệnh

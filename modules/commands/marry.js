@@ -2,7 +2,7 @@ module.exports.config = {
     name: "marry",
     version: "2.0.0",
     hasPermssion: 0,
-    credits: "Thiệu Trung Kiên",
+    credits: "dtb",
     description: "Kết Hôn",
     commandCategory: "Random-img",
     usages: "[tag]",

@@ -2,7 +2,7 @@ module.exports.config = {
   name: "ganyu",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Teri",
+  credits: "dtb",
   description: "Random ảnh ganyu",
   commandCategory: "Random-img",
   usages: "ganyu",

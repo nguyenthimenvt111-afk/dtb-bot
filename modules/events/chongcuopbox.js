@@ -2,7 +2,7 @@ module.exports.config = {
     name: "guard",
     eventType: ["log:thread-admins"],
     version: "1.0.0",
-    credits: "D-Jukie",
+    credits: "dtb",
     description: "Ngăn chặn việc thay đổi admin",
 };
 

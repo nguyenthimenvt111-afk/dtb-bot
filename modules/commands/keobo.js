@@ -3,7 +3,7 @@ module.exports.config = {
     name: "keobo",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "Araxy XD",
+    credits: "dtb",
     description: "Game kéo bò",
     commandCategory: "Trò Chơi",
     usages: "keobo",

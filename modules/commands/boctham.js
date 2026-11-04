@@ -2,7 +2,7 @@ module.exports.config = {
   name: "boctham",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Lazic Team",
+  credits: "dtb",
   description: "là trò chơi bốc thăm câu hỏi",
   commandCategory: "Trò Chơi",
   cooldowns: 1

@@ -2,7 +2,7 @@ module.exports.config = {
     name: "thoitiet",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "D-Jukie convert từ Goat",
+    credits: "dtb",
     description: "Xem thời tiết trong 5 ngày",
     commandCategory: "Tiện ích",
     usages: "[location]",

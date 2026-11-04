@@ -2,7 +2,7 @@ module.exports.config = {
   name: "checktt1",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "DungUwU && Nghĩa",
+  credits: "dtb",
   description: "Check tương tác ngày/tuần/toàn bộ",
   commandCategory: "Tiện ích",
   usages: "[all/week/day]",

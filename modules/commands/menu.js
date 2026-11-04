@@ -1,198 +1,171 @@
 module.exports.config = {
   name: 'menu',
-  version: '1.1.1',
+  version: '2.3.0',
   hasPermssion: 0,
-  credits: 'DC-Nam mod by Vtuan',
-  description: 'Xem danh sách nhóm lệnh, thông tin lệnh',
-  commandCategory: 'Danh sách lệnh',
-  usages: '[...name commands|all]',
+  credits: "dtb",
+  description: 'Menu đẹp, gọn, dễ nhìn',
+  commandCategory: 'Tiện ích',
+  usages: '[tên lệnh | all]',
   cooldowns: 5,
   envConfig: {
-      autoUnsend: {
-          status: true,
-          timeOut: 60 
-      },
-      sendAttachments: {
-          status: true,
-          random: true,
-          url: 
-'https://i.imgur.com/LKkw8SL.jpg'
-      }
+    autoUnsend: { status: true, timeOut: 90 },
+    usePrefix: false
   }
 };
-const {
-  autoUnsend = this.config.envConfig.autoUnsend,
-  sendAttachments = this.config.envConfig.sendAttachments
-} = global.config == undefined ? {}: global.config.menu == undefined ? {}: global.config.menu;
-const {
-  compareTwoStrings,
-  findBestMatch
-} = require('string-similarity');
-const {
-  readFileSync,
-  writeFileSync,
-  existsSync
-} = require('fs-extra');
 
-module.exports.run = async function({
-  api, event, args
-}) {
-  const {
-      sendMessage: send,
-      unsendMessage: un
-  } = api;
-  const {
-      threadID: tid,
-      messageID: mid,
-      senderID: sid
-  } = event;
+const { autoUnsend } = module.exports.config.envConfig;
+const { findBestMatch } = require('string-similarity');
+
+module.exports.run = async function ({ api, event, args, permssion }) {
+  const { sendMessage, unsendMessage } = api;
+  const { threadID, messageID, senderID } = event;
   const cmds = global.client.commands;
-  if (args.length >= 1) {
-      if (typeof cmds.get(args.join(' ')) == 'object') {
-          const body = infoCmds(cmds.get(args.join(' ')).config);
-          const msg = sendAttachments.status ? {
-              body }: body;
-          return send(msg, tid, mid);
-      } else {
-          if (args[0] == 'all') {
-              const data = cmds.values();
-              var txt = 'Menu all\n',
-              count = 0;
-              for (const cmd of data) txt += `${++count}. ${cmd.config.name} | ${cmd.config.description}\n`;
-              const msg = sendAttachments.status ? {
-                  body: txt}: txt;
-              send(msg, tid, (a, b) => autoUnsend.status ?setTimeout(v1 => un(v1), 1000*autoUnsend.timeOut, b.messageID): '');
-          } else {
-              const cmdsValue = cmds.values();
-              const arrayCmds= [];
-              for (const cmd of cmdsValue) arrayCmds.push(cmd.config.name);
-              const similarly = findBestMatch(args.join(' '), arrayCmds);
-              if (similarly.bestMatch.rating >= 0.3) return send(` "${args.join(' ')}" là lệnh gần giống là "${similarly.bestMatch.target}" ?`, tid, mid);
-                
-          };
-      };
-  } else {
-      const data = commandsGroup();
-      var txt = '====== Menu ======\n',
-      count = 0;
-      for (const {
-          commandCategory,
-          commandsName
-      } of data) txt += `${++count}. ${commandCategory} || có ${commandsName.length} lệnh\n`;
-      txt += `╭────╮\n ${global.client.commands.size} lệnh\n╰────╯\n➜ Reply từ 1 đến ${data.length} để chọn\n➜ Gỡ tự động sau: 60s\n➩ FB: https://www.facebook.com/TatsuYTB`;
-      const msg = sendAttachments.status ? {
-          body: txt}: txt;
-      send(msg, tid, (a, b) => {
-          global.client.handleReply.push({
-              name: this.config.name,
-              messageID: b.messageID,
-              author: sid,
-              'case': 'infoGr',
-              data
-          });
-          if (autoUnsend.status) setTimeout(v1 => un(v1), 1000*autoUnsend.timeOut, b.messageID);
-      });
-  };
+
+  const adminIDs = await getThreadAdminIDs(api, threadID);
+  const isGroupAdmin = adminIDs.includes(senderID);
+
+  if (args[0]) {
+    if (args[0].toLowerCase() === 'all') {
+      return sendAll(sendMessage, threadID, permssion, isGroupAdmin, api);
+    }
+
+    const name = args.join(' ').toLowerCase();
+    const cmd = cmds.get(name);
+    if (cmd && canAccess(cmd.config.hasPermssion, permssion, isGroupAdmin)) {
+      return sendMessage(cmdInfo(cmd.config), threadID, messageID);
+    }
+
+    const list = [...cmds.keys()].filter(n =>
+      canAccess(cmds.get(n).config.hasPermssion, permssion, isGroupAdmin)
+    );
+    const sim = similar(name, list);
+    return sendMessage(
+      sim.length
+        ? `❓ Không có lệnh **${name}**\n🔎 Có phải bạn muốn:\n${sim.map((v,i)=>` ${i+1}. ${v}`).join('\n')}`
+        : `❌ Không tìm thấy lệnh **${name}**`,
+      threadID,
+      messageID
+    );
+  }
+
+  const groups = groupCmds(permssion, isGroupAdmin);
+  let msg =
+`╭━━━━━━━━━━━ ✦ MENU BOT ✦ ━━━━━━━━━━━╮
+│ 👤 Người dùng : ${senderID}
+│ ⚙️ Tổng lệnh : ${groups.reduce((a,b)=>a+b.commands.length,0)}
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+`;
+
+  groups.forEach((g, i) => {
+    msg += `\n${icon(i)} ${g.name} 〔 ${g.commands.length} 〕`;
+  });
+
+  msg += `
+────────────────────────
+📌 Reply **số thứ tự** để xem lệnh
+📚 Gõ **menu all** xem toàn bộ
+⏱️ Auto gỡ sau ${autoUnsend.timeOut}s
+`;
+
+  sendMessage(msg, threadID, (e, info) => {
+    global.client.handleReply.push({
+      name: 'menu',
+      messageID: info.messageID,
+      author: senderID,
+      type: 'group',
+      data: groups,
+      permssion,
+      isGroupAdmin
+    });
+    if (autoUnsend.status)
+      setTimeout(() => unsendMessage(info.messageID), autoUnsend.timeOut * 1000);
+  });
 };
-module.exports.handleReply = async function({
-  handleReply: $,
-  api,
-  event
-}) {
-  const {
-      sendMessage: send,
-      unsendMessage: un
-  } = api;
-  const {
-      threadID: tid,
-      messageID: mid,
-      senderID: sid,
-      args
-  } = event;
-  if (sid != $.author) {
-      const msg = sendAttachments.status ? {
-          body: `Đi ra chỗ khác chơi 🥹`}: `Đi ra chỗ khác chơi 🥹`;
-      return send(msg, tid, mid);
-  };
-  switch ($.case) {
-      case 'infoGr': {
-          var data = $.data[(+args[0])-1];
-          if (data == undefined) {
-              const txt = `"${args[0]}" không nằm trong số thứ tự menu`;
-              const msg = sendAttachments.status ? {
-                  body: txt}: txt;
-              return send(msg, tid, mid);
-          };
-          un($.messageID);
-          var txt = '『 ' +  data.commandCategory  + ' 』\n\n',
-          count = 0;
-          for (const name of data.commandsName) txt += `${++count}. ${name}\n`;
-          txt += `\n\n➩ Reply từ 1 đến ${data.commandsName.length} để chọn\n➩ Gỡ tự động sau: 60s`;
-          const msg = sendAttachments.status ? {
-              body: txt}: txt;
-          send(msg, tid, (a, b) => {
-              global.client.handleReply.push({
-                  name: this.config.name,
-                  messageID: b.messageID,
-                  author: sid,
-                  'case': 'infoCmds',
-                  data: data.commandsName
-              });
-              if (autoUnsend.status) setTimeout(v1 => un(v1), 1000*autoUnsend.timeOut, b.messageID);
-          });
-      };
-          break;
-      case 'infoCmds': {
-          var data = global.client.commands.get($.data[(+args[0])-1]);
-          if (typeof data != 'object') {
-              const txt = `"${args[0]}" không nằm trong số thứ tự menu`;
-              const msg = sendAttachments.status ? {
-                  body: txt}: txt;
-              return send(msg, tid, mid);
-          };; const {
-              config = {}
-          } = data || {};
-          un($.messageID);
-          const msg = sendAttachments.status ? {
-              body: infoCmds(config)}: infoCmds(config);
-          send(msg,
-              tid,
-              mid);
-      };
-          break;
-      default:
-          // code
-      }
-  };
-  function commandsGroup() {
-      const array = [],
-      cmds = global.client.commands.values();
-      for (const cmd of cmds) {
-          const {
-              name,
-              commandCategory
-          } = cmd.config;
-          const find = array.find(i => i.commandCategory == commandCategory)
-          !find ? array.push({
-              commandCategory,
-              commandsName: [name]
-          }): find.commandsName.push(name);
-      };
-      array.sort(sortCompare('commandsName'));
-      return array;
-  };
-  function infoCmds(a) {
-      return `${a.name}\n\n➜ Phiên bản : ${a.version}\n➜ Quyền hạn : ${premssionTxt(a.hasPermssion)}\n➜ Tác giả : ${a.credits}\n➜ Mô tả : ${a.description}\n➜ Thuộc nhóm : ${a.commandCategory}\n➜ Cách dùng : ${a.usages}\n➜ Thời gian chờ : ${a.cooldowns} giây\n`;
-  };
-  function premssionTxt(a) {
-      return a == 0 ? 'Thành Viên': a == 1 ? 'Quản Trị Viên Nhóm': a == 2 ? 'Người Điều Hành Bot': 'ADMINBOT';
-  };
-  function prefix(a) {
-      const tidData = global.data.threadData.get(a) || {};
-      return tidData.PREFIX || global.config.PREFIX;
-  };
-  function sortCompare(k) {
-      return function(a, b) {
-          return (a[k].length > b[k].length ? 1: a[k].length < b[k].length ? -1: 0)*-1;
-      };
-  };
+
+module.exports.handleReply = async function ({ handleReply, api, event }) {
+  const { sendMessage, unsendMessage } = api;
+  if (event.senderID != handleReply.author)
+    return sendMessage('🚫 Không phải menu của bạn', event.threadID);
+
+  if (handleReply.type === 'group') {
+    const g = handleReply.data[event.args[0] - 1];
+    if (!g) return sendMessage('❌ Số không hợp lệ', event.threadID);
+
+    unsendMessage(handleReply.messageID);
+
+    let msg =
+`╭━━━━━━ 📂 ${g.name.toUpperCase()} 📂 ━━━━━━╮
+`;
+
+    g.commands.forEach((c,i)=>{
+      msg += `│ ${String(i+1).padStart(2,'0')} • ${c}\n`;
+    });
+
+    msg += `╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+📌 Reply số để xem chi tiết`;
+
+    sendMessage(msg, event.threadID);
+  }
+};
+
+/* ================== HÀM PHỤ ================== */
+
+function cmdInfo(c) {
+  return `
+╭━━━━━━ ℹ️ ${c.name.toUpperCase()} ℹ️ ━━━━━━╮
+│ 🧠 Mô tả   : ${c.description}
+│ 👤 Quyền  : ${permTxt(c.hasPermssion)}
+│ 🧩 Nhóm   : ${c.commandCategory}
+│ 📌 Dùng   : ${c.usages}
+│ ⏱️ Cool   : ${c.cooldowns}s
+│ ✍️ Tác giả: ${c.credits}
+╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯`;
+}
+
+function groupCmds(p, isAdmin) {
+  const map = {};
+  for (const [n,c] of global.client.commands) {
+    if (!canAccess(c.config.hasPermssion, p, isAdmin)) continue;
+    const k = c.config.commandCategory || 'Khác';
+    if (!map[k]) map[k] = [];
+    map[k].push(n);
+  }
+  return Object.keys(map).map(k=>({name:k,commands:map[k]}));
+}
+
+function icon(i){
+  return ['🌟','⚙️','🎮','📌','🛠️','🔐','🎵','📥'][i%8];
+}
+
+function permTxt(p){
+  return ['Member','Admin nhóm','Bot Admin','ADMINBOT'][p] || 'Unknown';
+}
+
+function similar(input, list){
+  return findBestMatch(input, list).ratings
+    .filter(r=>r.rating>0.3)
+    .slice(0,3)
+    .map(r=>r.target);
+}
+
+async function getThreadAdminIDs(api, tid){
+  try{
+    return (await api.getThreadInfo(tid)).adminIDs.map(e=>e.id);
+  }catch{ return []; }
+}
+
+function canAccess(cmdP, userP, isGroupAdmin){
+  if (userP === 3) return true;
+  if (userP === 2) return cmdP <= 2;
+  if (isGroupAdmin) return cmdP <= 1;
+  return cmdP === 0;
+}
+
+function sendAll(send, tid, p, isAdmin, api){
+  let msg = '╭━━━ 📚 ALL COMMANDS 📚 ━━━╮\n';
+  [...global.client.commands.values()]
+    .filter(c=>canAccess(c.config.hasPermssion,p,isAdmin))
+    .forEach((c,i)=>msg+=`│ ${i+1}. ${c.config.name}\n`);
+  msg+='╰━━━━━━━━━━━━━━━━━━━━━━╯';
+  send(msg, tid);
+}

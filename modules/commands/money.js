@@ -2,7 +2,7 @@ module.exports.config = {
     name: "money",
     version: "0.0.1",
     hasPermssion: 0,
-    credits: "Mirai Team",//mod by ARAXY XD
+    credits: "dtb",//mod by ARAXY XD
     description: "Kiểm tra số tiền của bản thân hoặc người được tag",
     commandCategory: "Tiện ích",
     usages: "[Tag]",

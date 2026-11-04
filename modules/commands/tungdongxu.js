@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "tungdongxu",
 	version: "0.0.1",
 	hasPermssion: 0,
-	credits: "Sunii",
+	credits: "dtb",
 	description: "Tung đồng xu may rủi",
 	commandCategory: "Trò Chơi",
 	usages: "tungdongxu t 500",

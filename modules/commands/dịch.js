@@ -2,7 +2,7 @@ module.exports.config = {
 name: "dịch",
 version: "1.0.1",
 hasPermssion: 0,
-credits: "Mirai Team",
+credits: "dtb",
 escription: "dịch",
 commandCategory: "Công cụ",
 usages: "[Dịch tất cả ngôn ngữ] [Text]",

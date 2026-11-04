@@ -2,7 +2,7 @@ module.exports.config = {
   name: "umaru",
   version: "2.0.0",
   hasPermssion: 1,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Xem ảnh",
   commandCategory: "Random-img",
   usages: "",

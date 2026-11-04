@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "autosetname",
 	eventType: ["log:subscribe"],
 	version: "1.0.3",
-	credits: "D-Jukie",
+	credits: "dtb",
 	description: "Tự động set biệt danh thành viên mới"
 };
 

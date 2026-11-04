@@ -2,7 +2,7 @@ module.exports.config = {
     name: "updateChecktt",
     eventType: ["log:unsubscribe"],
     version: "1.0.0",
-    credits: "D-Jukie",
+    credits: "dtb",
     description: "Xóa data tương tác người dùng khi out",
 };
 

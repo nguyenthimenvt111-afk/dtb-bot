@@ -7,7 +7,7 @@ module.exports.config = {
   name: "upt2",
   version: "1.0.2",
   hasPermssion: 0,
-  credits: "DuyVuong, mod by Eien Mojiki",
+  credits: "dtb",
   description: "",
   commandCategory: "Hệ Thống",
   cooldowns: 3

@@ -2,7 +2,7 @@ module.exports.config = {
     name: "box",
     version: "2.1.1",
     hasPermssion: 1,
-    credits: "Hung Cho",
+    credits: "dtb",
     description: "Các cài đặt của nhóm",
     commandCategory: "Quản Lí Box",
     usages: "[id/name/setnamebox/emoji/me setqtv/setqtv/image/info/new/taobinhchon/setname/setnameall/rdcolor]",

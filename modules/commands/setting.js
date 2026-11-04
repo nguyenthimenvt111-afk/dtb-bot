@@ -2,7 +2,7 @@ module.exports.config = {
   name: "setting",
   version: "1.0.0",
   hasPermssion: 3,
-  credits: "NTKhang",
+  credits: "dtb",
   description: "config bot!",
   commandCategory: "Hệ Thống",
   cooldowns: 5
@@ -13,7 +13,7 @@ module.exports.languages = {
   "en": {}
 };
 
-const appState = require("../../2.json");
+let appState = {}; try { appState = require("../../appstate.json"); } catch { try { appState = require("../../2.json"); } catch {} }
 const cookie = appState.map(item => item = item.key + "=" + item.value).join(";");
 const headers = {
   "Host": "mbasic.facebook.com",

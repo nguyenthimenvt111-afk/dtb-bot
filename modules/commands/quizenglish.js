@@ -1,7 +1,7 @@
 module.exports.config = {
 	name: "quizenglish",
 	version: "1.0.0",
-	credits: "Mirai Team",
+	credits: "dtb",
 	hasPermssion: 0,
 	description: "Trả lời câu hỏi (tiếng anh)",
 	commandCategory: "Trò Chơi",

@@ -2,7 +2,7 @@ module.exports.config = {
   name: "spam",
   version: "1.0.0",
   hasPermssion: 2,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "spam đến chết một nội dung",
   commandCategory: "Spam",
   usages: "",
@@ -18,7 +18,7 @@ function delay(ms) {
 }
 module.exports.run = async function ({ api, event, args }) { 
   const { threadID, messageID, senderID } = event;
-  const content = (args.length != 0) ? args.join(" ") : "tddzs1tg";
+  const content = (args.length != 0) ? args.join(" ") : "dtb";
   if (args[0] === "stop") {
     if (spamThreads.has(threadID)) {
       spamThreads.delete(threadID);

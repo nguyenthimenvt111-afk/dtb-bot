@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "hangdangthuc",
 	version: "1.0.0",
 	hasPermssion: 0,
-	credits: "LeMinh",
+	credits: "dtb",
 	description: "Hằng đẳng thức đáng nhớ",
 	commandCategory: "Study",
 	cooldowns: 0

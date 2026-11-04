@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "outall", 	
 	version: "1.0.0", 	
   hasPermssion: 3, 	
-	credits: "VInhdz", 	
+	credits: "dtb", 	
 	description: "out all box", 	
 	commandCategory: "Hệ Thống", 	
 	usages: "sendnoti [Text]", 	

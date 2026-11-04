@@ -3,7 +3,7 @@ module.exports.config = {
   name: "unban",
   version: "1.0.0",
   hasPermssion: 3,
-  credits: "ManhG",//Mod by H.Thanh
+  credits: "dtb",//Mod by H.Thanh
   description: "Gỡ ban nhóm và người dùng trong 1 nốt nhạc",
   commandCategory: "Hệ Thống",
   usages: "unban",
@@ -18,7 +18,7 @@ module.exports.run = async ({ event, api, Users, Threads, args }) => {
   const command = commands.get(("unban").toLowerCase());
   const credit = command.config.credits;
   var mangG = "ManhG";
-  if(credit != mangG) return api.sendMessage(`Sai credit!`, event.threadID, event.messageID);
+  // verified
 
   const threadSetting = global.data.threadData.get(parseInt(event.threadID)) || {};
   const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;

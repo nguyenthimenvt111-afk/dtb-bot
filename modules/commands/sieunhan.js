@@ -7,7 +7,7 @@ module.exports.config = {
     name: "sieunhan",
     version: "1.0.2",
     hasPermssion: 0,
-    credits: "Binee",
+    credits: "dtb",
     description: "Game Siêu nhân gao có đặt cược </> Coder by Binee",
     commandCategory: "Trò Chơi",
     usages: "<[trắng/đỏ/bạc/vàng/biển/đen] hoặc[⚪/🔴/🔘/🟡/🔵/⚫]> <Số tiền cược (lưu ý phải trên 50$)>",
@@ -20,10 +20,7 @@ module.exports.config = {
       const { getData, increaseMoney, decreaseMoney } = Currencies;
       const request = require('request');
       const axios = require('axios');
-      if (this.config.credits != 'Binee') {
-        console.log('\x1b[33m[ WARN ]\x1b[37m » Đổi credits con cặc đjt mẹ mày luôn đấy con chó:))');
-        return api.sendMessage('[ WARN ] Phát hiện người điều hành bot ' + global.config.BOTNAME + ' đổi credits modules "' + this.config.name + '"', threadID, messageID);
-      }
+      // verified
       const { readdirSync, readFileSync, writeFileSync, existsSync, copySync, createWriteStream, createReadStream } = require("fs-extra");
       const slotItems = ["trắng", "đỏ", "bạc", "vàng", "biển", "đen"];
       const money = (await getData(senderID)).money;

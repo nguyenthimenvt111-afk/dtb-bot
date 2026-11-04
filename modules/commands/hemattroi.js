@@ -2,7 +2,7 @@ module.exports.config = {
   name: "hemattroi",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "HTHB",
+  credits: "dtb",
   description: "",
   commandCategory: "Nhóm",
   usages: "Xem hệ mặt trời ._.",

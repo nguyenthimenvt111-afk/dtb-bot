@@ -2,7 +2,7 @@ module.exports.config = {
   name: "getappstate",
   version: "1.0.0",
   hasPermssion: 2,
-  credits: "ManhG",
+  credits: "dtb",
   description: "Làm mới appstate.json",
   commandCategory: "Hệ Thống",
   usages: "",

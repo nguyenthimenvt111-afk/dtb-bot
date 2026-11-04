@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "newbox",	
 	version: "1.0.0", 
 	hasPermssion: 0,
-	credits: "NTKhang",
+	credits: "dtb",
 	description: "tạo nhóm chat mới với người được tag", 
   commandCategory: "Nhóm",
 	usages: '"$newbox [tag] | [tên nhóm mới] hoặc "$newbox me [tag] | [tên nhóm mới]"',

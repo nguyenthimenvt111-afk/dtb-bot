@@ -2,7 +2,7 @@ module.exports.config = {
   name: "timejoin",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Judas",
+  credits: "dtb",
   description: "",
   commandCategory: "Quản Lí Box",
   usages: "",

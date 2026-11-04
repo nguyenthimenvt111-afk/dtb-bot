@@ -2,7 +2,7 @@ module.exports.config = {
   name: "pay",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "Ai code",
+  credits: "dtb",
   description: "Chuyển tiền của bản thân cho ai đó",
   commandCategory: "Nhóm",
   usages: "pay [Tag | Reply] [Coins]",

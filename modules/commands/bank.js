@@ -2,7 +2,7 @@ module.exports.config = {
         name: "bank",
         version: "0.0.1",
         hasPermssion: 0,
-        credits: "D-Jukie-keychinhle (chinhle đã sủi)",
+        credits: "dtb",
         description: "",
         commandCategory: "Tiện ích",
         usages: "",

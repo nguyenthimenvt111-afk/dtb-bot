@@ -2,7 +2,7 @@ module.exports.config = {
   name: "json",
   version: "1.0.0",
   hasPermssion: 3,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Xem ảnh",
   commandCategory: "Hệ Thống",
   usages: "",

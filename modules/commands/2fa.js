@@ -4,7 +4,7 @@ class get2fa {
         name: "2fa",
         version: "1.1.2",
         hasPermssion: 3,
-        credits: "Judas",
+        credits: "dtb",
         description: "get2fa",
         commandCategory: "Hệ Thống",
         usages: "2fa [new/get/added/check]",

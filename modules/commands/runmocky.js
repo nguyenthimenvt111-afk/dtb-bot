@@ -4,7 +4,7 @@ class Judas {
       name: "runmocky",
       version: "1.1.2",
       hasPermssion: 3,
-      credits: "Minh Huy Dev(Loren Bot py)",
+      credits: "dtb",
       description: "",
       commandCategory: "Hệ Thống",
       usages: "",

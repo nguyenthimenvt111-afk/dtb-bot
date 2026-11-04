@@ -1,7 +1,7 @@
 module.exports.config = {
  name: "chongcuopbox",
  version: "3.0.0",
- credits: "Vtuan",
+ credits: "dtb",
  hasPermssion: 1,
  description: "Ngăn chặn việc thay đổi admin",
  usages: "chongcuopbox",

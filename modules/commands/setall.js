@@ -2,7 +2,7 @@ module.exports.config = {
   name: "setall",
   version: "1.0.0",
   hasPermssion: 1,
-  credits: "manhIT",
+  credits: "dtb",
   description: "Set biệt danh cho all tv",
   commandCategory: "Quản Lí Box",
   usages: "[name]",

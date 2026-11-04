@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "nguyentohoahoc",
 	version: "1.0.0",
 	hasPermssion: 0,
-	credits: "LeMinh",
+	credits: "dtb",
 	description: "Nguyên tố hoá học",
 	commandCategory: "Study",
 	cooldowns: 0

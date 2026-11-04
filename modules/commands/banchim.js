@@ -6,7 +6,7 @@ module.exports.config = {
     name: "banchim",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "D-Jukie",
+    credits: "dtb",
     description: "Game bắn chim",
     commandCategory: "Trò Chơi",
     usages: "banchim",

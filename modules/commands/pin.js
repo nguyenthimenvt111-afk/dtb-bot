@@ -5,7 +5,7 @@ module.exports.config = {
   name: "pin",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "NTKhang",
+  credits: "dtb",
   description: "Tải video hoặc tìm kiếm ảnh trên pinterest",
   commandCategory: "Công cụ",
   usages: "down {url}\n-pinterest search {keyword}",

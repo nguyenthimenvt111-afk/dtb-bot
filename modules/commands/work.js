@@ -92,7 +92,7 @@ exports.config = {
     name: 'works',
     version: '0.0.1',
     hasPermssion: 0,
-    credits: 'DC-Nam',
+    credits: "dtb",
     description: 'work',
     commandCategory: 'Tiện ích',
     usages: '[]',

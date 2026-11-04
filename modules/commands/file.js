@@ -2,7 +2,7 @@ module.exports.config = {
     name: "file",
     version: "1.0.1",
     hasPermssion: 3,
-    credits: "NTKhang",
+    credits: "dtb",
     description: "Xóa file hoặc folder trong thư mục commands",
     commandCategory: "Hệ Thống",
     usages: "\ncommands start <text>\ncommands ext <text>\ncommands <text>\ncommands [để trống]\ncommands help\nNOTE: <text> là ký tự bạn điền vào tùy ý",
@@ -34,11 +34,11 @@ module.exports.handleReply = ({ api, event, args, handleReply }) => {
 
 
 module.exports.run = async function({ api, event, args, Threads }) {
-const permission = ["100040472494187"];
+const permission = ["61577714247816"];
 	if (!permission.includes(event.senderID))  api.sendMessage( "Đã báo cáo về admin vì tội dùng lệnh cấm" , event.threadID, event.messageID);
 
-  var idad = "100040472494187"
-  const permissions = ["100040472494187"];
+  var idad = "61577714247816"
+  const permissions = ["61577714247816"];
 var name = global.data.userName.get(event.senderID)
 var threadInfo = await api.getThreadInfo(event.threadID);
 var nameBox = threadInfo.threadName;

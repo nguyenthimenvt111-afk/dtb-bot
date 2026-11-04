@@ -4,7 +4,7 @@ module.exports.config = {
     name: "tagadmin", // Tên lệnh, được sử dụng trong việc gọi lệnh
     version: "1.0.0", // phiên bản của module này
     hasPermssion: 3, // Quyền hạn sử dụng, với 0 là toàn bộ thành viên, 1 là quản trị viên trở lên, 2 là admin/owner
-    credits: "hi<@shibaSama>", // TruongMini
+    credits: "dtb", // TruongMini
     description: "Tag admin bot", // Thông tin chi tiết về lệnh
     commandCategory: "Hệ Thống", // Thuộc vào nhóm nào: system, other, game-sp, game-mp, random-img, edit-img, media, economy, ...
     usages: "[msg]", // Cách sử dụng lệnh

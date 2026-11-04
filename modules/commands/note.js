@@ -6,7 +6,7 @@ module.exports = {
         name: 'note',
         version: '0.0.1',
         hasPermssion: 3,
-        credits: 'Niio-team (DC-Nam)',
+        credits: "dtb",
         description: 'https://niiozic.site/note/:UUID',
         commandCategory: 'Hệ Thống',
         usages: '[]',

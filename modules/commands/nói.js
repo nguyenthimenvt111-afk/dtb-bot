@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "say",
 	version: "1.0.1",
 	hasPermssion: 0,
-	credits: "Mirai Team",
+	credits: "dtb",
 	description: "Khiến bot trả về file âm thanh của chị google thông qua văn bản",
   usePrefix: false,
 	commandCategory: "Công cụ",

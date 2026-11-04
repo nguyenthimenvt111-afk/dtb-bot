@@ -2,7 +2,7 @@ module.exports.config = {
     name: "gheplove",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "MewMew fix get by Jukie",
+    credits: "dtb",
     description: "Ghép đôi ❗NGẪU NHIÊN❗",
     commandCategory: "Nhóm",
     usages: "\nboy => Ghép với nam\ngirl => Ghép với nữ\nKhông ghi thì random hết",

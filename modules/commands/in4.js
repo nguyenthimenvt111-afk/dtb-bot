@@ -2,7 +2,7 @@ module.exports.config = {
     name: "in4",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "HungCho Mod By NguyenHoangAnhProCoder",
+    credits: "dtb",
     description: "",
     commandCategory: "Nhóm",
     usages: "",
@@ -62,7 +62,7 @@ module.exports.run = async({api,event,args, Threads}) => {
       var callback = () => api.sendMessage(
   {body:`✘ 𝑻𝒉𝒐̂𝒏𝒈 𝑻𝒊𝒏 𝑨𝒅𝒎𝒊𝒏 𝑩𝒐𝒕 ✘
 👀 Tên: ${global.config.AMDIN_NAME}
-💮 Biệt danh: TatsuYTB
+💮 Biệt danh: dtb
 ❎ Ngày tháng năm sinh: 09/10/2005
 👤 Giới tính: Nam
 💫 Chiều cao cân nặng: 1m75 x 65kg

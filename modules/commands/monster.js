@@ -2,7 +2,7 @@ module.exports.config = {
     name: "monster",
     version: "6.0.0",
     hasPermssion: 0,
-    credits: "D-Jukie - Heo Rừng rmk Niiozic",
+    credits: "dtb",
     description: "",
     commandCategory: "Trò Chơi",
     usages: "[tag]",

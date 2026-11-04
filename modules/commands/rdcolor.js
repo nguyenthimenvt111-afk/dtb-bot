@@ -2,7 +2,7 @@ module.exports.config = {
   name: "rdcolor",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Random chủ đề đoạn chat",
   commandCategory: "Nhóm",
   usages: "",

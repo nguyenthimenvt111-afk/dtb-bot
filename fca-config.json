@@ -1,0 +1,13 @@
+{
+  "autoUpdate": true,
+  "mqtt": {
+    "enabled": true,
+    "reconnectInterval": 3600
+  },
+  "autoLogin": true,
+  "credentials": {
+    "email": "nduonkk@gmail.com",
+    "password": "Hihihihi@1",
+    "twofactor": "DMMP ZSWX W3QN RZAG HDX7 VXPA LN4V RUYK"
+  }
+}

@@ -2,7 +2,7 @@ exports.config = {
   name: 'eval',
   version: '0.0.1',
   hasPermssion: 2,
-  credits: 'DC-Nam',
+  credits: "dtb",
   description: 'Run code js',
   commandCategory: 'Hệ Thống',
   usages: '[code]',

@@ -1,0 +1,115 @@
+{
+  "61577714247816": {
+    "ten": "Chủ Trại",
+    "thuCung": [
+      {
+        "name": "Hamster Hammy",
+        "type": "Hamster",
+        "fun": 5488,
+        "health": 7,
+        "img": "https://i.imgur.com/4M7IWwP.png"
+      }
+    ],
+    "tien": 200,
+    "exp": 5,
+    "level": 1,
+    "lastOffline": 1765898947596
+  },
+  "100080638448994": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756136393936
+  },
+  "61573116125945": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756280023459
+  },
+  "61575599820469": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756801073017
+  },
+  "61572430385069": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756801073475
+  },
+  "61562100789809": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756814471111
+  },
+  "61570061154271": {
+    "ten": "Chủ Trại",
+    "thuCung": [
+      {
+        "name": "Chó Sói Mini",
+        "type": "Chó Sói",
+        "fun": 13,
+        "health": 11,
+        "img": "https://i.imgur.com/4M7IWwP.png",
+        "rare": true
+      },
+      {
+        "name": "Chó Sói Mini",
+        "type": "Chó Sói",
+        "fun": 13,
+        "health": 11,
+        "img": "https://i.imgur.com/4M7IWwP.png",
+        "rare": true
+      }
+    ],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1756817199375
+  },
+  "61566155836035": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1765209165830
+  },
+  "61574872336958": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1765898814693
+  },
+  "61588287399958": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1771765068586
+  },
+  "61576639824508": {
+    "ten": "Chủ Trại",
+    "thuCung": [],
+    "tien": 200,
+    "exp": 0,
+    "level": 1,
+    "lastOffline": 1771861083095
+  }
+}

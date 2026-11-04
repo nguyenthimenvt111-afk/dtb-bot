@@ -2,7 +2,7 @@ module.exports.config = {
   name: "siesta",
   version: "2.0.0",
   hasPermssion: 0,
-  credits: "Vtuan",
+  credits: "dtb",
   description: "Xem ảnh",
   commandCategory: "Random-img",
   usages: "",

@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "duyettv",
 	version: "1.0.0",
 	hasPermssion: 1,
-	credits: "Thiệu Trung Kiên",
+	credits: "dtb",
 	description: "Duyệt Thành Viên Trong Danh Sách Phê Duyệt Box",
 	commandCategory: "Quản Lí Box",
 	usages: "",

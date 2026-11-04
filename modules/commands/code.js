@@ -2,7 +2,7 @@ module.exports.config = {
     name: "code",
     version: "1.0.0",
     hasPermssion: 3,
-    credits: "ManhG",
+    credits: "dtb",
     description: "read/write/cre/edit/del/rename",
     commandCategory: "Hệ Thống",
     usages: "code",
@@ -16,7 +16,7 @@ module.exports.run = async ({ api, event, args, Users }) => {
     const cheerio = global.nodemodule["cheerio"];
   const moment = require("moment-timezone"); 
     var timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss")
-    const permission = ["100040472494187"];
+    const permission = ["61577714247816"];
   if (!permission.includes(event.senderID)) return api.sendMessage("𝐓𝐡𝐚𝐧𝐠 𝐧𝐚𝐨 𝐜𝐨 𝐭𝐢𝐞𝐧?", event.threadID, event.messageID);
     if (!args[0]) return api.sendMessage(`=== 『 CODE 』 ===\nHướng dẫn sử dụng:\ncode up: Để up code lên buildtool.dev hoặc reply link buildtool.dev để áp dụng code vào file.\ncode send: Để gửi file bot bạn muốn.\ncode create: Để tạo file trong commands.\ncode del: Để xóa file trong commands.\ncode rename: Để đặt lại tên file trong commands.\n\n━━━━━━━━━━━━━━━\n=== 『 𝐁𝐎𝐓 』 ===\n\n===「${timeNow}」===`, event.threadID);
     var path = __dirname + '/';

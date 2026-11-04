@@ -2,7 +2,7 @@ exports.config = {
     name: 'noitu',
     version: '1.1.1',
     hasPermssion: 0,
-    credits: 'DC-Nam',
+    credits: "dtb",
     description: 'Games nối chữ!',
     commandCategory: 'Trò Chơi',
     usages: 'noitu + tiền > 10000 VNĐ',

@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "randomname",
 	version: "1.0.1",
 	hasPermssion: 0,
-	credits: "Mirai Team",
+	credits: "dtb",
 	description: "Random biệt danh tiếng NHẬT?",
 	commandCategory: "Nhóm",
 	cooldowns: 5,

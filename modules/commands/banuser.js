@@ -2,7 +2,7 @@ module.exports.config = {
   name: "banuser",
   version: "1.0.5",
   hasPermssion: 2,
-  credits: "Mirai Team",
+  credits: "dtb",
   description: "Cấm hoặc gỡ cấm người dùng",
   commandCategory: "Hệ Thống",
   usages: "[unban/ban/search] [ID or text]",

@@ -2,7 +2,7 @@ module.exports.config = {
     name: "batgiam",
     version: "2.0.0",
     hasPermssion: 0,
-    credits: "ProCoderMew",
+    credits: "dtb",
     description: "",
     commandCategory: "Tạo ảnh",
     usages: "[tag]",

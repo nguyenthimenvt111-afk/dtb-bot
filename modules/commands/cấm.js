@@ -4,7 +4,7 @@ class Judas {
       name: "cấm",
       version: "1.1.2",
       hasPermssion: 1,
-      credits: "Judas",
+      credits: "dtb",
       description: "Cấm đổi tên box và ảnh box",
       commandCategory: "Quản Lí Box",
       usages: "cấm avt/namebox",

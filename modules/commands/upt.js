@@ -1,47 +1,71 @@
 module.exports.config = {
   name: "upt",
-  version: "1.0.0",
+  version: "3.0.0",
   hasPermssion: 0,
-  credits: "SimonProject",
-  description: "Xem thơi gian của BOT online",
+  credits: "dtb",
+  description: "Hiển thị thời gian bot đã hoạt động",
   commandCategory: "Hệ Thống",
   usages: "",
   cooldowns: 5,
 };
 
 module.exports.handleEvent = async ({ event, api, Threads }) => {
-  const moment = require("moment-timezone");
+  const axios = require("axios");
   const time = process.uptime();
-     var hours = Math.floor(time / (60 * 60));
-    var minutes = Math.floor((time % (60 * 60)) / 60);
-  var seconds = Math.floor(time % 60);
-  var { threadID, messageID, body, senderID } = event;
-  //if (senderID == global.data.botID) return;
-  if ((this.config.credits) != "SimonProject") { return api.sendMessage(`𝐖𝐫𝐨𝐧𝐠 𝐜𝐫𝐞𝐝𝐢𝐭, 𝐟𝐢𝐱 𝐭𝐡𝐞 𝐜𝐫𝐞𝐝𝐢𝐭 𝐛𝐢𝐭𝐜𝐡`, threadID, messageID)}
-  function out(data) {
-    api.sendMessage(data, threadID, messageID)
-  }
-  var dataThread = (await Threads.getData(threadID));
-  var data = dataThread.data; 
+
+  const h = Math.floor(time / 3600);
+  const m = Math.floor((time % 3600) / 60);
+  const s = Math.floor(time % 60);
+
+  const { threadID, messageID, body } = event;
+  // verified
+
+  const dataThread = await Threads.getData(threadID);
   const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
+  const prefix = dataThread.data.PREFIX || threadSetting.PREFIX || global.config.PREFIX;
 
-  var arr = ["upt","uptime"];
-  arr.forEach(i => {
-    let str = i[0].toUpperCase() + i.slice(1);
-    if (body === i.toUpperCase() | body === i | str === body) {
-    const prefix = threadSetting.PREFIX || global.config.PREFIX;
-      if (data.PREFIX == null) {
-        return out(` 𝐓𝐡𝐨̛̀𝐢 𝐆𝐢𝐚𝐧 𝐁𝐨𝐭 𝐃̄𝐚̃ 𝐎𝐧𝐥𝐢𝐧𝐞 \n================\n${hours} 𝐠𝐢𝐨̛̀  ${minutes} 𝐩𝐡𝐮́𝐭 ${seconds} 𝐠𝐢𝐚̂𝐲 `)
-      }
-      else return out(` 𝐓𝐡𝐨̛̀𝐢 𝐆𝐢𝐚𝐧 𝐁𝐨𝐭 𝐃̄𝐚̃ 𝐎𝐧𝐥𝐢𝐧𝐞 \n================\n ${hours} 𝐠𝐢𝐨̛̀ ${minutes} 𝐩𝐡𝐮́𝐭 ${seconds} 𝐠𝐢𝐚̂𝐲 ` + data.PREFIX)
-    }
+  const triggers = ["upt", "uptime"];
+  if (!triggers.includes(body.toLowerCase())) return;
 
-  });
+  const msg = `
+╭───────────────╮
+│ 🩵 𝐒𝐘𝐒𝐓𝐄𝐌 𝐒𝐓𝐀𝐓𝐔𝐒
+│────────────────
+│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${h} giờ ${m} phút ${s} giây
+│ ⚙️ 𝙋𝙧𝙚𝙛𝙞𝙭: ${prefix}
+╰───────────────╯
+  `;
+
+  try {
+    const { data } = await axios.get("https://raw.githubusercontent.com");
+    const imgStream = (await axios.get(data.data, { responseType: "stream" })).data;
+    return api.sendMessage({ body: msg.trim(), attachment: imgStream }, threadID, messageID);
+  } catch {
+    return api.sendMessage(msg.trim(), threadID, messageID);
+  }
 };
-module.exports.run = async({ event, api }) => {
-    return api.sendMessage({body:`𝐓𝐡𝐨̛̀𝐢 𝐆𝐢𝐚𝐧 𝐁𝐨𝐭 𝐃̄𝐚̃ 𝐎𝐧𝐥𝐢𝐧𝐞 \n================\n ${hours} 𝐠𝐢𝐨̛̀ ${minutes} 𝐩𝐡𝐮́𝐭 ${seconds} 𝐠𝐢𝐚̂𝐲`, attachment: (await global.nodemodule["axios"]({
-url: (await global.nodemodule["axios"]('https://vnhhoang.vnhoang06.repl.co/image/phongcanh')).data.data,
-method: "GET",
-responseType: "stream"
-})).data                                      }, event.threadID)
-      }
+
+module.exports.run = async ({ event, api }) => {
+  const axios = require("axios");
+  const time = process.uptime();
+
+  const h = Math.floor(time / 3600);
+  const m = Math.floor((time % 3600) / 60);
+  const s = Math.floor(time % 60);
+
+  const msg = `
+╭───────────────╮
+│ 🩵 𝐒𝐘𝐒𝐓𝐄𝐌 𝐒𝐓𝐀𝐓𝐔𝐒
+│────────────────
+│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${h} giờ ${m} phút ${s} giây
+╰───────────────╯
+  `;
+
+  try {
+    const { data } = await axios.get("https://vnhhoang.vnhoang06.repl.co/image/phongcanh");
+    const imgStream = (await axios.get(data.data, { responseType: "stream" })).data;
+    return api.sendMessage({ body: msg.trim(), attachment: imgStream }, event.threadID);
+  } catch {
+    return api.sendMessage(msg.trim(), event.threadID);
+  }
+};

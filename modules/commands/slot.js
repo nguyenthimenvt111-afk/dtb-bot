@@ -2,7 +2,7 @@ module.exports.config = {
     name: "slot",
     version: "1.0.1",
     hasPermssion: 0,
-    credits: "Mirai Team",
+    credits: "dtb",
     description: "Đánh bạc bằng hình thức hoa quả",
     commandCategory: "Trò Chơi",
     usages: "[số coin cần đặt]",

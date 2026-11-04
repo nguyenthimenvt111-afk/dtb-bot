@@ -6,7 +6,7 @@ module.exports.config = {
   name: "cgenshin",
   version: "2.0.2",
   hasPermssion: 0,
-  credits: "tnt",
+  credits: "dtb",
   description: "character genshin impact",
   commandCategory: "Tiện ích",
   usages: "c-genshin + id",

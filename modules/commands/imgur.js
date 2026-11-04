@@ -6,7 +6,7 @@ module.exports.config = {
   name: "imgur",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "mod",
+  credits: "dtb",
   description: "Imgur",
   commandCategory: "Công cụ",
   usages: "[reply]",

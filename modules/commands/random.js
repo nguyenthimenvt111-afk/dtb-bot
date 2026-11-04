@@ -2,7 +2,7 @@ module.exports.config = {
     name: 'random',
     version: '1.0.1',
     hasPermission: 1,
-    credits: 'TatsuYTB',
+    credits: "dtb",
     description: 'Random số',
     commandCategory: 'Công cụ',
     usages: 'random [số thấp nhất] [số cao nhất]',
