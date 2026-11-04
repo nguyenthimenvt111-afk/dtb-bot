@@ -8,7 +8,7 @@
     },
     "notiGroup": true,
     "NOTIFICATION": true,
-    "allowInbox": false,
+    "allowInbox": true,
     "commandDisabled": [],
     "eventDisabled": [],
     "BOTNAME": "dtb",
