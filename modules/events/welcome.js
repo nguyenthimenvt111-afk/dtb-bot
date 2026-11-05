@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const moment = require("moment-timezone");
+const axios = require("axios");
 const { createCanvas, loadImage, registerFont } = require("canvas");
 
 module.exports.config = {
@@ -215,9 +216,16 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     let avatarLoaded = false;
     try {
         const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
-        const avatarImg = await loadImage(avatarUrl);
-        ctx.drawImage(avatarImg, avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
-        avatarLoaded = true;
+        const resp = await axios.get(avatarUrl, {
+            responseType: "arraybuffer",
+            timeout: 2500,
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }
+        });
+        if (resp && resp.status === 200 && resp.data) {
+            const avatarImg = await loadImage(Buffer.from(resp.data));
+            ctx.drawImage(avatarImg, avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+            avatarLoaded = true;
+        }
     } catch (_) {}
 
     if (!avatarLoaded) {
@@ -371,10 +379,11 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
 module.exports.run = async function ({ api, event, Threads, Users }) {
     try {
         const { threadID, logMessageData, author } = event;
-        if (!logMessageData || !Array.isArray(logMessageData.addedParticipants)) return;
+        if (!logMessageData || !Array.isArray(logMessageData.addedParticipants) || logMessageData.addedParticipants.length === 0) return;
 
         const threadData = (await Threads.getData(threadID)) || {};
-        const data = threadData.data || {};
+        const cachedData = (global.data.threadData && global.data.threadData.get(String(threadID))) || {};
+        const data = { ...cachedData, ...(threadData.data || {}) };
         if (data.welcome === false) return; // Only skip if explicitly turned off
 
         const addedParticipants = logMessageData.addedParticipants;
@@ -382,16 +391,20 @@ module.exports.run = async function ({ api, event, Threads, Users }) {
 
         let adderName = "Người dùng Facebook";
         try {
-            adderName = await Users.getNameUser(author) || adderName;
+            adderName = (global.data.userName && global.data.userName.get(String(author))) || await Users.getNameUser(author) || adderName;
         } catch (_) {}
 
-        let threadInfo = {};
+        let threadInfo = (global.data.threadInfo && global.data.threadInfo.get(String(threadID))) || {};
         try {
-            threadInfo = await api.getThreadInfo(threadID);
+            const fresh = await Promise.race([
+                api.getThreadInfo(threadID),
+                new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500))
+            ]);
+            if (fresh && fresh.threadName) threadInfo = fresh;
         } catch (_) {}
 
         const threadName = threadInfo.threadName || "Nhóm chat";
-        const totalMembers = (threadInfo.participantIDs || []).length;
+        const totalMembers = (threadInfo.participantIDs || []).length || "---";
         const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
 
         for (let i = 0; i < addedParticipants.length; i++) {
@@ -401,8 +414,11 @@ module.exports.run = async function ({ api, event, Threads, Users }) {
 
             let addedName = user.fullName || "Thành viên mới";
             try {
-                const uInfo = await api.getUserInfo(addedID);
-                if (uInfo[addedID] && uInfo[addedID].name) addedName = uInfo[addedID].name;
+                const uInfo = await Promise.race([
+                    api.getUserInfo(addedID),
+                    new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2000))
+                ]);
+                if (uInfo && uInfo[addedID] && uInfo[addedID].name) addedName = uInfo[addedID].name;
             } catch (_) {}
 
             let cardPath = null;
@@ -432,14 +448,28 @@ Chúc bạn có những giây phút vui vẻ và ý nghĩa tại nhóm!`;
 
             const payload = { body: welcomeMsg };
             if (cardPath && fs.existsSync(cardPath)) {
-                const stream = fs.createReadStream(cardPath);
-                stream.on("close", () => {
-                    try { fs.unlinkSync(cardPath); } catch (_) {}
-                });
-                payload.attachment = stream;
+                try {
+                    const stream = fs.createReadStream(cardPath);
+                    stream.on("error", (err) => {
+                        console.error("[welcomeEvent] Stream error:", err.message);
+                        try { fs.unlinkSync(cardPath); } catch (_) {}
+                    });
+                    stream.on("close", () => {
+                        try { fs.unlinkSync(cardPath); } catch (_) {}
+                    });
+                    payload.attachment = stream;
+                } catch (_) {}
             }
 
-            api.sendMessage(payload, threadID);
+            api.sendMessage(payload, threadID, (err) => {
+                if (err) {
+                    console.error("[welcomeEvent] Lỗi gửi card welcome, gửi fallback text:", err);
+                    api.sendMessage(welcomeMsg, threadID);
+                    if (cardPath) {
+                        try { fs.unlinkSync(cardPath); } catch (_) {}
+                    }
+                }
+            });
 
             // Small delay between multiple users
             if (i < addedParticipants.length - 1) {

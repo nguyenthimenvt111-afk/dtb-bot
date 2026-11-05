@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const moment = require("moment-timezone");
+const axios = require("axios");
 const { createCanvas, loadImage, registerFont } = require("canvas");
 
 module.exports.config = {
@@ -216,9 +217,16 @@ async function renderLeaveCard({ uid, name, threadName, currentMembers, isSelfLe
     let avatarLoaded = false;
     try {
         const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
-        const avatarImg = await loadImage(avatarUrl);
-        ctx.drawImage(avatarImg, avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
-        avatarLoaded = true;
+        const resp = await axios.get(avatarUrl, {
+            responseType: "arraybuffer",
+            timeout: 2500,
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }
+        });
+        if (resp && resp.status === 200 && resp.data) {
+            const avatarImg = await loadImage(Buffer.from(resp.data));
+            ctx.drawImage(avatarImg, avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
+            avatarLoaded = true;
+        }
     } catch (_) {}
 
     if (!avatarLoaded) {
@@ -386,21 +394,26 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
 
         const { threadID, author } = event;
         const threadData = (await Threads.getData(threadID)) || {};
-        const data = threadData.data || {};
+        const cachedData = (global.data.threadData && global.data.threadData.get(String(threadID))) || {};
+        const data = { ...cachedData, ...(threadData.data || {}) };
         if (data.leaveNoti === false) return; // Skip if explicitly turned off
 
         let name = "Người dùng Facebook";
         try {
-            name = await Users.getNameUser(leftID) || name;
+            name = (global.data.userName && global.data.userName.get(leftID)) || await Users.getNameUser(leftID) || name;
         } catch (_) {}
 
-        let threadInfo = {};
+        let threadInfo = (global.data.threadInfo && global.data.threadInfo.get(String(threadID))) || {};
         try {
-            threadInfo = await api.getThreadInfo(threadID);
+            const fresh = await Promise.race([
+                api.getThreadInfo(threadID),
+                new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 2500))
+            ]);
+            if (fresh && fresh.threadName) threadInfo = fresh;
         } catch (_) {}
 
         const threadName = threadInfo.threadName || "Nhóm chat";
-        const currentMembers = (threadInfo.participantIDs || []).length;
+        const currentMembers = (threadInfo.participantIDs || []).length || "---";
         const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
 
         const isSelfLeave = String(author) === leftID;
@@ -441,14 +454,28 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
 
         const payload = { body: leaveMsg };
         if (cardPath && fs.existsSync(cardPath)) {
-            const stream = fs.createReadStream(cardPath);
-            stream.on("close", () => {
-                try { fs.unlinkSync(cardPath); } catch (_) {}
-            });
-            payload.attachment = stream;
+            try {
+                const stream = fs.createReadStream(cardPath);
+                stream.on("error", (err) => {
+                    console.error("[leaveNoti] Stream error:", err.message);
+                    try { fs.unlinkSync(cardPath); } catch (_) {}
+                });
+                stream.on("close", () => {
+                    try { fs.unlinkSync(cardPath); } catch (_) {}
+                });
+                payload.attachment = stream;
+            } catch (_) {}
         }
 
-        api.sendMessage(payload, threadID);
+        api.sendMessage(payload, threadID, (err) => {
+            if (err) {
+                console.error("[leaveNoti] Lỗi gửi card leaveNoti, gửi fallback text:", err);
+                api.sendMessage(leaveMsg, threadID);
+                if (cardPath) {
+                    try { fs.unlinkSync(cardPath); } catch (_) {}
+                }
+            }
+        });
     } catch (e) {
         console.error("Lỗi leaveNoti:", e.message);
     }
