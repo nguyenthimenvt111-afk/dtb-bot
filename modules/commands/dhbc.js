@@ -76,7 +76,7 @@ module.exports.handleReply = async function ({
             const dataGame = res.data.doanhinh[Math.floor(Math.random() * length2)]
             const tukhoadung = dataGame.tukhoa;
             const suggestions = dataGame.suggestions
-            const fs = global.nodemodule["fs-extra"];
+            const fs = require("fs-extra");
             const sokitu = dataGame.sokitu;
             const anh1 = dataGame.link
 
@@ -182,7 +182,7 @@ module.exports.run = async function ({
             const dataGame = res.data.doanhinh[Math.floor(Math.random() * length2)]
             const tukhoadung = dataGame.tukhoa;
             const suggestions = dataGame.suggestions
-            const fs = global.nodemodule["fs-extra"];
+            const fs = require("fs-extra");
             const sokitu = dataGame.sokitu;
             const anh1 = dataGame.link
 
@@ -216,7 +216,7 @@ module.exports.run = async function ({
             const dataGame = res.data.doanhinh[Math.floor(Math.random() * length1)]
             const tukhoadung = dataGame.tukhoa;
             const suggestions = dataGame.suggestions
-            const fs = global.nodemodule["fs-extra"];
+            const fs = require("fs-extra");
             const sokitu = dataGame.sokitu;
             const anh1 = dataGame.link1
             const anh2 = dataGame.link2

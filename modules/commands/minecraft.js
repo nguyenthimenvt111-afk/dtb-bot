@@ -235,8 +235,8 @@ module.exports.dataFish =async function (a, b) {
 }
 
 module.exports.image = async function(link) {
-    const fs = global.nodemodule["fs-extra"];
-    const axios = global.nodemodule["axios"];
+    const fs = require("fs-extra");
+    const axios = require("axios");
     var images = [];
     let download = (await axios.get(link, { responseType: "arraybuffer" } )).data; 
         fs.writeFileSync( __dirname + `/game/mine/cache/minecraft.png`, Buffer.from(download, "utf-8"));
@@ -244,8 +244,8 @@ module.exports.image = async function(link) {
     return images
 }
 module.exports.subnautica = async function() {
-    const fs = global.nodemodule["fs-extra"];
-    const axios = global.nodemodule["axios"];
+    const fs = require("fs-extra");
+    const axios = require("axios");
     var images = [];
     let download = (await axios.get('https://i.imgur.com/vnXze66.jpg', { responseType: "arraybuffer" } )).data; 
         fs.writeFileSync( __dirname + `/game/mine/cache/minecraft.png`, Buffer.from(download, "utf-8"));

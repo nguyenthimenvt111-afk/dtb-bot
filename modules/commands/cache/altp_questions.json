@@ -1,0 +1,302 @@
+[
+  {
+    "level": 1,
+    "question": "Thủ đô của nước Cộng hòa Xã hội Chủ nghĩa Việt Nam là gì?",
+    "A": "Hà Nội",
+    "B": "Đà Nẵng",
+    "C": "TP. Hồ Chí Minh",
+    "D": "Huế",
+    "answer": "A",
+    "explain": "Hà Nội là thủ đô của Việt Nam từ năm 1976 đến nay."
+  },
+  {
+    "level": 1,
+    "question": "Một tuần lễ có bao nhiêu ngày?",
+    "A": "5 ngày",
+    "B": "6 ngày",
+    "C": "7 ngày",
+    "D": "8 ngày",
+    "answer": "C",
+    "explain": "Một tuần lễ theo dương lịch có 7 ngày."
+  },
+  {
+    "level": 1,
+    "question": "Màu nào sau đây không có trong lá cờ Tổ quốc Việt Nam?",
+    "A": "Đỏ",
+    "B": "Vàng",
+    "C": "Xanh lá",
+    "D": "Cả A và B đều có",
+    "answer": "C",
+    "explain": "Cờ Tổ quốc Việt Nam có nền đỏ và ngôi sao vàng năm cánh."
+  },
+  {
+    "level": 2,
+    "question": "Đâu là tên một tác phẩm văn học nổi tiếng của Nam Cao?",
+    "A": "Chí Phèo",
+    "B": "Tắt đèn",
+    "C": "Lão Hạc",
+    "D": "Số đỏ",
+    "answer": "A",
+    "explain": "Chí Phèo là truyện ngắn xuất sắc của nhà văn Nam Cao viết năm 1941."
+  },
+  {
+    "level": 2,
+    "question": "Động vật nào sau đây là biểu tượng của nước Úc?",
+    "A": "Gấu Trúc",
+    "B": "Chuột Túi (Kangaroo)",
+    "C": "Sư Tử",
+    "D": "Chim Cánh Cụt",
+    "answer": "B",
+    "explain": "Kangaroo là loài thú túi đặc trưng và là biểu tượng quốc gia của nước Úc."
+  },
+  {
+    "level": 2,
+    "question": "Hành tinh nào gần Mặt Trời nhất trong Hệ Mặt Trời?",
+    "A": "Sao Kim",
+    "B": "Sao Hỏa",
+    "C": "Sao Thủy",
+    "D": "Trái Đất",
+    "answer": "C",
+    "explain": "Sao Thủy (Mercury) là hành tinh gần Mặt Trời nhất."
+  },
+  {
+    "level": 3,
+    "question": "Bánh chưng truyền thống của người Việt Nam tượng trưng cho điều gì?",
+    "A": "Mặt Trời",
+    "B": "Đất",
+    "C": "Trời",
+    "D": "Nước",
+    "answer": "B",
+    "explain": "Theo quan niệm dân gian, bánh chưng hình vuông tượng trưng cho Đất."
+  },
+  {
+    "level": 3,
+    "question": "Tập hợp các số tự nhiên thường được ký hiệu bằng chữ cái nào?",
+    "A": "Z",
+    "B": "R",
+    "C": "N",
+    "D": "Q",
+    "answer": "C",
+    "explain": "Tập hợp số tự nhiên được ký hiệu là N (Natural numbers)."
+  },
+  {
+    "level": 3,
+    "question": "Thác Bản Giốc nằm ở tỉnh nào của Việt Nam?",
+    "A": "Lào Cai",
+    "B": "Cao Bằng",
+    "C": "Hà Giang",
+    "D": "Lạng Sơn",
+    "answer": "B",
+    "explain": "Thác Bản Giốc nằm trên địa bàn xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng."
+  },
+  {
+    "level": 4,
+    "question": "Đỉnh núi nào được mệnh danh là 'Nóc nhà Đông Dương'?",
+    "A": "Fansipan",
+    "B": "Everest",
+    "C": "Langbiang",
+    "D": "Bạch Mộc Lương Tử",
+    "answer": "A",
+    "explain": "Đỉnh Fansipan cao 3.143m thuộc dãy Hoàng Liên Sơn là đỉnh núi cao nhất Đông Dương."
+  },
+  {
+    "level": 4,
+    "question": "Loại khí nào chiếm thể tích lớn nhất trong bầu khí quyển Trái Đất?",
+    "A": "Oxy (O2)",
+    "B": "Cacbonic (CO2)",
+    "C": "Nitơ (N2)",
+    "D": "Hiđrô (H2)",
+    "answer": "C",
+    "explain": "Khí Nitơ chiếm khoảng 78% thể tích bầu khí quyển Trái Đất."
+  },
+  {
+    "level": 4,
+    "question": "Đơn vị tiền tệ của Vương quốc Anh là gì?",
+    "A": "Euro",
+    "B": "Bảng Anh (GBP)",
+    "C": "Đô la",
+    "D": "Yên",
+    "answer": "B",
+    "explain": "Đơn vị tiền tệ chính thức của Vương quốc Anh là Bảng Anh (Pound Sterling)."
+  },
+  {
+    "level": 5,
+    "question": "Chiến thắng Điện Biên Phủ 'lừng lẫy năm châu, chấn động địa cầu' diễn ra vào năm nào?",
+    "A": "1945",
+    "B": "1954",
+    "C": "1968",
+    "D": "1975",
+    "answer": "B",
+    "explain": "Chiến thắng Điện Biên Phủ toàn thắng vào ngày 7 tháng 5 năm 1954."
+  },
+  {
+    "level": 5,
+    "question": "Hội nghị Diên Hồng dưới thời nhà Trần do ai triệu tập?",
+    "A": "Trần Hưng Đạo",
+    "B": "Trần Thánh Tông",
+    "C": "Trần Nhân Tông",
+    "D": "Trần Thái Tông",
+    "answer": "B",
+    "explain": "Hội nghị Diên Hồng do Thượng hoàng Trần Thánh Tông triệu tập năm 1284."
+  },
+  {
+    "level": 5,
+    "question": "Đại dương nào có diện tích lớn nhất trên Trái Đất?",
+    "A": "Đại Tây Dương",
+    "B": "Ấn Độ Dương",
+    "C": "Thái Bình Dương",
+    "D": "Bắc Băng Dương",
+    "answer": "C",
+    "explain": "Thái Bình Dương là đại dương lớn nhất và sâu nhất trên Trái Đất."
+  },
+  {
+    "level": 6,
+    "question": "Ai là tác giả của bản giao hưởng số 9 'Ode to Joy' nổi tiếng?",
+    "A": "Mozart",
+    "B": "Beethoven",
+    "C": "Bach",
+    "D": "Chopin",
+    "answer": "B",
+    "explain": "Ludwig van Beethoven là tác giả của Bản giao hưởng số 9 nổi tiếng."
+  },
+  {
+    "level": 6,
+    "question": "Kim loại nào có nhiệt độ nóng chảy cao nhất?",
+    "A": "Sắt",
+    "B": "Vàng",
+    "C": "Tungsten (Vonfram)",
+    "D": "Bạch kim",
+    "answer": "C",
+    "explain": "Tungsten (Vonfram) có nhiệt độ nóng chảy cao nhất trong các kim loại (khoảng 3.422 °C)."
+  },
+  {
+    "level": 7,
+    "question": "Vịnh Hạ Long được UNESCO công nhận là Di sản Thiên nhiên Thế giới lần đầu tiên vào năm nào?",
+    "A": "1994",
+    "B": "1999",
+    "C": "2000",
+    "D": "2003",
+    "answer": "A",
+    "explain": "Vịnh Hạ Long được UNESCO công nhận lần đầu tiên vào năm 1994 về giá trị cảnh quan."
+  },
+  {
+    "level": 7,
+    "question": "Cơ quan nào trong cơ thể người sản xuất ra hoóc-môn insulin?",
+    "A": "Gan",
+    "B": "Tụy (Tuyến tụy)",
+    "C": "Thận",
+    "D": "Dạ dày",
+    "answer": "B",
+    "explain": "Tuyến tụy (các tế bào beta đảo tụy) là nơi sản sinh ra insulin điều hòa đường huyết."
+  },
+  {
+    "level": 8,
+    "question": "Bức tranh nàng Mona Lisa nổi tiếng là kiệt tác của danh họa nào?",
+    "A": "Vincent van Gogh",
+    "B": "Leonardo da Vinci",
+    "C": "Pablo Picasso",
+    "D": "Claude Monet",
+    "answer": "B",
+    "explain": "Bức họa Mona Lisa được danh họa Leonardo da Vinci vẽ vào đầu thế kỷ 16."
+  },
+  {
+    "level": 8,
+    "question": "Cây cầu dây văng đầu tiên bắc qua sông Tiền ở Việt Nam là cây cầu nào?",
+    "A": "Cầu Cần Thơ",
+    "B": "Cầu Mỹ Thuận",
+    "C": "Cầu Rạch Miễu",
+    "D": "Cầu Cao Lãnh",
+    "answer": "B",
+    "explain": "Cầu Mỹ Thuận khánh thành năm 2000 là cầu dây văng đầu tiên bắc qua sông Tiền."
+  },
+  {
+    "level": 9,
+    "question": "Nhà bác học Albert Einstein đoạt giải Nobel Vật lý năm 1921 nhờ công trình nghiên cứu về hiện tượng gì?",
+    "A": "Thuyết Tương đối Hẹp",
+    "B": "Hiệu ứng Quang điện",
+    "C": "Thuyết Tương đối Rộng",
+    "D": "Hiện tượng Phóng xạ",
+    "answer": "B",
+    "explain": "Einstein nhận giải Nobel nhờ lời giải thích cho Hiệu ứng Quang điện, không phải thuyết tương đối."
+  },
+  {
+    "level": 9,
+    "question": "Ai là vị vua đầu tiên của triều đại Tiền Lý trong lịch sử Việt Nam?",
+    "A": "Lý Bí (Lý Nam Đế)",
+    "B": "Lý Công Uẩn (Lý Thái Tổ)",
+    "C": "Lý Phật Tử",
+    "D": "Lý Thường Kiệt",
+    "answer": "A",
+    "explain": "Lý Bí xưng là Lý Nam Đế và thành lập nước Vạn Xuân năm 544."
+  },
+  {
+    "level": 10,
+    "question": "Nguyên tố hóa học nào có độ âm điện lớn nhất trong bảng tuần hoàn?",
+    "A": "Oxy (O)",
+    "B": "Clo (Cl)",
+    "C": "Flo (F)",
+    "D": "Heli (He)",
+    "answer": "C",
+    "explain": "Flo (Fluorine) có độ âm điện lớn nhất theo thang Pauling (khoảng 3.98)."
+  },
+  {
+    "level": 10,
+    "question": "Văn Miếu - Quốc Tử Giám được khởi công xây dựng dưới triều vua nào?",
+    "A": "Lý Thái Tổ",
+    "B": "Lý Thánh Tông",
+    "C": "Lý Nhân Tông",
+    "D": "Trần Thái Tông",
+    "answer": "B",
+    "explain": "Văn Miếu được vua Lý Thánh Tông cho xây dựng vào năm 1070."
+  },
+  {
+    "level": 11,
+    "question": "Hồ nước ngọt tự nhiên sâu nhất và có thể tích lớn nhất thế giới là hồ nào?",
+    "A": "Hồ Victoria",
+    "B": "Hồ Baikal",
+    "C": "Hồ Superior (Hồ Thượng)",
+    "D": "Hồ Michigan",
+    "answer": "B",
+    "explain": "Hồ Baikal ở Nga là hồ nước ngọt sâu nhất (1.642m) và có dung tích lớn nhất thế giới."
+  },
+  {
+    "level": 12,
+    "question": "Tập thơ 'Nhật ký trong tù' của Chủ tịch Hồ Chí Minh được viết bằng chữ gì?",
+    "A": "Chữ Quốc ngữ",
+    "B": "Chữ Nôm",
+    "C": "Chữ Hán",
+    "D": "Chữ Pháp",
+    "answer": "C",
+    "explain": "Chủ tịch Hồ Chí Minh đã sáng tác tập thơ 'Nhật ký trong tù' bằng chữ Hán từ 1942 đến 1943."
+  },
+  {
+    "level": 13,
+    "question": "Ai là phi hành gia đầu tiên trong lịch sử nhân loại bay vào vũ trụ?",
+    "A": "Neil Armstrong",
+    "B": "Yuri Gagarin",
+    "C": "Phạm Tuân",
+    "D": "Buzz Aldrin",
+    "answer": "B",
+    "explain": "Yuri Gagarin (Liên Xô) bay vào không gian ngày 12 tháng 4 năm 1961 trên tàu Vostok 1."
+  },
+  {
+    "level": 14,
+    "question": "Vương triều nào trong lịch sử phong kiến Việt Nam tồn tại ngắn nhất?",
+    "A": "Nhà Hồ",
+    "B": "Nhà Tiền Lê",
+    "C": "Nhà Tây Sơn",
+    "D": "Nhà Đinh",
+    "answer": "A",
+    "explain": "Nhà Hồ chỉ tồn tại 7 năm (1400 - 1407)."
+  },
+  {
+    "level": 15,
+    "question": "Bản Tuyên ngôn Độc lập đầu tiên trong lịch sử Việt Nam được coi là tác phẩm nào?",
+    "A": "Bình Ngô Đại Cáo",
+    "B": "Nam Quốc Sơn Hà",
+    "C": "Tuyên ngôn Độc lập 1945",
+    "D": "Hịch Tướng Sĩ",
+    "answer": "B",
+    "explain": "Bài thơ thần 'Nam quốc sơn hà' tương truyền của Lý Thường Kiệt được coi là bản Tuyên ngôn Độc lập đầu tiên của dân tộc."
+  }
+]

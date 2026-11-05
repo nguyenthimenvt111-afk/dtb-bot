@@ -15,10 +15,10 @@ module.exports.run = async function({ api, event, Users, Threads, Currencies }) 
   const data1 = await Currencies.getData(senderID);
   const money1 = data1.money;
   if (money1 < 1 || isNaN(money1)) return api.sendMessage(`Bạn không có tiền lỡ bị bắt r lấy gì trả!`, threadID, messageID);
-  var mention = Object.keys(event.mentions)[0];
+  var mention = (event.mentions && Object.keys(event.mentions).length > 0) ? Object.keys(event.mentions)[0] : null;
   if (!mention) return api.sendMessage(`Vui lòng tag mục tiêu!`, threadID, messageID);
   const botID = api.getCurrentUserID();
-  if (mention == botID) return api.sendMessage("Định trộm cả tao à -.-", threadID, messageID);
+  if (mention == botID) return api.sendMessage("Định trộm cả Bot à :D", threadID, messageID);
   var name = await Users.getNameUser(mention);
   const data2 = await Currencies.getData(mention);
   const money2 = data2.money;

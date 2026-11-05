@@ -1,231 +1,296 @@
+const fs = require("fs-extra");
+const path = require("path");
+const { createCanvas } = require("canvas");
+
 module.exports.config = {
-  name: "ttt",
-  version: "1.0.1",
-  hasPermssion: 0,
-  credits: "dtb",
-  description: "Play caro with AI",
-  commandCategory: "Trò Chơi",
-  usages: "ttt",
-  cooldowns: 5,
-  usages: "x/o/delete/continue"
+    name: "ttt",
+    version: "2.0.0",
+    hasPermssion: 0,
+    credits: "dtb",
+    description: "Chơi cờ Caro Tic-Tac-Toe với AI Minimax trên Canvas",
+    commandCategory: "Trò Chơi",
+    usages: "[x/o/delete]",
+    cooldowns: 2
 };
 
-var AIMove;
-const fs = require("fs");
-const { loadImage, createCanvas } = require("canvas");
-
-function startBoard({isX, data}) {
-  data.board = new Array(3);
-  data.isX = isX;
-  data.gameOn = true;
-  data.gameOver = false;
-  data.available = [];
-  for(var i = 0; i < 3; i++) data.board[i] = new Array(3).fill(0);
-  return data;
-}
-
-async function displayBoard(data) {
-  const path = __dirname + "/cache/ttt.png";
-  let canvas = createCanvas(1200, 1200);
-  let cc = canvas.getContext("2d");
-  let background = await loadImage("https://i.postimg.cc/nhDWmj1h/background.png");
-  cc.drawImage(background, 0, 0, 1200, 1200);
-  var quanO = await loadImage("https://i.postimg.cc/rFP6xLXQ/O.png");
-  var quanX = await loadImage("https://i.postimg.cc/HLbFqcJh/X.png");
-  for (var i = 0; i < 3; i++) {
-    for (var j = 0; j < 3; j++) {
-      var temp = data.board[i][j].toString();
-      var x = 54 + 366*j;
-      var y = 54 + 366*i;
-      if (temp == "1") if (data.isX) { cc.drawImage(quanO, x, y, 360, 360) } else cc.drawImage(quanX, x, y, 360, 360);
-      if (temp == "2") if (data.isX) { cc.drawImage(quanX, x, y, 360, 360) } else cc.drawImage(quanO, x, y, 360, 360);
+function checkWin(board, player) {
+    for (let i = 0; i < 3; i++) {
+        if (board[i][0] === player && board[i][1] === player && board[i][2] === player) return true;
+        if (board[0][i] === player && board[1][i] === player && board[2][i] === player) return true;
     }
-  }
-  var ketqua = [];
-  fs.writeFileSync(path, canvas.toBuffer("image/png"));
-  ketqua.push(fs.createReadStream(path));
-  return ketqua;
+    if (board[0][0] === player && board[1][1] === player && board[2][2] === player) return true;
+    if (board[0][2] === player && board[1][1] === player && board[2][0] === player) return true;
+    return false;
 }
 
-function checkAIWon(data) {
-  if(data.board[0][0] == data.board[1][1] && data.board[0][0] == data.board[2][2] && data.board[0][0] == 1) return true;
-  if(data.board[0][2] == data.board[1][1] && data.board[0][2] == data.board[2][0] && data.board[0][2] == 1) return true;   
-  for(var i = 0; i < 3; ++i) {
-    if(data.board[i][0] == data.board[i][1] && data.board[i][0] == data.board[i][2] && data.board[i][0] == 1) return true;
-    if(data.board[0][i] == data.board[1][i] && data.board[0][i] == data.board[2][i] && data.board[0][i] == 1) return true;
-  }
-  return false;
+function isBoardFull(board) {
+    return board.every(row => row.every(cell => cell !== 0));
 }
 
-function checkPlayerWon(data) {
-  if(data.board[0][0] == data.board[1][1] && data.board[0][0] == data.board[2][2] && data.board[0][0] == 2) return true;
-  if(data.board[0][2] == data.board[1][1] && data.board[0][2] == data.board[2][0] && data.board[0][2] == 2) return true;   
-  for(var i = 0; i < 3; ++i) {
-    if(data.board[i][0] == data.board[i][1] && data.board[i][0] == data.board[i][2] && data.board[i][0] == 2) return true;
-    if(data.board[0][i] == data.board[1][i] && data.board[0][i] == data.board[2][i] && data.board[0][i] == 2) return true;
-  }
-  return false;
-}
+function minimax(board, depth, isMaximizing) {
+    if (checkWin(board, 1)) return 10 - depth; // AI wins
+    if (checkWin(board, 2)) return depth - 10; // Player wins
+    if (isBoardFull(board)) return 0;
 
-function solveAIMove({depth, turn, data}) {
-  if (checkAIWon(data)) return +1;
-  if (checkPlayerWon(data)) return -1;
-  let availablePoint = getAvailable(data);
-  if (availablePoint.length == 0) return 0;
-
-  var min = Number.MAX_SAFE_INTEGER;
-  var max = Number.MIN_SAFE_INTEGER;
-
-  for (var i = 0, length = availablePoint.length; i < length; i++) {
-    var point = availablePoint[i];
-    if (turn == 1) {
-      placeMove({point, player: 1, data});
-      var currentScore = solveAIMove({depth: depth + 1, turn: 2, data});
-      max = Math.max(currentScore, max);
-      if (currentScore >= 0) {
-        if (depth == 0) AIMove = point;
-      }
-      if (currentScore == 1) {
-        data.board[point[0]][point[1]] = 0;
-        break;
-      }
-       if(i == availablePoint.length - 1 && max < 0) {
-        if(depth == 0) AIMove = point;
-      }
+    if (isMaximizing) {
+        let bestScore = -Infinity;
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                if (board[r][c] === 0) {
+                    board[r][c] = 1;
+                    let score = minimax(board, depth + 1, false);
+                    board[r][c] = 0;
+                    bestScore = Math.max(score, bestScore);
+                }
+            }
+        }
+        return bestScore;
+    } else {
+        let bestScore = Infinity;
+        for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+                if (board[r][c] === 0) {
+                    board[r][c] = 2;
+                    let score = minimax(board, depth + 1, true);
+                    board[r][c] = 0;
+                    bestScore = Math.min(score, bestScore);
+                }
+            }
+        }
+        return bestScore;
     }
-    else if (turn == 2) {
-      placeMove({point, player: 2, data});
-      var currentScore = solveAIMove({depth: depth + 1, turn: 1, data});
-      min = Math.min(currentScore, min);
-      if (min == -1) {
-        data.board[point[0]][point[1]] = 0;
-        break;
-      }
+}
+
+function findBestMove(board) {
+    let bestScore = -Infinity;
+    let move = null;
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+            if (board[r][c] === 0) {
+                board[r][c] = 1;
+                let score = minimax(board, 0, false);
+                board[r][c] = 0;
+                if (score > bestScore) {
+                    bestScore = score;
+                    move = { r, c };
+                }
+            }
+        }
     }
-    data.board[point[0]][point[1]] = 0;
-  }
-  return turn == 1 ? max : min;
+    return move;
 }
 
-function placeMove({point, player, data}) {
-  return data.board[point[0]][point[1]] = player;
-}
+async function renderTTTBoard(board, playerIsX) {
+    const size = 600;
+    const canvas = createCanvas(size, size);
+    const ctx = canvas.getContext("2d");
 
-function getAvailable(data) {
-  let availableMove = []
-  for (var i = 0; i < 3; i++) {
-    for (var j = 0; j < 3; j++) {
-      if (data.board[i][j] == 0) availableMove.push([i, j]);
+    // Deep dark background
+    ctx.fillStyle = "#0d1117";
+    ctx.fillRect(0, 0, size, size);
+
+    // Outer frame
+    ctx.strokeStyle = "#30363d";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, size - 20, size - 20);
+
+    // Grid lines
+    ctx.strokeStyle = "#58a6ff";
+    ctx.lineWidth = 6;
+    ctx.lineCap = "round";
+
+    const cellSize = 180;
+    const offset = 30;
+
+    // Vertical lines
+    ctx.beginPath();
+    ctx.moveTo(offset + cellSize, offset);
+    ctx.lineTo(offset + cellSize, offset + cellSize * 3);
+    ctx.moveTo(offset + cellSize * 2, offset);
+    ctx.lineTo(offset + cellSize * 2, offset + cellSize * 3);
+
+    // Horizontal lines
+    ctx.moveTo(offset, offset + cellSize);
+    ctx.lineTo(offset + cellSize * 3, offset + cellSize);
+    ctx.moveTo(offset, offset + cellSize * 2);
+    ctx.lineTo(offset + cellSize * 3, offset + cellSize * 2);
+    ctx.stroke();
+
+    for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 3; c++) {
+            let cx = offset + c * cellSize + cellSize / 2;
+            let cy = offset + r * cellSize + cellSize / 2;
+            let val = board[r][c];
+
+            if (val === 0) {
+                // Number prompt in corner
+                let num = r * 3 + c + 1;
+                ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+                ctx.font = "bold 24px Arial";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(String(num), cx, cy);
+            } else {
+                let isX = (val === 2 && playerIsX) || (val === 1 && !playerIsX);
+                if (isX) {
+                    // Draw glowing Red X
+                    ctx.strokeStyle = "#ff7b72";
+                    ctx.lineWidth = 14;
+                    ctx.lineCap = "round";
+                    ctx.beginPath();
+                    ctx.moveTo(cx - 45, cy - 45);
+                    ctx.lineTo(cx + 45, cy + 45);
+                    ctx.moveTo(cx + 45, cy - 45);
+                    ctx.lineTo(cx - 45, cy + 45);
+                    ctx.stroke();
+                } else {
+                    // Draw glowing Cyan O
+                    ctx.strokeStyle = "#79c0ff";
+                    ctx.lineWidth = 14;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 48, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+        }
     }
-  }
-  return availableMove;
+
+    return canvas.toBuffer("image/png");
 }
 
-function checkAvailableSpot(point, pointArray) {
-  if (pointArray.find(element => element.toString() == point.toString())) return true;
-  else return false;
-}
+module.exports.run = async function({ api, event, args }) {
+    const { threadID, senderID, messageID } = event;
+    if (!global.client.ttt) global.client.ttt = new Map();
 
-function move(x, y, data) {
-  var availablePoint = getAvailable(data);
-  var playerMove = [x, y];
-  if (checkAvailableSpot(playerMove, availablePoint)) {
-    placeMove({point: playerMove, player: 2, data});
-  } else return "Ô này đã được đánh dấu rồi!";
-  solveAIMove({depth: 0, turn: 1, data});
-  placeMove({point: AIMove, player: 1, data});
-}
-
-function checkGameOver(data) {
-  if (getAvailable(data).length == 0 || checkAIWon(data) || checkPlayerWon(data)) return true;
-  return false;
-}
-
-function AIStart(data) {
-  var point = [Math.round(Math.random()) * 2, Math.round(Math.random()) * 2];
-  placeMove({point, player: 1, data});
-}
-
-
-module.exports.handleReply = async function({ event, api, handleReply }) {
-  let { body, threadID, messageID, senderID } = event;
-  if (!global.moduleData.tictactoe) global.moduleData.tictactoe = new Map();
-  let data = global.moduleData.tictactoe.get(threadID);
-  if (!data || data.gameOn == false) return;
-  var number = parseInt(body);
-  if(!isNaN(number) && number > 0 && number < 10) {
-    var row = number < 4 ? 0 : number < 7 ? 1 : 2;
-    if (number == 1 || number == 4 || number == 7) var col = 0;
-    if (number == 2 || number == 5 || number == 8) var col = 1;
-    if (number == 3 || number == 6 || number == 9) var col = 2;
-    var temp = move(row, col, data);
-    var lmao = "";
-    if(checkGameOver(data)) {
-      var gayban = ["gà 😎", "non 😎", "tuổi gì 😎", "hơi non 😎", "gà vcl 😎", "easy game 😎"];
-      if(checkAIWon(data)) lmao = `You lose! ${gayban[Math.floor(Math.random() * gayban.length)]}`;
-      else if(checkPlayerWon(data)) lmao = "You win! :<";
-      else lmao = "Hòa rồi!";
-      global.moduleData.tictactoe.delete(threadID);
+    const action = args[0] ? args[0].toLowerCase() : "x";
+    if (action === "del" || action === "delete" || action === "stop") {
+        global.client.ttt.delete(senderID);
+        return api.sendMessage("➜ Đã hủy ván cờ Tic-Tac-Toe hiện tại!", threadID, messageID);
     }
-    var msg = lmao !== "" ? lmao : temp == undefined ? "Reply số ô để đánh dấu" : temp;
-    api.sendMessage({ body: msg, attachment: await displayBoard(data)}, threadID, (error, info) => {
-      global.client.handleReply.push({
-        name: this.config.name,
-        author: senderID,
-        messageID: info.messageID
-      })
+
+    const playerIsX = action !== "o";
+    const board = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+
+    const session = {
+        board,
+        playerIsX,
+        author: senderID
+    };
+    global.client.ttt.set(senderID, session);
+
+    const imgBuf = await renderTTTBoard(board, playerIsX);
+    const cacheDir = path.join(__dirname, "cache");
+    fs.ensureDirSync(cacheDir);
+    const tempPath = path.join(cacheDir, `ttt_${senderID}_${Date.now()}.png`);
+    fs.writeFileSync(tempPath, imgBuf);
+
+    return api.sendMessage({
+        body: `🎮 BÀN CỜ TIC-TAC-TOE ĐÃ SẴN SÀNG!\n👉 Bạn là ${playerIsX ? "X (đỏ)" : "O (xanh)"}\n👉 Reply tin nhắn này số ô từ [1 - 9] để đi cờ!`,
+        attachment: fs.createReadStream(tempPath)
+    }, threadID, (err, info) => {
+        if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        if (!err && global.client.handleReply) {
+            global.client.handleReply.push({
+                name: this.config.name,
+                messageID: info.messageID,
+                author: senderID
+            });
+        }
     }, messageID);
-  } else return api.sendMessage("Số ô không hợp lệ!", threadID, messageID);
-}
+};
 
-module.exports.run = async function ({ event, api, args }) {
-  if (!global.moduleData.tictactoe) global.moduleData.tictactoe = new Map();
-  let { threadID, messageID, senderID } = event;
-  const threadSetting = global.data.threadData.get(threadID) || {};
-  var prefix = threadSetting.PREFIX || global.config.PREFIX;
-  let data = global.moduleData.tictactoe.get(threadID) || { "gameOn": false, "player": "" };
-  let concak = "" + prefix + this.config.name;
-  let newData;
-  if (args.length == 0) return api.sendMessage("Vui lòng chọn X hoặc O", threadID, messageID);
-  if (args[0].toLowerCase() == "delete") {
-    global.moduleData.tictactoe.delete(threadID);
-    return api.sendMessage("Đã xóa bàn cờ!", threadID, messageID);
-  }
-  if (args[0].toLowerCase() == "continue") {
-    if (!data.gameOn) return api.sendMessage("Không có dữ liệu! dùng " + concak + " x/o để chơi mới", threadID, messageID);
-    return api.sendMessage({ body: "Reply số ô để đánh dấu", attachment: await displayBoard(data)}, threadID, (error, info) => {
-      global.client.handleReply.push({
-        name: this.config.name,
-        author: senderID,
-        messageID: info.messageID
-      })
+module.exports.handleReply = async function({ api, event, handleReply }) {
+    const { threadID, senderID, messageID, body } = event;
+    if (String(senderID) !== String(handleReply.author)) return;
+
+    if (!global.client.ttt || !global.client.ttt.has(senderID)) return;
+    const session = global.client.ttt.get(senderID);
+    const board = session.board;
+
+    const num = parseInt(body.trim());
+    if (isNaN(num) || num < 1 || num > 9) {
+        return api.sendMessage("➜ Vui lòng reply số ô từ 1 đến 9!", threadID, messageID);
+    }
+
+    const r = Math.floor((num - 1) / 3);
+    const c = (num - 1) % 3;
+
+    if (board[r][c] !== 0) {
+        return api.sendMessage("➜ Ô này đã được đánh từ trước, vui lòng chọn ô khác!", threadID, messageID);
+    }
+
+    // Player move (value = 2)
+    board[r][c] = 2;
+
+    if (checkWin(board, 2)) {
+        global.client.ttt.delete(senderID);
+        const imgBuf = await renderTTTBoard(board, session.playerIsX);
+        const tempPath = path.join(__dirname, "cache", `ttt_${Date.now()}.png`);
+        fs.writeFileSync(tempPath, imgBuf);
+        return api.sendMessage({
+            body: "🎉 CHÚC MỪNG! BẠN ĐÃ CHIẾN THẮNG BOT!",
+            attachment: fs.createReadStream(tempPath)
+        }, threadID, () => { if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath); }, messageID);
+    }
+
+    if (isBoardFull(board)) {
+        global.client.ttt.delete(senderID);
+        const imgBuf = await renderTTTBoard(board, session.playerIsX);
+        const tempPath = path.join(__dirname, "cache", `ttt_${Date.now()}.png`);
+        fs.writeFileSync(tempPath, imgBuf);
+        return api.sendMessage({
+            body: "🤝 TRẬN ĐẤU KẾT THÚC VỚI KẾT QUẢ HÒA!",
+            attachment: fs.createReadStream(tempPath)
+        }, threadID, () => { if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath); }, messageID);
+    }
+
+    // AI move (value = 1)
+    const aiMove = findBestMove(board);
+    if (aiMove) {
+        board[aiMove.r][aiMove.c] = 1;
+    }
+
+    if (checkWin(board, 1)) {
+        global.client.ttt.delete(senderID);
+        const imgBuf = await renderTTTBoard(board, session.playerIsX);
+        const tempPath = path.join(__dirname, "cache", `ttt_${Date.now()}.png`);
+        fs.writeFileSync(tempPath, imgBuf);
+        return api.sendMessage({
+            body: "💀 BOT ĐÃ CHIẾN THẮNG! HÃY THỬ LẠI LẦN SAU NHÉ!",
+            attachment: fs.createReadStream(tempPath)
+        }, threadID, () => { if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath); }, messageID);
+    }
+
+    if (isBoardFull(board)) {
+        global.client.ttt.delete(senderID);
+        const imgBuf = await renderTTTBoard(board, session.playerIsX);
+        const tempPath = path.join(__dirname, "cache", `ttt_${Date.now()}.png`);
+        fs.writeFileSync(tempPath, imgBuf);
+        return api.sendMessage({
+            body: "🤝 TRẬN ĐẤU KẾT THÚC VỚI KẾT QUẢ HÒA!",
+            attachment: fs.createReadStream(tempPath)
+        }, threadID, () => { if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath); }, messageID);
+    }
+
+    const imgBuf = await renderTTTBoard(board, session.playerIsX);
+    const tempPath = path.join(__dirname, "cache", `ttt_${Date.now()}.png`);
+    fs.writeFileSync(tempPath, imgBuf);
+
+    return api.sendMessage({
+        body: "👉 Lượt của bạn! Reply số ô tiếp theo [1 - 9]:",
+        attachment: fs.createReadStream(tempPath)
+    }, threadID, (err, info) => {
+        if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+        if (!err && global.client.handleReply) {
+            global.client.handleReply.push({
+                name: this.config.name,
+                messageID: info.messageID,
+                author: senderID
+            });
+        }
     }, messageID);
-  }
-  if (!data.gameOn) {
-    var abc = args[0].toLowerCase();
-    if (abc !== "x" && abc !== "o") return api.sendMessage("Vui lòng chọn X hoặc O", threadID, messageID);
-    if (abc == "o") {
-      newData = startBoard({ isX: false, data, threadID });
-      api.sendMessage({ body: "Bạn đi trước!\nReply số ô để đánh dấu", attachment: await displayBoard(newData)}, threadID, (error, info) => {
-        global.client.handleReply.push({
-          name: this.config.name,
-          author: senderID,
-          messageID: info.messageID
-        })
-      }, messageID);
-    }
-    if (abc == "x") {
-      newData = startBoard({ isX: true, data, threadID });
-      AIStart(newData);
-      api.sendMessage({ body: "AI đi trước!\nReply số ô để đánh dấu", attachment: await displayBoard(data)}, threadID,(error, info) => {
-        global.client.handleReply.push({
-          name: this.config.name,
-          author: senderID,
-          messageID: info.messageID
-        })
-      }, messageID);
-    }
-    newData.player = senderID;
-    global.moduleData.tictactoe.set(threadID, newData);
-  } else return api.sendMessage("Nhóm này đã tồn tại bàn cờ\nDùng:\n" + concak + " continue -> tiếp tục\n" + concak + " delete -> xóa", threadID, messageID);
-}
+};

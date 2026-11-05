@@ -22,13 +22,13 @@ module.exports.handleReply = async ({ handleReply, event, api ,Users}) => {
   };
   var {x, y, d, d1, sizeboard, sectionSize, boardbuffer} = handleReply;
     var { threadID, senderID, messageID, body } = event;
-    const chalk = global.nodemodule["chalk"];
+    const chalk = require("chalk");
     var args   = body.split(' ');
     if(!args[1]) return api.sendMessage("Bạn chưa nhập tọa độ Y", threadID, messageID);
     var toadoX = parseInt(args[0]),
         toadoY = parseInt(args[1]);
           //check error tọa độ
-          if(toadoX == NaN || toadoY == NaN) return api.sendMessage("Tọa độ X hoặc Y không hợp lệ", threadID, messageID);
+          if(isNaN(toadoX) || isNaN(toadoY)) return api.sendMessage("Tọa độ X hoặc Y không hợp lệ", threadID, messageID);
           if(toadoX > sizeboard) return api.sendMessage("Tọa độ X không được lớn hơn số ô của bàn cờ", threadID, messageID);
           if(toadoY > sizeboard) return api.sendMessage("Tọa độ Y không được lớn hơn số ô của bàn cờ", threadID, messageID);
       //get data game
@@ -66,8 +66,8 @@ var _0xb4b2=["\x6C\x75\x6F\x74","\x6B\x65\x79\x73","\x66\x69\x6C\x74\x65\x72","\
     d[toadoX +toadoY][toadoX]       = quanco;
     d1[soo-soptu][toadoX]           = quanco;
     //===============khai báo==============
-    const Canvas = global.nodemodule["canvas"];
-    const fs = global.nodemodule["fs-extra"];
+    const Canvas = require("canvas");
+    const fs = require("fs-extra");
     var path1 = __dirname+'/cache/caro1'+threadID+'.png';
     var path2 = __dirname+'/cache/caro2'+threadID+'.png';
     //===========CANVAS============//
@@ -258,10 +258,10 @@ module.exports.run = async ({ event, api, args }) => {
         };
     };
     //==============================
-    const Canvas = global.nodemodule["canvas"];
-    const fs = global.nodemodule["fs-extra"];
-    const axios = global.nodemodule["axios"];
-    const spf = global.nodemodule["node-superfetch"];
+    const Canvas = require("canvas");
+    const fs = require("fs-extra");
+    const axios = require("axios");
+    const spf = require("node-superfetch");
     var path1 = __dirname+'/cache/caro1'+threadID+'.png';
     var path2 = __dirname+'/cache/caro2'+threadID+'.png';
     

@@ -34,7 +34,7 @@ module.exports.checkPath = function (type, senderID) {
 module.exports.image = async function(link) {
     var images = [];
     let download = (await axios.get(link, { responseType: "arraybuffer" } )).data; 
-        writeFileSync( __dirname + `/game/banchim/cache/banchim.png`, Buffer.from(download, "utf-8"));
+        writeFileSync( __dirname + `/game/banchim/cache/banchim.png`, Buffer.from(download));
         images.push(createReadStream(__dirname + `/game/banchim/cache/banchim.png`));
     return images
 }
@@ -84,7 +84,7 @@ module.exports.run = async function ({ api, event, args, client,Threads,__GLOBAL
             var i = this.getSpin(items, getItem, senderID);
             api.sendMessage({body: `Chúc mừng bạn quay chúng : ${getItem}`, attachment: await this.image('https://th.bing.com/th/id/OIP.RMXoUP5HZY9taxhSF657JwHaEK?w=291&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7')}, threadID, messageID);
             await new Promise(resolve => setTimeout(resolve, 1000));
-            const data = readdirSync(__dirname + `/banchim/datauser`);
+            const data = readdirSync(__dirname + `/game/banchim/datauser`);
             if(i == 3) {
                 if(data.length < 4) return api.sendMessage(`Cần ít nhất có 3 người chơi trên server để trộm chim`, threadID, messageID);
                 const dem = [];

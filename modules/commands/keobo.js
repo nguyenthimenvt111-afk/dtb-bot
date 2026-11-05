@@ -25,7 +25,7 @@ if(!args[0] || isNaN(args[0])){
     }
  else {
    if (await checkMoney(senderID, 50) == false){return api.sendMessage('Yêu cầu có ít nhất 50$ để tham gia!', threadID, messageID)}
-     await Currencies.decreaseMoney(senderID, parseInt(args[0]));
+     // Deduct in reply
 var tile_1 = Math.floor(Math.random() * 100)
     var tile_2 = Math.floor(Math.random() * 100)
     var tile_3 = Math.floor(Math.random() * 100)
@@ -94,8 +94,8 @@ if(1 > body || body > 5) return api.sendMessage("Bạn chỉ có thể chọn t�
     win = "https://i.ibb.co/RTSKc7q/bo5-success.jpg",
       losse = "https://i.ibb.co/sFRsTr2/bo5-fail.jpg"
   }
-  if( moneyUser < tienan){
-    return api.sendMessage(`Bạn Không Đủ Tiền Để Chọn Con Bò Số ${body} với số tiền là ${tienan} và bạn còn thiếu ${tienan - moneyUser}`, threadID)
+  if( moneyUser < cuoc){
+    return api.sendMessage(`Bạn Không Đủ Tiền Để Chọn Con Bò Số ${body} với số tiền là ${tienan} `, threadID)
   } else {
   
 var msg = `Bạn đã chọn bò ${body} và số tiền có thể bạn nhận được là ${tienan}!\nNhập "kéo" để bắt đầu\nvà liên tục nhập "kéo" trong 10s sau đó để kéo bò`;

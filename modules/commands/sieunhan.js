@@ -36,13 +36,13 @@ module.exports.config = {
       let content = args[0];
       var content1;
       if (content == 'trắng' || content == '⚪') {
-        content1 = 'trăng';
+        content1 = 'trang';
       }
       else if (content == 'đỏ' || content == '🔴') {
         content1 = 'do';
       }
       else if (content == 'bạc' || content == '🔘') {
-        content1 == 'bac';
+        content1 = 'bac';
       }
       else if (content == 'vàng' || content == '🟡') {
         content1 = 'vang';
