@@ -43,7 +43,7 @@ module.exports.run = async ({ api, event, Users, Threads }) => {
     const seconds = Math.floor(time % 60);
 
     let name = "Người dùng";
-    try { name = await Users.getNameUser(event.senderID) || name; } catch (_) {}
+    try { if (Users && typeof Users.getNameUser === "function") name = await Users.getNameUser(event.senderID) || name; } catch (_) {}
     let threadName = "Cuộc trò chuyện";
     try {
       let tInfo = await api.getThreadInfo(event.threadID);

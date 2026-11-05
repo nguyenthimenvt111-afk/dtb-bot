@@ -854,9 +854,12 @@ module.exports.run = async ({ event, api }) => {
   var path = __dirname + "/cache/setting.gif"
   var rdimg = img[Math.floor(Math.random() * img.length)]; 
 
-    let dowloadIMG = (await axios.get(rdimg, { responseType: "arraybuffer" } )).data; 
-        fs.writeFileSync(path, Buffer.from(dowloadIMG, "utf-8") );
-        imgP.push(fs.createReadStream(path))
+  let dowloadIMG;
+  try {
+    dowloadIMG = (await axios.get(rdimg, { responseType: "arraybuffer", timeout: 5000 })).data;
+    fs.writeFileSync(path, Buffer.from(dowloadIMG, "utf-8"));
+    imgP.push(fs.createReadStream(path));
+  } catch (_) {}
 
   var msg = "⚙️⚙️ Config List ⚙️⚙️"
      + "\n[01] Chỉnh sửa tiểu sử bot"

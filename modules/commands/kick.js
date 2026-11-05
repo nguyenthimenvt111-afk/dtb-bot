@@ -72,7 +72,7 @@ module.exports.run = async function ({ args, api, event }) {
         }
 
         // Case 4: Kick by UID directly
-        if (args[0] && /^\d+$/.test(args[0])) {
+        if (args[0] && args[0].toLowerCase() !== "all") {
             const uid = String(args[0]);
             if (uid === botID) return api.sendMessage("➜ Không thể kick Bot!", threadID, messageID);
             if (ADMINBOT.includes(uid)) return api.sendMessage("➜ Không thể kick Admin Bot!", threadID, messageID);
