@@ -68,7 +68,7 @@ module.exports.handleReaction = async ({ event, api, Users, handleReaction, getT
   if (parseInt(event.userID) !== parseInt(handleReaction.author)) return;
   const moment = require("moment-timezone");
   const { threadID } = event;
-  const { messageID, type, targetID, reason, commandNeedBan, nameTarget } = handleReaction;
+  let { messageID, type, targetID, reason, commandNeedBan, nameTarget } = handleReaction;
 
   const time = moment.tz("Asia/Ho_Chi_minh").format("HH:MM:ss L");
   global.client.handleReaction.splice(global.client.handleReaction.findIndex(item => item.messageID == messageID), 1);

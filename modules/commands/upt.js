@@ -1,71 +1,75 @@
+const moment = require("moment-timezone");
+const os = require("os");
+
 module.exports.config = {
   name: "upt",
-  version: "3.0.0",
+  version: "3.1.0",
   hasPermssion: 0,
+  hasPermission: 0,
   credits: "dtb",
-  description: "Hiển thị thời gian bot đã hoạt động",
+  description: "Hiển thị thời gian bot đã hoạt động và trạng thái hệ thống",
   commandCategory: "Hệ Thống",
   usages: "",
   cooldowns: 5,
 };
 
+function formatUptime(uptime) {
+  const h = Math.floor(uptime / 3600);
+  const m = Math.floor((uptime % 3600) / 60);
+  const s = Math.floor(uptime % 60);
+  return `${h} giờ ${m} phút ${s} giây`;
+}
+
 module.exports.handleEvent = async ({ event, api, Threads }) => {
-  const axios = require("axios");
-  const time = process.uptime();
-
-  const h = Math.floor(time / 3600);
-  const m = Math.floor((time % 3600) / 60);
-  const s = Math.floor(time % 60);
-
   const { threadID, messageID, body } = event;
-  // verified
+  if (!body || typeof body !== "string") return;
 
-  const dataThread = await Threads.getData(threadID);
-  const threadSetting = global.data.threadData.get(parseInt(threadID)) || {};
-  const prefix = dataThread.data.PREFIX || threadSetting.PREFIX || global.config.PREFIX;
+  const triggers = ["upt", "uptime", "bot ơi uptime"];
+  if (!triggers.includes(body.trim().toLowerCase())) return;
 
-  const triggers = ["upt", "uptime"];
-  if (!triggers.includes(body.toLowerCase())) return;
+  const uptime = process.uptime();
+  const uptimeStr = formatUptime(uptime);
+  const threadSetting = (global.data.threadData.get(String(threadID)) || {}).PREFIX || global.config.PREFIX;
+  const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss - DD/MM/YYYY");
 
-  const msg = `
-╭───────────────╮
-│ 🩵 𝐒𝐘𝐒𝐓𝐄𝐌 𝐒𝐓𝐀𝐓𝐔𝐒
+  const msg = 
+`╭───────────────╮
+│ 🩵 𝐒𝐘𝐒𝐓𝐄𝐌 𝐔𝐏𝐓𝐈𝐌𝐄
 │────────────────
-│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${h} giờ ${m} phút ${s} giây
-│ ⚙️ 𝙋𝙧𝙚𝙛𝙞𝙭: ${prefix}
-╰───────────────╯
-  `;
+│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${uptimeStr}
+│ ⚙️ 𝙋𝙧𝙚𝙛𝙞𝙭: ${threadSetting}
+│ ⏰ 𝙏𝙝𝙤̛̀𝙞 𝙜𝙞𝙖𝙣: ${timeNow}
+│ ✨ 𝙃𝙚̣̂ 𝙩𝙝𝙤̂́𝙣𝙜: dtb Bot System
+╰───────────────╯`;
 
-  try {
-    const { data } = await axios.get("https://raw.githubusercontent.com");
-    const imgStream = (await axios.get(data.data, { responseType: "stream" })).data;
-    return api.sendMessage({ body: msg.trim(), attachment: imgStream }, threadID, messageID);
-  } catch {
-    return api.sendMessage(msg.trim(), threadID, messageID);
-  }
+  return api.sendMessage(msg.trim(), threadID, messageID);
 };
 
-module.exports.run = async ({ event, api }) => {
-  const axios = require("axios");
-  const time = process.uptime();
+module.exports.run = async ({ event, api, Threads }) => {
+  const timeStart = Date.now();
+  const uptime = process.uptime();
+  const uptimeStr = formatUptime(uptime);
+  const { threadID, messageID } = event;
 
-  const h = Math.floor(time / 3600);
-  const m = Math.floor((time % 3600) / 60);
-  const s = Math.floor(time % 60);
+  const threadSetting = (global.data.threadData.get(String(threadID)) || {}).PREFIX || global.config.PREFIX;
+  const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss - DD/MM/YYYY");
+  const ramUsed = ((os.totalmem() - os.freemem()) / (1024 * 1024 * 1024)).toFixed(1);
+  const ramTotal = (os.totalmem() / (1024 * 1024 * 1024)).toFixed(1);
+  const ping = Date.now() - timeStart;
 
-  const msg = `
-╭───────────────╮
+  const msg = 
+`╭───────────────╮
 │ 🩵 𝐒𝐘𝐒𝐓𝐄𝐌 𝐒𝐓𝐀𝐓𝐔𝐒
 │────────────────
-│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${h} giờ ${m} phút ${s} giây
-╰───────────────╯
-  `;
+│ ⏱ 𝙐𝙥𝙩𝙞𝙢𝙚: ${uptimeStr}
+│ ⚙️ 𝙋𝙧𝙚𝙛𝙞𝙭: ${threadSetting}
+│ 💾 𝙍𝘼𝙈: ${ramUsed}GB / ${ramTotal}GB
+│ 📶 𝙋𝙞𝙣𝙜: ${ping}ms
+│ 👥 𝙏𝙤̂̉𝙣𝙜 𝙣𝙝𝙤́𝙢: ${(global.data.allThreadID || []).length}
+│ 👤 𝙏𝙤̂̉𝙣𝙜 𝙪𝙨𝙚𝙧: ${(global.data.allUserID || []).length}
+│ ⏰ 𝙏𝙝𝙤̛̀𝙞 𝙜𝙞𝙖𝙣: ${timeNow}
+│ ✨ 𝙋𝙝𝙖́𝙩 𝙩𝙧𝙞𝙚̂̉𝙣 𝙗𝙤̛̉𝙞: dtb
+╰───────────────╯`;
 
-  try {
-    const { data } = await axios.get("https://vnhhoang.vnhoang06.repl.co/image/phongcanh");
-    const imgStream = (await axios.get(data.data, { responseType: "stream" })).data;
-    return api.sendMessage({ body: msg.trim(), attachment: imgStream }, event.threadID);
-  } catch {
-    return api.sendMessage(msg.trim(), event.threadID);
-  }
+  return api.sendMessage(msg.trim(), threadID, messageID);
 };

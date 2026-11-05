@@ -1,32 +1,37 @@
+const fs = require("fs-extra");
+const path = require("path");
+const request = require("request");
+const axios = require("axios");
+
 module.exports.config = {
     name: "box",
-    version: "2.2.0",
+    version: "2.3.0",
     hasPermssion: 1,
+    hasPermission: 1,
     credits: "dtb",
-    description: "Các cài đặt của nhóm",
+    description: "Quản lý và thiết lập toàn diện các cài đặt nhóm",
     commandCategory: "Quản Lí Box",
     usages: "[id/name/namebox/emoji/me qtv/qtv/image/info/new/taobinhchon/setname/setnameall/rdcolor]",
     cooldowns: 0,
     dependencies: {
         "axios": "",
         "fs-extra": "",
-        "request": ""
+        "request": "",
+        "path": ""
     }
 };
 
-const totalPath = __dirname + '/cache/data/totalChat.json';
+const totalPath = path.join(__dirname, 'cache', 'data', 'totalChat.json');
 const _24hours = 86400000;
-const fs = require("fs-extra");
-const request = require("request");
-const axios = require("axios");
 
 module.exports.handleEvent = async ({ api, event }) => {
     try {
         if (!fs.existsSync(totalPath)) {
-            fs.ensureDirSync(__dirname + '/cache/data');
+            fs.ensureDirSync(path.join(__dirname, 'cache', 'data'));
             fs.writeFileSync(totalPath, JSON.stringify({}));
         }
-        let totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8"));
+        let totalChat = {};
+        try { totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8")); } catch (_) {}
         if (!totalChat[event.threadID]) return;
         if (Date.now() - totalChat[event.threadID].time > (_24hours * 2)) {
             let threadInfo = await api.getThreadInfo(event.threadID);
@@ -75,19 +80,19 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
 𝙼𝚘̂ 𝚝𝚊̉: Đổi tên nhóm
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
 ➜ ${global.config.PREFIX}${this.config.name} emoji <icon> 
-𝙼𝚘̂ 𝚝𝚊̉: Đổi icon nhóm
+𝙼𝚘̂ 𝚝𝚊̉: Đổi biểu tượng cảm xúc nhóm
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
 ➜ ${global.config.PREFIX}${this.config.name} info 
-𝙼𝚘̂ 𝚝𝚊̉: Xem thông tin nhóm
+𝙼𝚘̂ 𝚝𝚊̉: Xem thông tin nhóm chi tiết
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
 ➜ ${global.config.PREFIX}${this.config.name} me qtv 
-𝙼𝚘̂ 𝚝𝚊̉: Bot sẽ thêm bạn làm Quản trị viên nhóm (dành cho Admin Bot)
+𝙼𝚘̂ 𝚝𝚊̉: Bot sẽ cấp quyền Quản trị viên nhóm cho bạn (Admin Bot)
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
-➜ ${global.config.PREFIX}${this.config.name} qtv <tag/reply> 
+➜ ${global.config.PREFIX}${this.config.name} qtv <tag/reply/UID> 
 𝙼𝚘̂ 𝚝𝚊̉: Thêm hoặc gỡ Quản trị viên nhóm
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
 ➜ ${global.config.PREFIX}${this.config.name} image <reply ảnh> 
-𝙼𝚘̂ 𝚝𝚊̉: Đổi ảnh bìa nhóm
+𝙼𝚘̂ 𝚝𝚊̉: Đổi ảnh đại diện nhóm
 ▱▱▱▱▱▱▱▱▱▱▱▱▱
 ➜ ${global.config.PREFIX}${this.config.name} new <tag> | <tên nhóm> 
 𝙼𝚘̂ 𝚝𝚊̉: Tạo 1 nhóm mới với những người được tag
@@ -107,7 +112,9 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
 ===「${timeNow}」=== `, threadID, messageID);
     }
 
-    if (args[0] === "new") {
+    const action = args[0].toLowerCase();
+
+    if (action === "new") {
         let id = [senderID];
         let main = event.body;
         let groupTitle = main.includes("|") ? main.slice(main.indexOf("|") + 1).trim() : "Nhóm mới";
@@ -124,11 +131,11 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "id") {
+    if (action === "id") {
         return api.sendMessage(`➜ ID của nhóm: ${threadID}`, threadID, messageID);
     }
 
-    if (args[0] === "name") {
+    if (action === "name") {
         let nameThread = (global.data.threadInfo.get(threadID) || {}).threadName;
         if (!nameThread) {
             try {
@@ -139,7 +146,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return api.sendMessage(nameThread || "Nhóm chưa đặt tên", threadID, messageID);
     }
 
-    if (args[0] === "namebox" || args[0] === "setnamebox") {
+    if (action === "namebox" || action === "setnamebox") {
         let content = args.slice(1).join(" ");
         let newTitle = content || (event.messageReply ? event.messageReply.body : "");
         if (!newTitle) return api.sendMessage("➜ Vui lòng nhập tên mới cho nhóm!", threadID, messageID);
@@ -150,7 +157,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "emoji") {
+    if (action === "emoji") {
         let emoji = args[1] || (event.messageReply ? event.messageReply.body : "");
         if (!emoji) return api.sendMessage("➜ Vui lòng nhập biểu tượng cảm xúc muốn đổi!", threadID, messageID);
         api.changeThreadEmoji(emoji, threadID, (err) => {
@@ -160,7 +167,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "me" && args[1] === "qtv") {
+    if (action === "me" && args[1] === "qtv") {
         try {
             const threadInfo = await api.getThreadInfo(threadID);
             const adminList = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs : [];
@@ -175,7 +182,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         }
     }
 
-    if (args[0] === "qtv") {
+    if (action === "qtv") {
         try {
             let targetID = null;
             if (event.mentions && Object.keys(event.mentions).length > 0) {
@@ -190,7 +197,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
             const threadInfo = await api.getThreadInfo(threadID);
             const adminList = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs : [];
             const isBotAdmin = adminList.some(el => el.id == api.getCurrentUserID());
-            const isSenderAdmin = adminList.some(el => el.id == senderID) || (global.config.ADMINBOT || []).includes(senderID);
+            const isSenderAdmin = adminList.some(el => el.id == senderID) || (global.config.ADMINBOT || []).includes(String(senderID));
 
             if (!isSenderAdmin) return api.sendMessage("➜ Bạn phải là Quản trị viên nhóm để dùng lệnh này!", threadID, messageID);
             if (!isBotAdmin) return api.sendMessage("➜ Bot cần quyền Quản trị viên nhóm để thực hiện!", threadID, messageID);
@@ -213,13 +220,13 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "image") {
+    if (action === "image") {
         if (event.type !== "message_reply") return api.sendMessage("➜ Bạn phải reply một hình ảnh để đặt làm ảnh nhóm!", threadID, messageID);
         if (!event.messageReply.attachments || event.messageReply.attachments.length === 0) return api.sendMessage("➜ Tin nhắn reply không có tệp đính kèm!", threadID, messageID);
         let imgUrl = event.messageReply.attachments[0].url;
         if (!imgUrl) return api.sendMessage("➜ Không lấy được link ảnh!", threadID, messageID);
 
-        fs.ensureDirSync(__dirname + "/cache");
+        fs.ensureDirSync(path.join(__dirname, "cache"));
         let tempImg = path.join(__dirname, "cache", `groupImg_${Date.now()}.png`);
         return request(encodeURI(imgUrl))
             .pipe(fs.createWriteStream(tempImg))
@@ -229,10 +236,14 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
                     if (err) return api.sendMessage("➜ Không thể đổi ảnh nhóm!", threadID, messageID);
                     api.sendMessage("➜ Đổi ảnh nhóm thành công!", threadID, messageID);
                 });
+            })
+            .on("error", () => {
+                if (fs.existsSync(tempImg)) fs.unlinkSync(tempImg);
+                api.sendMessage("➜ Lỗi khi tải ảnh nhóm!", threadID, messageID);
             });
     }
 
-    if (args[0] === "taobinhchon") {
+    if (action === "taobinhchon") {
         let options = args.slice(1).join(" ").split("|").map(s => s.trim()).filter(Boolean);
         if (options.length < 2) return api.sendMessage("➜ Cần ít nhất 2 lựa chọn cách nhau bởi dấu '|'. Ví dụ: /box taobinhchon Có | Không", threadID, messageID);
         let obj = {};
@@ -251,7 +262,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "setname") {
+    if (action === "setname") {
         let name = "";
         let targetID = senderID;
         if (event.type === "message_reply") {
@@ -270,7 +281,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "rdcolor") {
+    if (action === "rdcolor") {
         const color = ['196241301102133', '169463077092846', '2442142322678320', '234137870477637', '980963458735625', '175615189761153', '2136751179887052', '2058653964378557', '2129984390566328', '174636906462322', '1928399724138152', '417639218648241', '930060997172551', '164535220883264', '370940413392601', '205488546921017', '809305022860427'];
         let picked = color[Math.floor(Math.random() * color.length)];
         api.changeThreadColor(picked, threadID, (err) => {
@@ -280,7 +291,7 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         return;
     }
 
-    if (args[0] === "setnameall") {
+    if (action === "setnameall") {
         try {
             let threadInfo = await api.getThreadInfo(threadID);
             let idtv = threadInfo.participantIDs || [];
@@ -297,11 +308,12 @@ module.exports.run = async function({ api, event, args, Users, Threads }) {
         }
     }
 
-    if (args[0] === "info") {
+    if (action === "info") {
         try {
-            fs.ensureDirSync(__dirname + '/cache/data');
+            fs.ensureDirSync(path.join(__dirname, 'cache', 'data'));
             if (!fs.existsSync(totalPath)) fs.writeFileSync(totalPath, JSON.stringify({}));
-            let totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8"));
+            let totalChat = {};
+            try { totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8")); } catch (_) {}
             let targetThreadID = args[1] || threadID;
             let threadInfo = await api.getThreadInfo(targetThreadID);
             let timeByMS = Date.now();
@@ -365,7 +377,7 @@ ${adminName.map(n => `[👉] ${n}`).join('\n') || '[👉] Không có'}
 → Thời gian cập nhật: ${timeNow}`;
 
             if (threadInfo.imageSrc) {
-                fs.ensureDirSync(__dirname + '/cache');
+                fs.ensureDirSync(path.join(__dirname, 'cache'));
                 let cacheImg = path.join(__dirname, 'cache', `boxinfo_${Date.now()}.png`);
                 return request(encodeURI(threadInfo.imageSrc))
                     .pipe(fs.createWriteStream(cacheImg))

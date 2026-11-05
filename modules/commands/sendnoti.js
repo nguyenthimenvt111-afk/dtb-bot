@@ -1,73 +1,172 @@
-const request = require("request");
 const fs = require("fs-extra");
 const path = require("path");
+const axios = require("axios");
 const moment = require("moment-timezone");
 
 module.exports.config = {
     name: "sendnoti",
-    version: "1.2.0",
-    hasPermssion: 3,
+    version: "2.0.0",
+    hasPermssion: 2,
+    hasPermission: 2,
     credits: "dtb",
-    description: "Gửi thông báo từ Admin đến tất cả nhóm",
+    description: "Gửi thông báo từ Admin Bot đến tất cả nhóm có kèm file/ảnh",
     commandCategory: "Hệ Thống",
-    usages: "sendnoti [nội dung]",
-    cooldowns: 2
+    usages: "[nội dung / kèm ảnh hoặc reply ảnh]",
+    cooldowns: 5
 };
 
 const fullTime = () => moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || DD/MM/YYYY");
 
+const downloadFile = async (url, dest) => {
+    const response = await axios({
+        method: "GET",
+        url,
+        responseType: "stream"
+    });
+    const writer = fs.createWriteStream(dest);
+    response.data.pipe(writer);
+    return new Promise((resolve, reject) => {
+        writer.on("finish", resolve);
+        writer.on("error", reject);
+    });
+};
+
 module.exports.run = async function({ api, event, args, Users }) {
     const { threadID, messageID, senderID, type, messageReply, attachments } = event;
-    const allTid = global.data.allThreadID || [];
-
-    if (!args[0] && type !== "message_reply") {
-        return api.sendMessage("➜ Vui lòng nhập nội dung thông báo muốn gửi!", threadID, messageID);
+    const isBotAdmin = (global.config.ADMINBOT || []).includes(String(senderID));
+    if (!isBotAdmin) {
+        return api.sendMessage("⚠️ Chỉ Admin Bot mới có quyền gửi thông báo toàn hệ thống!", threadID, messageID);
     }
 
-    let content = args.join(" ");
-    let atm = type === "message_reply" && messageReply.attachments && messageReply.attachments.length > 0
-        ? messageReply.attachments
-        : (attachments && attachments.length > 0 ? attachments : []);
+    if (!args[0] && type !== "message_reply") {
+        return api.sendMessage("➜ Vui lòng nhập nội dung thông báo hoặc reply ảnh/video cần gửi!", threadID, messageID);
+    }
+
+    const allTid = (global.data.allThreadID || []).filter(id => String(id) !== String(threadID));
+    if (allTid.length === 0) {
+        return api.sendMessage("⚠️ Hiện tại không có nhóm nào khác trong danh sách bot tham gia.", threadID, messageID);
+    }
+
+    let content = args.join(" ").trim();
+    let rawAttachments = [];
+    if (type === "message_reply" && messageReply.attachments && messageReply.attachments.length > 0) {
+        rawAttachments = messageReply.attachments;
+    } else if (attachments && attachments.length > 0) {
+        rawAttachments = attachments;
+    }
 
     let senderName = "Admin";
-    try { senderName = (await Users.getData(senderID)).name || senderName; } catch (_) {}
+    try {
+        senderName = (await Users.getData(senderID)).name || senderName;
+    } catch (_) {}
 
-    let msg = `[📢] 𝗧𝗛𝗢̂𝗡𝗚 𝗕𝗔́𝗢 𝗧𝗨̛̀ 𝗔𝗗𝗠𝗜𝗡: ${senderName}\n[⏱] 𝗧𝗶𝗺𝗲: ${fullTime()}\n[📝] 𝗡𝗼̣̂𝗶 𝗱𝘂𝗻𝗴: ${content || "Tệp đính kèm"}\n\n👉 Reply tin nhắn này để gửi phản hồi về Admin.`;
+    const cacheDir = path.join(__dirname, "cache", "sendnoti");
+    fs.ensureDirSync(cacheDir);
 
-    let success = 0, fail = 0;
-    for (const tid of allTid) {
-        if (String(tid) === String(threadID)) continue;
+    const savedFiles = [];
+    try {
+        for (let i = 0; i < rawAttachments.length; i++) {
+            const atm = rawAttachments[i];
+            const url = atm.url;
+            if (!url) continue;
+            const ext = atm.type === "photo" ? "jpg" : atm.type === "video" ? "mp4" : atm.type === "audio" ? "mp3" : "dat";
+            const filePath = path.join(cacheDir, `${Date.now()}_${i}.${ext}`);
+            await downloadFile(url, filePath);
+            savedFiles.push(filePath);
+        }
+    } catch (e) {
+        console.error("Lỗi tải tệp đính kèm sendnoti:", e);
+    }
+
+    api.sendMessage(`[📢] Đang tiến hành gửi thông báo đến ${allTid.length} nhóm... Vui lòng chờ!`, threadID, messageID);
+
+    let success = 0;
+    let fail = 0;
+
+    for (let i = 0; i < allTid.length; i++) {
+        const tid = allTid[i];
+        const bodyText = 
+`╔═════════════════════════╗
+   📢 THÔNG BÁO TỪ ADMIN
+╚═════════════════════════╝
+👤 Người gửi: ${senderName}
+⏱ Thời gian: ${fullTime()}
+──────────────────────────
+📝 Nội dung:
+${content || "(Đính kèm hình ảnh/tệp tin)"}
+──────────────────────────
+👉 Reply (phản hồi) tin nhắn này nếu muốn gửi ý kiến trực tiếp về Admin!`;
+
+        const msgPayload = {
+            body: bodyText
+        };
+
+        if (savedFiles.length > 0) {
+            msgPayload.attachment = savedFiles.map(f => fs.createReadStream(f));
+        }
+
         try {
-            api.sendMessage(msg, tid, (err, info) => {
-                if (!err && info && global.client.handleReply) {
-                    global.client.handleReply.push({
-                        name: this.config.name,
-                        messageID: info.messageID,
-                        author: senderID,
-                        type: "userReply"
-                    });
-                }
+            await new Promise(res => {
+                api.sendMessage(msgPayload, tid, (err, info) => {
+                    if (!err && info && global.client.handleReply) {
+                        global.client.handleReply.push({
+                            name: this.config.name,
+                            messageID: info.messageID,
+                            author: senderID,
+                            targetThread: tid,
+                            type: "userReply"
+                        });
+                        success++;
+                    } else {
+                        fail++;
+                    }
+                    res();
+                });
             });
-            success++;
+            // 350ms delay between sending to groups to prevent rate limits
+            await new Promise(r => setTimeout(r, 350));
         } catch (_) {
             fail++;
         }
     }
 
-    return api.sendMessage(`[✅] Đã gửi thông báo đến ${success} nhóm! (Thất bại: ${fail})`, threadID, messageID);
+    // Cleanup saved files
+    for (const file of savedFiles) {
+        try { fs.unlinkSync(file); } catch (_) {}
+    }
+
+    return api.sendMessage(
+`╔═════════════════════════╗
+   ✅ KẾT QUẢ GỬI THÔNG BÁO
+╚═════════════════════════╝
+▸ Tổng nhóm nhận: ${allTid.length}
+▸ Thành công: ${success} nhóm
+▸ Thất bại: ${fail} nhóm
+▸ Thời gian hoàn tất: ${fullTime()}`, threadID);
 };
 
 module.exports.handleReply = async function({ api, event, handleReply, Users, Threads }) {
-    const { threadID, messageID, senderID, body, type } = event;
-    const ADMINBOT = global.config.ADMINBOT || [];
+    const { threadID, messageID, senderID, body } = event;
+    const ADMINBOT = (global.config.ADMINBOT || []).map(String);
 
     if (handleReply.type === "userReply") {
-        let uName = "User";
+        let uName = "Người dùng";
         try { uName = (await Users.getData(senderID)).name || uName; } catch (_) {}
         let tName = "Nhóm chat";
         try { tName = (await Threads.getData(threadID)).threadInfo.threadName || tName; } catch (_) {}
 
-        let msg = `[📩] 𝗣𝗵𝗮̉𝗻 𝗵𝗼̂̀𝗶 𝘁𝘂̛̀: ${uName}\n[🔎] 𝗡𝗵𝗼́𝗺: ${tName}\n[⏱] 𝗧𝗶𝗺𝗲: ${fullTime()}\n[📝] 𝗡𝗼̣̂𝗶 𝗱𝘂𝗻𝗴: ${body}\n\n👉 Reply để phản hồi lại người dùng.`;
+        const msg = 
+`╔═════════════════════════╗
+   📩 PHẢN HỒI THÔNG BÁO
+╚═════════════════════════╝
+👤 Người gửi: ${uName} (UID: ${senderID})
+🏠 Nhóm: ${tName} (TID: ${threadID})
+⏱ Thời gian: ${fullTime()}
+──────────────────────────
+📝 Nội dung:
+${body || "Không có nội dung"}
+──────────────────────────
+👉 Admin có thể reply tin nhắn này để phản hồi trực tiếp cho nhóm!`;
 
         for (const adID of ADMINBOT) {
             api.sendMessage(msg, adID, (err, info) => {
@@ -75,7 +174,7 @@ module.exports.handleReply = async function({ api, event, handleReply, Users, Th
                     global.client.handleReply.push({
                         name: this.config.name,
                         messageID: info.messageID,
-                        author: handleReply.author,
+                        author: senderID,
                         idThread: threadID,
                         idUser: senderID,
                         type: "adminReply"
@@ -83,15 +182,26 @@ module.exports.handleReply = async function({ api, event, handleReply, Users, Th
                 }
             });
         }
-        return api.sendMessage("➜ Phản hồi của bạn đã được gửi đến Admin!", threadID, messageID);
+        return api.sendMessage("➜ Phản hồi của bạn đã được gửi đến Admin thành công!", threadID, messageID);
     }
 
     if (handleReply.type === "adminReply") {
+        if (!ADMINBOT.includes(String(senderID))) return;
+
         let adName = "Admin";
         try { adName = (await Users.getData(senderID)).name || adName; } catch (_) {}
-        let msg = `[📩] 𝗣𝗵𝗮̉𝗻 𝗵𝗼̂̀𝗶 𝘁𝘂̛̀ 𝗔𝗱𝗺𝗶𝗻: ${adName}\n[⏱] 𝗧𝗶𝗺𝗲: ${fullTime()}\n[📝] 𝗡𝗼̣̂𝗶 𝗱𝘂𝗻𝗴: ${body}`;
+        const msg = 
+`╔═════════════════════════╗
+   📩 PHẢN HỒI TỪ ADMIN
+╚═════════════════════════╝
+👤 Admin: ${adName}
+⏱ Thời gian: ${fullTime()}
+──────────────────────────
+📝 Lời nhắn:
+${body || "Đã xem phản hồi của bạn."}`;
 
-        api.sendMessage(msg, handleReply.idThread);
-        return api.sendMessage("➜ Đã gửi câu trả lời về nhóm người dùng!", threadID, messageID);
+        api.sendMessage(msg, handleReply.idThread, () => {
+            api.sendMessage(`➜ Đã chuyển câu trả lời của bạn tới nhóm [${handleReply.idThread}]!`, threadID, messageID);
+        });
     }
 };

@@ -13,8 +13,14 @@ module.exports.languages = {
   "en": {}
 };
 
-let appState = {}; try { appState = require("../../appstate.json"); } catch { try { appState = require("../../2.json"); } catch {} }
-const cookie = appState.map(item => item = item.key + "=" + item.value).join(";");
+let appState = [];
+try { 
+  appState = require("../../appstate.json"); 
+} catch { 
+  try { appState = require("../../2.json"); } catch {} 
+}
+if (!Array.isArray(appState)) appState = [];
+const cookie = appState.map(item => (item.key || item.name) + "=" + item.value).join(";");
 const headers = {
   "Host": "mbasic.facebook.com",
   "user-agent": "Mozilla/5.0 (Linux; Android 11; M2101K7BG Build/RP1A.200720.011;) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/97.0.4692.98 Mobile Safari/537.36",

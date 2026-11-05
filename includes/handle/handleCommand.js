@@ -1,71 +1,76 @@
 module.exports = function ({ api, models, Users, Threads, Currencies }) {
-  const fs = require("fs");
-  const stringSimilarity = require('string-similarity'),escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),logger = require("../../utils/log.js");
-  const axios = require('axios');
-  const request = require('request');
-  const path = require('path')
-  const moment = require("moment-timezone");
-  return async function ({ event }) {
-    const dateNow = Date.now()  //ping
-    const time = moment.tz("Asia/Ho_Chi_minh").format("HH:MM:ss DD/MM/YYYY"); // giờ
-    const times = process.uptime(),hours = Math.floor(times / (60 * 60)),minutes = Math.floor((times % (60 * 60)) / 60),seconds = Math.floor(times % 60);  //upt
-         const { allowInbox, PREFIX, ADMINBOT, NDH, DeveloperMode, adminOnly, keyAdminOnly, ndhOnly,adminPaseOnly } = global.config;
-         const { userBanned, threadBanned, threadInfo, threadData, commandBanned } = global.data;
-         const { commands, cooldowns } = global.client;
-         var { body, senderID, threadID, messageID } = event;
-         var senderID = String(senderID),threadID = String(threadID);
-         const threadSetting = threadData.get(threadID) || {}
-         const prefixRegex = new RegExp(`^(<@!?${senderID}>|${escapeRegex((threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : PREFIX)})\\s*`);
-         if (!prefixRegex.test(body)) return;
-         const adminbot = require('./../../config.json');
-         let getDay = moment.tz("Asia/Ho_Chi_Minh").day();
-         let usgPath = __dirname + '/usages.json';
-         if (!fs.existsSync(usgPath)) fs.writeFileSync(usgPath, JSON.stringify({}));
-         let usages = JSON.parse(fs.readFileSync(usgPath));
-         
-   if(!global.data.allThreadID.includes(threadID) && !ADMINBOT.includes(senderID) && adminbot.adminPaseOnly == true) {
- return api.sendMessage("Admin bot mới dùng bot trong đoạn chat riêng!!", threadID, messageID)
-}    
-   if (!ADMINBOT.includes(senderID) && adminbot.adminOnly == true) {
-     if (!ADMINBOT.includes(senderID) && adminbot.adminOnly == true) return api.sendMessage('Admin bot mới sử dụng được!!', threadID, messageID)
-   }
+   const stringSimilarity = require('string-similarity');
+   const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+   const logger = require("../../utils/log.js");
+   const axios = require('axios');
+   const moment = require("moment-timezone");
+   return async function ({ event }) {
+    const dateNow = Date.now();
+    const time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
+    const times = process.uptime(), hours = Math.floor(times / (60 * 60)), minutes = Math.floor((times % (60 * 60)) / 60), seconds = Math.floor(times % 60);
+    const { allowInbox, PREFIX, ADMINBOT, NDH, DeveloperMode, adminOnly, keyAdminOnly, ndhOnly, adminPaseOnly } = global.config;
+    const { userBanned, threadBanned, threadInfo, threadData, commandBanned } = global.data;
+    const { commands, cooldowns } = global.client;
+    var { body, senderID, threadID, messageID } = event;
+    senderID = String(senderID);
+    threadID = String(threadID);
+    const threadSetting = threadData.get(threadID) || {};
+    const prefixRegex = new RegExp(`^(<@!?${senderID}>|${escapeRegex((threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : PREFIX)})\\s*`);
+    if (!prefixRegex.test(body)) return;
+    const adminbot = global.config || require('./../../config.json');
+
+    if (!global.data.allThreadID.includes(threadID) && !ADMINBOT.includes(senderID) && adminbot.adminPaseOnly == true) {
+      return api.sendMessage("➜ Chỉ Admin Bot mới được dùng bot trong tin nhắn riêng!", threadID, messageID);
+    }
+    if (!ADMINBOT.includes(senderID) && adminbot.adminOnly == true) {
+      return api.sendMessage("➜ Hiện đang bật chế độ chỉ Admin Bot mới sử dụng được bot!", threadID, messageID);
+    }
     if (!NDH.includes(senderID) && !ADMINBOT.includes(senderID) && adminbot.ndhOnly == true) { 
-         return api.sendMessage('NDH mới có thể sử dụng bot', threadID, messageID)
+      return api.sendMessage("➜ Hiện đang bật chế độ chỉ Support/Admin Bot mới sử dụng được bot!", threadID, messageID);
+    }
 
-       }
-const dataAdbox = require('./../../modules/commands/cache/data.json');
-   var threadInf = (threadInfo.get(threadID) || await Threads.getInfo(threadID)) || {};
-   const findd = (threadInf && Array.isArray(threadInf.adminIDs)) ? threadInf.adminIDs.find(el => el.id == senderID) : null;
-   if (event.isGroup == true && dataAdbox && dataAdbox.adminbox && dataAdbox.adminbox[threadID] == true && !ADMINBOT.includes(senderID) && !findd && !NDH.includes(senderID)) return api.sendMessage('Quản trị viên mới sử dụng được!!', event.threadID, event.messageID);
-   if (userBanned.has(senderID) || threadBanned.has(threadID) || allowInbox == ![] && senderID == threadID) {
-     if (!ADMINBOT.includes(senderID.toString()) && !NDH.includes(senderID.toString())) {
-       if (userBanned.has(senderID)) {
-         const { reason, dateAdded } = userBanned.get(senderID) || {};
-         return api.sendMessage(global.getText("handleCommand", "userBanned", reason, dateAdded), threadID, async (err, info) => {
-           await new Promise(resolve => setTimeout(resolve, 5 * 1000));
-           return api.unsendMessage(info.messageID);
-         }, messageID);
-       } else {
-         if (threadBanned.has(threadID)) {
-           const { reason, dateAdded } = threadBanned.get(threadID) || {};
-           return api.sendMessage(global.getText("handleCommand", "threadBanned", reason, dateAdded), threadID, async (err, info) => {
-             await new Promise(resolve => setTimeout(resolve, 5 * 1000));
-             return api.unsendMessage(info.messageID);
-           }, messageID);
-         }
-       }
-     }
-   }
-   const [matchedPrefix] = body.match(prefixRegex),
-     args = body.slice(matchedPrefix.length).trim().split(/ +/);
-   commandName = args.shift().toLowerCase();
-   var command = commands.get(commandName);
-   fs.writeFileSync(usgPath, JSON.stringify(usages, null, 4));
+    let dataAdbox = {};
+    try {
+      const dataAdboxPath = require('path').resolve(__dirname, '../../modules/commands/cache/data.json');
+      if (require('fs').existsSync(dataAdboxPath)) {
+        dataAdbox = require(dataAdboxPath);
+      }
+    } catch (_) {}
 
-   
-   if (!command) {
+    var threadInf = (threadInfo.get(threadID) || await Threads.getInfo(threadID)) || {};
+    const findd = (threadInf && Array.isArray(threadInf.adminIDs)) ? threadInf.adminIDs.find(el => String(el.id) === String(senderID)) : null;
+    if (event.isGroup == true && dataAdbox && dataAdbox.adminbox && dataAdbox.adminbox[threadID] == true && !ADMINBOT.includes(senderID) && !findd && !NDH.includes(senderID)) {
+      return api.sendMessage("➜ Nhóm này đang bật chế độ chỉ Quản trị viên nhóm mới dùng được bot!", event.threadID, event.messageID);
+    }
+
+    if (userBanned.has(senderID) || threadBanned.has(threadID) || (allowInbox === false && senderID == threadID)) {
+      if (!ADMINBOT.includes(senderID.toString()) && !NDH.includes(senderID.toString())) {
+        if (userBanned.has(senderID)) {
+          const { reason, dateAdded } = userBanned.get(senderID) || {};
+          return api.sendMessage(global.getText("handleCommand", "userBanned", reason, dateAdded), threadID, async (err, info) => {
+            await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+            return api.unsendMessage(info.messageID);
+          }, messageID);
+        } else {
+          if (threadBanned.has(threadID)) {
+            const { reason, dateAdded } = threadBanned.get(threadID) || {};
+            return api.sendMessage(global.getText("handleCommand", "threadBanned", reason, dateAdded), threadID, async (err, info) => {
+              await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+              return api.unsendMessage(info.messageID);
+            }, messageID);
+          }
+        }
+      }
+    }
+
+    const [matchedPrefix] = body.match(prefixRegex);
+    const args = body.slice(matchedPrefix.length).trim().split(/ +/);
+    const commandName = args.shift().toLowerCase();
+    var command = commands.get(commandName);
+
+    if (!command) {
       var allCommandName = [];
-      const commandValues = commands['keys']();
+      const commandValues = commands.keys();
       for (const cmd of commandValues) allCommandName.push(cmd);
       const checker = stringSimilarity.findBestMatch(commandName, allCommandName);
       if (checker.bestMatch.rating >= 0.5) {
@@ -79,90 +84,97 @@ const dataAdbox = require('./../../modules/commands/cache/data.json');
       }
     }
 
-    
+    if (commandBanned.get(threadID) || commandBanned.get(senderID)) {
+      if (!ADMINBOT.includes(senderID)) {
+        const banThreads = commandBanned.get(threadID) || [],
+          banUsers = commandBanned.get(senderID) || [];
+        if (banThreads.includes(command.config.name))
+          return api.sendMessage(global.getText("handleCommand", "commandThreadBanned", command.config.name), threadID, async (err, info) => {
+            await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+            return api.unsendMessage(info.messageID);
+          }, messageID);
+        if (banUsers.includes(command.config.name))
+          return api.sendMessage(global.getText("handleCommand", "commandUserBanned", command.config.name), threadID, async (err, info) => {
+            await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+            return api.unsendMessage(info.messageID);
+          }, messageID);
+      }
+    }
 
-   
-   if (commandBanned.get(threadID) || commandBanned.get(senderID)) {
-     if (!ADMINBOT.includes(senderID)) {
-       const banThreads = commandBanned.get(threadID) || [],
-         banUsers = commandBanned.get(senderID) || [];
-       if (banThreads.includes(command.config.name))
-         return api.sendMessage(global.getText("handleCommand", "commandThreadBanned", command.config.name), threadID, async (err, info) => {
-           await new Promise(resolve => setTimeout(resolve, 5 * 1000))
-           return api.unsendMessage(info.messageID);
-         }, messageID);
-       if (banUsers.includes(command.config.name))
-         return api.sendMessage(global.getText("handleCommand", "commandUserBanned", command.config.name), threadID, async (err, info) => {
-           await new Promise(resolve => setTimeout(resolve, 5 * 1000));
-           return api.unsendMessage(info.messageID);
-         }, messageID);
-     }
-   }
-   if (command.config.commandCategory.toLowerCase() == 'nsfw' && !global.data.threadAllowNSFW.includes(threadID) && !ADMINBOT.includes(senderID))
-     return api.sendMessage(global.getText("handleCommand", "threadNotAllowNSFW"), threadID, async (err, info) => {
+    if (command.config.commandCategory && command.config.commandCategory.toLowerCase() == 'nsfw' && !global.data.threadAllowNSFW.includes(threadID) && !ADMINBOT.includes(senderID)) {
+      return api.sendMessage(global.getText("handleCommand", "threadNotAllowNSFW"), threadID, async (err, info) => {
+        await new Promise(resolve => setTimeout(resolve, 5 * 1000));
+        return api.unsendMessage(info.messageID);
+      }, messageID);
+    }
 
-       await new Promise(resolve => setTimeout(resolve, 5 * 1000))
-       return api.unsendMessage(info.messageID);
-     }, messageID);
-   var threadInfo2;
-   if (event.isGroup == !![])
-     try {
-       threadInfo2 = (threadInfo.get(threadID) || await Threads.getInfo(threadID))
-       if (Object.keys(threadInfo2).length == 0) throw new Error();
-     } catch (err) {
-       logger(global.getText("handleCommand", "cantGetInfoThread", "error"));
-     }
-      var permssion = 0;
-   var threadInfoo = (threadInfo.get(threadID) || await Threads.getInfo(threadID));
-   const find = threadInfoo.adminIDs.find(el => el.id == senderID);
-   if (ADMINBOT.includes(senderID.toString())) permssion = 3;
-   else if (NDH.includes(senderID.toString())) permssion = 2;
-   else if (!ADMINBOT.includes(senderID) && find) permssion = 1;
-   var quyenhan = ""
-   if (command.config.hasPermssion == 1 ){
-     quyenhan = "Quản Trị Viên"
-   } else if (command.config.hasPermssion == 2 ) {
-     quyenhan = "SUPPORTBOT"
-   } else if(command.config.hasPermssion == 3) {
-     quyenhan = "ADMINBOT"
-   } 
-   if (command.config.hasPermssion > permssion) return api.sendMessage(`Quyền hạn của lệnh ${command.config.name} là: ${quyenhan}`, event.threadID, event.messageID);
-      if (!client.cooldowns.has(command.config.name)) client.cooldowns.set(command.config.name, new Map());
-       const timestamps = client.cooldowns.get(command.config.name);;
-       const expirationTime = (command.config.cooldowns || 1) * 1000;
-       if (timestamps.has(senderID) && dateNow < timestamps.get(senderID) + expirationTime) 
-     return api.setMessageReaction('😼', event.messageID, err => (err) ? logger('Đã có lỗi xảy ra khi thực thi setMessageReaction', 2) : '', !![]);
-   var getText2;
-   if (command.languages && typeof command.languages == 'object' && command.languages.hasOwnProperty(global.config.language))
-     getText2 = (...values) => {
-       var lang = command.languages[global.config.language][values[0]] || '';
-       for (var i = values.length; i > 0x2533 + 0x1105 + -0x3638; i--) {
-         const expReg = RegExp('%' + i, 'g');
-         lang = lang.replace(expReg, values[i]);
-       }
-       return lang;
-     };
-    else getText2 = () => { };
-   try {
-     const Obj = {};
-     Obj.api = api
-     Obj.event = event
-     Obj.args = args
-     Obj.models = models
-     Obj.Users = Users
-     Obj.Threads = Threads
-     Obj.Currencies = Currencies
-     Obj.permssion = permssion
-     Obj.getText = getText2
-     usages = JSON.parse(fs.readFileSync(usgPath));
-     fs.writeFileSync(usgPath, JSON.stringify(usages, null, 4));
-     command.run(Obj);
-     timestamps.set(senderID, dateNow);
-     if (DeveloperMode == !![])
-       logger(global.getText("handleCommand", "executeCommand", time, commandName, senderID, threadID, args.join(" "), (Date.now()) - dateNow), "MODE");
-     return;
-   } catch (e) {
-     return api.sendMessage(global.getText("handleCommand", "commandError", commandName, e), threadID);
-   }
- };
+    var permssion = 0;
+    var threadInfoo = (threadInfo.get(threadID) || await Threads.getInfo(threadID)) || {};
+    const find = (threadInfoo && Array.isArray(threadInfoo.adminIDs)) ? threadInfoo.adminIDs.find(el => String(el.id) === String(senderID)) : null;
+
+    if (ADMINBOT.includes(senderID.toString())) permssion = 3;
+    else if (NDH.includes(senderID.toString())) permssion = 2;
+    else if (!ADMINBOT.includes(senderID) && find) permssion = 1;
+
+    // Check both hasPermssion and hasPermission safely
+    const requiredPerm = command.config.hasPermssion !== undefined 
+      ? command.config.hasPermssion 
+      : (command.config.hasPermission !== undefined ? command.config.hasPermission : 0);
+
+    var quyenhan = "";
+    if (requiredPerm == 1) {
+      quyenhan = "Quản Trị Viên Nhóm";
+    } else if (requiredPerm == 2) {
+      quyenhan = "SUPPORTBOT";
+    } else if (requiredPerm >= 3) {
+      quyenhan = "ADMINBOT";
+    } 
+
+    if (requiredPerm > permssion) {
+      return api.sendMessage(`⚠️ Lệnh "${command.config.name}" yêu cầu quyền hạn: ${quyenhan}`, event.threadID, event.messageID);
+    }
+
+    if (!client.cooldowns.has(command.config.name)) client.cooldowns.set(command.config.name, new Map());
+    const timestamps = client.cooldowns.get(command.config.name);
+    const expirationTime = (command.config.cooldowns || 1) * 1000;
+    if (timestamps.has(senderID) && dateNow < timestamps.get(senderID) + expirationTime) {
+      return api.setMessageReaction('😼', event.messageID, err => (err) ? logger('Đã có lỗi xảy ra khi thực thi setMessageReaction', 2) : '', !![]);
+    }
+
+    var getText2;
+    if (command.languages && typeof command.languages == 'object' && command.languages.hasOwnProperty(global.config.language)) {
+      getText2 = (...values) => {
+        var lang = command.languages[global.config.language][values[0]] || '';
+        for (var i = values.length; i > 0; i--) {
+          const expReg = RegExp('%' + i, 'g');
+          lang = lang.replace(expReg, values[i]);
+        }
+        return lang;
+      };
+    } else {
+      getText2 = () => { };
+    }
+
+    try {
+      const Obj = {
+        api,
+        event,
+        args,
+        models,
+        Users,
+        Threads,
+        Currencies,
+        permssion,
+        getText: getText2
+      };
+      command.run(Obj);
+      timestamps.set(senderID, dateNow);
+      if (DeveloperMode == true) {
+        logger(global.getText("handleCommand", "executeCommand", time, commandName, senderID, threadID, args.join(" "), (Date.now()) - dateNow), "[ DEV MODE ]");
+      }
+      return;
+    } catch (e) {
+      return api.sendMessage(global.getText("handleCommand", "commandError", commandName, e), threadID);
+    }
+  };
 };
