@@ -1,11 +1,11 @@
 module.exports.config = {
     name: "box",
-    version: "2.1.1",
+    version: "2.2.0",
     hasPermssion: 1,
     credits: "dtb",
     description: "Các cài đặt của nhóm",
     commandCategory: "Quản Lí Box",
-    usages: "[id/name/setnamebox/emoji/me setqtv/setqtv/image/info/new/taobinhchon/setname/setnameall/rdcolor]",
+    usages: "[id/name/namebox/emoji/me qtv/qtv/image/info/new/taobinhchon/setname/setnameall/rdcolor]",
     cooldowns: 0,
     dependencies: {
         "axios": "",
@@ -20,242 +20,369 @@ const fs = require("fs-extra");
 const request = require("request");
 const axios = require("axios");
 
-module.exports.handleEvent = async ({ api, event, args }) => {
-    if (!fs.existsSync(totalPath)) fs.writeFileSync(totalPath, JSON.stringify({}));
-    let totalChat = JSON.parse(fs.readFileSync(totalPath));
-    if (!totalChat[event.threadID]) return;
-    if (Date.now() - totalChat[event.threadID].time > (_24hours * 2)) {
-        let sl = (await api.getThreadInfo(event.threadID)).messageCount;
-        totalChat[event.threadID] = {
-            time: Date.now() - _24hours,
-            count: sl,
-            ytd: sl - totalChat[event.threadID].count
+module.exports.handleEvent = async ({ api, event }) => {
+    try {
+        if (!fs.existsSync(totalPath)) {
+            fs.ensureDirSync(__dirname + '/cache/data');
+            fs.writeFileSync(totalPath, JSON.stringify({}));
         }
-        fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
-    }
-}
+        let totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8"));
+        if (!totalChat[event.threadID]) return;
+        if (Date.now() - totalChat[event.threadID].time > (_24hours * 2)) {
+            let threadInfo = await api.getThreadInfo(event.threadID);
+            let sl = threadInfo.messageCount || 0;
+            totalChat[event.threadID] = {
+                time: Date.now() - _24hours,
+                count: sl,
+                ytd: sl - totalChat[event.threadID].count
+            };
+            fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
+        }
+    } catch (_) {}
+};
+
 module.exports.handleReply = function({ api, event, handleReply }) {
     const { threadID, senderID, body } = event;
-    if(senderID != handleReply.author) return;
-    return api.createPoll(body, event.threadID, handleReply.obj, (err, info) => {
-        if(err) return console.log(err);
-        else {
-            api.sendMessage(`➜ Bình chọn ${body} đã được tạo`, threadID);
-            api.unsendMessage(handleReply.messageID);
-            global.client.handleReply.splice(global.client.handleReply.indexOf(handleReply), 1);
+    if (senderID != handleReply.author) return;
+    return api.createPoll(body, event.threadID, handleReply.obj, (err) => {
+        if (err) return console.error(err);
+        api.sendMessage(`➜ Bình chọn "${body}" đã được tạo thành công!`, threadID);
+        api.unsendMessage(handleReply.messageID);
+        if (global.client.handleReply) {
+            const idx = global.client.handleReply.indexOf(handleReply);
+            if (idx !== -1) global.client.handleReply.splice(idx, 1);
         }
     });
-}
+};
+
 module.exports.run = async function({ api, event, args, Users, Threads }) {
-    const { threadID, messageID, senderID, type, mentions, messageReply } = event;
-  var fullTime = global.client.getTime("fullTime");
-    const moment = require("moment-timezone");
-  var timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss")
-    if (args.length == 0) {
-      return api.sendMessage(`==== 『 𝐁𝐎𝐗 𝐂𝐎𝐍𝐅𝐈𝐆 』 ==== \n━━━━━━━━━━━━━━━\n➜ ${global.config.PREFIX}${this.config.name} id \n𝙼𝚘̂ 𝚝𝚊̉: Lấy ID của nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} name \n𝙼𝚘̂ 𝚝𝚊̉: Lấy tên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} boxname < tên > \n𝙼𝚘̂ 𝚝𝚊̉: Đổi tên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} emoji < icon > \n𝙼𝚘̂ 𝚝𝚊̉: Đổi icon nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} info \n𝙼𝚘̂ 𝚝𝚊̉: Xem thông tin nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} me setqtv \n𝙼𝚘̂ 𝚝𝚊̉: Bot sẽ thêm bạn làm Quản trị viên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} setqtv < tag > \n𝙼𝚘̂ 𝚝𝚊̉: Thêm người dùng làm Quản trị viên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} image < phản hồi ảnh > \n𝙼𝚘̂ 𝚝𝚊̉: Đổi ảnh bìa nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} new < tag > \n𝙼𝚘̂ 𝚝𝚊̉: Tạo 1 nhóm mới với những người được tag!\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} info < tag > \n𝙼𝚘̂ 𝚝𝚊̉: Xem thông tin người dùng facebook\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} taobinhchon \n𝙼𝚘̂ 𝚝𝚊̉: Tạo bình chọn trong nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} setname < tag/phản hồi > < biệt danh > → Đặt biệt danh thành viên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} setnameall < biệt danh > \n𝙼𝚘̂ 𝚝𝚊̉: Đặt biệt danh đồng bộ tất cả thành viên nhóm\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n➜ ${global.config.PREFIX}${this.config.name} rdcolor \n𝙼𝚘̂ 𝚝𝚊̉: Thiết lập chủ đề nhóm ngẫu nhiên\n\n━━━━━━━━━━━━━━━\n\n===「${timeNow}」===`, threadID);
-    }
-    var id = [event.senderID] || [];
-  var main = event.body;
-  var groupTitle = main.slice(main.indexOf("|") +2)
-  if (args[0] == "new") {
-   for (var i = 0; i < Object.keys(event.mentions).length; i++) 
-id.push(Object.keys(event.mentions)[i]);
-  api.createNewGroup(id, groupTitle,() => {
-    api.sendMessage(` ➜ Đã tạo nhóm ${groupTitle}`, event.threadID)
-  })
-}
-   if (args[0] == "id") {
-    return api.sendMessage(` ➜ ID của box đây: ${event.threadID}`, event.threadID, event.messageID);
-  }
-
-  if (args[0] == "name") {
-    var nameThread = global.data.threadInfo.get(event.threadID).threadName || ((await Threads.getData(event.threadID)).threadInfo).threadName;
-    return api.sendMessage(nameThread, event.threadID, event.messageID);
-  }
-
-  if (args[0] == "namebox") {
-    var content = args.join(" ");
-    var c = content.slice(7, 99) || event.messageReply.body;
-    api.setTitle(`${c}`, event.threadID);
-  }
-
-  if (args[0] == "emoji") {
-    const name = args[1] || event.messageReply.body;
-    api.changeThreadEmoji(name, event.threadID)
-
-  }
-
-  if (args[0] == "me") {
-    if (args[1] == "qtv") {
-      const threadInfo = await api.getThreadInfo(event.threadID)
-      const find = threadInfo.adminIDs.find(el => el.id == api.getCurrentUserID());
-      if (!find) api.sendMessage("➜ BOT cần ném quản trị viên để dùng ?", event.threadID, event.messageID)
-      else if (!global.config.ADMINBOT.includes(event.senderID)) api.sendMessage("➜ Quyền lồn biên giới ?", event.threadID, event.messageID)
-      else api.changeAdminStatus(event.threadID, event.senderID, true);
-    }
-  }
-
-  if (args[0] == "qtv") {
-    if (args.join().indexOf('@') !== -1) {
-      namee = Object.keys(event.mentions)
-    } else namee = args[1]
-    if (event.messageReply) {
-      namee = event.messageReply.senderID
-    }
-
-    const threadInfo = await api.getThreadInfo(event.threadID)
-    const findd = threadInfo.adminIDs.find(el => el.id == namee);
-    const find = threadInfo.adminIDs.find(el => el.id == api.getCurrentUserID());
-    const finddd = threadInfo.adminIDs.find(el => el.id == event.senderID);
-
-    if (!finddd) return api.sendMessage(" ➜ Bạn méo phải quản trị viên box ?", event.threadID, event.messageID);
-    if (!find) {
-      api.sendMessage(" ➜ Không ném quản trị viên dùng kiểu gì ?", event.threadID, event.messageID)
-    }
-    if (!findd) {
-      api.changeAdminStatus(event.threadID, namee, true);
-    } else api.changeAdminStatus(event.threadID, namee, false)
-  }
-
-  if (args[0] == "image") {
-    if (event.type !== "message_reply") return api.sendMessage(" ➜ Bạn phải reply một audio, video, ảnh nào đó", event.threadID, event.messageID);
-    if (!event.messageReply.attachments || event.messageReply.attachments.length == 0) return api.sendMessage("➜ Bạn phải reply một audio, video, ảnh nào đó", event.threadID, event.messageID);
-    if (event.messageReply.attachments.length > 1) return api.sendMessage(`➜ Bạn phải reply một audio, video, ảnh nào đó`, event.threadID, event.messageID);
-    var callback = () => api.changeGroupImage(fs.createReadStream(__dirname + "/cache/1.png"), event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.png"));
-    return request(encodeURI(event.messageReply.attachments[0].url)).pipe(fs.createWriteStream(__dirname + '/cache/1.png')).on('close', () => callback());
-  };
-  if (args[0] == "taobinhchon") {
     const { threadID, messageID, senderID } = event;
-    let options = args.splice(1).join(" ").split("|");
-    let obj = {}
-    for(let item of options) obj[item] = false;
-    api.sendMessage(` ➜ Tạo thành công các bình chọn ${options.join(",")}\n ➜ Hãy phản hồi tin nhắn này để tạo tiêu đề`, event.threadID, (err, info) => {
-        if(err) return console.log(err);
-        else {
-            global.client.handleReply.push({
-                name: this.config.name,
-                messageID: info.messageID,
-                author: senderID,
-                obj
-            })
+    const moment = require("moment-timezone");
+    const fullTime = global.client && global.client.getTime ? global.client.getTime("fullTime") : moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
+    const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
+
+    if (args.length === 0) {
+        return api.sendMessage(
+`==== 『 𝐁𝐎𝐗 𝐂𝐎𝐍𝐅𝐈𝐆 』 ====
+━━━━━━━━━━━━━━━
+➜ ${global.config.PREFIX}${this.config.name} id 
+𝙼𝚘̂ 𝚝𝚊̉: Lấy ID của nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} name 
+𝙼𝚘̂ 𝚝𝚊̉: Lấy tên nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} namebox <tên> 
+𝙼𝚘̂ 𝚝𝚊̉: Đổi tên nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} emoji <icon> 
+𝙼𝚘̂ 𝚝𝚊̉: Đổi icon nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} info 
+𝙼𝚘̂ 𝚝𝚊̉: Xem thông tin nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} me qtv 
+𝙼𝚘̂ 𝚝𝚊̉: Bot sẽ thêm bạn làm Quản trị viên nhóm (dành cho Admin Bot)
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} qtv <tag/reply> 
+𝙼𝚘̂ 𝚝𝚊̉: Thêm hoặc gỡ Quản trị viên nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} image <reply ảnh> 
+𝙼𝚘̂ 𝚝𝚊̉: Đổi ảnh bìa nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} new <tag> | <tên nhóm> 
+𝙼𝚘̂ 𝚝𝚊̉: Tạo 1 nhóm mới với những người được tag
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} taobinhchon <lựa chọn 1|lựa chọn 2...> 
+𝙼𝚘̂ 𝚝𝚊̉: Tạo bình chọn trong nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} setname <tag/reply> <biệt danh> 
+𝙼𝚘̂ 𝚝𝚊̉: Đặt biệt danh thành viên nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} setnameall <biệt danh> 
+𝙼𝚘̂ 𝚝𝚊̉: Đặt biệt danh đồng bộ tất cả thành viên nhóm
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+➜ ${global.config.PREFIX}${this.config.name} rdcolor 
+𝙼𝚘̂ 𝚝𝚊̉: Thiết lập chủ đề nhóm ngẫu nhiên
+━━━━━━━━━━━━━━━
+===「${timeNow}」=== `, threadID, messageID);
+    }
+
+    if (args[0] === "new") {
+        let id = [senderID];
+        let main = event.body;
+        let groupTitle = main.includes("|") ? main.slice(main.indexOf("|") + 1).trim() : "Nhóm mới";
+        if (event.mentions) {
+            for (let uid of Object.keys(event.mentions)) {
+                if (!id.includes(uid)) id.push(uid);
+            }
         }
-    });
-  }
-  if (args[0] == "setname") {
-if (event.type == "message_reply") {
-    const name = args.splice(1).join(" ")
-    return api.changeNickname(`${name}`, event.threadID, event.messageReply.senderID);
-  }
-  else {
-    const name = args.splice(1).join(" ")
-	const mention = Object.keys(event.mentions)[0];
-	if (!mention) return api.changeNickname(`${name}`, event.threadID, event.senderID);
-	if (mention[0]) return api.changeNickname(`${name.replace(event.mentions[mention], "")}`, event.threadID, mention);
-  }
-  }
-  if (args[0] == "rdcolor") {
-    var color = ['196241301102133', '169463077092846', '2442142322678320', '234137870477637', '980963458735625', '175615189761153', '2136751179887052', '2058653964378557', '2129984390566328', '174636906462322', '1928399724138152', '417639218648241', '930060997172551', '164535220883264', '370940413392601', '205488546921017', '809305022860427'];
-    api.changeThreadColor(color[Math.floor(Math.random() * color.length)], event.threadID)
-    await new Promise(resolve => setTimeout(resolve, 1000));
-  }
-  if (args[0] == "setnameall") {
-    var threadInfo = await api.getThreadInfo(event.threadID)
-  var idtv = threadInfo.participantIDs
-  console.log(threadInfo)
-  const name = args.splice(1).join(" ")
-  function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
-  for (let setname of idtv) {
-    await delay(3000)
-    api.changeNickname(`${name}`, event.threadID, setname);
-  }
-  }
-    if (args[0] == "info") {
+        if (id.length < 2) return api.sendMessage("➜ Cần ít nhất 2 người tham gia để tạo nhóm mới!", threadID, messageID);
+        api.createNewGroup(id, groupTitle, (err) => {
+            if (err) return api.sendMessage("➜ Lỗi khi tạo nhóm mới!", threadID, messageID);
+            api.sendMessage(`➜ Đã tạo nhóm "${groupTitle}" thành công!`, threadID, messageID);
+        });
+        return;
+    }
+
+    if (args[0] === "id") {
+        return api.sendMessage(`➜ ID của nhóm: ${threadID}`, threadID, messageID);
+    }
+
+    if (args[0] === "name") {
+        let nameThread = (global.data.threadInfo.get(threadID) || {}).threadName;
+        if (!nameThread) {
+            try {
+                let info = await api.getThreadInfo(threadID);
+                nameThread = info.threadName;
+            } catch (_) {}
+        }
+        return api.sendMessage(nameThread || "Nhóm chưa đặt tên", threadID, messageID);
+    }
+
+    if (args[0] === "namebox" || args[0] === "setnamebox") {
+        let content = args.slice(1).join(" ");
+        let newTitle = content || (event.messageReply ? event.messageReply.body : "");
+        if (!newTitle) return api.sendMessage("➜ Vui lòng nhập tên mới cho nhóm!", threadID, messageID);
+        api.setTitle(newTitle, threadID, (err) => {
+            if (err) return api.sendMessage("➜ Không thể đổi tên nhóm!", threadID, messageID);
+            api.sendMessage(`➜ Đã đổi tên nhóm thành: ${newTitle}`, threadID, messageID);
+        });
+        return;
+    }
+
+    if (args[0] === "emoji") {
+        let emoji = args[1] || (event.messageReply ? event.messageReply.body : "");
+        if (!emoji) return api.sendMessage("➜ Vui lòng nhập biểu tượng cảm xúc muốn đổi!", threadID, messageID);
+        api.changeThreadEmoji(emoji, threadID, (err) => {
+            if (err) return api.sendMessage("➜ Không thể đổi biểu tượng nhóm!", threadID, messageID);
+            api.sendMessage(`➜ Đã đổi biểu tượng nhóm thành: ${emoji}`, threadID, messageID);
+        });
+        return;
+    }
+
+    if (args[0] === "me" && args[1] === "qtv") {
         try {
+            const threadInfo = await api.getThreadInfo(threadID);
+            const adminList = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs : [];
+            const isBotAdmin = adminList.some(el => el.id == api.getCurrentUserID());
+            if (!isBotAdmin) return api.sendMessage("➜ Bot cần quyền Quản trị viên để thực hiện chức năng này!", threadID, messageID);
+            const adminBotList = (global.config.ADMINBOT || []).map(String);
+            if (!adminBotList.includes(String(senderID))) return api.sendMessage("➜ Lệnh này chỉ dành cho Admin Bot!", threadID, messageID);
+            api.changeAdminStatus(threadID, senderID, true);
+            return api.sendMessage("➜ Đã thêm bạn làm Quản trị viên nhóm thành công!", threadID, messageID);
+        } catch (e) {
+            return api.sendMessage("➜ Không thể cấp quyền Quản trị viên!", threadID, messageID);
+        }
+    }
+
+    if (args[0] === "qtv") {
+        try {
+            let targetID = null;
+            if (event.mentions && Object.keys(event.mentions).length > 0) {
+                targetID = Object.keys(event.mentions)[0];
+            } else if (event.messageReply) {
+                targetID = event.messageReply.senderID;
+            } else if (args[1]) {
+                targetID = args[1];
+            }
+            if (!targetID) return api.sendMessage("➜ Vui lòng tag hoặc reply người dùng cần gán/gỡ Quản trị viên!", threadID, messageID);
+
+            const threadInfo = await api.getThreadInfo(threadID);
+            const adminList = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs : [];
+            const isBotAdmin = adminList.some(el => el.id == api.getCurrentUserID());
+            const isSenderAdmin = adminList.some(el => el.id == senderID) || (global.config.ADMINBOT || []).includes(senderID);
+
+            if (!isSenderAdmin) return api.sendMessage("➜ Bạn phải là Quản trị viên nhóm để dùng lệnh này!", threadID, messageID);
+            if (!isBotAdmin) return api.sendMessage("➜ Bot cần quyền Quản trị viên nhóm để thực hiện!", threadID, messageID);
+
+            const isTargetAdmin = adminList.some(el => el.id == targetID);
+            if (!isTargetAdmin) {
+                api.changeAdminStatus(threadID, targetID, true, (err) => {
+                    if (err) return api.sendMessage("➜ Không thể thêm Quản trị viên!", threadID, messageID);
+                    api.sendMessage("➜ Đã thêm thành viên làm Quản trị viên nhóm thành công!", threadID, messageID);
+                });
+            } else {
+                api.changeAdminStatus(threadID, targetID, false, (err) => {
+                    if (err) return api.sendMessage("➜ Không thể gỡ Quản trị viên!", threadID, messageID);
+                    api.sendMessage("➜ Đã gỡ quyền Quản trị viên nhóm của thành viên thành công!", threadID, messageID);
+                });
+            }
+        } catch (e) {
+            return api.sendMessage("➜ Đã xảy ra lỗi khi cập nhật Quản trị viên!", threadID, messageID);
+        }
+        return;
+    }
+
+    if (args[0] === "image") {
+        if (event.type !== "message_reply") return api.sendMessage("➜ Bạn phải reply một hình ảnh để đặt làm ảnh nhóm!", threadID, messageID);
+        if (!event.messageReply.attachments || event.messageReply.attachments.length === 0) return api.sendMessage("➜ Tin nhắn reply không có tệp đính kèm!", threadID, messageID);
+        let imgUrl = event.messageReply.attachments[0].url;
+        if (!imgUrl) return api.sendMessage("➜ Không lấy được link ảnh!", threadID, messageID);
+
+        fs.ensureDirSync(__dirname + "/cache");
+        let tempImg = path.join(__dirname, "cache", `groupImg_${Date.now()}.png`);
+        return request(encodeURI(imgUrl))
+            .pipe(fs.createWriteStream(tempImg))
+            .on("close", () => {
+                api.changeGroupImage(fs.createReadStream(tempImg), threadID, (err) => {
+                    if (fs.existsSync(tempImg)) fs.unlinkSync(tempImg);
+                    if (err) return api.sendMessage("➜ Không thể đổi ảnh nhóm!", threadID, messageID);
+                    api.sendMessage("➜ Đổi ảnh nhóm thành công!", threadID, messageID);
+                });
+            });
+    }
+
+    if (args[0] === "taobinhchon") {
+        let options = args.slice(1).join(" ").split("|").map(s => s.trim()).filter(Boolean);
+        if (options.length < 2) return api.sendMessage("➜ Cần ít nhất 2 lựa chọn cách nhau bởi dấu '|'. Ví dụ: /box taobinhchon Có | Không", threadID, messageID);
+        let obj = {};
+        for (let item of options) obj[item] = false;
+        api.sendMessage(`➜ Tạo thành công các lựa chọn: ${options.join(", ")}\n➜ Hãy reply tin nhắn này để đặt tiêu đề cho cuộc bình chọn!`, threadID, (err, info) => {
+            if (err) return console.error(err);
+            if (global.client.handleReply) {
+                global.client.handleReply.push({
+                    name: this.config.name,
+                    messageID: info.messageID,
+                    author: senderID,
+                    obj
+                });
+            }
+        });
+        return;
+    }
+
+    if (args[0] === "setname") {
+        let name = "";
+        let targetID = senderID;
+        if (event.type === "message_reply") {
+            targetID = event.messageReply.senderID;
+            name = args.slice(1).join(" ");
+        } else if (event.mentions && Object.keys(event.mentions).length > 0) {
+            targetID = Object.keys(event.mentions)[0];
+            name = args.slice(1).join(" ").replace(event.mentions[targetID], "").trim();
+        } else {
+            name = args.slice(1).join(" ");
+        }
+        api.changeNickname(name, threadID, targetID, (err) => {
+            if (err) return api.sendMessage("➜ Không thể thay đổi biệt danh!", threadID, messageID);
+            api.sendMessage(`➜ Đã ${name ? "đặt" : "gỡ"} biệt danh thành công!`, threadID, messageID);
+        });
+        return;
+    }
+
+    if (args[0] === "rdcolor") {
+        const color = ['196241301102133', '169463077092846', '2442142322678320', '234137870477637', '980963458735625', '175615189761153', '2136751179887052', '2058653964378557', '2129984390566328', '174636906462322', '1928399724138152', '417639218648241', '930060997172551', '164535220883264', '370940413392601', '205488546921017', '809305022860427'];
+        let picked = color[Math.floor(Math.random() * color.length)];
+        api.changeThreadColor(picked, threadID, (err) => {
+            if (err) return api.sendMessage("➜ Không thể đổi màu chủ đề!", threadID, messageID);
+            api.sendMessage("➜ Đã thay đổi màu chủ đề nhóm ngẫu nhiên!", threadID, messageID);
+        });
+        return;
+    }
+
+    if (args[0] === "setnameall") {
+        try {
+            let threadInfo = await api.getThreadInfo(threadID);
+            let idtv = threadInfo.participantIDs || [];
+            let name = args.slice(1).join(" ");
+            api.sendMessage(`➜ Đang tiến hành đặt biệt danh cho ${idtv.length} thành viên...`, threadID, messageID);
+            const delay = ms => new Promise(res => setTimeout(res, ms));
+            for (let setname of idtv) {
+                await delay(1200);
+                api.changeNickname(name, threadID, setname);
+            }
+            return api.sendMessage("➜ Đã hoàn tất đặt biệt danh cho tất cả thành viên!", threadID);
+        } catch (e) {
+            return api.sendMessage("➜ Có lỗi khi đặt biệt danh hàng loạt!", threadID, messageID);
+        }
+    }
+
+    if (args[0] === "info") {
+        try {
+            fs.ensureDirSync(__dirname + '/cache/data');
             if (!fs.existsSync(totalPath)) fs.writeFileSync(totalPath, JSON.stringify({}));
-            let totalChat = JSON.parse(fs.readFileSync(totalPath));
-            let threadInfo = await api.getThreadInfo(args[1] || threadID); 
-             let timeByMS = Date.now();
- const threadSetting = (await Threads.getData(String(event.threadID))).data || 
-    {};
-            var memLength = threadInfo.participantIDs.length;
-            let threadMem = threadInfo.participantIDs.length;
-            var nameMen = [];
-            var gendernam = [];
-            var gendernu = [];
-            var nope = [];
-            for (let z in threadInfo.userInfo) {
-                var gioitinhone = threadInfo.userInfo[z].gender;
-                var nName = threadInfo.userInfo[z].name;
-                if (gioitinhone == "MALE") {
-                    gendernam.push(z + gioitinhone)
-                } else if (gioitinhone == "FEMALE") {
-                  gendernu.push(gioitinhone)
-                } else {
-                    nope.push(nName)
-                }
-            };
-            var { adminIDs } = await api.getThreadInfo(args[1] || threadID);
-            var adminName = [];
-            for (const arrayAdmin of adminIDs) {
-          const name = await Users.getNameUser(arrayAdmin.id)
-          adminName.push(name)
+            let totalChat = JSON.parse(fs.readFileSync(totalPath, "utf-8"));
+            let targetThreadID = args[1] || threadID;
+            let threadInfo = await api.getThreadInfo(targetThreadID);
+            let timeByMS = Date.now();
+
+            let participants = threadInfo.participantIDs || [];
+            let threadMem = participants.length;
+            let nam = 0, nu = 0;
+            let userInfoObj = threadInfo.userInfo || {};
+            for (let z of Object.values(userInfoObj)) {
+                if (z.gender === "MALE") nam++;
+                else if (z.gender === "FEMALE") nu++;
             }
-            var nam = gendernam.length;
-            var nu = gendernu.length;
-            let qtv = threadInfo.adminIDs.length;
-            let sl = threadInfo.messageCount;
-            let u = threadInfo.nicknames;
-            let icon = threadInfo.emoji;
-            let color = threadInfo.color;
-            let threadName = threadInfo.threadName;
+
+            let adminList = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs : [];
+            let adminName = [];
+            for (const arrayAdmin of adminList) {
+                try {
+                    let uName = await Users.getNameUser(arrayAdmin.id);
+                    adminName.push(uName || arrayAdmin.id);
+                } catch (_) {
+                    adminName.push(arrayAdmin.id);
+                }
+            }
+
+            let qtv = adminList.length;
+            let sl = threadInfo.messageCount || 0;
+            let icon = threadInfo.emoji || "👍";
+            let color = threadInfo.color || "Mặc định";
+            let threadName = threadInfo.threadName || "Chưa đặt tên";
             let id = threadInfo.threadID;
-            let sex = threadInfo.approvalMode;
-            var pd = sex == false ? 'tắt' : sex == true ? 'bật' : 'kh';
-            if (!totalChat[args[1] || threadID]) {
-              totalChat[args[1] || threadID] = {
-                    time: timeByMS,
-                    count: sl,
-                    ytd: 0
-                }
-              fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
+            let pd = threadInfo.approvalMode ? "Bật" : "Tắt";
+
+            if (!totalChat[targetThreadID]) {
+                totalChat[targetThreadID] = { time: timeByMS, count: sl, ytd: 0 };
+                fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
             }
+
             let mdtt = Math.floor(Math.random() * 101);
-            let preCount = totalChat[args[1] || threadID].count || 0;
-            let ytd = totalChat[args[1] || threadID].ytd || 0;
+            let preCount = totalChat[targetThreadID].count || 0;
+            let ytd = totalChat[targetThreadID].ytd || 0;
             let hnay = (ytd != 0) ? (sl - preCount) : "chưa có thống kê";
             let hqua = (ytd != 0) ? ytd : "chưa có thống kê";
-            if (timeByMS - totalChat[args[1] || threadID].time > _24hours) {
-                if (timeByMS - totalChat[args[1] || threadID].time > (_24hours * 2)) {
-                  totalChat[args[1] || threadID].count = sl;
-                  totalChat[args[1] || threadID].time = timeByMS - _24hours;
-                  totalChat[args[1] || threadID].ytd = sl - preCount;
-                  fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
-                }
-                getHour = Math.ceil((timeByMS - totalChat[args[1] || event.threadID].time - _24hours) / 3600000);
-                if (ytd == 0) mdtt = 100;
-                else mdtt = ((((hnay) / ((hqua / 24) * getHour))) * 100).toFixed(0);
-                mdtt += "%";
+
+            let msg = 
+`=== 𝙸𝙽𝙵𝙾𝚁𝙼𝙰𝚃𝙸𝙾𝙽 ===
+────────────
+→ Tên nhóm: ${threadName}
+→ ID: ${id}
+→ Phê duyệt: ${pd}
+→ Biểu tượng: ${icon}
+→ Mã giao diện: ${color}
+→ Dấu lệnh hệ thống: ${global.config.PREFIX}
+→ Tổng thành viên: ${threadMem} (Nam: ${nam} | Nữ: ${nu})
+→ Quản trị viên (${qtv}):
+${adminName.map(n => `[👉] ${n}`).join('\n') || '[👉] Không có'}
+────────────
+→ Tổng tin nhắn: ${sl}
+→ Mức độ tương tác: ${mdtt}%
+→ Số tin nhắn hôm qua: ${hqua}
+→ Số tin nhắn hôm nay: ${hnay}
+→ Thời gian cập nhật: ${timeNow}`;
+
+            if (threadInfo.imageSrc) {
+                fs.ensureDirSync(__dirname + '/cache');
+                let cacheImg = path.join(__dirname, 'cache', `boxinfo_${Date.now()}.png`);
+                return request(encodeURI(threadInfo.imageSrc))
+                    .pipe(fs.createWriteStream(cacheImg))
+                    .on('close', () => {
+                        api.sendMessage({ body: msg, attachment: fs.createReadStream(cacheImg) }, threadID, () => {
+                            if (fs.existsSync(cacheImg)) fs.unlinkSync(cacheImg);
+                        }, messageID);
+                    })
+                    .on('error', () => {
+                        api.sendMessage(msg, threadID, messageID);
+                    });
+            } else {
+                return api.sendMessage(msg, threadID, messageID);
             }
-            var callback = () =>
-                api.sendMessage({
-                        body: `=== 𝙸𝙽𝙵𝙾𝚁𝙼𝙰𝚃𝙸𝙾𝙽 ===\n────────────\n→ Tên nhóm: ${threadName || "không có"}\n→ ID: ${id}\n→ Phê duyệt: ${pd}\n→ Biểu tượng: ${icon || "👍"}\n→ Mã giao diện: ${color}\n→ Dấu lệnh hệ thống: ${global.config.PREFIX}\n→ Tổng: ${threadMem} thành viên\n→ Nam: ${nam} thành viên\n→ Nữ: ${nu} thành viên\n→ Quản trị viên: ${qtv}\n→ Danh sách quản trị viên nhóm:\n[👉] ${adminName.join('\n[👉] ')}\n────────────\n→ Tổng tin nhắn: ${sl} tin nhắn\n→ Mức độ tương tác: ${mdtt}\n→ Tổng số tin nhắn hôm qua: ${hqua}\n→ Tổng tin nhắn hôm nay: ${hnay}\n→ Ngày tạo dữ liệu: ${fullTime}\n\n━━━━━━━━━━━━━━━\n===「${timeNow}」===`,
-                        attachment: fs.createReadStream(__dirname + '/cache/1.png')
-                    },
-                    threadID,
-                    () => fs.unlinkSync(__dirname + '/cache/1.png'),
-                    messageID
-                );
-            return request(encodeURI(`${threadInfo.imageSrc}`))
-              .pipe(fs.createWriteStream(__dirname + '/cache/1.png'))
-                .on('close', () => callback());
-        } 
-        catch (e) {
-            return (
-              console.log(e),
-              api.sendMessage(`➜ Không thể lấy thông tin nhóm của bạn!\n${e}`, threadID, messageID)
-            )
+        } catch (e) {
+            console.error(e);
+            return api.sendMessage(`➜ Không thể lấy thông tin nhóm: ${e.message}`, threadID, messageID);
         }
     }
- }
+};

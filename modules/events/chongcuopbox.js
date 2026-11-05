@@ -1,43 +1,37 @@
 module.exports.config = {
     name: "guard",
     eventType: ["log:thread-admins"],
-    version: "1.0.0",
+    version: "1.0.1",
     credits: "dtb",
-    description: "Ngăn chặn việc thay đổi admin",
+    description: "Ngăn chặn việc thay đổi admin trái phép"
 };
 
-module.exports.run = async function ({ event, api, Threads, Users }) {
-    const { logMessageType, logMessageData, senderID } = event;
- 	let data = (await Threads.getData(event.threadID)).data
- 	if (data.guard == false) return;
-    if (data.guard == true ) {
-        switch (logMessageType) {
-          case "log:thread-admins": {
-            if (logMessageData.ADMIN_EVENT == "add_admin") {
-              if(event.author == api.getCurrentUserID()) return
-              if(logMessageData.TARGET_ID == api.getCurrentUserID()) return
-              else {
-                api.changeAdminStatus(event.threadID, event.author, false, editAdminsCallback)
-                api.changeAdminStatus(event.threadID, logMessageData.TARGET_ID, false)
-                function editAdminsCallback(err) {
-                  if (err) return api.sendMessage("→ 𝐇𝐢𝐡𝐢𝐡𝐢𝐡𝐢𝐡! ", event.threadID, event.messageID);
-                    return api.sendMessage(`→ 𝐊𝐢́𝐜𝐡 𝐡𝐨𝐚̣𝐭 𝐜𝐡𝐞̂́ đ𝐨̣̂ 𝐜𝐡𝐨̂́𝐧𝐠 𝐜𝐮̛𝐨̛́𝐩 𝐛𝐨𝐱`, event.threadID, event.messageID);
-                }
-              }
+module.exports.run = async function ({ event, api, Threads }) {
+    try {
+        const { logMessageType, logMessageData, threadID, author } = event;
+        if (!logMessageData) return;
+        const threadData = (await Threads.getData(threadID)) || {};
+        const data = threadData.data || {};
+        if (!data.guard) return;
+
+        const botID = String(api.getCurrentUserID());
+
+        if (logMessageType === "log:thread-admins") {
+            if (logMessageData.ADMIN_EVENT === "add_admin") {
+                if (String(author) === botID || String(logMessageData.TARGET_ID) === botID) return;
+                api.changeAdminStatus(threadID, author, false, (err) => {
+                    if (!err) api.sendMessage("➜ [CHỐNG CƯỚP BOX] Đã hạ quyền người tự ý thêm Quản trị viên!", threadID);
+                });
+                api.changeAdminStatus(threadID, logMessageData.TARGET_ID, false);
+            } else if (logMessageData.ADMIN_EVENT === "remove_admin") {
+                if (String(author) === botID || String(logMessageData.TARGET_ID) === botID) return;
+                api.changeAdminStatus(threadID, author, false, (err) => {
+                    if (!err) api.sendMessage("➜ [CHỐNG CƯỚP BOX] Đã hạ quyền người tự ý gỡ Quản trị viên!", threadID);
+                });
+                api.changeAdminStatus(threadID, logMessageData.TARGET_ID, true);
             }
-            else if (logMessageData.ADMIN_EVENT == "remove_admin") {
-              if(event.author == api.getCurrentUserID()) return
-              if(logMessageData.TARGET_ID == api.getCurrentUserID()) return
-              else {
-                api.changeAdminStatus(event.threadID, event.author, false, editAdminsCallback)
-                api.changeAdminStatus(event.threadID, logMessageData.TARGET_ID, true)
-                function editAdminsCallback(err) {
-                if (err) return api.sendMessage("→ 𝐇𝐢𝐡𝐢𝐡𝐢𝐡𝐢𝐡! ", event.threadID, event.messageID);
-                return api.sendMessage(`→ 𝐊𝐢́𝐜𝐡 𝐡𝐨𝐚̣𝐭 𝐜𝐡𝐞̂́ đ𝐨̣̂ 𝐜𝐡𝐨̂́𝐧𝐠 𝐜𝐮̛𝐨̛́𝐩 𝐛𝐨𝐱`, event.threadID, event.messageID);
-              }
-            }
-          }
         }
-      }
+    } catch (e) {
+        console.error("Lỗi guard event:", e.message);
     }
-}
+};

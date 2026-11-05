@@ -1,19 +1,33 @@
+const fs = require("fs-extra");
+const path = require("path");
+
 module.exports.config = {
     name: "updateChecktt",
     eventType: ["log:unsubscribe"],
-    version: "1.0.0",
+    version: "1.1.0",
     credits: "dtb",
-    description: "Xóa data tương tác người dùng khi out",
+    description: "Xóa dữ liệu tương tác khi thành viên rời nhóm"
 };
 
-module.exports.run = async ({ event, api, Threads }) => { 
-    if (event.logMessageData.leftParticipantFbId == api.getCurrentUserID()) return;
-    const fs = require("fs");
-    const pathA = require('path');
-    const thread = require('../modules/commands/tuongtac/checktt/');
-    const path = pathA.resolve(__dirname, '../', 'modules', 'commands', 'tuongtac', 'checktt', '6272884602803031.json');
-    var threadData = thread.find(i => i.threadID == event.threadID)
-    const index = threadData.data.findIndex(item => item.id == event.logMessageData.leftParticipantFbId);
-    threadData.data.splice(index, 1);
-    fs.writeFileSync(path, JSON.stringify(thread, null, 2), 'utf-8');
-}
+module.exports.run = async ({ event, api }) => { 
+    try {
+        if (!event.logMessageData || !event.logMessageData.leftParticipantFbId) return;
+        if (String(event.logMessageData.leftParticipantFbId) === String(api.getCurrentUserID())) return;
+
+        const leftID = String(event.logMessageData.leftParticipantFbId);
+        const filePath = path.resolve(__dirname, '../commands/tuongtac/checktt', `${event.threadID}.json`);
+        if (!fs.existsSync(filePath)) return;
+
+        const threadData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        ['total', 'week', 'day'].forEach(key => {
+            if (Array.isArray(threadData[key])) {
+                const idx = threadData[key].findIndex(item => String(item.id) === leftID);
+                if (idx !== -1) threadData[key].splice(idx, 1);
+            }
+        });
+
+        fs.writeFileSync(filePath, JSON.stringify(threadData, null, 2), 'utf-8');
+    } catch (e) {
+        console.error("Lỗi updateChecktt:", e.message);
+    }
+};

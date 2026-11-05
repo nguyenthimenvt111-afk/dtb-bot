@@ -1,63 +1,65 @@
+const fs = require("fs-extra");
+const path = require("path");
+
 module.exports.config = {
     name: "autosetname",
-    version: "1.0.1",
+    version: "2.0.0",
     hasPermssion: 1,
     credits: "dtb",
-    description: "Tự động setname cho thành viên mới",
+    description: "Tự động đặt biệt danh cho thành viên mới tham gia",
     commandCategory: "Quản Lí Box",
-    usages: "[add <name> /remove] ",
+    usages: "[add <định dạng> / remove]",
     cooldowns: 0
-}
+};
+
+const getDataPath = () => {
+    const dir = path.resolve(__dirname, "cache", "data");
+    fs.ensureDirSync(dir);
+    return path.join(dir, "autosetname.json");
+};
 
 module.exports.onLoad = () => {
-    const { existsSync, writeFileSync } = global.nodemodule["fs-extra"];
-    const { join } = global.nodemodule["path"];
-    const pathData = join(__dirname, "cache","data", "autosetname.json");
-    if (!existsSync(pathData)) return writeFileSync(pathData, "[]", "utf-8"); 
-}
+    const filePath = getDataPath();
+    if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, "[]", "utf-8");
+};
 
-module.exports.run = async function  ({ event, api, args, permssionm, Users })  {
+module.exports.run = async function({ event, api, args }) {
     const { threadID, messageID } = event;
-    const { readFileSync, writeFileSync } = global.nodemodule["fs-extra"];
-    const { join } = global.nodemodule["path"];
-    const pathData = join(__dirname, "cache", "data", "autosetname.json");
-    const content = (args.slice(1, args.length)).join(" ");
-    var dataJson = JSON.parse(readFileSync(pathData, "utf-8"));
-    var thisThread = dataJson.find(item => item.threadID == threadID) || { threadID, nameUser: [] };
+    const filePath = getDataPath();
+    let dataJson = [];
+    try { dataJson = JSON.parse(fs.readFileSync(filePath, "utf-8")); } catch (_) {}
 
-  const moment = require("moment-timezone");
-    var gio = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || D/MM/YYYY");
-    var thu = moment.tz('Asia/Ho_Chi_Minh').format('dddd');
-    if (thu == 'Sunday') thu = 'Chủ Nhật'
-    if (thu == 'Monday') thu = 'Thứ Hai'
-    if (thu == 'Tuesday') thu = 'Thứ Ba'
-    if (thu == 'Wednesday') thu = 'Thứ Tư'
-    if (thu == "Thursday") thu = 'Thứ Năm'
-    if (thu == 'Friday') thu = 'Thứ Sáu'
-    if (thu == 'Saturday') thu = 'Thứ Bảy'
-  
-    switch (args[0]) {
+    let thisThread = dataJson.find(item => String(item.threadID) === String(threadID));
+    if (!thisThread) {
+        thisThread = { threadID: String(threadID), nameUser: [] };
+        dataJson.push(thisThread);
+    }
+
+    const action = args[0] ? args[0].toLowerCase() : "";
+    const content = args.slice(1).join(" ").trim();
+
+    switch (action) {
         case "add": {
-            if (content.length == 0) return api.sendMessage("→ Phần cấu hình tên thành viên mới không được bỏ trống!", threadID, messageID);
-            if (thisThread.nameUser.length > 0) return api.sendMessage("→ Vui lòng xóa cấu hình tên cũ trước khi đặt tên mới!!!", threadID, messageID); 
-            thisThread.nameUser.push(content);
-            const name = (await Users.getData(event.senderID)).name
-            writeFileSync(pathData, JSON.stringify(dataJson, null, 4), "utf-8");
-            api.sendMessage(`→ Đặt cấu hình tên thành viên mới thành công\n→ Preview: ${content}`, threadID, messageID);
-            break;
+            if (!content) return api.sendMessage("➜ Định dạng biệt danh không được bỏ trống!", threadID, messageID);
+            thisThread.nameUser = [content];
+            fs.writeFileSync(filePath, JSON.stringify(dataJson, null, 4), "utf-8");
+            return api.sendMessage(`➜ Cấu hình biệt danh thành viên mới thành công!\n➜ Xem trước: ${content} + [Tên người dùng]`, threadID, messageID);
         }
         case "rm":
         case "remove":
+        case "del":
         case "delete": {
-                if (thisThread.nameUser.length == 0) return api.sendMessage("→ Nhóm bạn chưa đặt cấu hình tên thành viên mới!!", threadID, messageID);
-                thisThread.nameUser = [];
-                api.sendMessage(`→ Xóa thành công phần cấu hình tên thành viên mới`, threadID, messageID);
-                break;
+            if (!thisThread.nameUser || thisThread.nameUser.length === 0) {
+                return api.sendMessage("➜ Nhóm chưa cài đặt biệt danh tự động!", threadID, messageID);
+            }
+            thisThread.nameUser = [];
+            fs.writeFileSync(filePath, JSON.stringify(dataJson, null, 4), "utf-8");
+            return api.sendMessage("➜ Đã xóa cấu hình tự động đặt biệt danh cho thành viên mới!", threadID, messageID);
         }
-        default: {
-                api.sendMessage(`====『 𝐇𝐃𝐒𝐃 』====\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n→ Dùng: autosetname add <name> để cấu hình biệt danh cho thành viên mới\n→ Dùng: autosetname remove để xóa cấu hình đặt biệt danh cho thành viên mới\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n\n=== 「${thu} || ${gio}`, threadID, messageID);
-        }
+        default:
+            return api.sendMessage(
+`====『 AUTOSETNAME 』====
+➜ ${global.config.PREFIX}autosetname add <tiền tố> -> Đặt tiền tố biệt danh (VD: TVM)
+➜ ${global.config.PREFIX}autosetname remove -> Xóa cấu hình`, threadID, messageID);
     }
-    if (!dataJson.some(item => item.threadID == threadID)) dataJson.push(thisThread);
-    return writeFileSync(pathData, JSON.stringify(dataJson, null, 4), "utf-8");
-}
+};

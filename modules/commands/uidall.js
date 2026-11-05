@@ -1,41 +1,30 @@
 module.exports.config = {
     name: "uidall",
-    version: "1.0.5",
+    version: "2.0.0",
     hasPermssion: 0,
     credits: "dtb",
-    description: "Get all uid and names in Group.",
+    description: "Lấy toàn bộ UID và tên thành viên trong nhóm",
     commandCategory: "Nhóm",
-    cooldowns: 2,
-    prefix: "",
+    cooldowns: 5
 };
 
-module.exports.handleEvent = async ({ api, event, Users }) => {
-    const { threadID, messageID, body } = event;
-    if (body.startsWith("uidall")) {
-        const ep = event.participantIDs;
-        let msg = "";
-        let msgs = "";
-        let m = 0;
-        for (const i of ep) {
-            m += 1;
-            const name = await Users.getNameUser(i);
-            msg += `${m}. ${name}\nUID: ${i}\n\n`;
+module.exports.run = async ({ api, event, Users }) => {
+    try {
+        const threadInfo = await api.getThreadInfo(event.threadID);
+        const participants = threadInfo.participantIDs || [];
+        if (participants.length === 0) return api.sendMessage("➜ Không lấy được danh sách thành viên!", event.threadID, event.messageID);
+
+        let msg = `====『 UID THÀNH VIÊN (${participants.length}) 』====\n━━━━━━━━━━━━━━━━━━\n`;
+        let count = 1;
+        for (const uid of participants) {
+            let name = "Người dùng Facebook";
+            try { name = await Users.getNameUser(uid) || name; } catch (_) {}
+            msg += `${count++}. ${name}\n➜ UID: ${uid}\n\n`;
         }
-        msgs += "Uid của all thành viên\n\n" + msg;
-        api.sendMessage(msgs, threadID, messageID);
-    }
-};
 
-module.exports.run = async ({ api, event, Users, args }) => {
-    const ep = event.participantIDs;
-    let msg = "";
-    let msgs = "";
-    let m = 0;
-    for (const i of ep) {
-        m += 1;
-        const name = await Users.getNameUser(i);
-        msg += `${m}. ${name}\nUID: ${i}\n\n`;
+        return api.sendMessage(msg, event.threadID, event.messageID);
+    } catch (e) {
+        console.error("Lỗi uidall:", e);
+        return api.sendMessage("➜ Không thể lấy danh sách UID thành viên!", event.threadID, event.messageID);
     }
-    msgs += "Uid của all thành viên\n\n" + msg;
-    api.sendMessage(msgs, event.threadID, event.messageID);
 };

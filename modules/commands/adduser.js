@@ -1,37 +1,53 @@
 module.exports.config = {
     name: "adduser",
-    version: "1.0.0",
+    version: "2.0.0",
     hasPermssion: 0,
     credits: "dtb",
-    description: "Thêm người dùng vào nhóm bằng link hoặc uid",
+    description: "Thêm người dùng vào nhóm bằng link hoặc UID",
     commandCategory: "Quản Lí Box",
-    usages: "[args]",
+    usages: "[link Facebook / UID]",
     cooldowns: 5
 };
-module.exports.run = async function ({ api, event, args, Threads, Users }) {
-const { threadID, messageID } = event;
-const axios = require('axios')
-const link = args.join(" ")
-if(!args[0]) return api.sendMessage({body:`➩𝐚𝐝𝐝𝐮𝐬𝐞𝐫 + 𝐥𝐢𝐧𝐤 𝐟𝐛\n➩𝐚𝐝𝐝𝐮𝐬𝐞𝐫 + 𝐮𝐢𝐝\n➩𝐕𝐃: 𝐚𝐝𝐝𝐮𝐬𝐞𝐫 + 𝐮𝐢𝐝 𝐡𝐨𝐚̣̆𝐜 𝐥𝐢𝐧𝐤`
-},event.threadID, event.messageID)
-var { participantIDs, approvalMode, adminIDs } = await api.getThreadInfo(threadID);
-if(link.indexOf(".com/")!==-1) {
-    const res = await api.getUID(args[0] || event.messageReply.body);
-    var uidUser = res
-    api.addUserToGroup(uidUser, threadID, (err) => {
-    if (participantIDs.includes(uidUser)) return api.sendMessage('𝐓𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 đ𝐚̃ 𝐜𝐨́ 𝐦𝐚̣̆𝐭 𝐭𝐫𝐨𝐧𝐠 𝐧𝐡𝐨́𝐦', threadID, messageID);
-    if (err) return api.sendMessage(`𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐭𝐡𝐞̂𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 𝐯𝐚̀𝐨 𝐧𝐡𝐨́𝐦`, threadID, messageID);
-    else if (approvalMode && !adminIDs.some(item => item.id == api.getCurrentUserID())) return api.sendMessage(`Đ𝐚̃ 𝐭𝐡𝐞̂𝐦 𝐧𝐠𝐮̛𝐨̛̀𝐢 𝐝𝐮̀𝐧𝐠 𝐯𝐚̀𝐨 𝐝𝐚𝐧𝐡 𝐬𝐚́𝐜𝐡 𝐩𝐡𝐞̂ 𝐝𝐮𝐲𝐞̣̂𝐭`, threadID, messageID);
-    else return api.sendMessage(`𝐓𝐡𝐞̂𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 𝐯𝐚̀𝐨 𝐧𝐡𝐨́𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠`, threadID, messageID);
-    });
+
+module.exports.run = async function ({ api, event, args }) {
+    const { threadID, messageID } = event;
+    const input = (args[0] || (event.messageReply ? event.messageReply.body : "")).trim();
+
+    if (!input) {
+        return api.sendMessage(
+`====『 ADDUSER 』====
+➜ ${global.config.PREFIX}adduser [UID]
+➜ ${global.config.PREFIX}adduser [Link trang cá nhân Facebook]`, threadID, messageID);
     }
-  else { 
-    var uidUser = args[0] 
-    api.addUserToGroup(uidUser, threadID, (err) => {
-    if (participantIDs.includes(uidUser)) return api.sendMessage(`𝐓𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 đ𝐚̃ 𝐜𝐨́ 𝐦𝐚̣̆𝐭 𝐭𝐫𝐨𝐧𝐠 𝐧𝐡𝐨́𝐦`, threadID, messageID);
-    if (err) return api.sendMessage(`𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐭𝐡𝐞̂𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 𝐯𝐚̀𝐨 𝐧𝐡𝐨́𝐦`, threadID, messageID);
-    else if (approvalMode && !adminIDs.some(item => item.id == api.getCurrentUserID())) return api.sendMessage(`Đ𝐚̃ 𝐭𝐡𝐞̂𝐦 𝐧𝐠𝐮̛𝐨̛̀𝐢 𝐝𝐮̀𝐧𝐠 𝐯𝐚̀𝐨 𝐝𝐚𝐧𝐡 𝐬𝐚́𝐜𝐡 𝐩𝐡𝐞̂ 𝐝𝐮𝐲𝐞̣̂𝐭`, threadID, messageID);
-    else return api.sendMessage(`𝐓𝐡𝐞̂𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐯𝐢𝐞̂𝐧 𝐯𝐚̀𝐨 𝐧𝐡𝐨́𝐦 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠`, threadID, messageID);
-    });
-  }
-}
+
+    try {
+        const threadInfo = await api.getThreadInfo(threadID);
+        const participants = threadInfo.participantIDs || [];
+        const adminIDs = Array.isArray(threadInfo.adminIDs) ? threadInfo.adminIDs.map(a => String(a.id)) : [];
+        const isBotAdmin = adminIDs.includes(String(api.getCurrentUserID()));
+
+        let uidUser = input;
+        if (input.includes("facebook.com") || input.includes("fb.me")) {
+            try {
+                uidUser = await api.getUID(input);
+            } catch (_) {
+                return api.sendMessage("➜ Không thể tìm thấy UID từ liên kết Facebook này!", threadID, messageID);
+            }
+        }
+
+        if (participants.includes(String(uidUser))) {
+            return api.sendMessage("➜ Thành viên này đã có mặt trong nhóm!", threadID, messageID);
+        }
+
+        api.addUserToGroup(uidUser, threadID, (err) => {
+            if (err) return api.sendMessage("➜ Không thể thêm thành viên vào nhóm!", threadID, messageID);
+            if (threadInfo.approvalMode && !isBotAdmin) {
+                return api.sendMessage("➜ Đã thêm người dùng vào danh sách phê duyệt của nhóm!", threadID, messageID);
+            }
+            return api.sendMessage("➜ Thêm thành viên vào nhóm thành công!", threadID, messageID);
+        });
+    } catch (e) {
+        console.error("Lỗi adduser:", e);
+        return api.sendMessage("➜ Có lỗi xảy ra khi thêm thành viên!", threadID, messageID);
+    }
+};

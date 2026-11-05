@@ -1,20 +1,28 @@
 module.exports.config = {
-  name: "antibd",
-  eventType: ["log:user-nickname"],
-  version: "0.0.1",//beta
-  credits: "dtb",
-  description: "Chống đổi biệt danh của Bot"
+    name: "antibd",
+    eventType: ["log:user-nickname"],
+    version: "1.0.0",
+    credits: "dtb",
+    description: "Chống đổi biệt danh của Bot"
 };
 
 module.exports.run = async function({ api, event, Users, Threads }) {
-    var { logMessageData, threadID, author } = event;
-    var botID = api.getCurrentUserID();
-    var { BOTNAME, ADMINBOT } = global.config;
-    var { nickname } = await Threads.getData(threadID, botID);
-    var nickname = nickname ? nickname : `『 ${global.config.PREFIX} 』 ⪼ ${global.config.BOTNAME}`;
-    if (logMessageData.participant_id == botID && author != botID && !ADMINBOT.includes(author) && logMessageData.nickname != nickname) {
-        api.changeNickname(nickname, threadID, botID)
-        var info = await Users.getData(author);
-       return api.sendMessage({ body: `${info.name} - 𝐁𝐚̣𝐧 𝐊𝐡𝐨̂𝐧𝐠 𝐂𝐨́ 𝐐𝐮𝐲𝐞̂̀𝐧!!!`}, threadID);
-    }  
-}
+    try {
+        const { logMessageData, threadID, author } = event;
+        if (!logMessageData) return;
+        const botID = String(api.getCurrentUserID());
+        const ADMINBOT = (global.config.ADMINBOT || []).map(String);
+        const expectedNickname = `『 ${global.config.PREFIX} 』 ⪼ ${global.config.BOTNAME || "dtb"}`;
+
+        if (String(logMessageData.participant_id) === botID && String(author) !== botID && !ADMINBOT.includes(String(author))) {
+            if (logMessageData.nickname !== expectedNickname) {
+                api.changeNickname(expectedNickname, threadID, botID);
+                let info = "Người dùng";
+                try { info = (await Users.getData(author)).name || info; } catch (_) {}
+                return api.sendMessage(`➜ ${info}: Bạn không có quyền đổi biệt danh của Bot!`, threadID);
+            }
+        }
+    } catch (e) {
+        console.error("Lỗi antibd event:", e.message);
+    }
+};

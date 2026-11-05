@@ -1,247 +1,228 @@
 module.exports.config = {
     name: "admin",
-    version: "1.0.5",
+    version: "2.0.0",
     hasPermssion: 0,
-    credits: "dtb",//mod lại toàn bộ lệnh by JRT
-    description: "Bật tắt chế độ chỉ qtv dùng lệnh",
+    credits: "dtb",
+    description: "Cấu hình quản trị viên bot và chế độ chỉ admin dùng",
     commandCategory: "Hệ Thống",
-    usages: "Bật tắt chế độ chỉ admin và qtv dùng lệnh",
+    usages: "[add/sp/list/remove/delete/boxonly/only/support/ibrieng]",
     cooldowns: 0,
     dependencies: {
         "fs-extra": ""
     }
 };
+
 module.exports.languages = {
     "vi": {
-        "listAdmin": ` ADMINBOT \n\n%1`,
-        "listNDH": `  SUPPORTBOT  \n\n%1`,
-        "notHavePermssion": ' Bạn không đủ quyền hạn để có thể sử dụng chức năng "%1"',
-        "addedNewAdmin": ' Đã thêm %1 người dùng trở thành ADMINBOT:\n\n%2',
-        "removedAdmin": ' Đã gỡ bỏ %1 người điều hành adminbot:\n\n%2',
-        "removedAdminSupport": 'Đã gỡ bỏ %1 người điều hành Support Bot:\n\n%2',
-        "adminsupport":  ' Đã thêm %1 người dùng trở thành người hỗ trợ  người điều hành bot:\n\n%2'
-    },
-    "en": {
-        "listAdmin": '[Admin] Admin list: \n\n%1',
-        "notHavePermssion": '[Admin] You have no permission to use "%1"',
-        "addedNewAdmin": '[Admin] Added %1 Admin :\n\n%2',
-        "removedAdmin": '[Admin] Remove %1 Admin:\n\n%2'
+        "listAdmin": "===== ADMINBOT =====\n»============«\n\n%1",
+        "addedNewAdmin": "➜ Đã thêm %1 người dùng làm ADMINBOT:\n\n%2",
+        "removedAdmin": "➜ Đã gỡ bỏ %1 ADMINBOT:\n\n%2",
+        "adminsupport": "➜ Đã thêm %1 người dùng làm SUPPORTBOT:\n\n%2",
+        "removedAdminSupport": "➜ Đã gỡ bỏ %1 SUPPORTBOT:\n\n%2"
     }
-}
+};
+
 module.exports.onLoad = function() {
-    const { writeFileSync, existsSync } = require('fs-extra');
-    const { resolve } = require("path");
-    const path = resolve(__dirname, 'cache', 'data.json');
-    if (!existsSync(path)) {
-        const obj = {
-            adminbox: {}
-        };
-        writeFileSync(path, JSON.stringify(obj, null, 4));
+    const fs = require('fs-extra');
+    const path = require("path");
+    const dataPath = path.resolve(__dirname, 'cache', 'data.json');
+    fs.ensureDirSync(path.resolve(__dirname, 'cache'));
+    if (!fs.existsSync(dataPath)) {
+        fs.writeFileSync(dataPath, JSON.stringify({ adminbox: {} }, null, 4));
     } else {
-        const data = require(path);
-        if (!data.hasOwnProperty('adminbox')) data.adminbox = {};
-        writeFileSync(path, JSON.stringify(data, null, 4));
+        try {
+            const data = fs.readJsonSync(dataPath);
+            if (!data.adminbox) data.adminbox = {};
+            fs.writeFileSync(dataPath, JSON.stringify(data, null, 4));
+        } catch (_) {}
     }
-}
+};
+
 module.exports.run = async function ({ api, event, args, Users, permssion, getText }) {
-    const content = args.slice(1, args.length);
-  const moment = require("moment-timezone"); 
-    var timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss")
-    if (args.length == 0) return api.sendMessage(`=== 『 𝚌𝚊́𝚌𝚑 𝚍𝚞̀𝚗𝚐  』 ===\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n\n→ admin add => thêm người dùng làm adminbot\n→ admin sp => thêm người dùng làm support bot\n→ admin list => xem danh sách các admin \n→ admin remove => gỡ bỏ adminbot\n→ admin delete => gỡ bỏ Support Bot\n→ admin boxonly => bật/tắt chế độ chỉ quản trị viên dùng bot\n→ admin only => bật/tắt chế độ chỉ admin mới dùng được bot\n→ admin support => bật/tắt chế độ chỉ support bot mới dùng được bot\n→ admin ibrieng => bật/tắt chế độ ib riêng với bot\n→ HDSD: ${global.config.PREFIX}admin lệnh bạn cần dùng!!!\n▱▱▱▱▱▱▱▱▱▱▱▱▱\n===「${timeNow}」===`, event.threadID, event.messageID);
-    const { threadID, messageID, mentions } = event;
+    const fs = require("fs-extra");
+    const path = require("path");
+    const content = args.slice(1);
+    const moment = require("moment-timezone");
+    const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss");
+
+    if (args.length === 0) {
+        return api.sendMessage(
+`=== 『 𝐂𝐀́𝐂𝐇 𝐃𝐔̀𝐍𝐆 』 ===
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+→ admin list => Xem danh sách admin & support
+→ admin add => Thêm admin bot
+→ admin sp => Thêm support bot
+→ admin remove => Gỡ admin bot
+→ admin delete => Gỡ support bot
+→ admin boxonly => Bật/tắt chế độ chỉ QTV nhóm dùng bot
+→ admin only => Bật/tắt chế độ chỉ admin dùng bot
+→ admin support => Bật/tắt chế độ chỉ support bot dùng bot
+→ admin ibrieng => Bật/tắt chế độ nhắn riêng với bot
+▱▱▱▱▱▱▱▱▱▱▱▱▱
+===「${timeNow}」===`, event.threadID, event.messageID);
+    }
+
+    const { threadID, messageID, mentions, senderID } = event;
     const { configPath } = global.client;
-    const { ADMINBOT } = global.config;
-    const { NDH } = global.config;
-    const { userName } = global.data;
-    const { writeFileSync } = global.nodemodule["fs-extra"];
-    const mention = Object.keys(mentions);
+    const ADMINBOT = global.config.ADMINBOT || [];
+    const NDH = global.config.NDH || [];
+    const mention = Object.keys(mentions || {});
 
     delete require.cache[require.resolve(configPath)];
-    var config = require(configPath);
-    switch (args[0]) {
+    const config = require(configPath);
+    if (!config.ADMINBOT) config.ADMINBOT = [];
+    if (!config.NDH) config.NDH = [];
+
+    const isBotAdmin = ADMINBOT.includes(String(senderID)) || permssion >= 2;
+
+    switch (args[0].toLowerCase()) {
         case "list": {
-          var i = 1
-        var msg = [];
-          listAdmin = ADMINBOT || config.ADMINBOT ||  [];
-            var msg = [];
-            for (const idAdmin of listAdmin) {
-                if (parseInt(idAdmin)) {
-                  const name = (await Users.getData(idAdmin)).name
-                    msg.push(`${i++}. ${name}\n→ Link: fb.me/${idAdmin}`);
+            let msg = [];
+            let i = 1;
+            for (const idAdmin of (config.ADMINBOT || [])) {
+                try {
+                    const name = (await Users.getData(idAdmin)).name;
+                    msg.push(`${i++}. ${name || "Admin"} (UID: ${idAdmin})`);
+                } catch (_) {
+                    msg.push(`${i++}. UID: ${idAdmin}`);
                 }
             }
-          var i = 1
-        var msg1 = [];
-          listNDH = NDH || config.NDH ||  [];
-            var msg1 = [];
-            for (const idNDH of listNDH) {
-                if (parseInt(idNDH)) {
-                  const name1 = (await Users.getData(idNDH)).name
-                    msg1.push(`${i++}. ${name1}\n→ Link: fb.me/${idNDH}`);
+            let msg1 = [];
+            let j = 1;
+            for (const idNDH of (config.NDH || [])) {
+                try {
+                    const name1 = (await Users.getData(idNDH)).name;
+                    msg1.push(`${j++}. ${name1 || "Support"} (UID: ${idNDH})`);
+                } catch (_) {
+                    msg1.push(`${j++}. UID: ${idNDH}`);
                 }
             }
-return api.sendMessage(`===== ADMINBOT =====\n»============«\n\n${msg.join("\n")}\n\n————————🔱————————\n\n==== SUPPORTBOT ====\n»============«\n\n${msg1.join("\n\n")}`, event.threadID, event.messageID)
+            return api.sendMessage(
+`===== ADMINBOT =====
+»============«
+${msg.join("\n") || "Chưa có admin bot"}
+
+——————🔱——————
+
+==== SUPPORTBOT ====
+»============«
+${msg1.join("\n") || "Chưa có support bot"}`, threadID, messageID);
         }
-        case "add": { 
-            if (!ADMINBOT.includes(event.senderID)) return api.sendMessage(`Bạn Không Có Quyền!!!`, event.threadID, event.messageID)
-            if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
-            if (mention.length != 0 && isNaN(content[0])) {
-                var listAdd = [];
 
-                for (const id of mention) {
-                    ADMINBOT.push(id);
-                    config.ADMINBOT.push(id);
-                    listAdd.push(`→ UID: ${id}\n→ Tên ADMINBOT mới: ${event.mentions[id]}`);
-                };
+        case "add": {
+            if (!isBotAdmin) return api.sendMessage("➜ Bạn không có quyền sử dụng chức năng này!", threadID, messageID);
+            let targetID = null;
+            if (event.type === "message_reply") targetID = event.messageReply.senderID;
+            else if (mention.length > 0) targetID = mention[0];
+            else if (content[0] && !isNaN(content[0])) targetID = content[0];
 
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("addedNewAdmin", mention.length, listAdd.join("\n").replace(/\@/g, "")), threadID, messageID);
-            }
-            else if (content.length != 0 && !isNaN(content[0])) {
-                ADMINBOT.push(content[0]);
-                config.ADMINBOT.push(content[0]);
-                const name = (await Users.getData(content[0])).name
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("addedNewAdmin", 1, ` ADMIN \n→ Tên ADMINBOT mới: ${name}`), threadID, messageID);
-            }
-            else return global.utils.throwError(this.config.name, threadID, messageID);
+            if (!targetID) return api.sendMessage("➜ Vui lòng tag, reply hoặc nhập UID người cần thêm làm ADMINBOT!", threadID, messageID);
+            if (config.ADMINBOT.includes(targetID)) return api.sendMessage("➜ Người dùng này đã là ADMINBOT!", threadID, messageID);
+
+            config.ADMINBOT.push(targetID);
+            if (!global.config.ADMINBOT.includes(targetID)) global.config.ADMINBOT.push(targetID);
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+
+            let uName = "Admin";
+            try { uName = (await Users.getData(targetID)).name || uName; } catch (_) {}
+            return api.sendMessage(`➜ Đã thêm ${uName} (UID: ${targetID}) làm ADMINBOT thành công!`, threadID, messageID);
         }
-case "sp": {
-            if (event.senderID != 61588287399958) return api.sendMessage(`Bạn Không Có Quyền!!!`, event.threadID, event.messageID)
-            if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
-            if (mention.length != 0 && isNaN(content[0])) {
-                var listAdd = [];
 
-                for (const id of mention) {
-                    NDH.push(id);
-                    config.NDH.push(id);
-                    listAdd.push(` ${id}  → ${event.mentions[id]}`);
-                };
+        case "sp": {
+            if (!isBotAdmin) return api.sendMessage("➜ Bạn không có quyền sử dụng chức năng này!", threadID, messageID);
+            let targetID = null;
+            if (event.type === "message_reply") targetID = event.messageReply.senderID;
+            else if (mention.length > 0) targetID = mention[0];
+            else if (content[0] && !isNaN(content[0])) targetID = content[0];
 
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("adminsupport", 1, `==== ADMIN SP ====\n→ ${name}`), threadID, messageID);
-            }
-            else if (content.length != 0 && !isNaN(content[0])) {
-                NDH.push(content[0]);
-                config.NDH.push(content[0]);
-                const name = (await Users.getData(content[0])).name
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("adminsupport", 1, ` ADMIN SP  → ${name}`), threadID, messageID);
-            }
-            else return global.utils.throwError(this.config.name, threadID, messageID);
+            if (!targetID) return api.sendMessage("➜ Vui lòng tag, reply hoặc nhập UID người cần thêm làm SUPPORTBOT!", threadID, messageID);
+            if (config.NDH.includes(targetID)) return api.sendMessage("➜ Người dùng này đã là SUPPORTBOT!", threadID, messageID);
+
+            config.NDH.push(targetID);
+            if (!global.config.NDH.includes(targetID)) global.config.NDH.push(targetID);
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+
+            let uName = "Support";
+            try { uName = (await Users.getData(targetID)).name || uName; } catch (_) {}
+            return api.sendMessage(`➜ Đã thêm ${uName} (UID: ${targetID}) làm SUPPORTBOT thành công!`, threadID, messageID);
         }
+
         case "remove": {
-            if (event.senderID != 61588287399958) return api.sendMessage(`Bạn Không Có Quyền!!!`, event.threadID, event.messageID)
-            if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
-            if (mentions.length != 0 && isNaN(content[0])) {
-                const mention = Object.keys(mentions);
-                var listAdd = [];
+            if (!isBotAdmin) return api.sendMessage("➜ Bạn không có quyền sử dụng chức năng này!", threadID, messageID);
+            let targetID = null;
+            if (event.type === "message_reply") targetID = event.messageReply.senderID;
+            else if (mention.length > 0) targetID = mention[0];
+            else if (content[0] && !isNaN(content[0])) targetID = content[0];
 
-                for (const id of mention) {
-                    const index = config.ADMINBOT.findIndex(item => item == id);
-                    ADMINBOT.splice(index, 1);
-                    config.ADMINBOT.splice(index, 1);
-                    listAdd.push(` UID: ${id}\n→ ${event.mentions[id]}`);
-                };
+            if (!targetID) return api.sendMessage("➜ Vui lòng tag, reply hoặc nhập UID người cần gỡ ADMINBOT!", threadID, messageID);
+            const idx = config.ADMINBOT.indexOf(targetID);
+            if (idx === -1) return api.sendMessage("➜ Người dùng này không có trong danh sách ADMINBOT!", threadID, messageID);
 
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("removedAdmin", mention.length, listAdd.join("\n").replace(/\@/g, "")), threadID, messageID);
-            }
-            else if (content.length != 0 && !isNaN(content[0])) {
-                const index = config.ADMINBOT.findIndex(item => item.toString() == content[0]);
-                ADMINBOT.splice(index, 1);
-                config.ADMINBOT.splice(index, 1);
-                const name = (await Users.getData(content[0])).name
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("removedAdmin", 1, ` ${content[0]} → ${name}`), threadID, messageID);
-            }
-            else global.utils.throwError(this.config.name, threadID, messageID);
+            config.ADMINBOT.splice(idx, 1);
+            const gIdx = global.config.ADMINBOT.indexOf(targetID);
+            if (gIdx !== -1) global.config.ADMINBOT.splice(gIdx, 1);
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+
+            return api.sendMessage(`➜ Đã gỡ bỏ ADMINBOT có UID: ${targetID} thành công!`, threadID, messageID);
         }
+
         case "delete": {
-            if (event.senderID != 61588287399958) return api.sendMessage(`Bạn Không Có Quyền!!!`, event.threadID, event.messageID)
-            if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
-            if (mentions.length != 0 && isNaN(content[0])) {
-                const mention = Object.keys(mentions);
-                var listAdd = [];
+            if (!isBotAdmin) return api.sendMessage("➜ Bạn không có quyền sử dụng chức năng này!", threadID, messageID);
+            let targetID = null;
+            if (event.type === "message_reply") targetID = event.messageReply.senderID;
+            else if (mention.length > 0) targetID = mention[0];
+            else if (content[0] && !isNaN(content[0])) targetID = content[0];
 
-                for (const id of mention) {
-                    const index = config.NDH.findIndex(item => item == id);
-                    NDH.splice(index, 1);
-                    config.NDH.splice(index, 1);
-                    listAdd.push(` ${id}  » ${event.mentions[id]}`);
-                };
+            if (!targetID) return api.sendMessage("➜ Vui lòng tag, reply hoặc nhập UID người cần gỡ SUPPORTBOT!", threadID, messageID);
+            const idx = config.NDH.indexOf(targetID);
+            if (idx === -1) return api.sendMessage("➜ Người dùng này không có trong danh sách SUPPORTBOT!", threadID, messageID);
 
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("removedAdminSuport", mention.length, listAdd.join("\n").replace(/\@/g, "")), threadID, messageID);
-            }
-            else if (content.length != 0 && !isNaN(content[0])) {
-                const index = config.NDH.findIndex(item => item.toString() == content[0]);
-                NDH.splice(index, 1);
-                config.NDH.splice(index, 1);
-                const name = (await Users.getData(content[0])).name
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("removedAdminSupport", 1, ` ${content[0]}  → ${name}`), threadID, messageID);
-            }
-            else global.utils.throwError(this.config.name, threadID, messageID);
+            config.NDH.splice(idx, 1);
+            const gIdx = global.config.NDH.indexOf(targetID);
+            if (gIdx !== -1) global.config.NDH.splice(gIdx, 1);
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+
+            return api.sendMessage(`➜ Đã gỡ bỏ SUPPORTBOT có UID: ${targetID} thành công!`, threadID, messageID);
         }
-        case 'boxonly': {
-           if (permssion < 1) return api.sendMessage("Chỉ QTVBOX mới có thể sử dụng lệnh này", threadID, messageID);
-        const { resolve } = require("path");
-        const pathData = resolve(__dirname, 'cache', 'data.json');
-        const database = require(pathData);
-        const { adminbox } = database;   
-        if (adminbox[threadID] == true) {
-            adminbox[threadID] = false;
-            api.sendMessage(" → Tắt thành công chế độ Quản trị viên tất cả mọi người đều có thể sử dụng bot", threadID, messageID);
-        } else {
-            adminbox[threadID] = true;
-            api.sendMessage("→ Bật thành công chế chỉ Quản trị viên nhóm mới có thể sử dụng bot", threadID, messageID);
+
+        case "boxonly": {
+            if (permssion < 1) return api.sendMessage("➜ Chỉ Quản trị viên nhóm mới có thể dùng lệnh này!", threadID, messageID);
+            const pathData = path.resolve(__dirname, 'cache', 'data.json');
+            const database = fs.readJsonSync(pathData);
+            if (!database.adminbox) database.adminbox = {};
+            database.adminbox[threadID] = !database.adminbox[threadID];
+            fs.writeFileSync(pathData, JSON.stringify(database, null, 4));
+
+            return api.sendMessage(`➜ ${database.adminbox[threadID] ? "Bật" : "Tắt"} thành công chế độ chỉ Quản trị viên nhóm mới dùng được bot!`, threadID, messageID);
         }
-        writeFileSync(pathData, JSON.stringify(database, null, 4));
-        break;
+
+        case "only":
+        case "-o": {
+            if (!isBotAdmin) return api.sendMessage("➜ Chỉ ADMINBOT mới có quyền bật/tắt chế độ này!", threadID, messageID);
+            config.adminOnly = !config.adminOnly;
+            global.config.adminOnly = config.adminOnly;
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+            return api.sendMessage(`➜ ${config.adminOnly ? "Bật" : "Tắt"} thành công chế độ chỉ ADMINBOT mới dùng được bot!`, threadID, messageID);
+        }
+
+        case "support":
+        case "-sp": {
+            if (!isBotAdmin) return api.sendMessage("➜ Chỉ ADMINBOT hoặc Support mới có quyền sử dụng!", threadID, messageID);
+            config.ndhOnly = !config.ndhOnly;
+            global.config.ndhOnly = config.ndhOnly;
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+            return api.sendMessage(`➜ ${config.ndhOnly ? "Bật" : "Tắt"} thành công chế độ chỉ SUPPORTBOT mới dùng được bot!`, threadID, messageID);
+        }
+
+        case "ibrieng": {
+            if (!isBotAdmin) return api.sendMessage("➜ Chỉ ADMINBOT mới có quyền sử dụng chức năng này!", threadID, messageID);
+            config.adminPaseOnly = !config.adminPaseOnly;
+            global.config.adminPaseOnly = config.adminPaseOnly;
+            fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
+            return api.sendMessage(`➜ ${config.adminPaseOnly ? "Bật" : "Tắt"} thành công chế độ chỉ ADMINBOT mới chat riêng được với bot!`, threadID, messageID);
+        }
+
+        default:
+            return api.sendMessage("➜ Lệnh không hợp lệ! Dùng 'admin' để xem hướng dẫn sử dụng.", threadID, messageID);
     }
-    case 'only':
-        case '-o': {
-            //---> CODE ADMIN ONLY<---//
-            if (event.senderID != 61588287399958) return api.sendMessage(`Bạn Không Có Quyền!!!`, event.threadID, event.messageID)
-            if (config.adminOnly == false) {
-                config.adminOnly = true;
-                api.sendMessage(`→ Bật thành công chỉ ADMINBOT mới dùng được bot`, threadID, messageID);
-            } else {
-                config.adminOnly = false;
-                api.sendMessage(`→ Tắt thành công chỉ ADMINBOT mới dùng được bot`, threadID, messageID);
-            }
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                break;
-              }
-        case 'support':
-        case '-sp': {
-            //---> CODE ADMIN ONLY<---//
-            if (permssion < 2) return api.sendMessage(" Xin lỗi! lệnh này chỉ admin support mới dùng được", threadID, messageID);
-            if (config.ndhOnly == false) {
-                config.ndhOnly = true;
-                api.sendMessage(`→ Bật thành công chỉ SUPPORTBOT mới dùng được bot`, threadID, messageID);
-            } else {
-                config.ndhOnly = false;
-                api.sendMessage(`→ Tắt thành công chỉ SUPPORTBOT mới dùng được bot`, threadID, messageID);
-            }
-                writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                break;
-              }
-        case 'ibrieng': {
-                if (permssion != 3) return api.sendMessage(` Xin lỗi! lệnh này chỉ ADMINBOT mới dùng được`, threadID, messageID);
-                   if (config.adminPaseOnly == false) {
-                    config.adminPaseOnly = true;
-                    api.sendMessage(`→ Bật thành công chỉ ADMINBOT mới chat riêng được với bot 🔒`, threadID, messageID);
-                } else {
-                    config.adminPaseOnly = false;
-                    api.sendMessage(`→ Tắt thành công chỉ ADMINBOT mới chat riêng được với bot 🔓 `, threadID, messageID);
-                }
-                    writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                    break;
-                  }
-        default: {
-            return global.utils.throwError(this.config.name, threadID, messageID);
-        }
-    };
-}
+};

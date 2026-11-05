@@ -1,27 +1,25 @@
+const fs = require("fs-extra");
+const path = require("path");
+
 module.exports.config = {
     name: "timejoin",
     eventType: ["log:unsubscribe"],
-    version: "1.0.0",
+    version: "1.0.1",
     credits: "dtb",
-    description: "Tự xóa data time join user khi out"
+    description: "Tự xóa data timejoin khi user rời nhóm"
 };
-const fs = require("fs");
-var path = __dirname + "/../commands/cache/timeJoin.json";
-module.exports.run = async function ({
-    event: e
-}) {
-    const {
-        threadID: t,
-        logMessageData: l
-    } = e, {
-        writeFileSync: w,
-        readFileSync: r
-    } = fs, {
-        stringify: s,
-        parse: p
-    } = JSON;
-    var v = l.leftParticipantFbId;
-    let a = p(r(path));
-    a[v + t] = "";
-    w(path, s(a, null, 2));
-}
+
+module.exports.run = async function ({ event }) {
+    try {
+        const { threadID, logMessageData } = event;
+        if (!logMessageData || !logMessageData.leftParticipantFbId) return;
+        const filePath = path.join(__dirname, "../commands/cache/timejoin", `${threadID}.json`);
+        if (!fs.existsSync(filePath)) return;
+
+        let data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+        if (Array.isArray(data)) {
+            data = data.filter(item => String(item.senderID) !== String(logMessageData.leftParticipantFbId));
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 4), "utf-8");
+        }
+    } catch (_) {}
+};
