@@ -387,6 +387,7 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
         const { threadID, author } = event;
         const threadData = (await Threads.getData(threadID)) || {};
         const data = threadData.data || {};
+        if (data.leaveNoti === false) return; // Skip if explicitly turned off
 
         let name = "Người dùng Facebook";
         try {
