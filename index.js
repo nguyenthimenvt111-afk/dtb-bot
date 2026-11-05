@@ -14,42 +14,42 @@ const port = process.env.PORT || 2006;
 const moment = require("moment-timezone");
 var gio = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss || D/MM/YYYY");
 var thu = moment.tz('Asia/Ho_Chi_Minh').format('dddd');
-if (thu == 'Sunday') thu = '𝐂𝐡𝐮̉ 𝐍𝐡𝐚̣̂𝐭'
-if (thu == 'Monday') thu = '𝐓𝐡𝐮̛́ 𝐇𝐚𝐢'
-if (thu == 'Tuesday') thu = '𝐓𝐡𝐮̛́ 𝐁𝐚'
-if (thu == 'Wednesday') thu = '𝐓𝐡𝐮̛́ 𝐓𝐮̛'
-if (thu == "Thursday") thu = '𝐓𝐡𝐮̛́ 𝐍𝐚̆𝐦'
-if (thu == 'Friday') thu = '𝐓𝐡𝐮̛́ 𝐒𝐚́𝐮'
-if (thu == 'Saturday') thu = '𝐓𝐡𝐮̛́ 𝐁𝐚̉𝐲'
+if (thu == 'Sunday') thu = '𝐂𝐡𝐮̉ 𝐍𝐡𝐚̣̂𝐭';
+if (thu == 'Monday') thu = '𝐓𝐡𝐮̛́ 𝐇𝐚𝐢';
+if (thu == 'Tuesday') thu = '𝐓𝐡𝐮̛́ 𝐁𝐚';
+if (thu == 'Wednesday') thu = '𝐓𝐡𝐮̛́ 𝐓𝐮̛';
+if (thu == "Thursday") thu = '𝐓𝐡𝐮̛́ 𝐍𝐚̆𝐦';
+if (thu == 'Friday') thu = '𝐓𝐡𝐮̛́ 𝐒𝐚́𝐮';
+if (thu == 'Saturday') thu = '𝐓𝐡𝐮̛́ 𝐁𝐚̉𝐲';
 
-
-
-
-console.log('ㅤㅤㅤㅤ            𝐇𝐨̂𝐦 𝐧𝐚𝐲 𝐥𝐚̀:' +  thu,'𝐂𝐡𝐮́𝐜 𝐛𝐚̣𝐧 𝐜𝐨́ 𝐦𝐨̣̂𝐭 𝐧𝐠𝐚̀𝐲 𝐯𝐮𝐢 𝐯𝐞̉\n' )
-
-
+console.log('ㅤㅤㅤㅤ            𝐇𝐨̂𝐦 𝐧𝐚𝐲 𝐥𝐚̀:' +  thu, '𝐂𝐡𝐮́𝐜 𝐛𝐚̣𝐧 𝐜𝐨́ 𝐦𝐨̣̂𝐭 𝐧𝐠𝐚̀𝐲 𝐯𝐮𝐢 𝐯𝐞̉\n');
 
 app.use(express.static(__dirname));
 app.get('/', function(req, res) {
-
     res.sendFile(path.join(__dirname, '/index.html'));
-
 });
 
+const server = http.createServer(app);
 
-app.listen(port);
-console.log('𝐌𝐚́𝐲 𝐜𝐡𝐮̉ 𝐛𝐚̆́𝐭 𝐝𝐚̂̀𝐮 𝐭𝐚̣𝐢 http://localhost:' + port,"𝐯𝐚̀𝐨 𝐥𝐮́𝐜:" + gio,"\n\n");
+server.listen(port, () => {
+    console.log('𝐌𝐚́𝐲 𝐜𝐡𝐮̉ 𝐛𝐚̆́𝐭 𝐝𝐚̂̀𝐮 𝐭𝐚̣𝐢 http://localhost:' + port, "𝐯𝐚̀𝐨 𝐥𝐮́𝐜:" + gio, "\n\n");
+});
 
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.log(`⚠️ Cổng ${port} đã có tiến trình sử dụng. Tiếp tục khởi động bot...`);
+    } else {
+        console.error("Lỗi Web Server:", err.message);
+    }
+});
 
 logger("Liên hệ Facebook: https://www.facebook.com/dtb", "Facebook");
-
 
 const rainbow = chalk.rainbow(`\n                                    『=== dtb Bot System ===』\n\n`).stop();
 rainbow.render();
 const frame = rainbow.frame(); 
 console.log(frame);
 logger("dtb Bot System - Phiên bản mới nhất!", "UPDATE");
-
 
 function startBot(message) {
     (message) ? logger(message, "BOT ĐANG KHỞI ĐỘNG") : "";
@@ -60,45 +60,30 @@ function startBot(message) {
         shell: true
     });
 
-   child.on("close",async (codeExit) => {
-      var x = 'codeExit'.replace('codeExit',codeExit);
+    child.on("close", async (codeExit) => {
+        var x = 'codeExit'.replace('codeExit', codeExit);
         if (codeExit == 1) return startBot("BOT RESTARTING!!!");
-         else if (x.indexOf(2) == 0) {
-           await new Promise(resolve => setTimeout(resolve, parseInt(x.replace(2,'')) * 1000));
-                 startBot("Bot has been activated please wait a moment!!!");
-       }
-         else return; 
+        else if (x.indexOf(2) == 0) {
+            await new Promise(resolve => setTimeout(resolve, parseInt(x.replace(2, '')) * 1000));
+            startBot("Bot has been activated please wait a moment!!!");
+        }
+        else return; 
     });
 
     child.on("error", function (error) {
         logger("An error occurred: " + JSON.stringify(error), "[ Starting ]");
     });
-};
+}
+
 // dtb Bot package check
 const localPkg = require('./package.json');
 logger(localPkg.name + " v" + localPkg.version, "dtb");
+
 setTimeout(async function () {
-//CFonts.say('Maris v3', {
-    //font: 'block',
-      //align: 'center',
-  //gradient: ['red', 'magenta']
-    //})
-//CFonts.say(`Bot Messenger Created By Vtuan`, {
-    //font: 'console',
-    //align: 'center',
-    //gradient: ['red', 'magenta']
-    //})
-  //CFonts.say('Vtuan\n', {
-    //font: 'block',
-      //align: 'center',
-  //gradient: ['red', 'magenta']
-    //})
+    rainbow.render(); 
+    const frame = rainbow.frame(); 
+    console.log(frame);
 
-rainbow.render(); 
-
-const frame = rainbow.frame(); 
-console.log(frame);
-
-  logger('𝐁𝐚̆́𝐭 𝐝𝐚̂̀𝐮 𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐜𝐨𝐝𝐞', 'LOAD')
-  startBot()
-}, 70)
+    logger('𝐁𝐚̆́𝐭 𝐝𝐚̂̀𝐮 𝐥𝐨𝐚𝐝 𝐬𝐨𝐮𝐫𝐜𝐞 𝐜𝐨𝐝𝐞', 'LOAD');
+    startBot();
+}, 70);
