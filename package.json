@@ -17,6 +17,7 @@
         "@distube/ytdl-core": "^4.14.4",
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
         "@miraipr0ject/assets": "^1.0.9",
+        "@napi-rs/canvas": "^1.1.0",
         "adm-zip": "^0.5.10",
         "axios": "",
         "bluebird": "^3.7.2",

@@ -5,30 +5,50 @@ const axios = require("axios");
 
 let Canvas = null;
 try {
-    Canvas = require("canvas");
-} catch (e) {
-    console.warn("[leavenoti] Thư viện 'canvas' chưa khả dụng (" + e.message + "). Sử dụng bộ vẽ Jimp dự phòng.");
+    Canvas = require("@napi-rs/canvas");
+} catch (_) {
+    try {
+        Canvas = require("canvas");
+    } catch (e) {
+        console.warn("[leavenoti] Thư viện canvas chưa khả dụng (" + e.message + "). Sử dụng bộ vẽ Jimp dự phòng.");
+    }
 }
 
 module.exports.config = {
     name: "leavenoti",
     eventType: ["log:unsubscribe"],
-    version: "2.7.0",
+    version: "2.8.0",
     credits: "dtb",
     description: "Tự động vẽ card Canvas/Jimp thành viên rời nhóm hoặc bị kick với avatar và thông tin động"
 };
 
 const fontPath = path.resolve(__dirname, "../commands/cache/fonts/BeVietnamPro-Bold.ttf");
 let fontFam = "Segoe UI, Arial, sans-serif";
-if (Canvas && Canvas.registerFont && fs.existsSync(fontPath)) {
-    try {
-        Canvas.registerFont(fontPath, { family: "Be Vietnam Pro" });
-        fontFam = '"Be Vietnam Pro", Segoe UI, sans-serif';
-    } catch (_) {}
+if (Canvas) {
+    if (Canvas.GlobalFonts && fs.existsSync(fontPath)) {
+        try {
+            Canvas.GlobalFonts.registerFromPath(fontPath, "Be Vietnam Pro");
+            fontFam = '"Be Vietnam Pro", Segoe UI, sans-serif';
+        } catch (_) {}
+    } else if (Canvas.registerFont && fs.existsSync(fontPath)) {
+        try {
+            Canvas.registerFont(fontPath, { family: "Be Vietnam Pro" });
+            fontFam = '"Be Vietnam Pro", Segoe UI, sans-serif';
+        } catch (_) {}
+    }
 }
 
 const cacheDir = path.resolve(__dirname, "cache");
 fs.ensureDirSync(cacheDir);
+
+function toCleanLatin(str) {
+    if (!str) return "";
+    return String(str)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D");
+}
 
 function drawRoundedRect(ctx, x, y, w, h, r, fill = true, stroke = false) {
     if (w < 2 * r) r = w / 2;
@@ -161,7 +181,7 @@ async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, is
     ctx.moveTo(cardX - 5, cardY + cornerSize); ctx.lineTo(cardX - 5, cardY - 5); ctx.lineTo(cardX + cornerSize, cardY - 5);
     ctx.moveTo(cardX + cardW + 5 - cornerSize, cardY - 5); ctx.lineTo(cardX + cardW + 5, cardY - 5); ctx.lineTo(cardX + cardW + 5, cardY + cornerSize);
     ctx.moveTo(cardX - 5, cardY + cardH - cornerSize); ctx.lineTo(cardX - 5, cardY + cardH + 5); ctx.lineTo(cardX + cornerSize, cardY + cardH + 5);
-    ctx.moveTo(cardX + cardW + 5 - cornerSize, cardY + cardH + 5); ctx.lineTo(cardX + cardW + 5, cardY + cardH + 5); ctx.lineTo(cardX + cardW + 5, cardY + cardH - cornerSize);
+    ctx.moveTo(cardX + cardW + 5 - cornerSize, cardY + cardH + 5); ctx.lineTo(cardX + cardW + 5, cardY + cardH + 5); ctx.lineTo(cardX + cardW + 5, cardY - cornerSize);
     ctx.stroke();
     ctx.restore();
 
@@ -296,7 +316,7 @@ async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, is
     ctx.fillText(subText, width / 2, cardY + 326);
     ctx.restore();
 
-    // 8. Three Stat Pills
+    // 8. Three Stat Pills (Fully Rendered with Icons, Titles, Values)
     const statY = cardY + 368;
     const statW = 310;
     const statH = 82;
@@ -432,25 +452,27 @@ async function renderLeaveCardFallbackJimp({ uid, name, threadName, currentMembe
     }
 
     try {
-        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
-        const fontSmall = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
+        const font32 = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
+        const font16 = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
 
-        const safeName = (name || "Nguoi dung Facebook").slice(0, 30);
-        template.print(font, 0, 345, {
-            text: safeName,
+        const cleanName = toCleanLatin(name || "Nguoi dung Facebook").slice(0, 30);
+        template.print(font32, 0, 345, {
+            text: cleanName,
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
         }, 1280, 45);
 
-        template.print(fontSmall, 0, 388, {
+        template.print(font16, 0, 388, {
             text: isSelfLeave ? "Da tu roi khoi nhom chat." : "Da bi Quan tri vien xoa khoi nhom.",
             alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
         }, 1280, 30);
 
-        const fontMini = await Jimp.loadFont(Jimp.FONT_SANS_14_WHITE);
-        template.print(fontMini, 255, 475, (threadName || "Nhom chat").slice(0, 20));
-        template.print(fontMini, 590, 475, `Con lai ${currentMembers}`);
-        template.print(fontMini, 925, 475, (timeString || "").slice(0, 19));
-    } catch (_) {}
+        // Fill dynamic values inside the 3 stat pills
+        template.print(font16, 218, 478, toCleanLatin(threadName || "Nhom chat").slice(0, 18));
+        template.print(font16, 553, 478, `Con lai ${currentMembers}`);
+        template.print(font16, 888, 478, String(timeString || "").slice(0, 19));
+    } catch (e) {
+        console.error("[leave Jimp] Error printing text:", e);
+    }
 
     const filePath = path.join(cacheDir, `leave_${uid}_${Date.now()}.png`);
     await template.writeAsync(filePath);
