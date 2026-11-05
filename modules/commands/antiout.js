@@ -1,21 +1,31 @@
 module.exports.config = {
     name: "antiout",
-    version: "1.0.0",
+    version: "1.1.0",
     credits: "dtb",
     hasPermssion: 1,
-    description: "Bật tắt antiout",
-    usages: "antiout on/off",
+    hasPermission: 1,
+    description: "Bật/tắt chế độ tự động thêm lại khi có thành viên tự ý rời nhóm",
+    usages: "antiout",
     commandCategory: "Nhóm",
-    cooldowns: 0
+    cooldowns: 3
 };
-module.exports.run = async({ api, event, Threads}) => {
-    let data = (await Threads.getData(event.threadID)).data || {};
-    if (typeof data["antiout"] == "undefined" || data["antiout"] == false) data["antiout"] = true;
-    else data["antiout"] = false;
 
-    await Threads.setData(event.threadID, { data });
-    global.data.threadData.set(parseInt(event.threadID), data);
+module.exports.run = async({ api, event, Threads }) => {
+    const { threadID, messageID } = event;
+    const tidStr = String(threadID);
 
-    return api.sendMessage(`𝐃𝐚̃ ${(data["antiout"] == true) ? "𝐛𝐚̣̂𝐭" : "𝐭𝐚̆́𝐭"} 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 𝐚𝐧𝐭𝐢𝐨𝐮𝐭!`, event.threadID);
+    let threadData = (await Threads.getData(tidStr)) || {};
+    let data = threadData.data || {};
 
-}
+    if (typeof data["antiout"] === "undefined" || data["antiout"] === false) {
+        data["antiout"] = true;
+    } else {
+        data["antiout"] = false;
+    }
+
+    await Threads.setData(tidStr, { data });
+    global.data.threadData.set(tidStr, data);
+
+    const statusText = data["antiout"] ? "BẬT ✅ (Sẽ tự động thêm lại khi thành viên tự rời nhóm)" : "TẮT ❌";
+    return api.sendMessage(`➜ Đã ${statusText} chế độ Antiout cho nhóm!`, threadID, messageID);
+};

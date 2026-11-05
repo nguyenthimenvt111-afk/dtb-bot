@@ -1,79 +1,96 @@
 module.exports.config = {
     name: "log",
     eventType: ["log:unsubscribe", "log:subscribe", "log:thread-name"],
-    version: "1.0.0",
+    version: "1.1.0",
     credits: "dtb",
-    description: "Ghi lại thông báo các hoạt đông của bot!",
+    description: "Ghi lại thông báo các hoạt động quan trọng của bot tới Admin Bot",
     envConfig: {
-      enable: true
+        enable: true
     }
-  };
-  
-  module.exports.run = async function ({ api, event, Users, Threads }) {
+};
+
+module.exports.run = async function ({ api, event, Users, Threads }) {
     const logger = require("../../utils/log");
-    if (!global.configModule[this.config.name].enable) return;
-    let botID = api.getCurrentUserID();
-    var allThreadID = global.data.allThreadID;
-    for (const singleThread of allThreadID) {
-      const thread = global.data.threadData.get(singleThread) || {};
-      if (typeof thread["log"] != "undefined" && thread["log"] == false) return;
-    }
-    
-    const moment = require("moment-timezone");
-    const time = moment.tz("Asia/Ho_Chi_Minh").format("D/MM/YYYY HH:mm:ss");
-    //let nameThread = (await Threads.getData(event.threadID)).threadInfo.threadName || "Tên không tồn tại";
-    let nameThread = global.data.threadInfo.get(event.threadID).threadName || "Tên không tồn tại"; 
-  
-    let threadInfo = await api.getThreadInfo(event.threadID);
-    nameThread =threadInfo.threadName;
-    const nameUser = global.data.userName.get(event.author) || await Users.getNameUser(event.author);
-  
-    console.log(nameThread)
-  
-    var formReport = "『 🌸 』 Thông báo Thêm/Kick 『 🌸 』" +
-      "\n\n『 🌸 』 Box name: " + nameThread +
-      "\n『 🌸 』 Thread ID: " + event.threadID +
-      "\n『 🌸 』] Hành động: {task}" +
-      "\n『 🌸 』 Tên người dùng: " + nameUser +
-      "\n『 🌸 』 UserID: " + event.author +
-      "\n\n『 🌸 』 Time: " + time + "",
-      task = "";
-    switch (event.logMessageType) {
-      case "log:thread-name": {
-          newName = event.logMessageData.name || "Tên không tồn tại";
-          //task = "Người dùng thay đổi tên nhóm thành " + newName + "";
-          await Threads.setData(event.threadID, {name: newName});
-          break;
-      }
-      case "log:subscribe": {
-        if (event.logMessageData.addedParticipants.some(i => i.userFbId == botID)) task = "『 🌸 』 Người dùng đã thêm bot vào một nhóm mới";
-        break;
-      }
-      case "log:unsubscribe": {
-        if (event.logMessageData.leftParticipantFbId == botID) {
-          if(event.senderID == botID) return;
-          const data = (await Threads.getData(event.threadID)).data || {};
-          data.banned = true;
-          var reason = "[『 🌸 』 Kích bot tự do, không xin phép";
-          data.reason = reason || null;
-          data.dateAdded = time;
-          await Threads.setData(event.threadID, { data });
-          global.data.threadBanned.set(event.threadID, { reason: data.reason, dateAdded: data.dateAdded });
-  
-          task = "『 🌸 』 Người dùng đã kick bot ra khỏi nhóm"
+    try {
+        if (global.configModule && global.configModule[this.config.name] && global.configModule[this.config.name].enable === false) {
+            return;
         }
-        break;
-      }
-      default:
-        break;
+
+        const botID = String(api.getCurrentUserID());
+        const moment = require("moment-timezone");
+        const time = moment.tz("Asia/Ho_Chi_Minh").format("DD/MM/YYYY HH:mm:ss");
+
+        let nameThread = "Nhóm chat";
+        try {
+            const threadInfo = await api.getThreadInfo(event.threadID);
+            nameThread = threadInfo.threadName || nameThread;
+        } catch (_) {
+            const cached = global.data.threadInfo ? global.data.threadInfo.get(String(event.threadID)) : null;
+            if (cached && cached.threadName) nameThread = cached.threadName;
+        }
+
+        let nameUser = "Người dùng Facebook";
+        try {
+            nameUser = (global.data.userName && global.data.userName.get(String(event.author))) || await Users.getNameUser(event.author) || nameUser;
+        } catch (_) {}
+
+        let task = "";
+        switch (event.logMessageType) {
+            case "log:thread-name": {
+                const newName = (event.logMessageData && event.logMessageData.name) || "Tên không tồn tại";
+                task = `Người dùng đổi tên nhóm thành: "${newName}"`;
+                try { await Threads.setData(event.threadID, { name: newName }); } catch (_) {}
+                break;
+            }
+            case "log:subscribe": {
+                if (event.logMessageData && Array.isArray(event.logMessageData.addedParticipants)) {
+                    if (event.logMessageData.addedParticipants.some(i => String(i.userFbId) === botID)) {
+                        task = "Người dùng đã thêm bot vào một nhóm mới";
+                    }
+                }
+                break;
+            }
+            case "log:unsubscribe": {
+                if (event.logMessageData && String(event.logMessageData.leftParticipantFbId) === botID) {
+                    if (String(event.senderID) === botID) return;
+                    try {
+                        const threadData = (await Threads.getData(event.threadID)) || {};
+                        const data = threadData.data || {};
+                        data.banned = true;
+                        data.reason = "Kick bot tự do, không xin phép";
+                        data.dateAdded = time;
+                        await Threads.setData(event.threadID, { data });
+                        if (global.data.threadBanned) {
+                            global.data.threadBanned.set(String(event.threadID), { reason: data.reason, dateAdded: data.dateAdded });
+                        }
+                    } catch (_) {}
+                    task = "Người dùng đã kick bot ra khỏi nhóm";
+                }
+                break;
+            }
+            default:
+                break;
+        }
+
+        if (task.length === 0) return;
+
+        const formReport = 
+`╔═════════════════════════╗
+   📋 THÔNG BÁO HOẠT ĐỘNG
+╚═════════════════════════╝
+🏠 Nhóm: ${nameThread}
+🆔 Thread ID: ${event.threadID}
+⚙️ Hành động: ${task}
+👤 Người thực hiện: ${nameUser} (UID: ${event.author})
+⏰ Thời gian: ${time}`;
+
+        const adminTarget = (global.config.ADMINBOT && global.config.ADMINBOT[0]) ? String(global.config.ADMINBOT[0]) : null;
+        if (adminTarget) {
+            return api.sendMessage(formReport, adminTarget, (error) => {
+                if (error) logger(formReport, "Logging Event");
+            });
+        }
+    } catch (err) {
+        console.error("Lỗi log event:", err.message);
     }
-  
-    if (task.length == 0) return;
-  
-    formReport = formReport
-      .replace(/\{task}/g, task);
-  
-    return api.sendMessage(formReport, global.config.ADMINBOT[0], (error, info) => {
-      if (error) return logger(formReport, "Logging Event");
-    });
-  }
+};
