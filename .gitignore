@@ -4,6 +4,8 @@ node_modules/
 
 # Logs & temp test scripts
 test_server.js
+scratch/
+*-base.js
 *.log
 npm-debug.log*
 

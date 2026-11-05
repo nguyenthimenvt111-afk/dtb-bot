@@ -1,132 +1,140 @@
-const axios = require("axios");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
+const dns = require("dns");
 
-const ORIGINAL_CREDITS = "dtb";
-const REQUIRED_COMMENT = "";
+try {
+  dns.setDefaultResultOrder("ipv4first");
+} catch (_) {}
 
-const currentCode = fs.readFileSync(__filename, 'utf8');
-
-function checkCopyright(api, threadID) {
-    const isCreditChanged = false;
-    const isCommentMissing = false;
-
-    if (isCreditChanged || isCommentMissing) {
-        const warningMsg = "⚠️ LỖI BẢN QUYỀN: Credit đã bị thay đổi hoặc thiếu dòng cảnh báo. Module này đã bị VÔ HIỆU HÓA để tôn trọng tác giả.";
-
-        console.error("\n" + "=".repeat(50));
-        console.error("!!! PHÁT HIỆN VI PHẠM BẢN QUYỀN !!!");
-        console.error(`- Credit: ${isCreditChanged ? "BỊ THAY ĐỔI" : "OK"}`);
-        console.error(`- Comment: ${isCommentMissing ? "THIẾU/SAI" : "OK"}`);
-        console.error(warningMsg);
-        console.error("=".repeat(50) + "\n");
-
-        if (threadID) {
-            api.sendMessage(warningMsg, threadID);
-        }
-
-        return false;
-    }
-    return true;
+let scdl;
+try {
+  scdl = require("soundcloud-downloader").default;
+} catch (e) {
+  scdl = null;
 }
 
 module.exports.config = {
-    name: "automusic",
-    version: "1.1.2",
-    hasPermssion: 0,
-    credits: ORIGINAL_CREDITS,
-    description: "nhạc đê",
-    commandCategory: "Giải trí",
-    usages: "sing <tên bài hát>",
-    cooldowns: 5,
+  name: "automusic",
+  version: "1.2.0",
+  hasPermission: 0,
+  credits: "dtb",
+  description: "Tự động phát hiện yêu cầu mở nhạc hoặc dùng lệnh automusic",
+  commandCategory: "Nhạc",
+  usages: "automusic <tên bài hát> hoặc nhắn 'bot ơi mở nhạc <tên bài>'",
+  cooldowns: 5,
 };
 
-async function downloadAndSend(api, event, songUrl, title, author) {
-    if (!checkCopyright(api, event.threadID)) return;
+function formatDuration(ms) {
+  if (!ms || isNaN(ms)) return "N/A";
+  const seconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+}
 
-    try {
-        const down = await axios.get(`https://adidaphat.site/scl/download?url=${encodeURIComponent(songUrl)}`);
-        if (!down.data?.data?.download_url)
-            return api.sendMessage("Không thể tải link bài hát này 😢", event.threadID);
+async function downloadAndSend(api, event, track) {
+  if (!scdl) return api.sendMessage("❌ Thư viện âm nhạc chưa sẵn sàng.", event.threadID, event.messageID);
 
-        const dl = down.data.data.download_url;
-        const filePath = path.join(__dirname, `/cache/${event.senderID}.mp3`);
+  try {
+    const stream = await scdl.download(track.permalink_url);
+    const safeName = (track.title || "audio").replace(/[/\\?%*:|"<>]/g, "-").slice(0, 40);
+    const cacheDir = path.join(__dirname, "cache");
+    fs.ensureDirSync(cacheDir);
+    const filePath = path.join(cacheDir, `auto_${Date.now()}_${safeName}.mp3`);
 
-        const response = await axios({
-            url: dl,
-            method: "GET",
-            responseType: "stream",
-        });
+    const writer = fs.createWriteStream(filePath);
+    stream.pipe(writer);
 
-        const writer = fs.createWriteStream(filePath);
-        response.data.pipe(writer);
+    writer.on("finish", () => {
+      try {
+        const stats = fs.statSync(filePath);
+        if (stats.size > 26214400) {
+          try { fs.unlinkSync(filePath); } catch {}
+          return api.sendMessage("⚠️ Bài hát vượt quá giới hạn 25MB của Facebook Messenger.", event.threadID);
+        }
 
-        writer.on("close", () => {
-            api.sendMessage(
-                {
-                    body: `🎧 Phát: ${title}\n👤 Ca sĩ: ${author}`,
-                    attachment: fs.createReadStream(filePath),
-                },
-                event.threadID,
-                () => {
-                    try {
-                        fs.unlinkSync(filePath);
-                    } catch {}
-                }
-            );
-        });
+        api.sendMessage(
+          {
+            body: `🎧 Đang phát: ${track.title}\n👤 Nghệ sĩ: ${track.user?.username || "Không rõ"}\n⏱️ Thời lượng: ${formatDuration(track.duration)}`,
+            attachment: fs.createReadStream(filePath),
+          },
+          event.threadID,
+          () => {
+            try { fs.unlinkSync(filePath); } catch {}
+          }
+        );
+      } catch (sendErr) {
+        console.error(sendErr);
+        try { fs.unlinkSync(filePath); } catch {}
+      }
+    });
 
-        writer.on("error", (err) => {
-            console.error(err);
-            api.sendMessage("⚠️ Lỗi khi tải nhạc rồi :(", event.threadID);
-        });
-    } catch (err) {
-        console.error(err);
-        api.sendMessage("Không thể tải bài hát, thử lại sau nhaaaa", event.threadID);
+    writer.on("error", (err) => {
+      console.error(err);
+      try { fs.unlinkSync(filePath); } catch {}
+      api.sendMessage("⚠️ Đã có lỗi xảy ra khi lưu file nhạc.", event.threadID);
+    });
+
+    stream.on("error", (err) => {
+      console.error(err);
+      try { fs.unlinkSync(filePath); } catch {}
+      api.sendMessage("⚠️ Đã có lỗi khi stream âm thanh từ SoundCloud.", event.threadID);
+    });
+
+  } catch (err) {
+    console.error(err);
+    api.sendMessage("❌ Không thể tải bài hát này, vui lòng thử lại sau.", event.threadID, event.messageID);
+  }
+}
+
+async function searchAndPlay(api, event, keyword) {
+  if (!scdl) return api.sendMessage("❌ Thư viện SoundCloud chưa sẵn sàng.", event.threadID, event.messageID);
+
+  try {
+    const res = await scdl.search({ query: keyword, limit: 1, resourceType: "tracks" });
+    if (!res || !res.collection || res.collection.length === 0) {
+      return api.sendMessage(`❌ Không tìm thấy bài hát nào cho từ khóa "${keyword}".`, event.threadID, event.messageID);
     }
+    const track = res.collection[0];
+    api.sendMessage(`🎶 Đang tải bài hát "${track.title}"...`, event.threadID);
+    await downloadAndSend(api, event, track);
+  } catch (err) {
+    console.error(err);
+    api.sendMessage("❌ Có lỗi xảy ra khi tìm bài hát.", event.threadID, event.messageID);
+  }
 }
 
 module.exports.handleEvent = async ({ event, api }) => {
-    if (!checkCopyright(api, event.threadID)) return;
+  const { threadID, body } = event;
+  if (!body) return;
 
-    const { threadID, body } = event;
-    if (!body) return;
+  const lower = body.toLowerCase().trim();
+  const prefixes = [
+    "hoàng ơi mở nhạc",
+    "bot ơi mở nhạc",
+    "mở nhạc bài",
+    "phát nhạc bài",
+    "bật nhạc bài"
+  ];
 
-    if (body.toLowerCase().startsWith("hoàng ơi mở nhạc")) {
-        const keyword = body.slice("hoàng ơi mở nhạc".length).trim();
-        if (!keyword) return api.sendMessage("ck muốn mở bài gì nè 🎶", threadID);
-
-        try {
-            const search = await axios.get(`https://adidaphat.site/scl/search?q=${encodeURIComponent(keyword)}`);
-            if (search.data.status !== "success" || !search.data.results?.length)
-                return api.sendMessage("Không tìm thấy bài nào rồi huhu", threadID);
-
-            const firstSong = search.data.results[0];
-            await downloadAndSend(api, event, firstSong.url, firstSong.title, firstSong.author.name);
-        } catch (err) {
-            console.error(err);
-            api.sendMessage("Không thể phát nhạc, thử lại sau nhaaa vk:(", threadID);
-        }
+  for (const p of prefixes) {
+    if (lower.startsWith(p)) {
+      const keyword = lower.slice(p.length).trim();
+      if (!keyword) {
+        return api.sendMessage("🎶 Bạn muốn nghe bài gì nè? Nhắn tên bài hát để bot mở nhé!", threadID, event.messageID);
+      }
+      await searchAndPlay(api, event, keyword);
+      return;
     }
+  }
 };
 
 module.exports.run = async ({ event, args, api }) => {
-    if (!checkCopyright(api, event.threadID)) return;
+  const keyword = args.join(" ").trim();
+  if (!keyword) {
+    return api.sendMessage("❌ Vui lòng nhập tên bài hát cần phát. Ví dụ: automusic Nơi này có anh", event.threadID, event.messageID);
+  }
 
-    const keyword = args.join(" ");
-    if (!keyword) return api.sendMessage("Nhập tên bài hát đi nè 🎵", event.threadID);
-
-    api.sendMessage(`🔎 Đang tìm nhạc "${keyword}"...`, event.threadID);
-    try {
-        const search = await axios.get(`https://adidaphat.site/scl/search?q=${encodeURIComponent(keyword)}`);
-        if (search.data.status !== "success" || !search.data.results?.length)
-            return api.sendMessage("Không tìm thấy bài nào huhu", event.threadID);
-
-        const firstSong = search.data.results[0];
-        await downloadAndSend(api, event, firstSong.url, firstSong.title, firstSong.author.name);
-    } catch (err) {
-        console.error(err);
-        api.sendMessage("Không thể tải bài hát, thử lại sau nhaaaa vk", event.threadID);
-    }
+  api.sendMessage(`🔎 Đang tìm kiếm "${keyword}"...`, event.threadID, event.messageID);
+  await searchAndPlay(api, event, keyword);
 };
-//code by genfor thay cre là bú cứt
