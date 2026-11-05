@@ -345,6 +345,7 @@ function onBot({ models: botModel }) {
                         global.client.events.set(event.config.name, event);
 
                     } catch (error) {
+                        logger.loader(`Lỗi nạp module event [${ev}]: ${error.message || error}`, 'error');
                     }
                 }
             }()

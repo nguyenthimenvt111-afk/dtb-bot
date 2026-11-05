@@ -2,12 +2,18 @@ const fs = require("fs-extra");
 const path = require("path");
 const moment = require("moment-timezone");
 const axios = require("axios");
-const { createCanvas, loadImage, registerFont } = require("canvas");
+
+let Canvas = null;
+try {
+    Canvas = require("canvas");
+} catch (e) {
+    console.warn("[welcomeEvent] Thư viện 'canvas' chưa khả dụng hoặc thiếu thư viện hệ thống (" + e.message + "). Bot sẽ gửi dạng thông báo văn bản chi tiết.");
+}
 
 module.exports.config = {
     name: "welcomeEvent",
     eventType: ["log:subscribe"],
-    version: "2.5.0",
+    version: "2.6.0",
     credits: "dtb",
     description: "Tự động vẽ card Canvas chào mừng thành viên mới với avatar và thông tin động"
 };
@@ -15,9 +21,9 @@ module.exports.config = {
 // Ensure fonts and cache
 const fontPath = path.resolve(__dirname, "../commands/cache/fonts/BeVietnamPro-Bold.ttf");
 let fontFam = "Segoe UI, Arial, sans-serif";
-if (fs.existsSync(fontPath)) {
+if (Canvas && Canvas.registerFont && fs.existsSync(fontPath)) {
     try {
-        registerFont(fontPath, { family: "Be Vietnam Pro" });
+        Canvas.registerFont(fontPath, { family: "Be Vietnam Pro" });
         fontFam = '"Be Vietnam Pro", Segoe UI, sans-serif';
     } catch (_) {}
 }
@@ -51,10 +57,12 @@ function truncateText(ctx, text, maxWidth) {
 }
 
 async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeString }) {
+    if (!Canvas || !Canvas.createCanvas) return null;
+    const { createCanvas, loadImage } = Canvas;
     const width = 1280;
     const height = 720;
-    const canvas = createCanvas(width, height);
-    const ctx = canvas.getContext("2d");
+    const cvs = createCanvas(width, height);
+    const ctx = cvs.getContext("2d");
 
     // 1. Deep Space Cyber Dark Background
     const bgGrad = ctx.createLinearGradient(0, 0, width, height);
@@ -372,7 +380,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.restore();
 
     const filePath = path.join(cacheDir, `welcome_${uid}_${Date.now()}.png`);
-    fs.writeFileSync(filePath, canvas.toBuffer("image/png"));
+    fs.writeFileSync(filePath, cvs.toBuffer("image/png"));
     return filePath;
 }
 
