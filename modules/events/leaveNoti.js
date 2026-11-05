@@ -421,7 +421,7 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
         } catch (_) {}
 
         const threadName = threadInfo.threadName || "Nhóm chat";
-        const currentMembers = (threadInfo.participantIDs || []).length || "---";
+        const currentMembers = Array.isArray(threadInfo.participantIDs) ? threadInfo.participantIDs.length : "---";
         const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
 
         const isSelfLeave = String(author) === leftID;

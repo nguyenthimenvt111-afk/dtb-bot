@@ -412,7 +412,7 @@ module.exports.run = async function ({ api, event, Threads, Users }) {
         } catch (_) {}
 
         const threadName = threadInfo.threadName || "Nhóm chat";
-        const totalMembers = (threadInfo.participantIDs || []).length || "---";
+        const totalMembers = Array.isArray(threadInfo.participantIDs) ? threadInfo.participantIDs.length : "---";
         const timeNow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss DD/MM/YYYY");
 
         for (let i = 0; i < addedParticipants.length; i++) {
