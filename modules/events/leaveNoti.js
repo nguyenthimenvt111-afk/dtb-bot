@@ -7,18 +7,17 @@ let Canvas = null;
 try {
     Canvas = require("canvas");
 } catch (e) {
-    console.warn("[leavenoti] Thư viện 'canvas' chưa khả dụng hoặc thiếu thư viện hệ thống (" + e.message + "). Bot sẽ gửi dạng thông báo văn bản chi tiết.");
+    console.warn("[leavenoti] Thư viện 'canvas' chưa khả dụng (" + e.message + "). Sử dụng bộ vẽ Jimp dự phòng.");
 }
 
 module.exports.config = {
     name: "leavenoti",
     eventType: ["log:unsubscribe"],
-    version: "2.6.0",
+    version: "2.7.0",
     credits: "dtb",
-    description: "Tự động vẽ card Canvas thành viên rời nhóm hoặc bị kick với avatar và thông tin động"
+    description: "Tự động vẽ card Canvas/Jimp thành viên rời nhóm hoặc bị kick với avatar và thông tin động"
 };
 
-// Ensure fonts and cache
 const fontPath = path.resolve(__dirname, "../commands/cache/fonts/BeVietnamPro-Bold.ttf");
 let fontFam = "Segoe UI, Arial, sans-serif";
 if (Canvas && Canvas.registerFont && fs.existsSync(fontPath)) {
@@ -56,7 +55,7 @@ function truncateText(ctx, text, maxWidth) {
     return text + "...";
 }
 
-async function renderLeaveCard({ uid, name, threadName, currentMembers, isSelfLeave, timeString }) {
+async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, isSelfLeave, timeString }) {
     if (!Canvas || !Canvas.createCanvas) return null;
     const { createCanvas, loadImage } = Canvas;
     const width = 1280;
@@ -393,12 +392,96 @@ async function renderLeaveCard({ uid, name, threadName, currentMembers, isSelfLe
     return filePath;
 }
 
+async function renderLeaveCardFallbackJimp({ uid, name, threadName, currentMembers, isSelfLeave, timeString }) {
+    const fileName = isSelfLeave ? "leave_template.png" : "kick_template.png";
+    const templatePath = path.resolve(__dirname, "cache", fileName);
+    const fallbackTemplatePath = path.resolve(__dirname, "cache/leave_template.png");
+    const activePath = fs.existsSync(templatePath) ? templatePath : fallbackTemplatePath;
+    if (!fs.existsSync(activePath)) return null;
+
+    let Jimp = null;
+    try {
+        Jimp = require("jimp");
+    } catch (_) {
+        return null;
+    }
+
+    const template = await Jimp.read(activePath);
+
+    let avatarLoaded = false;
+    try {
+        const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+        const resp = await axios.get(avatarUrl, {
+            responseType: "arraybuffer",
+            timeout: 2500,
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }
+        });
+        if (resp && resp.status === 200 && resp.data) {
+            const avatar = await Jimp.read(Buffer.from(resp.data));
+            avatar.resize(136, 136);
+            avatar.circle();
+            template.composite(avatar, 572, 157);
+            avatarLoaded = true;
+        }
+    } catch (_) {}
+
+    if (!avatarLoaded) {
+        const fallbackAv = new Jimp(136, 136, 0xf43f5eff);
+        fallbackAv.circle();
+        template.composite(fallbackAv, 572, 157);
+    }
+
+    try {
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
+        const fontSmall = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
+
+        const safeName = (name || "Nguoi dung Facebook").slice(0, 30);
+        template.print(font, 0, 345, {
+            text: safeName,
+            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
+        }, 1280, 45);
+
+        template.print(fontSmall, 0, 388, {
+            text: isSelfLeave ? "Da tu roi khoi nhom chat." : "Da bi Quan tri vien xoa khoi nhom.",
+            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
+        }, 1280, 30);
+
+        const fontMini = await Jimp.loadFont(Jimp.FONT_SANS_14_WHITE);
+        template.print(fontMini, 255, 475, (threadName || "Nhom chat").slice(0, 20));
+        template.print(fontMini, 590, 475, `Con lai ${currentMembers}`);
+        template.print(fontMini, 925, 475, (timeString || "").slice(0, 19));
+    } catch (_) {}
+
+    const filePath = path.join(cacheDir, `leave_${uid}_${Date.now()}.png`);
+    await template.writeAsync(filePath);
+    return filePath;
+}
+
+async function renderLeaveCard(options) {
+    if (Canvas && Canvas.createCanvas) {
+        try {
+            const card = await renderLeaveCardCanvas(options);
+            if (card) return card;
+        } catch (err) {
+            console.warn("[leavenoti] Canvas failed, attempting Jimp fallback:", err.message);
+        }
+    }
+    try {
+        return await renderLeaveCardFallbackJimp(options);
+    } catch (jimpErr) {
+        console.error("[leavenoti] Jimp fallback failed:", jimpErr.message);
+        return null;
+    }
+}
+
+module.exports.renderLeaveCard = renderLeaveCard;
+
 module.exports.run = async function ({ api, event, Users, Threads }) {
     try {
         if (!event.logMessageData || !event.logMessageData.leftParticipantFbId) return;
         const leftID = String(event.logMessageData.leftParticipantFbId);
         const botID = String(api.getCurrentUserID());
-        if (leftID === botID) return; // Skip if bot left/removed
+        if (leftID === botID) return; // Skip if bot itself left/removed
 
         const { threadID, author } = event;
         const threadData = (await Threads.getData(threadID)) || {};
@@ -447,7 +530,7 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
                 timeString: timeNow
             });
         } catch (err) {
-            console.error("Lỗi vẽ canvas leaveNoti:", err);
+            console.error("Lỗi vẽ card leaveNoti:", err);
         }
 
         const leaveMsg = 
@@ -463,25 +546,17 @@ module.exports.run = async function ({ api, event, Users, Threads }) {
         const payload = { body: leaveMsg };
         if (cardPath && fs.existsSync(cardPath)) {
             try {
-                const stream = fs.createReadStream(cardPath);
-                stream.on("error", (err) => {
-                    console.error("[leaveNoti] Stream error:", err.message);
-                    try { fs.unlinkSync(cardPath); } catch (_) {}
-                });
-                stream.on("close", () => {
-                    try { fs.unlinkSync(cardPath); } catch (_) {}
-                });
-                payload.attachment = stream;
+                payload.attachment = fs.createReadStream(cardPath);
             } catch (_) {}
         }
 
         api.sendMessage(payload, threadID, (err) => {
+            setTimeout(() => {
+                try { if (cardPath && fs.existsSync(cardPath)) fs.unlinkSync(cardPath); } catch (_) {}
+            }, 15000);
             if (err) {
                 console.error("[leaveNoti] Lỗi gửi card leaveNoti, gửi fallback text:", err);
                 api.sendMessage(leaveMsg, threadID);
-                if (cardPath) {
-                    try { fs.unlinkSync(cardPath); } catch (_) {}
-                }
             }
         });
     } catch (e) {

@@ -7,18 +7,17 @@ let Canvas = null;
 try {
     Canvas = require("canvas");
 } catch (e) {
-    console.warn("[welcomeEvent] Thư viện 'canvas' chưa khả dụng hoặc thiếu thư viện hệ thống (" + e.message + "). Bot sẽ gửi dạng thông báo văn bản chi tiết.");
+    console.warn("[welcomeEvent] Thư viện 'canvas' chưa khả dụng (" + e.message + "). Sử dụng bộ vẽ Jimp dự phòng.");
 }
 
 module.exports.config = {
     name: "welcomeEvent",
     eventType: ["log:subscribe"],
-    version: "2.6.0",
+    version: "2.7.0",
     credits: "dtb",
-    description: "Tự động vẽ card Canvas chào mừng thành viên mới với avatar và thông tin động"
+    description: "Tự động vẽ card Canvas/Jimp chào mừng thành viên mới với avatar và thông tin động"
 };
 
-// Ensure fonts and cache
 const fontPath = path.resolve(__dirname, "../commands/cache/fonts/BeVietnamPro-Bold.ttf");
 let fontFam = "Segoe UI, Arial, sans-serif";
 if (Canvas && Canvas.registerFont && fs.existsSync(fontPath)) {
@@ -56,7 +55,7 @@ function truncateText(ctx, text, maxWidth) {
     return text + "...";
 }
 
-async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeString }) {
+async function renderWelcomeCardCanvas({ uid, name, threadName, memberIndex, timeString }) {
     if (!Canvas || !Canvas.createCanvas) return null;
     const { createCanvas, loadImage } = Canvas;
     const width = 1280;
@@ -92,7 +91,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     drawGlowOrb(640, 100, 280, 'rgba(255, 126, 95, 0.15)', 0.15);
     drawGlowOrb(1000, 160, 250, 'rgba(0, 230, 118, 0.12)', 0.12);
 
-    // 3. Constellation & Grid Overlay
+    // 3. Grid Overlay
     ctx.save();
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
     ctx.lineWidth = 1;
@@ -110,9 +109,9 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     }
 
     const stars = [
-        { x: 120, y: 100, r: 2.2, a: 0.8 }, { x: 300, y: 80, r: 1.5, a: 0.6 },
-        { x: 1150, y: 120, r: 2.5, a: 0.85 }, { x: 1020, y: 220, r: 1.8, a: 0.7 },
-        { x: 180, y: 620, r: 2.0, a: 0.75 }, { x: 950, y: 640, r: 1.6, a: 0.6 }
+        { x: 150, y: 130, r: 2.2, a: 0.8 }, { x: 300, y: 80, r: 1.5, a: 0.6 },
+        { x: 1120, y: 160, r: 2.5, a: 0.9 }, { x: 1020, y: 260, r: 1.8, a: 0.7 },
+        { x: 180, y: 580, r: 2.0, a: 0.75 }, { x: 940, y: 620, r: 1.6, a: 0.65 }
     ];
     for (const s of stars) {
         ctx.fillStyle = `rgba(255, 255, 255, ${s.a})`;
@@ -122,7 +121,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     }
     ctx.restore();
 
-    // 4. Center Glassmorphic Card Container
+    // 4. Center Glass Card Container
     const cardX = 90;
     const cardY = 60;
     const cardW = 1100;
@@ -130,25 +129,25 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     const cardR = 30;
 
     ctx.save();
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
     ctx.shadowBlur = 40;
     ctx.shadowOffsetY = 20;
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.72)';
+    ctx.fillStyle = 'rgba(12, 16, 33, 0.78)';
     drawRoundedRect(ctx, cardX, cardY, cardW, cardH, cardR, true, false);
     ctx.restore();
 
     const cardGrad = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY + cardH);
     cardGrad.addColorStop(0, 'rgba(255, 255, 255, 0.08)');
     cardGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.02)');
-    cardGrad.addColorStop(1, 'rgba(255, 255, 255, 0.05)');
+    cardGrad.addColorStop(1, 'rgba(0, 242, 254, 0.05)');
     ctx.fillStyle = cardGrad;
     drawRoundedRect(ctx, cardX, cardY, cardW, cardH, cardR, true, false);
 
     const borderGrad = ctx.createLinearGradient(cardX, cardY, cardX + cardW, cardY + cardH);
     borderGrad.addColorStop(0, '#00f2fe');
     borderGrad.addColorStop(0.35, '#4facfe');
-    borderGrad.addColorStop(0.7, '#9b51e0');
-    borderGrad.addColorStop(1, '#ff007f');
+    borderGrad.addColorStop(0.7, '#a18cd1');
+    borderGrad.addColorStop(1, '#fbc2eb');
     ctx.strokeStyle = borderGrad;
     ctx.lineWidth = 2.5;
     drawRoundedRect(ctx, cardX, cardY, cardW, cardH, cardR, false, true);
@@ -167,7 +166,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.restore();
 
     // 5. Header Pill Badge
-    const pillW = 380;
+    const pillW = 420;
     const pillH = 42;
     const pillX = width / 2 - pillW / 2;
     const pillY = cardY + 28;
@@ -195,7 +194,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.save();
     ctx.beginPath();
     ctx.arc(avatarCenterX, avatarCenterY, avatarRadius + 18, 0, Math.PI * 2);
-    ctx.strokeStyle = 'rgba(0, 242, 254, 0.2)';
+    ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
     ctx.lineWidth = 2;
     ctx.setLineDash([8, 8]);
     ctx.stroke();
@@ -204,8 +203,8 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.arc(avatarCenterX, avatarCenterY, avatarRadius + 8, 0, Math.PI * 2);
     const ringGrad = ctx.createLinearGradient(avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarCenterX + avatarRadius, avatarCenterY + avatarRadius);
     ringGrad.addColorStop(0, '#00f2fe');
-    ringGrad.addColorStop(0.5, '#7f00ff');
-    ringGrad.addColorStop(1, '#ff007f');
+    ringGrad.addColorStop(0.5, '#4facfe');
+    ringGrad.addColorStop(1, '#9b51e0');
     ctx.strokeStyle = ringGrad;
     ctx.lineWidth = 4;
     ctx.setLineDash([]);
@@ -214,7 +213,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.stroke();
     ctx.restore();
 
-    // Draw User Avatar
+    // Draw Avatar
     ctx.save();
     ctx.beginPath();
     ctx.arc(avatarCenterX, avatarCenterY, avatarRadius, 0, Math.PI * 2);
@@ -238,13 +237,13 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
 
     if (!avatarLoaded) {
         const avGrad = ctx.createLinearGradient(avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarCenterX + avatarRadius, avatarCenterY + avatarRadius);
-        avGrad.addColorStop(0, '#1f2937');
-        avGrad.addColorStop(0.5, '#374151');
-        avGrad.addColorStop(1, '#111827');
+        avGrad.addColorStop(0, '#1e293b');
+        avGrad.addColorStop(0.5, '#334155');
+        avGrad.addColorStop(1, '#0f172a');
         ctx.fillStyle = avGrad;
         ctx.fillRect(avatarCenterX - avatarRadius, avatarCenterY - avatarRadius, avatarRadius * 2, avatarRadius * 2);
 
-        ctx.fillStyle = '#60a5fa';
+        ctx.fillStyle = '#38bdf8';
         ctx.beginPath();
         ctx.arc(avatarCenterX, avatarCenterY - 18, 28, 0, Math.PI * 2);
         ctx.fill();
@@ -254,7 +253,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     }
     ctx.restore();
 
-    // Online Status Green Dot
+    // Online Status Badge
     const dotX = avatarCenterX + avatarRadius * 0.72;
     const dotY = avatarCenterY + avatarRadius * 0.72;
     ctx.save();
@@ -262,7 +261,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.shadowBlur = 12;
     ctx.fillStyle = '#00e676';
     ctx.beginPath();
-    ctx.arc(dotX, dotY, 11, 0, Math.PI * 2);
+    ctx.arc(dotX, dotY, 13, 0, Math.PI * 2);
     ctx.fill();
     ctx.strokeStyle = '#0a1026';
     ctx.lineWidth = 3.5;
@@ -274,8 +273,8 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.font = `bold 38px ${fontFam}`;
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = 'rgba(0, 242, 254, 0.5)';
-    ctx.shadowBlur = 16;
+    ctx.shadowColor = 'rgba(0, 242, 254, 0.6)';
+    ctx.shadowBlur = 18;
     const safeName = truncateText(ctx, name, 800);
     ctx.fillText(safeName, width / 2, cardY + 288);
     ctx.restore();
@@ -285,7 +284,7 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.font = `500 19px ${fontFam}`;
     ctx.textAlign = 'center';
     ctx.fillStyle = '#94a3b8';
-    ctx.fillText('Rất vui được chào đón bạn gia nhập đại gia đình của chúng tôi!', width / 2, cardY + 326);
+    ctx.fillText('Chào mừng bạn đã gia nhập không gian thảo luận!', width / 2, cardY + 326);
     ctx.restore();
 
     // 8. Three Stat Pills
@@ -307,21 +306,21 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
             icon: '👥',
             title: 'VỊ TRÍ THÀNH VIÊN',
             value: `Thành viên thứ #${memberIndex}`,
-            color: '#fbbf24'
+            color: '#a78bfa'
         },
         {
-            icon: '⏰',
-            title: 'THỜI GIAN GIA NHẬP',
+            icon: '⏱',
+            title: 'THỜI GIAN THAM GIA',
             value: timeString,
-            color: '#a78bfa'
+            color: '#34d399'
         }
     ];
 
     stats.forEach((st, idx) => {
         const sx = startX + idx * (statW + gap);
         ctx.save();
-        ctx.fillStyle = 'rgba(30, 41, 59, 0.55)';
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.09)';
+        ctx.fillStyle = 'rgba(20, 27, 51, 0.6)';
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
         ctx.lineWidth = 1.2;
         drawRoundedRect(ctx, sx, statY, statW, statH, 18, true, true);
 
@@ -350,15 +349,15 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
         ctx.restore();
     });
 
-    // 9. Rules Notice Banner
+    // 9. Greeting Notice Banner
     const tipY = cardY + 482;
     const tipW = 860;
     const tipH = 46;
     const tipX = width / 2 - tipW / 2;
 
     ctx.save();
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.5)';
-    ctx.strokeStyle = 'rgba(0, 242, 254, 0.25)';
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
+    ctx.strokeStyle = 'rgba(0, 242, 254, 0.22)';
     ctx.lineWidth = 1;
     drawRoundedRect(ctx, tipX, tipY, tipW, tipH, 23, true, true);
 
@@ -366,15 +365,15 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = '#cbd5e1';
-    ctx.fillText('💡 Hãy đọc kỹ quy định nhóm và cùng tương tác vui vẻ, tôn trọng lẫn nhau bạn nhé!', width / 2, tipY + tipH / 2);
+    ctx.fillText('✨ Hãy đọc kỹ nội quy & tích cực tương tác cùng mọi người trong nhóm nhé! ✨', width / 2, tipY + tipH / 2);
     ctx.restore();
 
     // 10. Footer Branding
     ctx.save();
     ctx.font = `bold 13px ${fontFam}`;
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#00f2fe';
-    ctx.shadowColor = '#00f2fe';
+    ctx.fillStyle = '#38bdf8';
+    ctx.shadowColor = '#0284c7';
     ctx.shadowBlur = 10;
     ctx.fillText('⚡ POWERED BY DTB BOT SYSTEM ⚡', width / 2, cardY + cardH - 24);
     ctx.restore();
@@ -384,18 +383,98 @@ async function renderWelcomeCard({ uid, name, threadName, memberIndex, timeStrin
     return filePath;
 }
 
-module.exports.run = async function ({ api, event, Threads, Users }) {
+async function renderWelcomeCardFallbackJimp({ uid, name, threadName, memberIndex, timeString }) {
+    const templatePath = path.resolve(__dirname, "cache/welcome_template.png");
+    if (!fs.existsSync(templatePath)) return null;
+
+    let Jimp = null;
     try {
-        const { threadID, logMessageData, author } = event;
-        if (!logMessageData || !Array.isArray(logMessageData.addedParticipants) || logMessageData.addedParticipants.length === 0) return;
+        Jimp = require("jimp");
+    } catch (_) {
+        return null;
+    }
+
+    const template = await Jimp.read(templatePath);
+
+    let avatarLoaded = false;
+    try {
+        const avatarUrl = `https://graph.facebook.com/${uid}/picture?width=512&height=512&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`;
+        const resp = await axios.get(avatarUrl, {
+            responseType: "arraybuffer",
+            timeout: 2500,
+            headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" }
+        });
+        if (resp && resp.status === 200 && resp.data) {
+            const avatar = await Jimp.read(Buffer.from(resp.data));
+            avatar.resize(136, 136);
+            avatar.circle();
+            template.composite(avatar, 572, 157);
+            avatarLoaded = true;
+        }
+    } catch (_) {}
+
+    if (!avatarLoaded) {
+        const fallbackAv = new Jimp(136, 136, 0x38bdf8ff);
+        fallbackAv.circle();
+        template.composite(fallbackAv, 572, 157);
+    }
+
+    try {
+        const font = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
+        const fontSmall = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
+
+        const safeName = (name || "Thanh vien moi").slice(0, 30);
+        template.print(font, 0, 345, {
+            text: safeName,
+            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
+        }, 1280, 45);
+
+        template.print(fontSmall, 0, 388, {
+            text: "Chao mung ban da tham gia nhom chat!",
+            alignmentX: Jimp.HORIZONTAL_ALIGN_CENTER
+        }, 1280, 30);
+
+        const fontMini = await Jimp.loadFont(Jimp.FONT_SANS_14_WHITE);
+        template.print(fontMini, 255, 475, (threadName || "Nhom chat").slice(0, 20));
+        template.print(fontMini, 590, 475, `Thanh vien #${memberIndex}`);
+        template.print(fontMini, 925, 475, (timeString || "").slice(0, 19));
+    } catch (_) {}
+
+    const filePath = path.join(cacheDir, `welcome_${uid}_${Date.now()}.png`);
+    await template.writeAsync(filePath);
+    return filePath;
+}
+
+async function renderWelcomeCard(options) {
+    if (Canvas && Canvas.createCanvas) {
+        try {
+            const card = await renderWelcomeCardCanvas(options);
+            if (card) return card;
+        } catch (err) {
+            console.warn("[welcomeEvent] Canvas failed, attempting Jimp fallback:", err.message);
+        }
+    }
+    try {
+        return await renderWelcomeCardFallbackJimp(options);
+    } catch (jimpErr) {
+        console.error("[welcomeEvent] Jimp fallback failed:", jimpErr.message);
+        return null;
+    }
+}
+
+module.exports.renderWelcomeCard = renderWelcomeCard;
+
+module.exports.run = async function ({ api, event, Users, Threads }) {
+    try {
+        if (!event.logMessageData || !Array.isArray(event.logMessageData.addedParticipants)) return;
+        const { addedParticipants } = event.logMessageData;
+        const { threadID, author } = event;
+        const botID = String(api.getCurrentUserID());
 
         const threadData = (await Threads.getData(threadID)) || {};
         const cachedData = (global.data.threadData && global.data.threadData.get(String(threadID))) || {};
         const data = { ...cachedData, ...(threadData.data || {}) };
-        if (data.welcome === false) return; // Only skip if explicitly turned off
-
-        const addedParticipants = logMessageData.addedParticipants;
-        const botID = String(api.getCurrentUserID());
+        if (data.welcome === false) return; // Skip if explicitly turned off
 
         let adderName = "Người dùng Facebook";
         try {
@@ -439,7 +518,7 @@ module.exports.run = async function ({ api, event, Threads, Users }) {
                     timeString: timeNow
                 });
             } catch (err) {
-                console.error("Lỗi vẽ canvas welcome:", err);
+                console.error("Lỗi vẽ card welcome:", err);
             }
 
             const welcomeMsg = 
@@ -457,29 +536,20 @@ Chúc bạn có những giây phút vui vẻ và ý nghĩa tại nhóm!`;
             const payload = { body: welcomeMsg };
             if (cardPath && fs.existsSync(cardPath)) {
                 try {
-                    const stream = fs.createReadStream(cardPath);
-                    stream.on("error", (err) => {
-                        console.error("[welcomeEvent] Stream error:", err.message);
-                        try { fs.unlinkSync(cardPath); } catch (_) {}
-                    });
-                    stream.on("close", () => {
-                        try { fs.unlinkSync(cardPath); } catch (_) {}
-                    });
-                    payload.attachment = stream;
+                    payload.attachment = fs.createReadStream(cardPath);
                 } catch (_) {}
             }
 
             api.sendMessage(payload, threadID, (err) => {
+                setTimeout(() => {
+                    try { if (cardPath && fs.existsSync(cardPath)) fs.unlinkSync(cardPath); } catch (_) {}
+                }, 15000);
                 if (err) {
                     console.error("[welcomeEvent] Lỗi gửi card welcome, gửi fallback text:", err);
                     api.sendMessage(welcomeMsg, threadID);
-                    if (cardPath) {
-                        try { fs.unlinkSync(cardPath); } catch (_) {}
-                    }
                 }
             });
 
-            // Small delay between multiple users
             if (i < addedParticipants.length - 1) {
                 await new Promise(r => setTimeout(r, 1000));
             }
