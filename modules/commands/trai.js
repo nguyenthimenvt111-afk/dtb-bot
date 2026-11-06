@@ -101,7 +101,7 @@ async function drawPetCanvas(player,pet,msg,options={}){
 }
 
 // ===== CONFIG =====
-module.exports.config = {name:"trai",version:"3.2.0",hasPermssion:0,credits:"dtb",description:"Trại Thú Cưng Siêu Quậy Canvas sống động full",commandCategory:"Game",usages:"[start/adopt/info/play/shop/battle/nem/leaderboard]",cooldowns:5};
+module.exports.config = {name:"trai",version:"3.2.0",hasPermssion:0,credits:"dtb",description:"Trại Thú Cưng Siêu Quậy Canvas sống động full",commandCategory: "Trò Chơi",usages:"[start/adopt/info/play/shop/battle/nem/leaderboard]",cooldowns:5};
 
 // ===== RUN =====
 module.exports.run = async function({api,event,args}) {

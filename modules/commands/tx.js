@@ -12,7 +12,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "dtb",
   description: "Chơi tài xỉu + lịch sử cầu/giao dịch/số dư",
-  commandCategory: "Game",
+  commandCategory: "Trò Chơi",
   usages: "[tài/xỉu] [số tiền] | history | log | top",
   cooldowns: 5
 };

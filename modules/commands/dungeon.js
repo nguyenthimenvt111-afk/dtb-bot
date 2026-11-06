@@ -153,7 +153,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "dtb",
   description: "Dungeon Explorer – Canvas Animation + Mini-Boss",
-  commandCategory: "Game",
+  commandCategory: "Trò Chơi",
   usages: "[start/explore/fight/loot/stats/leaderboard/boss]",
   cooldowns: 5
 };

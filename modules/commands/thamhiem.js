@@ -65,7 +65,7 @@ module.exports.config = {
     hasPermssion:0,
     credits:"dtb",
     description:"Game Hành Trình Thám Hiểm",
-    commandCategory:"Game",
+    commandCategory: "Trò Chơi",
     usages:"[start/explore/info/shop/battle]",
     cooldowns:5
 };

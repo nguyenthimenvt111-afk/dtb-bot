@@ -406,7 +406,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "dtb",
   description: "Game tu tiên hoàn chỉnh",
-  commandCategory: "Game",
+  commandCategory: "Trò Chơi",
   usages: "[thamgia|info|tu|auto|nv|tongmon|shop|cheta|san|pvp|rank|top|ls|admin]",
   cooldowns: 3
 };

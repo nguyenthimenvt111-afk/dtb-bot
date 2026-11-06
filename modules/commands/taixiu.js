@@ -8,7 +8,7 @@ module.exports.config = {
   hasPermssion: 0,
   credits: "dtb",
   description: "Chơi tài xỉu canvas đẹp chuẩn casino",
-  commandCategory: "Game",
+  commandCategory: "Trò Chơi",
   usages: "[tài/xỉu] [số tiền]",
   cooldowns: 5
 };
