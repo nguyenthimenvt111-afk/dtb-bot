@@ -1,122 +1,122 @@
 module.exports.config = {
-    "name": "setmoney",
-    "version": "1.0.0",
-    "hasPermssion": 2,
-    "credits": "nnl",
-    "description": "Điều chỉnh thông tin của người dùng",
-    "commandCategory": "Hệ Thống",
-    "usages": "[add/all/set/clean] [Số tiền] [Tag người dùng/reply]",
-    "cooldowns": 5
+  name: "setmoney",
+  version: "2.0.0",
+  hasPermssion: 2,
+  hasPermission: 2,
+  credits: "dtb",
+  description: "Lệnh Admin: Điều chỉnh số tiền trong ví của người dùng",
+  commandCategory: "Hệ Thống",
+  usages: "setmoney [add / set / clean / all / uid] [số tiền] [tag/reply/uid]",
+  cooldowns: 2
 };
 
-module.exports.run = async function ({ event, api, Currencies, args,Users }) {
-if (args.length == 0) return api.sendMessage(`====『𝗦𝗘𝗧 𝗠𝗢𝗡𝗘𝗬』====\n━━━━━━━━━━━━━━━\n𝗰𝗵𝗶 𝘁𝗶𝗲̂́𝘁 𝗰𝗮́𝗰𝗵 𝗱𝘂̀𝗻𝗴\n→ /𝗦𝗲𝘁 𝗺𝗼𝗻𝗲𝘆 𝗮𝗱𝗱 𝗿𝗲𝗽𝗹𝘆 𝗵𝗼𝗮̣̆𝗰 𝘁𝗮𝗴 𝗻𝗴𝘂̛𝗼̛̀𝗶 𝗯𝗮̣𝗻 𝗺𝘂𝗼̂́𝗻 𝘀𝗲𝘁 + 𝘀𝗼̂́ 𝗧𝗶𝗲̂̀𝗻\n→ /𝘀𝗲𝘁𝗺𝗼𝗻𝗲𝘆 𝘀𝗲𝘁  + 𝘀𝗼̂́ 𝘁𝗶𝗲̂̀𝗻 : 𝘀𝗲𝘁 𝗺𝗼𝗻𝗲𝘆 𝗰𝗵𝗼 𝗰𝗵𝗶́𝗻𝗵 𝗯𝗮̉𝗻 𝘁𝗵𝗮̂𝗻\n→ /𝘀𝗲𝘁𝗺𝗼𝗻𝗲𝘆 𝗮𝗹𝗹 + 𝘀𝗼̂́ 𝘁𝗶𝗲̂̀𝗻 𝘀𝗲𝘁 𝗰𝗵𝗼 𝘁𝗼𝗮̀𝗻 𝗯𝗼̣̂ 𝘁𝗵𝗮̀𝗻𝗵 𝘃𝗶𝗲̂𝗻 𝘁𝗿𝗼𝗻𝗴 𝗻𝗵𝗼́𝗺\n→ /𝘀𝗲𝘁𝗺𝗼𝗻𝗲𝘆 𝘂𝗶𝗱 + 𝘂𝗶𝗱 𝗰𝘂̉𝗮 𝗺𝗼̣̂𝘁 𝗻𝗴𝘂̛𝗼̛̀𝗶 𝗱𝘂̀𝗻𝗴 𝗻𝗮̀𝗼 đ𝗼́ 𝘃𝗮̀ 𝘀𝗼̂́ 𝘁𝗶𝗲̂̀𝗻 𝗰𝗮̂̀𝗻 𝘀𝗲𝘁\n→ /𝘀𝗲𝘁𝗺𝗼𝗻𝗲𝘆 𝗰𝗹𝗲𝗮𝗻 + 𝘁𝗮𝗴 𝗻𝗴𝘂̛𝗼̛̀𝗶 𝗯𝗮̣𝗻 𝗺𝘂𝗼̂́𝗻 𝘅𝗼𝗮́ 𝘁𝗼𝗮̀𝗻 𝗯𝗼̣̂ 𝘀𝗼̂́ 𝘁𝗶𝗲̂̀𝗻\n━━━━━━━━━━━━━━━━\n💞 𝗟𝗲̣̂𝗻𝗵 𝗱𝗮̀𝗻𝗵 𝗰𝗵𝗼 𝗔𝗗𝗠𝗜𝗡 𝗯𝗼𝘁`, event.threadID, event.messageID);
-    const { threadID, messageID, senderID, messageReply } = event;
+module.exports.run = async function ({ event, api, Currencies, args, Users }) {
+  const { threadID, messageID, senderID, messageReply, mentions } = event;
+  const prefix = (global.data.threadData.get(String(threadID)) || {}).PREFIX || global.config.PREFIX || "/";
 
-    const { throwError } = global.utils;
-    const { increaseMoney, decreaseMoney, getData } = Currencies;
-   const mentionID = Object.keys(event.mentions);
-    const money = parseInt(args[1]);
+  if (!args[0]) {
+    return api.sendMessage(
+      `╔═════════════════════════╗\n` +
+      `     👑 QUẢN LÝ TIỀN TỆ ADMIN 👑\n` +
+      `╚═════════════════════════╝\n` +
+      `📌 Hướng dẫn sử dụng:\n` +
+      `  • ${prefix}setmoney add <tiền> [tag/reply] : Cộng thêm tiền\n` +
+      `  • ${prefix}setmoney set <tiền> [tag/reply] : Đặt lại số dư ví\n` +
+      `  • ${prefix}setmoney clean [tag/reply]      : Đưa số dư về 0$\n` +
+      `  • ${prefix}setmoney all <tiền>             : Phát tiền cho cả nhóm\n` +
+      `  • ${prefix}setmoney uid <uid> <tiền>       : Cộng tiền theo UID\n` +
+      `─────────────────────────\n` +
+      `⚠️ Lệnh chỉ dành cho Admin Bot!`,
+      threadID,
+      messageID
+    );
+  }
 
-    var message = [];
-    var error = [];
+  const sub = args[0].toLowerCase();
+  const money = parseInt(args[1]);
+  const mentionIDs = mentions ? Object.keys(mentions) : [];
 
-    switch (args[0]) {
-        case "add": {
-          if (event.type == "message_reply") {
-            var name = (await Users.getData(event.messageReply.senderID)).name;
-          await Currencies.increaseMoney(event.messageReply.senderID, money); console.log("done");
+  switch (sub) {
+    case "add": {
+      if (isNaN(money)) return api.sendMessage("⚠️ Vui lòng nhập số tiền hợp lệ!", threadID, messageID);
 
-          return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 ${money} 𝐜𝐡𝐨 ${name}` ,event.threadID)      
-
-          } else if (mentionID.length != 0) {
-                for (singleID of mentionID) {
-                if (!money || isNaN(money)) return throwError(this.config.name, threadID, messageID);
-                try {
-                    await Currencies.increaseMoney(singleID, money);
-                    message.push(singleID);
-                } catch (e) { error.push(e); console.log(e) };
-                }
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 ${money}$ 𝐜𝐡𝐨 ${message.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐭𝐡𝐞̂̉ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 ${error.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID) }, messageID);
-            } else {
-                if (!money || isNaN(money)) return throwError(this.config.name, threadID, messageID);
-                try {
-                await Currencies.increaseMoney(senderID, money);
-                message.push(senderID);
-                } catch (e) { error.push(e) };
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 ${money}$ 𝐜𝐡𝐨 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐭𝐡𝐞̂̉ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧`, threadID) }, messageID);
-            }
+      if (event.type === "message_reply") {
+        const targetID = messageReply.senderID;
+        const name = (await Users.getNameUser(targetID)) || targetID;
+        await Currencies.increaseMoney(targetID, money);
+        return api.sendMessage(`✅ Đã cộng +${money.toLocaleString("vi-VN")}$ vào tài khoản của ${name}!`, threadID, messageID);
+      } else if (mentionIDs.length > 0) {
+        for (const uid of mentionIDs) {
+          await Currencies.increaseMoney(uid, money);
         }
-
-        case "set": {
-            if (mentionID.length != 0) {
-                for (singleID of mentionID) {
-                if (!money || isNaN(money)) return throwError(this.config.name, threadID, messageID);
-                try {
-                    await Currencies.setData(singleID, { money });
-                    message.push(singleID);
-                } catch (e) { error.push(e) };
-                }
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐬𝐞𝐭 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 ${money}𝐕𝐍Đ 𝐜𝐡𝐨 ${message.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐬𝐞𝐭 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 ${error.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID) }, messageID);
-            } else if (args[2]) {
-                if (!money || isNaN(money)) return throwError(this.config.name, threadID, messageID);
-                try {
-                await Currencies.setData(args[2], { money });
-                message.push(args[2]);
-                } catch (e) { error.push(e) };
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐬𝐞𝐭 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 ${money}𝐕𝐍Đ 𝐜𝐡𝐨 ${message.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐬𝐞𝐭 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 ${error.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID) }, messageID);
-            }
-            else {
-                if (!money || isNaN(money)) return throwError(this.config.name, threadID, messageID);
-                try {
-                await Currencies.setData(senderID, { money });
-                message.push(senderID);
-                } catch (e) { error.push(e) };
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐬𝐞𝐭 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 ${money}𝐕𝐍Đ 𝐜𝐡𝐨 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐬𝐞𝐭 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧!`, threadID) }, messageID);
-            }
-        }
-
-        case "clean": {
-            if (mentionID.length != 0) {
-                for (singleID of mentionID) {
-                try {
-                    await Currencies.setData(singleID, { money: 0 });
-                    message.push(singleID);
-                } catch (e) { error.push(e) };
-            }
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐱𝐨́𝐚 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 𝐭𝐨𝐚̀𝐧 𝐛𝐨̣̂ 𝐭𝐢𝐞̂̀𝐧 𝐜𝐮̉𝐚 ${message.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲]  𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐱𝐨́𝐚 𝐭𝐨𝐚̀𝐧 𝐛𝐨̣̂ 𝐭𝐢𝐞̂̀𝐧 𝐜𝐮̉𝐚 ${error.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID) }, messageID);
-            } else {
-                try {
-                await Currencies.setData(senderID, { money: 0 });
-                message.push(senderID);
-                } catch (e) { error.push(e) };
-                return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐱𝐨́𝐚 𝐭𝐡𝐚̀𝐧𝐡 𝐜𝐨̂𝐧𝐠 𝐭𝐢𝐞̂̀𝐧 𝐜𝐮̉𝐚 𝐜𝐡𝐨 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲]  𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐱𝐨́𝐚 𝐭𝐨𝐚̀𝐧 𝐛𝐨̣̂ 𝐭𝐢𝐞̂̀𝐧 𝐜𝐮̉𝐚 𝐛𝐚̉𝐧 𝐭𝐡𝐚̂𝐧!`, threadID) }, messageID);
-            }
-        }
-
-        case "all": {
-           var name = (await Users.getData(event.senderID)).name
-            if(!args[1]) return api.sendMessage("[𝐌𝐨𝐧𝐞𝐲] 𝐂𝐡𝐮̛𝐚 𝐧𝐡𝐚̣̂𝐩 𝐬𝐨̂́ 𝐭𝐢𝐞̂̀𝐧", threadID, messageID);
-            if(isNaN(args[1])) return api.sendMessage("[𝐌𝐨𝐧𝐞𝐲] 𝐒𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 𝐩𝐡𝐚̉𝐢 𝐥𝐚̀ 𝐬𝐨̂́", threadID, messageID);
-            if(args[1] > 1000000000) return api.sendMessage("[𝐌𝐨𝐧𝐞𝐲] 𝐒𝐨̂́ 𝐭𝐢𝐞̂̀𝐧 𝐩𝐡𝐚̉𝐢 𝐧𝐡𝐨̉ 𝐡𝐨̛𝐧 𝟏𝟎𝟎𝟎𝟎𝟎𝟎𝟎𝟎𝟎", threadID, messageID);
-            let { participantIDs } = await api.getThreadInfo(threadID);
-            for(let i of participantIDs) {
-                try {
-                    await increaseMoney(parseInt(i), parseInt(args[1]));
-                    message.push(i);
-                } catch(e) { error.push(e) }
-            }
-            return api.sendMessage(`${name} Đ𝐚̃ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 ${args[1]}𝐕𝐍Đ 𝐜𝐡𝐨 ${message.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢`, threadID, function () { if (error.length != 0) return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] 𝐊𝐡𝐨̂𝐧𝐠 𝐭𝐡𝐞̂̉ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 𝐭𝐢𝐞̂̀𝐧 𝐜𝐡𝐨 ${error.length} 𝐧𝐠𝐮̛𝐨̛̀𝐢!`, threadID) }, messageID);
-        }
-
-        case "uid": {
-           var id = args[1];
-    var cut = args[2];
-    let nameeee = (await Users.getData(id)).name
-       return api.sendMessage(`[𝐌𝐨𝐧𝐞𝐲] Đ𝐚̃ 𝐜𝐨̣̂𝐧𝐠 𝐭𝐡𝐞̂𝐦 ${nameeee} 𝐭𝐡𝐚̀𝐧𝐡 ${cut} 𝐕𝐍Đ`, event.threadID, () => Currencies.increaseMoney(id, parseInt(cut)), event.messageID)	
-          }
-        default: {
-            return global.utils.throwError(this.config.name, threadID, messageID);
-        }
+        return api.sendMessage(`✅ Đã cộng +${money.toLocaleString("vi-VN")}$ cho ${mentionIDs.length} người được tag!`, threadID, messageID);
+      } else {
+        await Currencies.increaseMoney(senderID, money);
+        return api.sendMessage(`✅ Đã cộng +${money.toLocaleString("vi-VN")}$ vào tài khoản của chính bạn!`, threadID, messageID);
+      }
     }
-}
+
+    case "set": {
+      if (isNaN(money) || money < 0) return api.sendMessage("⚠️ Vui lòng nhập số tiền hợp lệ!", threadID, messageID);
+
+      if (event.type === "message_reply") {
+        const targetID = messageReply.senderID;
+        const name = (await Users.getNameUser(targetID)) || targetID;
+        await Currencies.setData(targetID, { money });
+        return api.sendMessage(`✅ Đã đặt số dư tài khoản của ${name} thành ${money.toLocaleString("vi-VN")}$!`, threadID, messageID);
+      } else if (mentionIDs.length > 0) {
+        for (const uid of mentionIDs) {
+          await Currencies.setData(uid, { money });
+        }
+        return api.sendMessage(`✅ Đã đặt số dư cho ${mentionIDs.length} người được tag thành ${money.toLocaleString("vi-VN")}$!`, threadID, messageID);
+      } else {
+        await Currencies.setData(senderID, { money });
+        return api.sendMessage(`✅ Đã đặt số dư tài khoản của bạn thành ${money.toLocaleString("vi-VN")}$!`, threadID, messageID);
+      }
+    }
+
+    case "clean": {
+      if (event.type === "message_reply") {
+        const targetID = messageReply.senderID;
+        const name = (await Users.getNameUser(targetID)) || targetID;
+        await Currencies.setData(targetID, { money: 0 });
+        return api.sendMessage(`🧹 Đã reset số dư tài khoản của ${name} về 0$!`, threadID, messageID);
+      } else if (mentionIDs.length > 0) {
+        for (const uid of mentionIDs) {
+          await Currencies.setData(uid, { money: 0 });
+        }
+        return api.sendMessage(`🧹 Đã reset số dư của ${mentionIDs.length} người được tag về 0$!`, threadID, messageID);
+      } else {
+        await Currencies.setData(senderID, { money: 0 });
+        return api.sendMessage(`🧹 Đã reset số dư của chính bạn về 0$!`, threadID, messageID);
+      }
+    }
+
+    case "all": {
+      if (isNaN(money) || money <= 0) return api.sendMessage("⚠️ Vui lòng nhập số tiền hợp lệ!", threadID, messageID);
+      const threadInfo = await api.getThreadInfo(threadID);
+      const participantIDs = threadInfo.participantIDs || [];
+
+      for (const uid of participantIDs) {
+        try {
+          await Currencies.increaseMoney(uid, money);
+        } catch (_) {}
+      }
+      return api.sendMessage(`🎁 Admin vừa phát thưởng +${money.toLocaleString("vi-VN")}$ cho toàn bộ ${participantIDs.length} thành viên trong nhóm!`, threadID, messageID);
+    }
+
+    case "uid": {
+      const targetUID = args[1];
+      const addMoney = parseInt(args[2]);
+      if (!targetUID || isNaN(addMoney)) {
+        return api.sendMessage(`⚠️ Cú pháp: ${prefix}setmoney uid <UID> <số tiền>`, threadID, messageID);
+      }
+      const name = (await Users.getNameUser(targetUID)) || targetUID;
+      await Currencies.increaseMoney(targetUID, addMoney);
+      return api.sendMessage(`✅ Đã cộng +${addMoney.toLocaleString("vi-VN")}$ cho người dùng [${name}] (UID: ${targetUID})!`, threadID, messageID);
+    }
+
+    default:
+      return api.sendMessage(`❌ Cú pháp không hợp lệ! Gõ "${prefix}setmoney" để xem hướng dẫn chi tiết.`, threadID, messageID);
+  }
+};

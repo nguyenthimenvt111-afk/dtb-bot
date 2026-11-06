@@ -1,0 +1,263 @@
+[
+  {
+    "name": "addatb",
+    "file": "addatb.js",
+    "category": "Hệ thống",
+    "perm": 0,
+    "desc": "Thêm key thuê auto bank",
+    "usages": "/addatb <số ngày> <link>",
+    "hasCurrencies": false
+  },
+  {
+    "name": "altp",
+    "file": "altp.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Chương trình Ai Là Triệu Phú với giao diện đồ họa Canvas",
+    "usages": "[play/stop/help]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "ayaka",
+    "file": "ayaka.js",
+    "category": "Random-img",
+    "perm": 0,
+    "desc": "Random ảnh ayaka",
+    "usages": "ayaka",
+    "hasCurrencies": true
+  },
+  {
+    "name": "bank",
+    "file": "bank.js",
+    "category": "Tiện ích",
+    "perm": 0,
+    "desc": "",
+    "usages": "",
+    "hasCurrencies": true
+  },
+  {
+    "name": "baucua",
+    "file": "baucua.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Game bầu cua tôm cá đồ họa Canvas chất lượng cao",
+    "usages": "[bầu/cua/cá/gà/tôm/nai] [số tiền cược]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "boctham",
+    "file": "boctham.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "là trò chơi bốc thăm câu hỏi",
+    "usages": "",
+    "hasCurrencies": true
+  },
+  {
+    "name": "cauca",
+    "file": "cauca.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Minigame câu cá giải trí đỉnh cao: mua cần, thả câu, săn thủy quái, bán cá kiếm tiền",
+    "usages": "cauca [cau/tui/ban/shop/mua]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "cuop",
+    "file": "cuop.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Phủ định học thuyết lao động của triết gia Huấn rô sì :>",
+    "usages": "@tag",
+    "hasCurrencies": true
+  },
+  {
+    "name": "daily",
+    "file": "daily.js",
+    "category": "Tiện ích",
+    "perm": 0,
+    "desc": "Nhận 500 coins mỗi ngày!",
+    "usages": "",
+    "hasCurrencies": true
+  },
+  {
+    "name": "dapchuot",
+    "file": "dapchuot.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Trò chơi đập chuột chũi phản xạ nhanh: quan sát hang chuột và reply số hang để đập trúng",
+    "usages": "dapchuot [số tiền cược / để trống]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "doanso",
+    "file": "doanso.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Trò chơi đấu trí đoán số bí mật 1 - 100 với Bot qua reply (thưởng cược x5)",
+    "usages": "doanso [số tiền cược / để trống]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "ganyu",
+    "file": "ganyu.js",
+    "category": "Random-img",
+    "perm": 0,
+    "desc": "Random ảnh ganyu",
+    "usages": "ganyu",
+    "hasCurrencies": true
+  },
+  {
+    "name": "gheplove",
+    "file": "gheplove.js",
+    "category": "Nhóm",
+    "perm": 0,
+    "desc": "Ghép đôi ❗NGẪU NHIÊN❗",
+    "usages": "\nboy => Ghép với nam\ngirl => Ghép với nữ\nKhông ghi thì random hết",
+    "hasCurrencies": false
+  },
+  {
+    "name": "ghép",
+    "file": "ghép.js",
+    "category": "Nhóm",
+    "perm": 0,
+    "desc": "Ghép đôi",
+    "usages": "ghép",
+    "hasCurrencies": false
+  },
+  {
+    "name": "hdpe",
+    "file": "hdpe.js",
+    "category": "Kinh tế",
+    "perm": 0,
+    "desc": "Đầu tư và rút tiền - Có thể x2 hoặc mất trắng",
+    "usages": "/hdpe [dautu|rut] [số tiền]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "info",
+    "file": "info.js",
+    "category": "Tiện ích",
+    "perm": 0,
+    "desc": "Lấy thông tin người dùng Facebook",
+    "usages": "[uid/link/@tag]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "kbb",
+    "file": "kbb.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Kéo búa bao (Oẳn tù tì) đồ họa Canvas",
+    "usages": "[kéo/búa/bao] [số tiền cược]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "keobo",
+    "file": "keobo.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Game kéo bò",
+    "usages": "keobo",
+    "hasCurrencies": true
+  },
+  {
+    "name": "money",
+    "file": "money.js",
+    "category": "Tiện ích",
+    "perm": 0,
+    "desc": "Kiểm tra số tiền của bản thân hoặc người được tag",
+    "usages": "[Tag]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "pay",
+    "file": "pay.js",
+    "category": "Nhóm",
+    "perm": 0,
+    "desc": "Chuyển tiền của bản thân cho ai đó",
+    "usages": "pay [Tag | Reply] [Coins]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "setmoney",
+    "file": "setmoney.js",
+    "category": "Hệ Thống",
+    "perm": 2,
+    "desc": "Điều chỉnh thông tin của người dùng",
+    "usages": "[add/all/set/clean] [Số tiền] [Tag người dùng/reply]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "slot",
+    "file": "slot.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Máy quay hoa quả casino Canvas",
+    "usages": "[số tiền cược]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "taixiu",
+    "file": "taixiu.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Chơi tài xỉu canvas đẹp chuẩn casino",
+    "usages": "[tài/xỉu] [số tiền]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "tungdongxu",
+    "file": "tungdongxu.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Tung đồng xu may rủi đồ họa Canvas",
+    "usages": "[ngửa/xấp] [tiền cược]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "tx",
+    "file": "tx.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Chơi tài xỉu + lịch sử cầu/giao dịch/số dư",
+    "usages": "[tài/xỉu] [số tiền] | history | log | top",
+    "hasCurrencies": true
+  },
+  {
+    "name": "vongquay",
+    "file": "vongquay.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Vòng quay may mắn casino: quay trúng Jackpot x10, x5, x3 tiền cược kèm hình ảnh bánh xe neon",
+    "usages": "vongquay [số tiền cược]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "work",
+    "file": "work.js",
+    "category": "Tiện ích",
+    "perm": 0,
+    "desc": "work",
+    "usages": "[]",
+    "hasCurrencies": true
+  },
+  {
+    "name": "xidach",
+    "file": "xidach.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Chơi xì dách",
+    "usages": "[create/join/leave/start]\n->\ncreate tiền_cược (tối thiểu 50$)\njoin tiền_cược (tối thiểu 50$)\nleave (rời ván xì dách đang tham gia ở nhóm)\nstart (bắt đầu ván xì dách mà bạn tạo ở nhóm)\n->",
+    "hasCurrencies": false
+  },
+  {
+    "name": "zwar",
+    "file": "zwar.js",
+    "category": "Trò Chơi",
+    "perm": 0,
+    "desc": "Chiến đấu với zombie",
+    "usages": "[register/shop/prison/help]",
+    "hasCurrencies": true
+  }
+]

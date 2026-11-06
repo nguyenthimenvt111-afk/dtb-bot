@@ -1,77 +1,144 @@
+const fs = require('fs-extra');
+const path = require('path');
+
+let Canvas = null;
+try {
+  Canvas = require("@napi-rs/canvas");
+} catch (_) {
+  try {
+    Canvas = require("canvas");
+  } catch (_) {}
+}
+
 module.exports.config = {
-    name: "money",
-    version: "0.0.1",
-    hasPermssion: 0,
-    credits: "dtb",//mod by ARAXY XD
-    description: "Kiểm tra số tiền của bản thân hoặc người được tag",
-    commandCategory: "Tiện ích",
-    usages: "[Tag]",
-    cooldowns: 5
+  name: "money",
+  version: "2.0.0",
+  hasPermssion: 0,
+  hasPermission: 0,
+  credits: "dtb",
+  description: "Kiểm tra số dư tài khoản/ví tiền của bạn hoặc người được tag/reply",
+  commandCategory: "Tiện ích",
+  usages: "money [@tag / reply]",
+  cooldowns: 3
 };
 
-module.exports.run = async function({ api, event, args, Currencies, Users }) {
-    const { threadID, messageID, senderID, mentions } = event;
-    const fs = require('fs');
-    const axios = require('axios');
+function formatNumber(num) {
+  return Math.floor(Number(num) || 0).toLocaleString("vi-VN");
+}
 
-    // Hàm làm tròn số về phần nguyên gần nhất
-    function formatNumber(num) {
-        return Math.floor(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-    }
+module.exports.run = async function ({ api, event, args, Currencies, Users }) {
+  const { threadID, messageID, senderID, mentions } = event;
 
-    if(!fs.existsSync(__dirname+'/cache/SplineSans-Medium.ttf')) { 
-        let getfont = (await axios.get(`https://drive.google.com/u/0/uc?id=102B8O3_0vTn_zla13wzSzMa-vdTZOCmp&export=download`, { responseType: "arraybuffer" })).data;
-        fs.writeFileSync(__dirname+"/cache/SplineSans-Medium.ttf", Buffer.from(getfont));
-    };
-    if(!fs.existsSync(__dirname+'/cache/SplineSans.ttf')) { 
-        let getfont2 = (await axios.get(`https://drive.google.com/u/0/uc?id=1--V7DANKLsUx57zg8nLD4b5aiPfHcmwD&export=download`, { responseType: "arraybuffer" })).data;
-        fs.writeFileSync(__dirname+"/cache/SplineSans.ttf", Buffer.from(getfont2));
-    };
+  let targetID = senderID;
+  if (event.type === "message_reply") {
+    targetID = event.messageReply.senderID;
+  } else if (mentions && Object.keys(mentions).length > 0) {
+    targetID = Object.keys(mentions)[0];
+  }
 
-    let name, money;
+  const userData = (await Users.getData(targetID)) || {};
+  const name = userData.name || (await Users.getNameUser(targetID)) || "Người dùng";
+  const userMoney = (await Currencies.getData(targetID)) || {};
+  const money = userMoney.money || 0;
+  const formatted = formatNumber(money);
 
-    if (event.type == "message_reply") {
-        const uid = event.messageReply.senderID;
-        name = (await Users.getData(uid)).name;
-        money = (await Currencies.getData(uid)).money || 0;
-    } else if (Object.keys(event.mentions).length == 1) {
-        const mention = Object.keys(mentions)[0];
-        name = (await Users.getData(mention)).name;
-        money = (await Currencies.getData(mention)).money || 0;
-    } else {
-        name = (await Users.getData(senderID)).name;
-        money = (await Currencies.getData(senderID)).money || 0;
-    }
-
-    const argss = formatNumber(money);
-
-    const { loadImage, createCanvas } = require("canvas");
-    const path = __dirname + "/cache/atmaraxy.png";
+  // Try Canvas Card
+  if (Canvas && Canvas.createCanvas) {
     try {
-        const bg = (await axios.get(`https://i.ibb.co/NZD1Zzz/image.png`, { responseType: "arraybuffer", timeout: 8000 })).data;
-        fs.writeFileSync(path, Buffer.from(bg));
-        const bgBase = await loadImage(path);
-        const canvas = createCanvas(bgBase.width, bgBase.height);
-        const ctx = canvas.getContext("2d");
-        const Canvas = global.nodemodule["canvas"];
-        ctx.drawImage(bgBase, 0, 0, canvas.width, canvas.height);
-        try {
-            Canvas.registerFont(__dirname+targetFontMedium, { family: "SplineSans-Medium" });
-            Canvas.registerFont(__dirname+targetFontRegular, { family: "SplineSans" });
-        } catch (_) {}
-        ctx.font = "50px SplineSans-Medium";
-        ctx.fillStyle = "#000000";
-        ctx.textAlign = "center";
-        ctx.fillText('' + argss + 'đ', 530, 359);
-        const imageBuffer = canvas.toBuffer();
-        fs.writeFileSync(path, imageBuffer);
+      const width = 800;
+      const height = 400;
+      const canvas = Canvas.createCanvas(width, height);
+      const ctx = canvas.getContext("2d");
 
-        const msg = {
-            body: `💳 Số tiền của ${name}: ${argss}đ`,
-            attachment: fs.createReadStream(path)
-        };
-        return api.sendMessage(msg, threadID, () => { try { fs.unlinkSync(path); } catch(_) {} }, messageID);
-    } catch (_) {
-        return api.sendMessage(`💰 [ VÍ TIỀN ]\n👤 Chủ tài khoản: ${name}\n💵 Số dư hiện có: ${argss}đ`, threadID, messageID);
-    }
+      // Background gradient
+      const bgGrad = ctx.createLinearGradient(0, 0, width, height);
+      bgGrad.addColorStop(0, "#0b0f19");
+      bgGrad.addColorStop(0.5, "#151c2e");
+      bgGrad.addColorStop(1, "#070a12");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // Card frame
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(20, 20, width - 40, height - 40);
+
+      // Header glow
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = "bold 26px Arial, sans-serif";
+      ctx.fillText("💳 THẺ TÀI KHOẢN DTB PAY", 50, 70);
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "18px Arial, sans-serif";
+      ctx.fillText("SYSTEM FINANCIAL NETWORK", 50, 100);
+
+      // Chip icon simulation
+      ctx.fillStyle = "#f59e0b";
+      ctx.fillRect(50, 130, 60, 45);
+      ctx.strokeStyle = "#d97706";
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(50, 130, 60, 45);
+
+      // User info
+      ctx.fillStyle = "#cbd5e1";
+      ctx.font = "bold 20px Arial, sans-serif";
+      ctx.fillText("CHỦ TÀI KHOẢN", 50, 225);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 28px Arial, sans-serif";
+      ctx.fillText(name.toUpperCase(), 50, 260);
+
+      // UID
+      ctx.fillStyle = "#64748b";
+      ctx.font = "16px Arial, sans-serif";
+      ctx.fillText(`UID: ${targetID}`, 50, 290);
+
+      // Balance
+      ctx.fillStyle = "#10b981";
+      ctx.font = "bold 20px Arial, sans-serif";
+      ctx.fillText("SỐ DƯ HIỆN CÓ", 420, 225);
+
+      ctx.fillStyle = "#fbbf24";
+      ctx.font = "bold 38px Arial, sans-serif";
+      ctx.fillText(`${formatted} $`, 420, 268);
+
+      // Footer
+      ctx.fillStyle = "#475569";
+      ctx.font = "14px Arial, sans-serif";
+      ctx.fillText("POWERED BY DTB BOT SYSTEM • VALID THRU 12/99", 50, 350);
+
+      const cacheDir = path.join(__dirname, "cache");
+      fs.ensureDirSync(cacheDir);
+      const tempPath = path.join(cacheDir, `money_${targetID}_${Date.now()}.png`);
+      fs.writeFileSync(tempPath, canvas.toBuffer("image/png"));
+
+      return api.sendMessage(
+        {
+          body: `💳 [ VÍ TIỀN CÁ NHÂN ]\n👤 Chủ ví: ${name}\n💰 Số dư: ${formatted}$\n🆔 UID: ${targetID}`,
+          attachment: fs.createReadStream(tempPath)
+        },
+        threadID,
+        () => {
+          try {
+            if (fs.existsSync(tempPath)) fs.unlinkSync(tempPath);
+          } catch (_) {}
+        },
+        messageID
+      );
+    } catch (_) {}
+  }
+
+  // Fallback text
+  return api.sendMessage(
+    `╔═════════════════════════╗\n` +
+    `   💳 VÍ TIỀN CÁ NHÂN 💳\n` +
+    `╚═════════════════════════╝\n` +
+    `👤 Chủ ví: ${name}\n` +
+    `💰 Số dư : ${formatted} $\n` +
+    `🆔 UID   : ${targetID}\n` +
+    `─────────────────────────\n` +
+    `💡 Dùng /pay để chuyển tiền hoặc /bank để gửi ngân hàng sinh lãi!`,
+    threadID,
+    messageID
+  );
 };

@@ -1,101 +1,191 @@
+const fs = require("fs-extra");
+const path = require("path");
+
 module.exports.config = {
-        name: "bank",
-        version: "0.0.1",
-        hasPermssion: 0,
-        credits: "dtb",
-        description: "",
-        commandCategory: "Tiện ích",
-        usages: "",
-        cooldowns: 0,
-dependencies: {
-         "fs-extra": "",
-      "request": "",
-      "axios": ""
-}  
+  name: "bank",
+  version: "2.0.0",
+  hasPermssion: 0,
+  hasPermission: 0,
+  credits: "dtb",
+  description: "Ngân hàng ảo DTB Bank: gửi tiết kiệm sinh lãi, rút tiền, kiểm tra số dư",
+  commandCategory: "Tiện ích",
+  usages: "bank [register / check / send / rut] [số tiền]",
+  cooldowns: 2
 };
-module.exports.onLoad = async () => {
-  const { existsSync, writeFileSync, mkdirSync } = require("fs-extra")
-  const { join } = require("path")
-  const axios = require("axios");
-  const dir = __dirname + `/data`;
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-    const pathData = join(__dirname + '/data/bank.json');
-    if (!existsSync(pathData)) return writeFileSync(pathData, "[]", "utf-8"); 
-  return;
+
+const bankDataPath = path.join(__dirname, "data", "bank.json");
+
+function loadBankData() {
+  fs.ensureDirSync(path.join(__dirname, "data"));
+  if (!fs.existsSync(bankDataPath)) {
+    fs.writeFileSync(bankDataPath, "[]", "utf8");
+    return [];
+  }
+  try {
+    return JSON.parse(fs.readFileSync(bankDataPath, "utf8"));
+  } catch (_) {
+    return [];
+  }
 }
-module.exports.run = async function({ api, event, args, models, Users, Threads, Currencies, permssion }) {
+
+function saveBankData(data) {
+  fs.writeFileSync(bankDataPath, JSON.stringify(data, null, 2), "utf8");
+}
+
+function formatNumber(num) {
+  return Math.floor(Number(num) || 0).toLocaleString("vi-VN");
+}
+
+module.exports.run = async function ({ api, event, args, Currencies, Users }) {
   const { threadID, messageID, senderID } = event;
-  const axios = require("axios")
-   try{
-  const { readFileSync, writeFileSync } = require("fs-extra")
-  const { join } = require("path")
-  const pathData = join(__dirname + '/data/bank.json');
-  let user = [];
-  try { user = JSON.parse(readFileSync(pathData, "utf8")); } catch (_) { user = []; }
-  const timeIM = 60*60
-  const laisuat = 0.05
-  const moneyInput = parseInt(args[1])
-  if(args[0] == '-r' || args[0] == 'register') {
-    if (!user.find(i => i.senderID == senderID)) {
-      var add = { senderID: senderID,  money: "0" }
-      user.push(add);
-      writeFileSync(pathData, JSON.stringify(user, null, 2));
-      return api.sendMessage(`[ ✅ SUCCESS ] - Bạn đã đăng kí thành công, gửi ít nhất 10000$ để có lãi💰`, threadID, messageID)
-    }
-  else return api.sendMessage(`[ ⚠️ WARNING ] - Bạn đã có tài khoản trên hệ thống MIRAI Bank🏦`, threadID, messageID)
-  }
-  if(args[0] == 'check' || args[0] == 'coins') {
-  if (!user.find(i => i.senderID == senderID)) return api.sendMessage(`[⚠️ WARNING] - Bạn chưa đăng kí sử dụng banking, ${global.config.PREFIX}${this.config.name} register để đăng kí🏦`, threadID, messageID)
-    else { 
-      var userData = user.find(i => i.senderID == senderID);
-      return api.sendMessage(`[ BANKING ] - Số tiền bạn gửi Mirai Bank là: ${formatNumber(userData.money)}$\n💷 Lãi: +${laisuat}% trong ${timeIM/60} phút`, threadID, messageID)
-    }
-  } 
-  if(args[0] == 'gửi' || args[0] == 'send') {
-  if (!args[1]) return api.sendMessage("[❎ FAILED] - Số tiền gửi vào phải là một con số", threadID, messageID);
-  if (!user.find(i => i.senderID == senderID)) {
-    return api.sendMessage(`[⚠️ WARNING] - Bạn chưa đăng kí sử dụng banking, ${global.config.PREFIX}${this.config.name} register để đăng kí🏦`, threadID, messageID)
-  }
-  else { 
-      let balances = (await Currencies.getData(senderID)).money;
-      var balance = args[1] !== 'all' ? BigInt(args[1]) : balances
-    if(balance < 10000) return api.sendMessage('[ ⚠️ WARNING ] - Số tiền gửi ngân hàng phải lớn hơn 10,000',threadID, messageID)
-    //if(balance > 100000000000000000000) return api.sendMessage('[ ⚠️ WARNING ] - Số tiền gửi ngân hàng phải nhỏ hơn 100,000,000,000,000,000,000',threadID, messageID)
-      if(balance > balances) return api.sendMessage(`[ ⚠️ WARNING ] - Số dư không đủ ${formatNumber(balance)} để gửi vào Mirai Bank💰`, threadID, messageID)
-      var userData = user.find(i => i.senderID == senderID);
-      var money = userData.money;
-      userData.money = String(BigInt(money) + balance)
-      writeFileSync(pathData, JSON.stringify(user, null, 2));
-      await Currencies.decreaseMoney(senderID, String(balance));
-      return api.sendMessage(`[ ✅ SUCCESS ] - Bạn vừa gửi ${formatNumber(balance)}$ vào Mirai Bank\n💷 Lãi: +${laisuat}% trong ${timeIM/60} phút`, threadID, messageID)
-    }
-  }
-  if(args[0] == 'rút' || args[0] == 'lấy') { 
-    if (!args[1]) return api.sendMessage("[⚠️ WARNING] - Vui lòng nhập số tiền 💰", threadID, messageID);
-    if (!user.find(i => i.senderID == senderID)) {
-      return api.sendMessage(`[⚠️ WARNING] - Bạn chưa đăng kí sử dụng banking, ${global.config.PREFIX}${this.config.name} register để đăng kí🏦`, threadID, messageID)
-    }
-  else {  
-    var userData = user.find(i => i.senderID == senderID); 
+  const bankUsers = loadBankData();
+  const sub = (args[0] || "").toLowerCase();
+  const prefix = (global.data.threadData.get(String(threadID)) || {}).PREFIX || global.config.PREFIX || "/";
 
-    var money =  args[1] !== 'all' ? args[1] : userData.money
-    if(BigInt(money) < 10000) return api.sendMessage('[ ⚠️ WARNING ] - Số tiền rút ngân hàng phải lớn hơn 10,000',threadID, messageID)
-    if(BigInt(money) > BigInt(userData.money)) return api.sendMessage('[ ⚠️ WARNING ] - Số dư của bạn không đủ để thực hiện giao dịch này!', threadID, messageID)
-      else {
-        await Currencies.increaseMoney(senderID, String(money));
-        userData.money = String(BigInt(userData.money) - BigInt(money))
-        writeFileSync(pathData, JSON.stringify(user, null, 2));
-        return api.sendMessage(`[ BANKING ] - Rút thành công ${formatNumber(money)}$, số dư còn lại là ${userData.money}$`, threadID, messageID)
-      }
-    }
-  }
-  else return api.sendMessage(`=====🏦MIRAI BANK🏦=====\n\n${global.config.PREFIX}${this.config.name} register -> Đăng kí gửi tiền tại MIRAI Bank💹\n${global.config.PREFIX}${this.config.name} check -> Xem số tiền trong MIRAI Bank💳\n${global.config.PREFIX}${this.config.name} gửi 10000 -> Gửi tiền vào MIRAI Bank💷\n${global.config.PREFIX}${this.config.name} rút 10000 -> Rút tiền từ MIRAI Bank💰
-`, threadID, messageID)
-   }catch(e){
-     console.log(e)
-   }
-}
+  const laisuat = 0.05; // 5% lãi
+  const timeInterest = 60; // 60 phút
 
-function formatNumber(number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+  // 1. Đăng ký tài khoản
+  if (["register", "-r", "dangky", "đăngký"].includes(sub)) {
+    if (bankUsers.some(u => String(u.senderID) === String(senderID))) {
+      return api.sendMessage("⚠️ Bạn đã có tài khoản tại DTB Bank rồi!", threadID, messageID);
+    }
+    bankUsers.push({
+      senderID: String(senderID),
+      money: "0",
+      lastInterest: Date.now()
+    });
+    saveBankData(bankUsers);
+    return api.sendMessage(
+      "✅ ĐĂNG KÝ THÀNH CÔNG!\n" +
+      "🏦 Chào mừng bạn đến với DTB Bank!\n" +
+      `💡 Hãy dùng "${prefix}bank send 10000" để gửi tiết kiệm và nhận lãi +5% mỗi giờ nhé!`,
+      threadID,
+      messageID
+    );
+  }
+
+  // Tìm tài khoản
+  const userAccount = bankUsers.find(u => String(u.senderID) === String(senderID));
+
+  // 2. Kiểm tra số dư ngân hàng
+  if (["check", "coins", "sodu", "info"].includes(sub)) {
+    if (!userAccount) {
+      return api.sendMessage(`⚠️ Bạn chưa có tài khoản ngân hàng! Gõ "${prefix}bank register" để mở tài khoản miễn phí.`, threadID, messageID);
+    }
+
+    // Tính lãi tự động nếu đủ thời gian
+    const now = Date.now();
+    const lastTime = userAccount.lastInterest || now;
+    const hoursPassed = Math.floor((now - lastTime) / (3600 * 1000));
+    let bonusInterest = 0;
+    if (hoursPassed > 0 && BigInt(userAccount.money) > 0n) {
+      bonusInterest = Math.floor(Number(userAccount.money) * laisuat * hoursPassed);
+      userAccount.money = String(BigInt(userAccount.money) + BigInt(bonusInterest));
+      userAccount.lastInterest = now;
+      saveBankData(bankUsers);
+    }
+
+    return api.sendMessage(
+      `╔═════════════════════════╗\n` +
+      `       🏦 DTB BANKING 🏦\n` +
+      `╚═════════════════════════╝\n` +
+      `💳 Tài khoản: ${senderID}\n` +
+      `💰 Tiền gửi : ${formatNumber(userAccount.money)} $\n` +
+      `📈 Lãi suất : +${laisuat * 100}% / giờ\n` +
+      (bonusInterest > 0 ? `✨ Lãi nhận được gần nhất: +${formatNumber(bonusInterest)}$\n` : "") +
+      `─────────────────────────\n` +
+      `💡 Dùng "${prefix}bank send <tiền>" để gửi thêm hoặc "${prefix}bank rut <tiền>" để rút tiền về ví!`,
+      threadID,
+      messageID
+    );
+  }
+
+  // 3. Gửi tiền vào ngân hàng
+  if (["send", "gửi", "gui", "nap"].includes(sub)) {
+    if (!userAccount) {
+      return api.sendMessage(`⚠️ Bạn chưa đăng ký tài khoản! Gõ "${prefix}bank register" để đăng ký.`, threadID, messageID);
+    }
+
+    const currentWallet = (await Currencies.getData(senderID)).money || 0;
+    let sendAmount = 0;
+
+    if (args[1] === "all") {
+      sendAmount = currentWallet;
+    } else {
+      sendAmount = parseInt(args[1]);
+    }
+
+    if (isNaN(sendAmount) || sendAmount < 10000) {
+      return api.sendMessage("⚠️ Số tiền gửi tối thiểu vào ngân hàng là 10,000$!", threadID, messageID);
+    }
+
+    if (sendAmount > currentWallet) {
+      return api.sendMessage(`❌ Số dư ví của bạn không đủ! Hiện tại bạn chỉ có ${formatNumber(currentWallet)}$.`, threadID, messageID);
+    }
+
+    await Currencies.decreaseMoney(senderID, sendAmount);
+    userAccount.money = String(BigInt(userAccount.money) + BigInt(sendAmount));
+    if (!userAccount.lastInterest) userAccount.lastInterest = Date.now();
+    saveBankData(bankUsers);
+
+    return api.sendMessage(
+      `✅ GỬI TIỀN THÀNH CÔNG!\n` +
+      `💵 Đã gửi: ${formatNumber(sendAmount)}$ vào DTB Bank\n` +
+      `💰 Tổng tiền trong tài khoản: ${formatNumber(userAccount.money)}$\n` +
+      `📈 Lãi suất: +${laisuat * 100}% mỗi giờ`,
+      threadID,
+      messageID
+    );
+  }
+
+  // 4. Rút tiền từ ngân hàng về ví
+  if (["rut", "rút", "lay", "lấy", "withdraw"].includes(sub)) {
+    if (!userAccount) {
+      return api.sendMessage(`⚠️ Bạn chưa đăng ký tài khoản! Gõ "${prefix}bank register" để đăng ký.`, threadID, messageID);
+    }
+
+    let withdrawAmount = 0;
+    if (args[1] === "all") {
+      withdrawAmount = Number(userAccount.money);
+    } else {
+      withdrawAmount = parseInt(args[1]);
+    }
+
+    if (isNaN(withdrawAmount) || withdrawAmount < 1000) {
+      return api.sendMessage("⚠️ Số tiền rút tối thiểu là 1,000$!", threadID, messageID);
+    }
+
+    if (BigInt(withdrawAmount) > BigInt(userAccount.money)) {
+      return api.sendMessage(`❌ Số dư ngân hàng của bạn không đủ! Bạn chỉ có ${formatNumber(userAccount.money)}$ trong ngân hàng.`, threadID, messageID);
+    }
+
+    userAccount.money = String(BigInt(userAccount.money) - BigInt(withdrawAmount));
+    saveBankData(bankUsers);
+    await Currencies.increaseMoney(senderID, withdrawAmount);
+
+    return api.sendMessage(
+      `✅ RÚT TIỀN THÀNH CÔNG!\n` +
+      `💵 Đã rút: ${formatNumber(withdrawAmount)}$ về ví cá nhân\n` +
+      `💰 Số dư ngân hàng còn lại: ${formatNumber(userAccount.money)}$`,
+      threadID,
+      messageID
+    );
+  }
+
+  // Menu hướng dẫn mặc định
+  return api.sendMessage(
+    `╔═════════════════════════╗\n` +
+    `       🏦 DTB BANKING 🏦\n` +
+    `╚═════════════════════════╝\n` +
+    `📌 Hướng dẫn sử dụng:\n` +
+    `  • ${prefix}bank register : Mở tài khoản ngân hàng\n` +
+    `  • ${prefix}bank check    : Kiểm tra số dư & lãi suất\n` +
+    `  • ${prefix}bank send <tiền|all> : Gửi tiền tiết kiệm\n` +
+    `  • ${prefix}bank rut <tiền|all>  : Rút tiền về ví\n` +
+    `─────────────────────────\n` +
+    `📈 Lãi suất cố định: +5% mỗi giờ cho mọi khoản tiền gửi!`,
+    threadID,
+    messageID
+  );
+};
