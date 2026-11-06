@@ -75,6 +75,99 @@ function truncateText(ctx, text, maxWidth) {
     return text + "...";
 }
 
+function drawChatIcon(ctx, x, y, color) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+
+    const bx = x - 9, by = y - 8, bw = 18, bh = 13, br = 3.5;
+    ctx.beginPath();
+    ctx.moveTo(bx + br, by);
+    ctx.lineTo(bx + bw - br, by);
+    ctx.arcTo(bx + bw, by, bx + bw, by + br, br);
+    ctx.lineTo(bx + bw, by + bh - br);
+    ctx.arcTo(bx + bw, by + bh, bx + bw - br, by + bh, br);
+    ctx.lineTo(bx + 6, by + bh);
+    ctx.lineTo(bx + 2, by + bh + 4);
+    ctx.lineTo(bx + 3, by + bh);
+    ctx.lineTo(bx + br, by + bh);
+    ctx.arcTo(bx, by + bh, bx, by + bh - br, br);
+    ctx.lineTo(bx, by + br);
+    ctx.arcTo(bx, by, bx + br, by, br);
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x - 4, y - 1.5, 1.2, 0, Math.PI * 2);
+    ctx.arc(x, y - 1.5, 1.2, 0, Math.PI * 2);
+    ctx.arc(x + 4, y - 1.5, 1.2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+}
+
+function drawLeaveMembersIcon(ctx, x, y, color) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+
+    // User on left
+    ctx.beginPath();
+    ctx.arc(x - 4, y - 3, 3.8, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x - 4, y + 8, 7.5, Math.PI, 0);
+    ctx.stroke();
+
+    // Trending down arrow on right
+    ctx.beginPath();
+    ctx.moveTo(x + 3, y - 4);
+    ctx.lineTo(x + 9, y + 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + 5, y + 2);
+    ctx.lineTo(x + 9, y + 2);
+    ctx.lineTo(x + 9, y - 2);
+    ctx.stroke();
+    ctx.restore();
+}
+
+function drawClockIcon(ctx, x, y, color) {
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(x, y, 1.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x, y - 5);
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + 4.5, y);
+    ctx.stroke();
+    ctx.restore();
+}
+
 async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, isSelfLeave, timeString }) {
     if (!Canvas || !Canvas.createCanvas) return null;
     const { createCanvas, loadImage } = Canvas;
@@ -326,22 +419,22 @@ async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, is
 
     const stats = [
         {
-            icon: '🏠',
             title: 'NHÓM CHAT',
             value: truncateText(ctx, threadName, 220),
-            color: '#f87171'
+            color: '#f87171',
+            draw: drawChatIcon
         },
         {
-            icon: '📉',
             title: 'THÀNH VIÊN HIỆN TẠI',
             value: `Còn lại ${currentMembers} thành viên`,
-            color: '#fb923c'
+            color: '#fb923c',
+            draw: drawLeaveMembersIcon
         },
         {
-            icon: '⏱',
             title: 'THỜI GIAN RỜI NHÓM',
             value: timeString,
-            color: '#f43f5e'
+            color: '#f43f5e',
+            draw: drawClockIcon
         }
     ];
 
@@ -360,10 +453,8 @@ async function renderLeaveCardCanvas({ uid, name, threadName, currentMembers, is
         ctx.arc(icX, icY, 22, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '22px Segoe UI Emoji, sans-serif';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillText(st.icon, icX, icY + 1);
+        // Draw crisp vector logo
+        st.draw(ctx, icX, icY, st.color);
 
         ctx.font = `bold 12px ${fontFam}`;
         ctx.textAlign = 'left';
