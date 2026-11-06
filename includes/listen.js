@@ -162,6 +162,18 @@ module.exports = function ({ api, models }) {
         event.senderID != api.getCurrentUserID() &&
         !(global.config.ADMINBOT || []).includes(event.senderID)
       ) {
+        const bodyTrim = (event.body || "").trim();
+        const lowerBody = bodyTrim.toLowerCase();
+
+        // Cho phép các lệnh nhập key / thuê bot / liên hệ admin chạy ngay cả khi chưa thuê hoặc hết hạn
+        const isRentCmd =
+          lowerBody.startsWith(`${prefix}rent`) ||
+          lowerBody.startsWith(`${prefix}key`) ||
+          lowerBody.startsWith(`${prefix}thuebot`) ||
+          lowerBody.startsWith(`${prefix}callad`);
+
+        if (isRentCmd) return;
+
         const rentFilePath = path.join(__dirname, "../modules/commands/cache/rentbot/rents.json");
 
         let rentList = [];
@@ -177,9 +189,14 @@ module.exports = function ({ api, models }) {
         const allRecords = rentList.filter(r => String(r.tid) === String(event.threadID));
 
         // Nếu chưa thuê bot
-        if (allRecords.length === 0 && event.body.trim() !== `${prefix}callad`) {
+        if (allRecords.length === 0) {
           return api.shareContact(
-            `[  Thông Báo Thuê Bot  ]\n─────────────────\n❌ Nhóm của bạn chưa kích hoạt sử dụng bot.\nVui lòng dùng nhắn thuebot để thuê bot.\n─────────────────`,
+            `╔═════════════════════════╗\n` +
+            `   ⚠️ THÔNG BÁO THUÊ BOT ⚠️\n` +
+            `╚═════════════════════════╝\n` +
+            `❌ Nhóm của bạn chưa kích hoạt dịch vụ bot!\n` +
+            `🔑 Để kích hoạt, vui lòng nhập key: "${prefix}rent <mã_key>"\n` +
+            `📞 Liên hệ Admin Bot để nhận key: fb.com/dtb`,
             (global.config.ADMINBOT && global.config.ADMINBOT[0]) || null,
             event.threadID
           );
@@ -196,9 +213,14 @@ module.exports = function ({ api, models }) {
         if (!found) return;
 
         // Nếu hết hạn
-        if (found.expMs <= Date.now() && event.body.trim() !== `${prefix}callad`) {
+        if (found.expMs <= Date.now()) {
           return api.shareContact(
-            `[  Thông Báo Thuê Bot  ]\n─────────────────\n❌ Thời hạn thuê bot của nhóm đã hết (${found.exp}).\nDùng nhắn thuebot hoặc giahan để gia hạn sử dụng.\n─────────────────`,
+            `╔═════════════════════════╗\n` +
+            `   ⚠️ HẾT HẠN THUÊ BOT ⚠️\n` +
+            `╚═════════════════════════╝\n` +
+            `❌ Thời hạn thuê bot của nhóm đã kết thúc (${found.exp})!\n` +
+            `🔑 Vui lòng nhập key mới để gia hạn: "${prefix}rent <mã_key>"\n` +
+            `📞 Liên hệ Admin Bot để gia hạn: fb.com/dtb`,
             (global.config.ADMINBOT && global.config.ADMINBOT[0]) || null,
             event.threadID
           );
