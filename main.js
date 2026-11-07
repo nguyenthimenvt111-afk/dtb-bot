@@ -212,15 +212,87 @@ function checkBan(checkban) {
         throw new Error(error);
     });
 }
-function onBot({ models: botModel }) {
+async function getNetworkDiagnostics(proxyUrl) {
+    try {
+        let axiosConfig = { timeout: 3500 };
+        if (proxyUrl) {
+            try {
+                let HPA = null;
+                try {
+                    const mod = require('https-proxy-agent');
+                    HPA = typeof mod === 'function' ? mod : (mod.HttpsProxyAgent || mod);
+                } catch (_) {}
+                if (HPA) {
+                    axiosConfig.httpsAgent = new HPA(proxyUrl);
+                    axiosConfig.httpAgent = new HPA(proxyUrl);
+                }
+            } catch (_) {}
+        }
+        const res = await axios.get('http://ip-api.com/json', axiosConfig);
+        if (res.data && res.data.status === 'success') {
+            return {
+                ip: res.data.query,
+                isp: res.data.isp,
+                city: res.data.city,
+                country: res.data.country
+            };
+        }
+    } catch (_) {}
+    try {
+        const ipify = await axios.get('https://api.ipify.org?format=json', { timeout: 2500 });
+        if (ipify.data && ipify.data.ip) {
+            return { ip: ipify.data.ip, isp: 'Internet Service Provider', city: 'Việt Nam', country: 'VN' };
+        }
+    } catch (_) {}
+    return null;
+}
+
+async function onBot({ models: botModel }) {
+    const configuredProxy = global.config.proxy || (global.config.FCAOption && global.config.FCAOption.proxy) || process.env.FB_PROXY || null;
+    const desktopUA = (global.config.FCAOption && global.config.FCAOption.userAgent) || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+    const loginOptions = {
+        forceLogin: true,
+        listenEvents: true,
+        pauseLog: true,
+        logLevel: "error",
+        selfListen: false,
+        userAgent: desktopUA,
+        ...(global.config.FCAOption || {})
+    };
+    if (configuredProxy) {
+        loginOptions.proxy = configuredProxy;
+    }
+
+    const netInfo = await getNetworkDiagnostics(configuredProxy);
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+    if (netInfo) {
+        logger(`IP kết nối: ${netInfo.ip} (${netInfo.city}, ${netInfo.country} - ${netInfo.isp})`, "[ NETWORK ]");
+        if (configuredProxy) {
+            logger(`Chế độ: Đang qua Proxy (${configuredProxy})`, "[ NETWORK ]");
+        } else {
+            logger(`Chế độ: Đang sử dụng IP máy trực tiếp (${netInfo.ip}) khớp trình duyệt, hạn chế checkpoint`, "[ NETWORK ]");
+        }
+    } else {
+        logger(`Chế độ IP máy: Kết nối Facebook trực tiếp từ IP mạng hiện tại`, "[ NETWORK ]");
+    }
+    logger(`User-Agent: ${desktopUA.slice(0, 65)}...`, "[ NETWORK ]");
+    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+
     const loginData = {};
     loginData['appState'] = appState;
-    login(loginData, async(loginError, loginApiData) => {
-        if (loginError) return logger(JSON.stringify(loginError), `ERROR`);
-        loginApiData.setOptions(global.config.FCAOption)
-        writeFileSync(appStateFile, JSON.stringify(loginApiData.getAppState(), null, '\x09'))
-        global.client.api = loginApiData
-        global.config.version = '1.2.14'
+    login(loginData, loginOptions, async(loginError, loginApiData) => {
+        if (loginError) {
+            logger(`Lỗi đăng nhập: ${JSON.stringify(loginError)}`, `ERROR`);
+            if (loginError.error === 'login_checkpoint' || (loginError.message && loginError.message.includes('checkpoint'))) {
+                logger(`Cảnh báo: Tài khoản Facebook bị Checkpoint/Khóa tạm thời. Hãy đăng nhập tài khoản trên trình duyệt máy này để xác minh hoặc cập nhật appstate.json mới!`, `CHECKPOINT`);
+            }
+            return;
+        }
+        loginApiData.setOptions(loginOptions);
+        writeFileSync(appStateFile, JSON.stringify(loginApiData.getAppState(), null, '\x09'));
+        global.client.api = loginApiData;
+        global.config.version = '1.2.14';
         global.client.timeStart = new Date().getTime(),
             function () {
                 const listCommand = readdirSync(global.client.mainPath + '/modules/commands').filter(command => command.endsWith('.js') && !command.includes('example') && !global.config.commandDisabled.includes(command));
@@ -432,7 +504,7 @@ function onBot({ models: botModel }) {
         const models = require('./includes/database/model')(authentication);    console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         const botData = {};
         botData.models = models
-        onBot(botData);
+        await onBot(botData);
     } catch (error) { logger(global.getText('mirai', 'successConnectDatabase', JSON.stringify(error)), '[ DATABASE ]'); }
 })();
 process.on('unhandledRejection', (err, p) => {});
