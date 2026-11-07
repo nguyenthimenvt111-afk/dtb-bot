@@ -217,31 +217,40 @@ async function getNetworkDiagnostics(proxyUrl) {
         let axiosConfig = { timeout: 3500 };
         if (proxyUrl) {
             try {
-                let HPA = null;
-                try {
-                    const mod = require('https-proxy-agent');
-                    HPA = typeof mod === 'function' ? mod : (mod.HttpsProxyAgent || mod);
-                } catch (_) {}
-                if (HPA) {
-                    axiosConfig.httpsAgent = new HPA(proxyUrl);
-                    axiosConfig.httpAgent = new HPA(proxyUrl);
+                if (proxyUrl.startsWith('socks')) {
+                    try {
+                        const { SocksProxyAgent } = require('socks-proxy-agent');
+                        axiosConfig.httpsAgent = new SocksProxyAgent(proxyUrl);
+                        axiosConfig.httpAgent = new SocksProxyAgent(proxyUrl);
+                    } catch (_) {}
+                } else {
+                    let HPA = null;
+                    try {
+                        const mod = require('https-proxy-agent');
+                        HPA = typeof mod === 'function' ? mod : (mod.HttpsProxyAgent || mod);
+                    } catch (_) {}
+                    if (HPA) {
+                        axiosConfig.httpsAgent = new HPA(proxyUrl);
+                        axiosConfig.httpAgent = new HPA(proxyUrl);
+                    }
                 }
             } catch (_) {}
         }
-        const res = await axios.get('http://ip-api.com/json', axiosConfig);
+        const res = await axios.get('http://ip-api.com/json?fields=status,message,country,city,isp,org,as,hosting,query', axiosConfig);
         if (res.data && res.data.status === 'success') {
             return {
                 ip: res.data.query,
                 isp: res.data.isp,
                 city: res.data.city,
-                country: res.data.country
+                country: res.data.country,
+                hosting: Boolean(res.data.hosting)
             };
         }
     } catch (_) {}
     try {
         const ipify = await axios.get('https://api.ipify.org?format=json', { timeout: 2500 });
         if (ipify.data && ipify.data.ip) {
-            return { ip: ipify.data.ip, isp: 'Internet Service Provider', city: 'Việt Nam', country: 'VN' };
+            return { ip: ipify.data.ip, isp: 'Internet Service Provider', city: 'Việt Nam', country: 'VN', hosting: false };
         }
     } catch (_) {}
     return null;
@@ -269,9 +278,12 @@ async function onBot({ models: botModel }) {
     if (netInfo) {
         logger(`IP kết nối: ${netInfo.ip} (${netInfo.city}, ${netInfo.country} - ${netInfo.isp})`, "[ NETWORK ]");
         if (configuredProxy) {
-            logger(`Chế độ: Đang qua Proxy (${configuredProxy})`, "[ NETWORK ]");
+            logger(`Chế độ Proxy: Đang kích hoạt (${configuredProxy})`, "[ NETWORK ]");
+        } else if (netInfo.hosting === true) {
+            logger(`CẢNH BÁO: Phát hiện IP Đám Mây / Máy chủ Hosting (${netInfo.isp})!`, "[ RISK CHECK ]");
+            logger(`Facebook có nguy cơ Checkpoint nick khi dùng IP Hosting nước ngoài. Khuyến nghị chạy bot trực tiếp trên máy tính cá nhân hoặc cài proxy máy tính vào config.json.`, "[ RISK CHECK ]");
         } else {
-            logger(`Chế độ: Đang sử dụng IP máy trực tiếp (${netInfo.ip}) khớp trình duyệt, hạn chế checkpoint`, "[ NETWORK ]");
+            logger(`Chế độ: Đang dùng IP dân cư trực tiếp (${netInfo.ip}) khớp trình duyệt cá nhân, tối ưu chống checkpoint`, "[ NETWORK ]");
         }
     } else {
         logger(`Chế độ IP máy: Kết nối Facebook trực tiếp từ IP mạng hiện tại`, "[ NETWORK ]");
