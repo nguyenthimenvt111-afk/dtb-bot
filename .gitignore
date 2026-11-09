@@ -3,7 +3,6 @@ node_modules/
 .npm/
 
 # Logs & temp test scripts
-test_server.js
 scratch/
 *-base.js
 *.log

@@ -1,0 +1,22 @@
+{
+  "user_123": {
+    "plays": 3,
+    "wins": 2,
+    "losses": 1,
+    "winStreak": 0,
+    "maxWinStreak": 2,
+    "triples": 0,
+    "totalWon": 80000,
+    "lastBet": {
+      "bets": [
+        {
+          "type": "tai",
+          "amount": 5080000
+        }
+      ],
+      "totalWager": 5080000,
+      "isWin": false,
+      "timestamp": 1794230868308
+    }
+  }
+}
